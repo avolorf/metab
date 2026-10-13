@@ -3570,7 +3570,7 @@ feature,compound_column,category
 "10.542_369.19147_low score: NCGC00384575-01_C19H28O7_4H-Phenanthro[10,1-bc]furan-4-one, tetradecahydro-1,2,6,9,10-pentahydroxy-3,10a,10c-trimethyl-7-methylene-, (1S,2R,3R,5aS,6R,9S,10S,10aS,10cR)-",369.1915__10.542,putative (low score)
 9.884_240.15956_low score: Albuterol,240.1596__9.884,putative (low score)
 13.912_450.32196_low score: Glycoursodeoxycholic acid,450.322__13.912,putative (low score)
-"11.061_541.26422_low score: NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",541.2642__11.061,annotated (high score)
+"11.061_541.26422_low score: NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",541.2642__11.061,endogenous
 0.648_437.97284_Unknown,437.9728__0.648,putative (low score)
 3.427_236.09518_low score: 2-Acetamido-3-(4-hydroxy-3-methoxyphenyl)propanoic acid,236.0952__3.427,putative (low score)
 10.12_275.09155_Phloretin,275.0916__10.12,food
@@ -4226,7 +4226,7 @@ feature,compound_column,category
 8.189_276.1268_low score: NCGC00380372-01!N-[1-(4-methoxy-6-oxopyran-2-yl)-2-methylbutyl]acetamide [IIN-based on: CCMSLIB00000848409],276.1268__8.189,putative (low score)
 3.719_231.17038_Val-Leu,231.1704__3.719,endogenous
 "1.443_162.02194_low score: (4-Oxo-1,3-thiazolidin-3-yl)acetic acid",162.0219__1.443,putative (low score)
-10.763_558.29138_Unknown,558.2914__10.763,annotated (high score)
+10.763_558.29138_Unknown,558.2914__10.763,endogenous
 "6.369_545.13733_low score: 1H-Indole-2,3-dione, 1-(phenylmethyl)-5-[[(2S)-2-[[4-(trifluoromethyl)phenoxy]methyl]-1-pyrrolidinyl]sulfonyl]-",545.1373__6.369,putative (low score)
 3.068_255.13409_low score: Atractylenolide II,255.1341__3.068,putative (low score)
 9.951_385.14087_low score: Phenaceturic acid,385.1409__9.951,putative (low score)

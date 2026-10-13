@@ -1,40 +1,42 @@
-rt_min,mz,focus,name,name_en,formula,ion,hmdb,kegg,category,comment,ms2_library,ms2_score,standard_confirmed,isomer_ambiguous
-1.903,151.12296,BC,2-Butyl-3-methylpyrazine,2-Butyl-3-methylpyrazine,C9H14N2,[M+H]+,,,пища,ароматический пиразин жареных продуктов/кофе,,,,
-11.054,269.19012,BC,C19H28O3 стероид (7β-OH-DHEA / 11-оксоэтиохоланолон),C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone),C19H28O3,[M+H-2H2O]+,,,эндогенный: андрогены,"тот же пик, что 11.056/287.20068 (разные ионы одного соединения)",,,,1
-11.056,287.20068,BC,C19H28O3 стероид (11-оксоэтиохоланолон),C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone),C19H28O3,[M+H-H2O]+,,,эндогенный: андрогены,"тот же пик, что 11.054/269.19012",,,,1
-10.707,449.25397,BC,Андростерон/этиохоланолон-глюкуронид,Androsterone glucuronide,C25H38O8,[M+H-H2O]+,HMDB0002829,,эндогенный: андрогены,,,,,
-10.482,347.22183,BC,Тетрагидрокортизон,Tetrahydrocortisone,C21H32O5,[M+H-H2O]+,HMDB0000903,C05470,эндогенный: глюкокортикоиды,метаболит кортизола,,,,
-10.42,349.23782,BC,Кортолон,Cortolone,C21H34O5,[M+H-H2O]+,HMDB0003128,,эндогенный: глюкокортикоиды,метаболит кортизола,,,,
-10.437,313.21658,BC,5α-Прегнан-3α-21-диол-11-20-дион,Tetrahydro-11-dehydrocorticosterone,C21H32O4,[M+H-2H2O]+,,,эндогенный: глюкокортикоиды,метаболит кортикостерона,,,,
-13.476,583.25531,BC,Биливердин,Biliverdin,C33H34N4O6,[M+H]+,HMDB0001008,C00500,эндогенный: гем,продукт распада гема; связь с разведением и индексом загрязнения — см. таблицу,,,,
-16.708,496.33969,BC,LPC 16:0,LysoPC(16:0),C24H50NO7P,[M+H]+,HMDB0010382,,эндогенный: лизофосфолипиды,компонент плазмы (гематурия?),,,,
-15.936,520.34009,BC,LPC 18:2,"LysoPC(18:2(9Z,12Z))",C26H50NO7P,[M+H]+,HMDB0010386,,эндогенный: лизофосфолипиды,,,,,
-16.178,520.34052,BC,LPC 18:2 (изомер),"LysoPC(18:2(9Z,12Z))",C26H50NO7P,[M+H]+,HMDB0010386,,эндогенный: лизофосфолипиды,sn-1/sn-2 изомер,,,,
-16.965,522.35565,BC,LPC 18:1,LysoPC(18:1(9Z)),C26H52NO7P,[M+H]+,HMDB0002815,,эндогенный: лизофосфолипиды,,,,,
-15.634,372.31088,BC,Тетрадеканоилкарнитин (C14),Tetradecanoylcarnitine,C21H41NO4,[M+H]+,HMDB0005066,,эндогенный: ацилкарнитины,,,,,
-14.367,344.27972,BC,Лауроилкарнитин (C12),Dodecanoylcarnitine,C19H37NO4,[M+H]+,HMDB0002250,,эндогенный: ацилкарнитины,,,,,
-16.334,424.34195,BC,Линолеилкарнитин (C18:2),Linoleyl carnitine,C25H45NO4,[M+H]+,HMDB0006469,,эндогенный: ацилкарнитины,,,,,
-8.882,219.12277,BC,3-Гидроксисебациновая кислота,3-Hydroxysebacic acid,C10H18O5,[M+H]+,HMDB0000350,,эндогенный: окисление жирных кислот,,,,,
-11.803,171.13812,BC,3-Гидроксикаприновая кислота,3-Hydroxycapric acid,C10H20O3,[M+H-H2O]+,HMDB0002203,,эндогенный: окисление жирных кислот,,,,,
-11.613,277.21658,BC,9-Оксо-ODE,9-OxoODE,C18H30O3,[M+H-H2O]+,,,эндогенный: оксилипины,,,,,
-13.508,373.27399,BC,Холевая кислота,Cholic acid,C24H40O5,[M+H-2H2O]+,HMDB0000619,C00695,эндогенный: желчные кислоты,,,,,
-3.719,231.17038,BC,Val-Leu,Valyl-Leucine,C11H22N2O3,[M+H]+,HMDB0029131,,эндогенный: дипептиды,протеолиз / белок в моче,,,,
-3.014,267.13403,BC,Thr-Phe,Threonyl-Phenylalanine,C13H18N2O4,[M+H]+,,,эндогенный: дипептиды,протеолиз / белок в моче,,,,
-1.406,252.07269,BC,Аденилосукцинат (?),,C14H18N5O11P,[M+H]+,HMDB0000536,C03794,неоднозначная аннотация,m/z не соответствует [M+H]+ — вероятно ошибочная аннотация,,,,
-1.412,181.07178,BC,Теобромин,Theobromine,C7H8N4O2,[M+H]+,HMDB0002825,C07480,пища,"какао, чай, кофе (метаболит кофеина)",,,,
-7.511,193.04971,BC,Скополетин,Scopoletin,C10H8O4,[M+H]+,HMDB0034344,,пища,растительный кумарин,,,,
-1.268,249.19627,BC,Лупанин,Lupanine,C15H24N2O,[M+H]+,,,пища,алкалоид люпина,,,,
-3.608,261.12384,BC,Цикло(Pro-Tyr),Cyclo(L-prolyl-L-tyrosine),C14H16N2O3,[M+H]+,,,пища,"дикетопиперазин (кофе, ферментированные продукты, микробиота)",,,,
-3.134,151.03908,BC,Ванилоил-фрагмент (4-ацетокси-3-метоксибензоат),,C10H10O5,[M+H]+,,,неоднозначная аннотация,фрагмент C8H7O3+ ванилатных конъюгатов (полифенолы пищи),,,,
-2.76,151.03896,BC,Ванилоил-фрагмент (4-ацетокси-3-метоксибензоат),,C10H10O5,[M+H]+,,,неоднозначная аннотация,фрагмент C8H7O3+ ванилатных конъюгатов (полифенолы пищи),,,,
-9.124,362.11472,BC,5-Гидроксиомепразол,5-Hydroxyomeprazole,C17H19N3O4S,[M+H]+,,,лекарство,метаболит омепразола,,,,
-10.242,167.07024,BC,Пеонол / этилпарабен (изомеры),,C9H10O3,[M+H]+,,,неоднозначная аннотация,C9H10O3: возможен этилпарабен (консервант),,,,
-8.521,162.09138,BC,Примидон (?),,C12H14N2O2,[M+H]+,,,неоднозначная аннотация,m/z не соответствует — вероятно фрагмент,,,,
-9.448,162.09142,BC,2-Bromo-N-(4-methylphenyl)propanamide (?),,C10H12BrNO,[M+H]+,,,неоднозначная аннотация,m/z не соответствует,,,,
-1.52,184.06058,BC,N-(2-Chlorobenzyl)acetamide (?),,C9H10ClNO,[M+H]+,,,неоднозначная аннотация,m/z не соответствует,,,,
-1.481,245.07033,BC,Бензимидазолил-триазолтиол (?),,C10H10N6S,[M+H]+,,,неоднозначная аннотация,m/z не соответствует,,,,
-8.241,162.05493,PC,Индол-3-карбоновая кислота,Indole-3-carboxylic acid,C9H7NO2,[M+H]+,,,эндогенный: метаболизм триптофана,микробный метаболит триптофана,,,,
-3.625,245.09109,PC,N-Ацетилтриптофан,,C13H14N2O3,[M+H]+,HMDB0013713,,эндогенный: метаболизм триптофана,,,,,
-0.553,381.07974,PC,Сахароза,Sucrose,C12H22O11,[M+K]+,HMDB0000258,C00089,пища,,,,,
-8.566,341.18649,PC,Хинидин/хинин N-оксид,Quinine N-oxide,C20H24N2O3,[M+H]+,,,лекарство,хинин (тоник) или хинидин,,,,
-13.098,285.25793,PC,Прегнандиол,Pregnanediol,C21H36O2,[M+H-2H2O]+,,,эндогенный: прогестагены,,,,,
+rt_min,mz,focus,name,name_en,formula,ion,hmdb,kegg,category,comment,ms2_library,standard_confirmed,isomer_ambiguous,isomers_note
+1.903,151.12296,BC,2-Butyl-3-methylpyrazine,2-Butyl-3-methylpyrazine,C9H14N2,[M+H]+,,,food,aroma pyrazine of roasted foods/coffee,,,,
+11.054,269.19012,BC,C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone),C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone),C19H28O3,[M+H-2H2O]+,,,endogenous: androgens,same peak as 11.056/287.20068 (different ions of one compound),,,1,"C19H28O3 steroid isomers (e.g., 11-oxoetiocholanolone, 11-oxoandrosterone, 7β-hydroxy-DHEA) not resolved"
+11.056,287.20068,BC,C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone),C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone),C19H28O3,[M+H-H2O]+,,,endogenous: androgens,same peak as 11.054/269.19012,,,1,"C19H28O3 steroid isomers (e.g., 11-oxoetiocholanolone, 11-oxoandrosterone, 7β-hydroxy-DHEA) not resolved"
+10.707,449.25397,BC,Androsterone glucuronide,Androsterone glucuronide,C25H38O8,[M+H-H2O]+,HMDB0002829,,endogenous: androgens,,,,1,androsterone and etiocholanolone glucuronides (5α/5β) not distinguished
+10.482,347.22183,BC,Tetrahydrocortisone,Tetrahydrocortisone,C21H32O5,[M+H-H2O]+,HMDB0000903,C05470,endogenous: glucocorticoids,cortisol metabolite,,,,
+10.42,349.23782,BC,Cortolone,Cortolone,C21H34O5,[M+H-H2O]+,HMDB0003128,,endogenous: glucocorticoids,cortisol metabolite,,,,
+10.437,313.21658,BC,Tetrahydro-11-dehydrocorticosterone,Tetrahydro-11-dehydrocorticosterone,C21H32O4,[M+H-2H2O]+,,,endogenous: glucocorticoids,corticosterone metabolite,,,,
+13.476,583.25531,BC,Biliverdin,Biliverdin,C33H34N4O6,[M+H]+,HMDB0001008,C00500,endogenous: heme,heme degradation product; association with dilution and contamination index given in this table,,,,biliverdin IXα assumed; other IX isomers not resolved
+16.708,496.33969,BC,LysoPC(16:0),LysoPC(16:0),C24H50NO7P,[M+H]+,HMDB0010382,,endogenous: lysophospholipids,plasma component (possible haematuria),,,,sn-1/sn-2 regioisomers not resolved
+15.936,520.34009,BC,"LysoPC(18:2(9Z,12Z))","LysoPC(18:2(9Z,12Z))",C26H50NO7P,[M+H]+,HMDB0010386,,endogenous: lysophospholipids,,,,,sn-1/sn-2 regioisomers not resolved; double-bond positions not determined
+16.178,520.34052,BC,"LysoPC(18:2(9Z,12Z))","LysoPC(18:2(9Z,12Z))",C26H50NO7P,[M+H]+,HMDB0010386,,endogenous: lysophospholipids,sn-1/sn-2 isomer,,,,sn-1/sn-2 regioisomers not resolved; double-bond positions not determined
+16.965,522.35565,BC,LysoPC(18:1(9Z)),LysoPC(18:1(9Z)),C26H52NO7P,[M+H]+,HMDB0002815,,endogenous: lysophospholipids,,,,,sn-1/sn-2 regioisomers not resolved; double-bond position not determined
+15.634,372.31088,BC,Tetradecanoylcarnitine,Tetradecanoylcarnitine,C21H41NO4,[M+H]+,HMDB0005066,,endogenous: acylcarnitines,,,,,
+14.367,344.27972,BC,Dodecanoylcarnitine,Dodecanoylcarnitine,C19H37NO4,[M+H]+,HMDB0002250,,endogenous: acylcarnitines,,,,,branched-chain C12 acylcarnitine isomers not excluded
+16.334,424.34195,BC,Linoleyl carnitine,Linoleyl carnitine,C25H45NO4,[M+H]+,HMDB0006469,,endogenous: acylcarnitines,,,,,
+8.882,219.12277,BC,3-Hydroxysebacic acid,3-Hydroxysebacic acid,C10H18O5,[M+H]+,HMDB0000350,,endogenous: fatty acid oxidation,,,,,
+11.803,171.13812,BC,3-Hydroxycapric acid,3-Hydroxycapric acid,C10H20O3,[M+H-H2O]+,HMDB0002203,,endogenous: fatty acid oxidation,,,,,
+11.613,277.21658,BC,9-OxoODE,9-OxoODE,C18H30O3,[M+H-H2O]+,,,endogenous: oxylipins,,,,,
+13.508,373.27399,BC,Cholic acid,Cholic acid,C24H40O5,[M+H-2H2O]+,HMDB0000619,C00695,endogenous: bile acids,,,,,
+3.719,231.17038,BC,Valyl-Leucine,Valyl-Leucine,C11H22N2O3,[M+H]+,HMDB0029131,,endogenous: dipeptides,proteolysis / urinary protein,,,,"Leu-Val, Val-Ile and Ile-Val not excluded by MS/MS; in this dataset MS-DIAL also matched Leu-Val (2.68 min) and Val-Leu (3.93 min) at the same m/z"
+3.014,267.13403,BC,Threonyl-Phenylalanine,Threonyl-Phenylalanine,C13H18N2O4,[M+H]+,,,endogenous: dipeptides,proteolysis / urinary protein,,,,
+1.406,252.07269,BC,Adenylosuccinate (?),,C14H18N5O11P,[M+H]+,HMDB0000536,C03794,ambiguous annotation,m/z does not match [M+H]+; annotation probably wrong,,,,
+1.412,181.07178,BC,Theobromine,Theobromine,C7H8N4O2,[M+H]+,HMDB0002825,C07480,food,"cocoa, tea, coffee (caffeine metabolite)",,,,
+7.511,193.04971,BC,Scopoletin,Scopoletin,C10H8O4,[M+H]+,HMDB0034344,,food,plant coumarin,,,,
+1.268,249.19627,BC,Lupanine,Lupanine,C15H24N2O,[M+H]+,,,food,lupin alkaloid,,,,
+3.608,261.12384,BC,Cyclo(L-prolyl-L-tyrosine),Cyclo(L-prolyl-L-tyrosine),C14H16N2O3,[M+H]+,,,food,"diketopiperazine (coffee, fermented foods, microbiota)",,,,
+3.134,151.03908,BC,Vanilloyl fragment (4-acetoxy-3-methoxybenzoate),,C10H10O5,[M+H]+,,,ambiguous annotation,C8H7O3+ fragment of vanillate conjugates (dietary polyphenols),,,,
+2.76,151.03896,BC,Vanilloyl fragment (4-acetoxy-3-methoxybenzoate),,C10H10O5,[M+H]+,,,ambiguous annotation,C8H7O3+ fragment of vanillate conjugates (dietary polyphenols),,,,
+9.124,362.11472,BC,5-Hydroxyomeprazole,5-Hydroxyomeprazole,C17H19N3O4S,[M+H]+,,,drug,omeprazole metabolite,,,,
+10.242,167.07024,BC,Paeonol / ethylparaben (isomers),,C9H10O3,[M+H]+,,,ambiguous annotation,C9H10O3: possibly ethylparaben (preservative),,,1,paeonol and ethylparaben (C9H10O3) not distinguished
+8.521,162.09138,BC,Primidone (?),,C12H14N2O2,[M+H]+,,,ambiguous annotation,m/z does not match; probably a fragment,,,,
+9.448,162.09142,BC,2-Bromo-N-(4-methylphenyl)propanamide (?),,C10H12BrNO,[M+H]+,,,ambiguous annotation,m/z does not match,,,,
+1.52,184.06058,BC,N-(2-Chlorobenzyl)acetamide (?),,C9H10ClNO,[M+H]+,,,ambiguous annotation,m/z does not match,,,,
+1.481,245.07033,BC,Benzimidazolyl-triazolethiol (?),,C10H10N6S,[M+H]+,,,ambiguous annotation,m/z does not match,,,,
+8.241,162.05493,PC,Indole-3-carboxylic acid,Indole-3-carboxylic acid,C9H7NO2,[M+H]+,,,endogenous: tryptophan metabolism,microbial tryptophan metabolite,,,,
+3.625,245.09109,PC,N-Acetyltryptophan,,C13H14N2O3,[M+H]+,HMDB0013713,,endogenous: tryptophan metabolism,,,,,
+0.553,381.07974,PC,Sucrose,Sucrose,C12H22O11,[M+K]+,HMDB0000258,C00089,food,,,,,
+8.566,341.18649,PC,Quinine N-oxide,Quinine N-oxide,C20H24N2O3,[M+H]+,,,drug,quinine (tonic water) or quinidine,,,1,quinine and quinidine N-oxides (stereoisomers) not distinguished
+13.098,285.25793,PC,Pregnanediol,Pregnanediol,C21H36O2,[M+H-2H2O]+,,,endogenous: progestogens,,,,1,5α- and 5β-pregnanediol not distinguished
+11.061,541.26422,BC,Tetrahydrocortisone glucuronide (isomer 1),Tetrahydrocortisone glucuronide (putative),C27H40O11,[M+H]+,,,endogenous: glucocorticoids,co-eluting aglycone ions 365.233/347.222/329.212 match tetrahydrocortisone by MS/MS (in-source loss of glucuronic acid); [M+NH4]+ 558.291 and [M+Na]+ 563.247 in the same compound group,,,1,tetrahydrocortisone/allo-tetrahydrocortisone and 3- vs 21-glucuronide not distinguished; a second isomer elutes at 10.76 min
+10.763,558.29138,BC,Tetrahydrocortisone glucuronide (isomer 2),Tetrahydrocortisone glucuronide (putative),C27H40O11,[M+NH4]+,,,endogenous: glucocorticoids,co-eluting aglycone ions 365.233/347.222 match tetrahydrocortisone by MS/MS (in-source loss of glucuronic acid); [M+H]+ 541.265 in the same compound group,,,1,tetrahydrocortisone/allo-tetrahydrocortisone and 3- vs 21-glucuronide not distinguished; a second isomer elutes at 11.06 min

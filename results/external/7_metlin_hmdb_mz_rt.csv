@@ -264,7 +264,7 @@ feature,mz,rt_min,annotation,compound_category
 "11.063_531.27301_low score: N-((7E,11Z)-6,13,14-Trihydroxy-3-(1H-indol-3-ylmethyl)-4,5,10,12-tetramethyl-1,17-dioxo-2,3,3a,6,6a,9,10,13,14,15,16,17-dodecahydro-1H-cyclotrideca[d]isoindol-15-yl)acetamide",531.27301,11.063,"N-((7E,11Z)-6,13,14-Trihydroxy-3-(1H-indol-3-ylmethyl)-4,5,10,12-tetramethyl-1,17-dioxo-2,3,3a,6,6a,9,10,13,14,15,16,17-dodecahydro-1H-cyclotrideca[d]isoindol-15-yl)acetamide",putative (low score)
 8.922_533.61615_Unknown,533.61615,8.922,Unknown,unknown
 11.769_535.30267_low score: Dihydrocelastryl Diacetate,535.30267,11.769,Dihydrocelastryl Diacetate,putative (low score)
-"11.061_541.26422_low score: NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",541.26422,11.061,"NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",annotated (high score)
+"11.061_541.26422_low score: NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",541.26422,11.061,"NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",endogenous
 10.782_543.28003_low score: Precyasterone,543.28003,10.782,Precyasterone,putative (low score)
 11.859_544.31165_low score: 1-Heptadecanoyl-sn-glycero-3-phosphocholine,544.31165,11.859,1-Heptadecanoyl-sn-glycero-3-phosphocholine,putative (low score)
 15.973_544.34052_low score: 1-Oleoyl-sn-glycero-3-phosphocholine,544.34052,15.973,1-Oleoyl-sn-glycero-3-phosphocholine,putative (low score)
@@ -272,7 +272,7 @@ feature,mz,rt_min,annotation,compound_category
 11.235_550.19244_low score: Gliquidone,550.19244,11.235,Gliquidone,putative (low score)
 "9.542_557.25916_low score: (1R,2R,4aS,5R,8aS)-1-(Hydroxymethyl)-5-((2E)-2-((4S)-4-hydroxy-2-oxodihydrofuran-3(2H)-ylidene)ethyl)-1,4a-dimethyl-6-methylidenedecahydronaphthalen-2-yl .beta.-D-glucopyranoside",557.25916,9.542,"(1R,2R,4aS,5R,8aS)-1-(Hydroxymethyl)-5-((2E)-2-((4S)-4-hydroxy-2-oxodihydrofuran-3(2H)-ylidene)ethyl)-1,4a-dimethyl-6-methylidenedecahydronaphthalen-2-yl .beta.-D-glucopyranoside",putative (low score)
 11.719_557.28833_low score: Periplocymarin,557.28833,11.719,Periplocymarin,putative (low score)
-10.763_558.29138_Unknown,558.29138,10.763,Unknown,annotated (high score)
+10.763_558.29138_Unknown,558.29138,10.763,Unknown,endogenous
 "9.34_559.27454_low score: 4-((3S,5S,10R,13R,14S,17S)-3-(((2R,4S,5S,6R)-4,5-dihydroxy-6-methyltetrahydro-2H-pyran-2-yl)oxy)-5,14-dihydroxy-10-(hydroxymethyl)-13-methylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)furan-2(5H)-one",559.27454,9.34,"4-((3S,5S,10R,13R,14S,17S)-3-(((2R,4S,5S,6R)-4,5-dihydroxy-6-methyltetrahydro-2H-pyran-2-yl)oxy)-5,14-dihydroxy-10-(hydroxymethyl)-13-methylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)furan-2(5H)-one",putative (low score)
 9.547_559.27472_low score: NCGC00380931-01_C26H42O10_,559.27472,9.547,NCGC00380931-01_C26H42O10_,putative (low score)
 9.128_559.27509_low score: NCGC00380931-01_C26H42O10_,559.27509,9.128,NCGC00380931-01_C26H42O10_,putative (low score)

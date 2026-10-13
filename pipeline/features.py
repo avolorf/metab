@@ -118,7 +118,7 @@ def categorize(info, groups, series, curated, kw_cat):
     for f, c in kw_cat.items():
         if c:
             cat[f] = c if info.loc[f, "annotation_conf"] == "high" else f"possible {c} (low score)"
-    cmap = {"пища": "food", "лекарство": "drug", "эндоген": "endogenous", "неоднозн": "ambiguous"}
+    cmap = {"food": "food", "drug": "drug", "endogenous": "endogenous", "ambiguous": "ambiguous"}
     for _, r in curated.iterrows():
         if isinstance(r.feature, str) and r.feature in cat.index:
             for k, v in cmap.items():

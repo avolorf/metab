@@ -8,6 +8,7 @@ OUT = "results"
 CURATION = "curation/candidates_curated.csv"   # ручная курация кандидатов (формула, ион, ID, категория, MS2)
 CONTAMINANT_SERIES = "curation/contaminant_series.csv"
 EXPOSURE_KEYWORDS = "curation/exposure_keywords.csv"
+ANNOTATION_EXCLUSIONS = "curation/annotation_exclusions.csv"   # неправдоподобные библиотечные совпадения -> MSI 4
 MS2_IDENTIFIED = "curation/ms2_identified.csv"   # признаки с совпадением MS2 в библиотеке (из MS-DIAL)
 
 SEED = 20261013
@@ -63,11 +64,14 @@ N_PERM = 1000
 N_BOOT = 2000
 EXCLUDE_DRUG_LIKE_UNKNOWN_FROM_PANEL = True    # низкоуверенные «лекарственные» аннотации -> не в панель
 PANEL_MAX_ABS_RHO_CONTAM = 0.5                 # соединения с |ρ(индекс загрязнения)| ≥ порога -> не в панель
+CONTAM_MATCH_CALIPER_SD = 0.25                 # подбор пар по индексу загрязнения (анализ чувствительности)
 MIN_PAIRS_CV = 10                              # CV по подобранным парам только при ≥ 10 парах (иначе «не оценивается»)
 
 # ---------------------------------------------------------------- сверка с маркерами первого этапа / статьи ABC
 PRIOR_MARKERS = "curation/prior_markers.csv"   # если файла нет — раздел пропускается
-PRIOR_RT_TOL = 0.5                             # мин; систематический сдвиг RT s266 vs ABC −0.4…+0.2 мин
+PRIOR_RT_TOL = 0.5                             # мин; см. rt_anchors_stage1.csv (сдвиг RT между этапами)
+RT_ANCHORS = "curation/rt_anchors_stage1.csv"  # соединения с MS2-идентификацией на этапе 1: compound, mz, rt_stage1
+RT_ANCHOR_SEARCH = 1.5                         # мин; поиск пары для якоря
 
 # ---------------------------------------------------------------- пути метаболизма (приложение)
 RUN_PATHWAYS = True

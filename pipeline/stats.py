@@ -44,6 +44,25 @@ def age_match(meta, case, ref):
     return pd.DataFrame(pairs, columns=["case", "ref", "sex", "age_case", "age_ref", "diff"])
 
 
+def contam_match(meta, case, ref):
+    """Анализ чувствительности: 1:1 по ближайшему индексу загрязнения внутри пола,
+    допуск ±CONTAM_MATCH_CALIPER_SD стандартных отклонений индекса (оптимальное назначение)."""
+    z = meta.contam_index
+    cal = C.CONTAM_MATCH_CALIPER_SD * z[case + ref].std()
+    pairs = []
+    for sx in (["M", "F"] if C.MATCH_WITHIN_SEX else [None]):
+        a = [s for s in case if pd.notna(z[s]) and (sx is None or meta.sex[s] == sx)]
+        b = [s for s in ref if pd.notna(z[s]) and (sx is None or meta.sex[s] == sx)]
+        if not a or not b:
+            continue
+        D = np.abs(z[a].to_numpy()[:, None] - z[b].to_numpy()[None, :])
+        cost = np.where(D <= cal, D, 1e6)
+        ri, ci = linear_sum_assignment(cost)
+        pairs += [dict(case=a[i], ref=b[j], sex=sx or "", z_case=z[a[i]], z_ref=z[b[j]], diff=D[i, j])
+                  for i, j in zip(ri, ci) if cost[i, j] < 1e6]
+    return pd.DataFrame(pairs, columns=["case", "ref", "sex", "z_case", "z_ref", "diff"])
+
+
 def demographics(meta):
     s = meta[meta.study]
     rows = []

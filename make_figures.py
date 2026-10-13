@@ -118,28 +118,40 @@ def names_en(feat, cur, msi=None):
 
 
 def msi_levels(feat, res_dir):
-    """Уровень MSI для каждого признака (см. правило в pipeline/annotate.msi_level), на уровне соединения:
-    совпадение MS2 засчитывается, если оно есть у любого иона соединения."""
+    """Уровень MSI каждого признака — единый источник для Table 2, Figure 3/4 и Table S4.
+    1 — эталонный стандарт; 2 — курированная формула (≤ PPM) и совпадение MS2 с библиотекой (флаг MS-DIAL) у самого
+    признака, без неразрешённых изомеров; 3 — формула без MS2, изомеры неразличимы, или совпадение MS2 без курации;
+    4 — всё остальное, несходящаяся масса и неправдоподобные библиотечные совпадения (curation/annotation_exclusions.csv)."""
     t = res_dir / "tables"
-    ok = pd.read_csv(t / "candidates_curated.csv")
+    ok = pd.read_csv(t / "candidates_curated.csv", dtype={"isomer_ambiguous": str, "standard_confirmed": str})
     bad = pd.read_csv(t / "candidates_mass_mismatch.csv") if (t / "candidates_mass_mismatch.csv").exists() else pd.DataFrame(columns=["feature"])
-    cfile = pd.read_csv(C.CURATION, dtype=str).fillna("")
-    amb = set(cfile.loc[cfile.get("isomer_ambiguous", "").isin(["1", "yes", "да", "true"]), "name"]) if "isomer_ambiguous" in cfile else set()
+    yes = {"1", "yes", "true"}
     ms2f = set(pd.read_csv(C.MS2_IDENTIFIED).feature) if Path(C.MS2_IDENTIFIED).exists() else set()
-    comp = feat["compound"]
-    ms2_comp = set(comp[comp.index.isin(ms2f)].dropna())
-    has_ms2 = comp.isin(ms2_comp)
+    has_ms2 = pd.Series(feat.index.isin(ms2f), index=feat.index)
     lvl = pd.Series(4, index=feat.index)
     lvl[has_ms2] = 3
     for _, r in ok.dropna(subset=["feature"]).iterrows():
         if r.feature in lvl.index:
-            ms2 = bool(has_ms2.get(r.feature, False))
-            lvl[r.feature] = 1 if str(r.get("standard_confirmed", "")).strip().lower() in {"1", "yes", "да", "true"} else \
-                (2 if ms2 and r["name"] not in amb else 3)
+            std = str(r.get("standard_confirmed", "")).strip().lower() in yes
+            amb = str(r.get("isomer_ambiguous", "")).strip().lower() in yes
+            lvl[r.feature] = 1 if std else (2 if has_ms2[r.feature] and not amb else 3)
     for f in bad.feature.dropna():
         if f in lvl.index:
             lvl[f] = 4
+    for f in excluded_annotations(feat):
+        lvl[f] = 4
     return lvl, has_ms2
+
+
+def excluded_annotations(feat):
+    """Признаки из curation/annotation_exclusions.csv (сопоставление по m/z ± 0.002 и RT ± 0.02 мин) -> {feature: reason}."""
+    if not Path(C.ANNOTATION_EXCLUSIONS).exists():
+        return {}
+    out = {}
+    for _, r in pd.read_csv(C.ANNOTATION_EXCLUSIONS).iterrows():
+        m = feat.index[((feat.mz - r.mz).abs() < 0.002) & ((feat.rt_min - r.rt_min).abs() < 0.02)]
+        out.update({f: r.reason for f in m})
+    return out
 
 
 # ------------------------------------------------------------------ рисунки
@@ -332,52 +344,58 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
     plt.close(g.fig)
 
 
-def fig5_roc(out, L, meta, feat, mv, pairs):
+def fig5_roc(out, L, meta, feat, mv, pairs, zpairs=None):
     reps = feat.index[feat.is_representative.fillna(False).astype(bool)]
     cat = feat.loc[reps, "compound_category"].fillna("")
     rho = feat.loc[reps, "rho_contam_index"].abs()
     pool = list(reps[~features.panel_excluded(cat) & ~(rho >= C.PANEL_MAX_ABS_RHO_CONTAM)])   # как в run_all.py
     comps = [("BC_vs_Control", "BC vs Control"), ("BC_vs_PC", "BC vs PC"), ("PC_vs_Control", "PC vs Control")]
-    fig, axs = plt.subplots(1, 3, figsize=(FULL, 6.4 * CM), gridspec_kw={"wspace": 0.3})
+    fig, axs = plt.subplots(1, 3, figsize=(FULL, 7.2 * CM), gridspec_kw={"wspace": 0.3})
     keys = list(C.COMPARISONS)
+
+    def perm_p(c, sname, key):
+        row = mv[(mv.comparison == c) & (mv.set == sname) & mv.model.astype(str).str.contains(key, regex=False)]
+        return row.perm_p.iloc[0] if len(row) else np.nan
+
     for n, (ax, (c, t)) in enumerate(zip(axs, comps)):
         k = keys.index(c)
         case, ref = st.comparison_sets(meta, C.COMPARISONS[c])
         pr = pairs[pairs.comparison == c]
-        runs = [("all", "panel", case, ref, "-", "All"), ("all", "panel_adj", case, ref, "-.", "Contam.-adjusted")]
-        if len(pr) >= C.MIN_PAIRS_CV:
-            runs.append(("matched", "panel", list(pr.case), list(pr.ref), "--", f"Age-matched ({len(pr)} pairs)"))
-        else:
-            ax.text(0.97, 0.03, f"Age-matched: {len(pr)} pairs\n(< {C.MIN_PAIRS_CV}, not estimated)", transform=ax.transAxes,
-                    ha="right", va="bottom", fontsize=5.5, color=INK2)
+        zp = zpairs[zpairs.comparison == c] if zpairs is not None else pr.iloc[:0]
+        runs = [("all", "panel", case, ref, "-", "All")]
+        runs.append(("all", "panel_adj", case, ref, "-.", "Contam.-adjusted"))
+        notes = []
+        for sname, pp, ls, lab in [("matched", pr, "--", "Age-matched"), ("contam_matched", zp, (0, (3, 1, 1, 1, 1, 1)), "Contam.-matched")]:
+            if len(pp) >= C.MIN_PAIRS_CV:
+                runs.append((sname, "panel", list(pp.case), list(pp.ref), ls, f"{lab} ({len(pp)} pairs)"))
+            else:
+                notes.append(f"{lab}: {len(pp)} pairs (< {C.MIN_PAIRS_CV}, n.e.)")
+        if notes:
+            ax.text(0.97, 0.03, "\n".join(notes), transform=ax.transAxes, ha="right", va="bottom", fontsize=5.3, color=INK2)
         col = COL[C.COMPARISONS[c]["case"]]
         for sname, method, cs, rf, ls, lab in runs:
             y = np.r_[np.ones(len(cs)), np.zeros(len(rf))].astype(int)
             X = L.loc[cs + rf, pool].to_numpy()
             z = meta.loc[cs + rf, "contam_index"].to_numpy(float)
             aucs, tprs, _, _ = multivariate.repeated_cv(X, y, method, C.SEED + k, z)
-            key = "скорректированы" if method == "panel_adj" else "логистическая"
-            row = mv[(mv.comparison == c) & (mv.set == sname) & mv.model.astype(str).str.contains(key)]
-            p = row.perm_p.iloc[0] if len(row) else np.nan
+            p = perm_p(c, sname, "скорректированы" if method == "panel_adj" else "логистическая")
             if sname == "all" and method == "panel":
                 ax.fill_between(multivariate.FPR, np.percentile(tprs, 10, 0), np.percentile(tprs, 90, 0), color=col, alpha=0.15, lw=0)
-            ax.plot(multivariate.FPR, tprs.mean(0), c=col if method == "panel" else INK, ls=ls, lw=1.4 if method == "panel" else 1.0,
-                    label=f"{lab}: {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(p)}")
-        y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
-        for cov, colr, nmc in [("contam_index", EXPO_COL["contaminant"], "Contamination index only"),
-                               ("sex", INK2, "Sex only")]:
+            ax.plot(multivariate.FPR, tprs.mean(0), c=col if method == "panel" else INK, ls=ls,
+                    lw=1.4 if (method == "panel" and sname == "all") else 1.0, label=f"{lab}: {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(p)}")
+        # базовые модели — та же повторная CV (логистическая регрессия на одной ковариате), см. multivariate.evaluate
+        for cov, colr, nmc in [("contam_index", EXPO_COL["contaminant"], "Contamination index only"), ("sex", INK2, "Sex only")]:
             v = meta.loc[case + ref, cov]
-            v = v.map({"M": 1.0, "F": 0.0}) if cov == "sex" else v.astype(float)
-            m = v.notna().to_numpy()
-            if v[m].std() > 0:
-                from sklearn.metrics import roc_auc_score, roc_curve
-                a = roc_auc_score(y[m], v[m])
-                fpr, tpr, _ = roc_curve(y[m], v[m] if a >= 0.5 else -v[m])
-                ax.plot(fpr, tpr, c=colr, ls=":", lw=1, label=f"{nmc}: {max(a, 1 - a):.2f}")
-        
+            v = (v.map({"M": 1.0, "F": 0.0}) if cov == "sex" else v.astype(float)).to_numpy(float)
+            y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
+            m = ~np.isnan(v)
+            if np.nanstd(v) > 0 and min(y[m].sum(), (1 - y[m]).sum()) >= C.CV_FOLDS:
+                aucs, tprs, _, _ = multivariate.repeated_cv(v[m][:, None], y[m], "covariate", C.SEED + k)
+                ax.plot(multivariate.FPR, tprs.mean(0), c=colr, ls=":", lw=1,
+                        label=f"{nmc}: {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(perm_p(c, 'all', f'только {cov}'))}")
         ax.plot([0, 1], [0, 1], c=GRID, lw=0.6)
         ax.set(xlabel="1 − specificity", ylabel="Sensitivity", title=f"{t} (AUC)", xlim=(-0.01, 1.01), ylim=(-0.01, 1.01), aspect="equal")
-        ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22), fontsize=5.3, handlelength=1.8)
+        ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22), fontsize=5.1, handlelength=2.2)
         panel(ax, "abc"[n], x=-0.25)
     save(fig, out, "Figure5_ROC_cross_validated")
 
@@ -495,7 +513,22 @@ def figS3_pathways(out, pw):
 
 
 # ------------------------------------------------------------------ таблицы
-def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None):
+def table1_note(meta, demo):
+    """Сноска к Table 1: недостающие возраст/пол и как они учтены."""
+    sdf = meta[meta.study]
+    na_age = sdf.age.isna()
+    na_sex = ~sdf.sex.isin(["M", "F"])
+    def by_group(mask):
+        return ", ".join(f"{int(mask[sdf.group == g].sum())} {LAB[g]}" for g in C.STUDY_GROUPS if mask[sdf.group == g].sum())
+    cc = int((~na_age & ~na_sex).sum())
+    return (f"Age was not available for {int(na_age.sum())} participants ({by_group(na_age)}) and sex for {int(na_sex.sum())} "
+            f"({by_group(na_sex)}); {int((na_age & na_sex).sum())} lacked both. These participants were retained in the "
+            f"unadjusted analyses (Mann–Whitney U tests, contamination index, cross-validated models on all samples) and "
+            f"excluded from the adjusted linear model (complete-case analysis, n = {cc} of {len(sdf)}) and from age- and "
+            f"contamination-matched pairs; missing values were not imputed.")
+
+
+def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None, meta=None):
     t1 = demo.rename(columns={"group": "Group"})
     t1["Group"] = t1.Group.map(LAB)
     t1["Sex, M/F (n/a)"] = t1.male.astype(str) + "/" + t1.female.astype(str) + " (" + t1.sex_unknown.astype(str) + ")"
@@ -503,6 +536,7 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None)
     t1["Age, median (range)"] = t1.age_median.astype(int).astype(str) + " (" + t1.age_min.astype(int).astype(str) + "–" + t1.age_max.astype(int).astype(str) + ")"
     t1["Age available, n"] = t1.age_n
     t1 = t1[["Group", "n", "Sex, M/F (n/a)", "Age, mean ± SD", "Age, median (range)", "Age available, n"]]
+    t1_note = table1_note(meta, demo) if meta is not None else ""
     tt = demo_t.copy()
     tt["test"] = tt.test.str.replace("возраст", "age").str.replace("пол", "sex").str.replace(", Манн–Уитни", ", Mann–Whitney U") \
         .str.replace(", точный тест Фишера", ", Fisher's exact").str.replace(", Краскел–Уоллис (3 группы)", ", Kruskal–Wallis (3 groups)") \
@@ -524,23 +558,39 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None)
         "Detected, % Control/BC/PC": [f"{100 * f.det_Control[i]:.0f}/{100 * f.det_BC[i]:.0f}/{100 * f.det_PC[i]:.0f}" for i in f.index],
     })
     t2 = t2.loc[f.sort_values("q_model").index]          # сортировка по числовому q
-    m = mv[mv.model.str.startswith(("панель", "PLS-DA"))].copy()
+    m = mv[mv.model.astype(str).str.startswith(("панель", "PLS-DA", "только"))].copy()
     m["model"] = m.model.str.replace(r"панель top-(\d+) \+ логистическая регрессия \(отбор внутри CV\)", r"Top-\1 panel + logistic regression (in-fold selection)", regex=True) \
         .str.replace(r"панель top-(\d+), признаки скорректированы на индекс загрязнения внутри фолда", r"Top-\1 panel, features adjusted for contamination index in-fold", regex=True) \
-        .str.replace(r"PLS-DA, 2 компоненты \(все признаки без экспозиций\)", "PLS-DA, 2 components (all non-exposure compounds)", regex=True)
-    ts1 = m[["comparison", "set", "model", "n_case", "n_ref", "AUC_mean", "AUC_sd", "Q2", "perm_p"]].round(3)
+        .str.replace(r"PLS-DA, 2 компоненты \(все признаки без экспозиций\)", "PLS-DA, 2 components (all non-exposure compounds)", regex=True) \
+        .str.replace(r"только sex \(базовая модель, та же CV\)", "Sex only (baseline, same CV)", regex=True) \
+        .str.replace(r"только contam_index \(базовая модель, та же CV\)", "Contamination index only (baseline, same CV)", regex=True)
+    m["set"] = m.set.map({"all": "all samples", "matched": "age-matched pairs", "contam_matched": "contamination-matched pairs"})
+    m["comparison"] = m.comparison.str.replace("_vs_", " vs ").str.replace("maleControl", "male Control")
+    ts1 = m[["comparison", "set", "model", "n_case", "n_ref", "AUC_mean", "AUC_sd", "AUC_p5", "AUC_p95", "Q2", "perm_p"]].round(3)
+    ts1.columns = ["Comparison", "Sample set", "Model", "n case", "n reference", "AUC, mean", "AUC, SD", "AUC, 5th pct",
+                   "AUC, 95th pct", "Q²", "Permutation p"]
     # Table 2 (основной текст): только аннотированные находки (MSI ≤ 3); полный список — Table S1
     t2_main = t2[t2["MSI level"] <= 3].copy()
     t2_main["Compound (annotation)"] = t2_main["Compound (annotation)"].str.replace(r" \((MSI \d|putative)\)$", "", regex=True)
     t2_main.insert(1, "Library match (MS-DIAL)", feat.loc[t2_main.index, "annotation"].to_numpy())
     t2_main = t2_main.drop(columns=["Putative library match (low score)"])
+    iso = cn["isomers_note"].fillna("") if "isomers_note" in cn else pd.Series(dtype=str)
+    t2_main.insert(t2_main.columns.get_loc("MSI level") + 1, "Isomers not excluded",
+                   [iso.get(i, "") if isinstance(iso.get(i, ""), str) else "" for i in t2_main.index])
     order = table2_order(r, msi)
     t2_main.insert(0, "No.", [order[i] for i in t2_main.index])
     t2_main = t2_main.sort_values("No.")
+    exc = excluded_annotations(feat)
+    t2.insert(4, "Note", [f"library match judged implausible: {exc[i]}" if i in exc else "" for i in t2.index])
+    t2_note = ("Isomers: " + "; ".join(f"{a}: {b}" for a, b in zip(t2_main["Compound (annotation)"], t2_main["Isomers not excluded"]) if b)) \
+        if t2_main["Isomers not excluded"].astype(bool).any() else ""
     with pd.ExcelWriter(out / "Tables_main.xlsx") as w:
         t1.to_excel(w, sheet_name="Table1_demographics", index=False)
+        pd.DataFrame({"Note": [t1_note]}).to_excel(w, sheet_name="Table1_demographics", index=False, startrow=len(t1) + 2)
         tt.to_excel(w, sheet_name="Table1_tests", index=False)
         t2_main.to_excel(w, sheet_name="Table2_annotated_findings_BC", index=False)
+        pd.DataFrame({"Note": [t2_note]}).to_excel(w, sheet_name="Table2_annotated_findings_BC", index=False, startrow=len(t2_main) + 2)
+    (out / "table_notes.md").write_text(f"**Table 1 note.** {t1_note}\n\n**Table 2 note.** {t2_note}\n", encoding="utf-8")
     t1.to_csv(out / "Table1_demographics.csv", index=False)
     tt.to_csv(out / "Table1_tests.csv", index=False)
     t2_main.to_csv(out / "Table2_annotated_findings_BC.csv", index=False)
@@ -553,7 +603,7 @@ CAPTIONS = """# Figure and table captions (draft)
 
 ## Main text
 
-**Table 1.** Clinical and demographic characteristics of the independent cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex).
+**Table 1.** Clinical and demographic characteristics of the independent cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex). The footnote on missing age and sex is given in table_notes.md (Table 1 note).
 
 **Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound). (d) The same scores coloured by the contamination index.
 
@@ -561,11 +611,11 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
-**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and MS/MS library match without isomeric ambiguity; MSI 3, formula-consistent without isomer-specific MS/MS. For compounds without a curated annotation, the MS-DIAL library match is given for transparency; ethyl 2-amino-5-methyl-3-thiophenecarboxylate is a synthetic building block and this annotation is considered implausible. All findings, including MSI level 4, are listed in Table S1.
+**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish (e.g., Leu-Val, Val-Ile and Ile-Val for Val-Leu; sn-1/sn-2 regioisomers for LysoPC). For compounds without a curated annotation, the MS-DIAL library match is given for transparency. Library matches judged implausible in human urine (ethyl 2-amino-5-methyl-3-thiophenecarboxylate, a synthetic building block matched to an in-source fragment) were assigned MSI level 4. All findings, including MSI level 4, are listed in Table S1.
 
 **Figure 4.** Annotated bladder-cancer findings (MSI levels 2–3; the compounds of Table 2) across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
 
-**Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs (shown only with ≥ {minp} pairs). p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex; contamination index).
+**Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs; dash-dot-dot, 1:1 contamination-matched pairs (within sex, caliper {zcal} SD of the index; sensitivity analysis); matched sets shown only with ≥ {minp} pairs. p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex only; contamination index only) evaluated with the same repeated CV (logistic regression on one covariate) and permutation test. AUC, mean ± SD over repeats. In (c) the contamination index alone nearly separates PC from controls; the contamination-adjusted curve is then an extrapolation beyond the overlap of the two groups and is not interpretable as a contamination-independent signal (see Section 3.6).
 
 **Figure 6.** Stage-1 bladder-cancer markers (Frolova et al., Anal Bioanal Chem 2026, Table 5) in the independent cohort. Features were matched by m/z (±{ppm:.0f} ppm) and retention time (±{rttol} min); all isomeric candidates are shown. Points, unadjusted log2 fold change (BC vs Control) of quantified features; coloured, same direction and Mann–Whitney p < 0.05; text gives AUC, unadjusted p and FDR-adjusted q of the adjusted model. Markers not detected or removed by the detection/QC filters are labelled. Exact values are given in Table S3.
 
@@ -583,9 +633,9 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, Q², permutation p).
 
-**Table S3.** Stage-1 markers: all candidate features within the m/z and retention-time windows, detection/filter status and statistics in the independent cohort.
+**Table S3.** Stage-1 markers: all candidate features within ±{ppm:.0f} ppm of the reported or the theoretical m/z (formula and ion) and ±{rttol} min of the reported retention time, detection/filter status and statistics in the independent cohort. For Leu-Leu-Tyr and Leu-Thr-Ser the formula of the named peptide was used to compute the theoretical m/z.
 
-**Table S4.** Curated candidate annotations: formula, ion, mass error, HMDB/KEGG identifiers, supporting ions, MSI level, detection and imputation by group, correlation with the contamination index and the dilution factor; annotations with mass error > {ppm:.0f} ppm are listed separately.
+**Table S4.** Curated candidate annotations: formula, ion, mass error, HMDB/KEGG identifiers, MS-DIAL MS/MS library entry, isomers not excluded, MSI level (assigned by the same rule as in Table 2), supporting ions, detection by group, and correlation with the contamination index and the dilution factor; annotations with mass error > {ppm:.0f} ppm are listed separately (S4b). No reference standards were analysed (no MSI level 1). MS-DIAL match scores were not part of the exported table; the MS/MS match is the MS-DIAL identification flag.
 
 **Table S5.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
 
@@ -603,18 +653,28 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
               "failed QC RSD filter": "Detected, QC RSD > 30%", "quantified": "Quantified"}
     t3 = pd.DataFrame({
         "Marker (stage 1)": tab.marker, "Formula": tab.formula, "Ion": tab.ion,
-        "m/z (stage 1)": tab.mz, "RT, min (stage 1)": tab.rt_min,
+        "m/z reported (stage 1)": tab.mz, "m/z theoretical": tab.theo_mz,
+        "Δ reported vs theoretical": [f"{p_:+.1f} ppm" if abs(p_) < 1000 else f"{r_ - t_:+.4f} Da"
+                                      for p_, r_, t_ in zip(tab.reported_ppm_vs_theo, tab.mz, tab.theo_mz)], "RT, min (stage 1)": tab.rt_min,
         "Candidate": [f"{int(c)}/{int(n)}" if n else "" for c, n in zip(tab.candidate, tab.n_candidates)],
-        "m/z (this study)": tab.get("mz_obs").round(4), "RT, min (this study)": tab.get("rt_obs").round(2),
+        "m/z (this study)": tab.get("mz_obs").round(4), "Δ vs theoretical, ppm": tab.get("ppm_obs_vs_theo"),
+        "RT, min (this study)": tab.get("rt_obs").round(2),
         "ΔRT, min": tab.get("delta_rt"), "Status (this study)": tab.status.map(st_lab),
         "log2FC BC/Control": tab.get("log2FC").round(2), "AUC": tab.get("AUC").round(2),
         "p (Mann–Whitney)": tab.get("p_MW").map(lambda x: f"{x:.2g}" if pd.notna(x) else ""),
         "q (adjusted model)": tab.get("q_model").map(lambda x: f"{x:.2g}" if pd.notna(x) else ""),
         "Same direction": tab.get("same_direction").map({True: "yes", False: "no"}),
-        "Note on stage-1 entry": tab.comment.str.extract(r";\s*(.*)$")[0].fillna(""),
     })
+    summ_en = summ.rename(columns={"source": "Source", "comparison": "Comparison", "markers": "Markers",
+                                "not_detected": "Not detected", "below_detection_filter": "Below detection filter",
+                                "failed_rsd": "Failed QC RSD filter", "quantified": "Quantified",
+                                "ambiguous_isomers": "Quantified with isomeric candidates",
+                                "same_direction_all_candidates": "Same direction (all candidates)",
+                                "same_direction_any_candidate": "Same direction (any candidate)",
+                                "nominal_p05_any_candidate": "p < 0.05, same direction (any candidate)",
+                                "replicated_q05_any_candidate": "q < 0.05, same direction (any candidate)"})
     t3.to_csv(out / "TableS3_replication_stage1_markers.csv", index=False)
-    summ.to_csv(out / "TableS3_replication_summary.csv", index=False)
+    summ_en.to_csv(out / "TableS3_replication_summary.csv", index=False)
     # Figure 7
     d = tab.reset_index(drop=True)
     d["srank"] = d.status.map({"quantified": 0, "failed QC RSD filter": 1, "below detection filter": 2, "not detected": 3})
@@ -653,26 +713,95 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
                        Line2D([], [], marker="o", ls="", mfc="#bdbcb8", mec=INK2, label="not significant")],
               loc="lower right", fontsize=6)
     save(fig, out, "Figure6_replication_stage1_markers")
-    return t3, summ
+    return t3, summ_en
 
 
-def supplementary_tables(out, res_dir, t2_full, ts_class, rep):
+def s4_table(df, feat, msi, has_ms2):
+    """Table S4/S4b: курированные кандидаты — английские столбцы; MSI и MS2 из того же источника, что Table 2."""
+    if not len(df):
+        return df
+    f = df.feature
+    def g(col):
+        return df[col] if col in df else pd.Series("", index=df.index)
+    ms2 = [bool(has_ms2.get(x, False)) if isinstance(x, str) else False for x in f]
+    out = pd.DataFrame({
+        "Compound": [a if isinstance(a, str) and a else b for a, b in zip(g("name_en"), g("name"))],
+        "Feature RT (min)": df.rt_min.round(3), "Feature m/z": df.mz.round(5), "Formula": df.formula, "Ion": df.ion,
+        "Theoretical m/z": df.theo_mz, "Mass error (ppm)": df.ppm, "HMDB": g("hmdb"), "KEGG": g("kegg"),
+        "Category": g("category"), "Comment": g("comment"),
+        "MS2 library match (MS-DIAL)": ["yes" if m else "no" for m in ms2],
+        "Library entry (MS-DIAL)": [feat.loc[x, "annotation"] if m and x in feat.index else "" for x, m in zip(f, ms2)],
+        "Isomers not excluded": g("isomers_note").fillna(""),
+        "MSI level": [int(msi[x]) if isinstance(x, str) and x in msi.index else 4 for x in f],
+        "Supporting ions": g("confirming_ions"), "HMDB alternatives within 3 ppm": g("hmdb_alternatives_3ppm"),
+    })
+    for grp in C.STUDY_GROUPS:
+        if f"det_{grp}" in df:
+            out[f"Detected, % {LAB[grp]}"] = (100 * df[f"det_{grp}"].astype(float)).round(0)
+    extra = {"kept_after_filters": "Passed detection and RSD filters", "compound": "Compound group (ions)",
+             "is_representative": "Representative ion",
+             "rho_contam": "ρ with contamination index", "p_contam": "p (ρ contamination)",
+             "rho_contam_controls": "ρ with contamination index (controls)", "p_contam_controls": "p (ρ contamination, controls)",
+             "rho_dilution": "ρ with PQN dilution factor", "p_dilution": "p (ρ dilution)",
+             "rho_dilution_controls": "ρ with PQN dilution factor (controls)", "p_dilution_controls": "p (ρ dilution, controls)"}
+    for k, v in extra.items():
+        if k in df:
+            out[v] = df[k].round(3) if df[k].dtype.kind == "f" else df[k]
+    lab = {"beta_model": "log2FC (adjusted)", "q_model": "q (adjusted)", "p_matched": "p (age-matched)",
+           "p_lowindex": "p (low-contamination controls)", "p_ctrl_hi_vs_lo": "p (controls, high vs low index)", "finding": "finding"}
+    for c in df.columns:
+        if ":" in c:
+            comp, stat = c.split(":", 1)
+            out[f"{comp.replace('_vs_', ' vs ').replace('maleControl', 'male Control')}: {lab.get(stat, stat)}"] = df[c]
+    return out
+
+
+def s5_table(d):
+    d = d.rename(columns={d.columns[0]: "Feature"})
+    cols = {"Feature": "Feature", "rt_min": "RT (min)", "mz": "m/z", "annotation": "MS-DIAL annotation",
+            "annotation_conf": "Annotation score (MS-DIAL)", "compound_category": "Category",
+            "det_QC": "Detected, fraction QC", "det_Control": "Detected, fraction Control", "det_BC": "Detected, fraction BC",
+            "det_PC": "Detected, fraction PC", "RSD_QC_raw": "RSD in QC"}
+    cols.update({c: c.replace("p_fisher_", "p (Fisher), ").replace("_vs_", " vs ").replace("maleControl", "male Control")
+                 for c in d.columns if c.startswith("p_fisher_")})
+    return d[[c for c in cols if c in d]].rename(columns=cols)
+
+
+def s6_table(d):
+    cols = {"feature": "Representative feature", "name": "Label", "n_ions": "Ions in group", "rt_min": "RT (min)", "mz": "m/z",
+            "annotation": "MS-DIAL annotation", "annotation_conf": "Annotation score (MS-DIAL)", "compound_category": "Category",
+            "log2FC": "log2FC (unadjusted)", "AUC": "AUC", "p_MW": "p (Mann–Whitney)", "q_MW": "q (Mann–Whitney)",
+            "beta_model": "log2FC (adjusted)", "p_model": "p (adjusted model)", "q_model": "q (adjusted model)",
+            "log2FC_matched": "log2FC (age-matched)", "AUC_matched": "AUC (age-matched)", "p_matched": "p (age-matched)",
+            "q_matched": "q (age-matched)", "log2FC_lowindex": "log2FC (low-contamination controls)",
+            "p_lowindex": "p (low-contamination controls)", "log2FC_ctrl_hi_vs_lo": "log2FC (controls, high vs low index)",
+            "p_ctrl_hi_vs_lo": "p (controls, high vs low index)", "finding": "Finding",
+            "det_Control": "Detected, fraction Control", "det_BC": "Detected, fraction BC", "det_PC": "Detected, fraction PC"}
+    return d[[c for c in cols if c in d]].rename(columns=cols)
+
+
+def supplementary_tables(out, res_dir, t2_full, ts_class, rep, feat, msi, has_ms2):
     """Supplementary_Tables.xlsx: S1 все находки РМП, S2 классификация, S3 сверка с первым этапом,
     S4 курированные кандидаты (+ несходящаяся масса), S5 признаки «есть/нет», S6 статистика по соединениям."""
     t = res_dir / "tables"
+    s4 = s4_table(pd.read_csv(t / "candidates_curated.csv"), feat, msi, has_ms2)
+    s4b = s4_table(pd.read_csv(t / "candidates_mass_mismatch.csv"), feat, msi, has_ms2) \
+        if (t / "candidates_mass_mismatch.csv").exists() else None
     with pd.ExcelWriter(out / "Supplementary_Tables.xlsx") as w:
         t2_full.to_excel(w, sheet_name="S1_all_findings_BC", index=False)
         ts_class.to_excel(w, sheet_name="S2_classification", index=False)
         if rep is not None:
             rep[0].to_excel(w, sheet_name="S3_stage1_markers", index=False)
             rep[1].to_excel(w, sheet_name="S3_summary", index=False)
-        for sh, fn_ in {"S4_curated_candidates": "candidates_curated.csv", "S4b_mass_mismatch": "candidates_mass_mismatch.csv",
-                        "S5_presence_absence": "presence_absence.csv"}.items():
-            if (t / fn_).exists():
-                pd.read_csv(t / fn_).to_excel(w, sheet_name=sh, index=False)
+        s4.to_excel(w, sheet_name="S4_curated_candidates", index=False)
+        if s4b is not None and len(s4b):
+            s4b.to_excel(w, sheet_name="S4b_mass_mismatch", index=False)
+        if (t / "presence_absence.csv").exists():
+            s5_table(pd.read_csv(t / "presence_absence.csv")).to_excel(w, sheet_name="S5_presence_absence", index=False)
         for n in C.COMPARISONS:
             if (t / f"stats_{n}.csv").exists():
-                pd.read_csv(t / f"stats_{n}.csv").to_excel(w, sheet_name=f"S6_{n}"[:31], index=False)
+                s6_table(pd.read_csv(t / f"stats_{n}.csv")).to_excel(w, sheet_name=f"S6_{n}"[:31], index=False)
+    s4.to_csv(out / "TableS4_curated_candidates.csv", index=False)
 
 
 def main():
@@ -693,17 +822,20 @@ def main():
     fig2_contamination(out, meta, series)
     fig3_volcano(out, stats_, nm, msi)
     fig4_heatmap(out, L, meta, stats_["BC_vs_Control"], nm)
-    fig5_roc(out, L, meta, feat, mv, pairs)
+    zp = pd.read_csv(res / "tables" / "contam_matched_pairs.csv", dtype={"case": str, "ref": str}) \
+        if (res / "tables" / "contam_matched_pairs.csv").exists() else None
+    fig5_roc(out, L, meta, feat, mv, pairs, zp)
     fig6_box(out, L, meta, stats_["BC_vs_Control"], nm, msi)
     figS1_age(out, meta, pairs)
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
-    t2_full, ts_class = tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2)
+    t2_full, ts_class = tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2, meta)
     rep = replication_outputs(out, res, feat, stats_, info_all)
-    supplementary_tables(out, res, t2_full, ts_class, rep)
+    supplementary_tables(out, res, t2_full, ts_class, rep, feat, msi, has_ms2)
     (out / "figure_captions.md").write_text(CAPTIONS.format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
-        cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL), encoding="utf-8")
+        cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL,
+        zcal=C.CONTAM_MATCH_CALIPER_SD), encoding="utf-8")
     print(f"Публикационные рисунки и таблицы → {out}")
 
 

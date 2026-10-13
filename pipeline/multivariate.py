@@ -29,7 +29,8 @@ def residualize(Xtr, Xte, ztr, zte):
 
 def cv_predict(X, y, method, seed, z=None):
     """Одна 5-fold CV. method: 'panel' (top-k Манн–Уитни в фолде + логистическая регрессия) | 'plsda' |
-    'panel_adj' (как panel, но признаки предварительно скорректированы на ковариату z внутри фолда)."""
+    'panel_adj' (как panel, но признаки предварительно скорректированы на ковариату z внутри фолда) |
+    'covariate' (логистическая регрессия на столбцах X без отбора — базовые модели «только пол», «только индекс»)."""
     skf = StratifiedKFold(C.CV_FOLDS, shuffle=True, random_state=seed)
     pred = np.zeros(len(y))
     chosen = []
@@ -37,7 +38,11 @@ def cv_predict(X, y, method, seed, z=None):
         Xtr, Xte = X[tr], X[te]
         if method == "panel_adj":
             Xtr, Xte = residualize(Xtr, Xte, z[tr], z[te])
-        if method in ("panel", "panel_adj"):
+        if method == "covariate":
+            mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-9
+            m = LogisticRegression(C=1.0, max_iter=2000).fit((Xtr - mu) / sd, y[tr])
+            pred[te] = m.predict_proba((Xte - mu) / sd)[:, 1]
+        elif method in ("panel", "panel_adj"):
             p = stats.mannwhitneyu(Xtr[y[tr] == 1], Xtr[y[tr] == 0], axis=0).pvalue
             sel = np.argsort(p)[:C.PANEL_K]
             chosen.extend(sel)
@@ -113,17 +118,20 @@ def evaluate(L, meta, case, ref, pool, label, seed, names=None, n_perm=None):
                          AUC_mean=aucs.mean(), AUC_sd=aucs.std(), AUC_p5=np.percentile(aucs, 5),
                          AUC_p95=np.percentile(aucs, 95), Q2=q2, perm_p=p, n_perm=C.N_PERM, most_selected=sel))
         curves[(label, method)] = (tprs.mean(0), aucs.mean())
-    # базовые модели: только пол / только индекс загрязнения
+    # базовые модели: только пол / только индекс загрязнения — та же повторная CV и тот же перестановочный тест
     for cov in ["sex", "contam_index"]:
         v = meta.loc[idx, cov]
-        v = v.map({"M": 1.0, "F": 0.0}) if cov == "sex" else v.astype(float)
-        m = v.notna().to_numpy()
-        if m.sum() > 5 and v[m].std() > 0 and len(set(y[m])) == 2:
-            a = roc_auc_score(y[m], v[m])
-            rows.append(dict(set=label, model=f"только {cov} (базовая линия; {'выше' if a >= 0.5 else 'ниже'} у case)",
-                             n_case=int(y[m].sum()), n_ref=int((1 - y[m]).sum()), AUC_mean=max(a, 1 - a)))
-            fpr, tpr, _ = roc_curve(y[m], v[m] if a >= 0.5 else -v[m])
-            curves[(label, cov)] = (np.interp(FPR, fpr, tpr), max(a, 1 - a))
+        v = (v.map({"M": 1.0, "F": 0.0}) if cov == "sex" else v.astype(float)).to_numpy(float)
+        m = ~np.isnan(v)
+        if m.sum() > 5 and np.nanstd(v) > 0 and len(set(y[m])) == 2 and min(y[m].sum(), (1 - y[m]).sum()) >= C.CV_FOLDS:
+            aucs, tprs, _, q2 = repeated_cv(v[m][:, None], y[m], "covariate", seed)
+            p, _ = perm_test(v[m][:, None], y[m], "covariate", aucs.mean(), seed + 1, n_perm or C.N_PERM) \
+                if (n_perm or C.N_PERM) else (np.nan, None)
+            rows.append(dict(set=label, model=f"только {cov} (базовая модель, та же CV)", n_case=int(y[m].sum()),
+                             n_ref=int((1 - y[m]).sum()), n_features=1, AUC_mean=aucs.mean(), AUC_sd=aucs.std(),
+                             AUC_p5=np.percentile(aucs, 5), AUC_p95=np.percentile(aucs, 95), Q2=q2, perm_p=p,
+                             n_perm=C.N_PERM))
+            curves[(label, cov)] = (tprs.mean(0), aucs.mean())
     return rows, curves
 
 

@@ -191,12 +191,16 @@ def main():
     log(f"\nПул для моделей: {len(pool)} соединений (исключены до CV: экспозиции {int(ex_cat.sum())}, "
         f"|ρ с индексом загрязнения| ≥ {C.PANEL_MAX_ABS_RHO_CONTAM} ещё {int((ex_rho & ~ex_cat).sum())}: "
         + ", ".join(names[f] for f in Lc.columns[ex_rho & ~ex_cat]) + ")")
-    mv_rows, curves = [], {}
+    mv_rows, curves, zpairs_all = [], {}, []
     for k, (name, spec) in enumerate(C.COMPARISONS.items()):
         case, ref = st.comparison_sets(meta, spec)
         pr = pairs_all[k]
-        for label, (cs, rf) in {"all": (case, ref), "matched": (list(pr.case), list(pr.ref))}.items():
-            need = C.MIN_PAIRS_CV if label == "matched" else C.CV_FOLDS
+        zp = st.contam_match(meta, case, ref).assign(comparison=name)    # чувствительность: пары с равным загрязнением
+        zpairs_all.append(zp)
+        sets_ = {"all": (case, ref), "matched": (list(pr.case), list(pr.ref)),
+                 "contam_matched": (list(zp.case), list(zp.ref))}
+        for label, (cs, rf) in sets_.items():
+            need = C.MIN_PAIRS_CV if label != "all" else C.CV_FOLDS
             if min(len(cs), len(rf)) < need:
                 mv_rows.append(dict(comparison=name, set=label, n_case=len(cs), n_ref=len(rf),
                                     model=f"не оценивается: {min(len(cs), len(rf))} < {need} на группу"))
@@ -206,6 +210,7 @@ def main():
                 r_["comparison"] = name
             mv_rows += rows
             curves.setdefault(name, {}).update(cv)
+    sheets["contam_matched_pairs"] = pd.concat(zpairs_all)
     mv = pd.DataFrame(mv_rows)
     cols = ["comparison", "set", "model", "n_case", "n_ref", "n_features", "AUC_mean", "AUC_sd", "AUC_p5", "AUC_p95",
             "Q2", "perm_p", "n_perm", "most_selected"]
@@ -222,6 +227,14 @@ def main():
             for row in nc_rows:
                 if row["comparison"] == name:
                     row[f"panel_AUC_{m}"] = aucs.mean()
+    keep = meta_s.index[meta_s.study]
+    for row in nc_rows:     # AUC панели без проб с низким фактором разведения (та же CV)
+        case, ref = st.comparison_sets(meta, C.COMPARISONS[row["comparison"]])
+        cs, rf = [i for i in case if i in keep], [i for i in ref if i in keep]
+        y = np.r_[np.ones(len(cs)), np.zeros(len(rf))].astype(int)
+        k = list(C.COMPARISONS).index(row["comparison"])
+        aucs, *_ = multivariate.repeated_cv(Lc.loc[cs + rf, pool].to_numpy(), y, "panel", C.SEED + k)
+        row.update(n_without_lowdilution=f"{len(cs)}/{len(rf)}", panel_AUC_without_lowdilution=aucs.mean())
     sheets["normalization_sensitivity"] = pd.DataFrame(nc_rows)
 
     # ------------------------------------------------------------ 6. кандидаты и находки
@@ -259,6 +272,10 @@ def main():
     if rep_tab is not None:
         sheets["replication_markers"] = rep_tab
         sheets["replication_summary"] = rep_sum
+    ms2f = set(pd.read_csv(C.MS2_IDENTIFIED).feature) if Path(C.MS2_IDENTIFIED).exists() else set()
+    rts = replication.rt_shift(C.RT_ANCHORS, info_all, ms2f, log)
+    if rts is not None:
+        sheets["rt_shift_anchors"] = rts
 
     # ------------------------------------------------------------ 7. пути (приложение)
     if C.RUN_PATHWAYS:
@@ -307,9 +324,9 @@ def main():
     sheets["contaminant_series"] = series
     sheets["log"] = pd.DataFrame({"log": log_lines})
     order = ["log", "demographics", "demographics_tests", "summary_univariate", "findings", "multivariate_CV",
-             "replication_summary", "replication_markers",
+             "replication_summary", "replication_markers", "rt_shift_anchors",
              "normalization_sensitivity", "candidates_curated", "candidates_mass_mismatch", "low_dilution_samples",
-             "presence_absence", "age_matched_pairs", "samples", "contaminant_series"] + \
+             "presence_absence", "age_matched_pairs", "contam_matched_pairs", "samples", "contaminant_series"] + \
             [f"stats_{n}" for n in C.COMPARISONS] + ["features", "pathways_appendix", "pathways_settings"]
     with pd.ExcelWriter(out / "results.xlsx") as w:
         for k in order:
@@ -352,7 +369,7 @@ def export_external(L, Lc, meta, res, feat_table, cur, out, cats):
         pd.DataFrame({"m.z": feat_table.mz[r.index], "p.value": r.p_model,
                       "t.score": np.sign(r.beta_model) * -np.log10(r.p_model),
                       "r.t": feat_table.rt_min[r.index] * 60}).dropna().to_csv(out / f"3_peaks_{name}.txt", sep="\t", index=False)
-    endo = cur[cur.category.str.startswith("эндоген")]
+    endo = cur[cur.category.str.startswith("endogenous")]
     for focus in ["BC", "PC"]:
         g = endo[endo.focus == focus]
         (out / f"4_compounds_{focus}_HMDB.txt").write_text("\n".join(g.hmdb[g.hmdb != ""].drop_duplicates()))

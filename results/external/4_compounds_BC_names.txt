@@ -1,4 +1,4 @@
-11-Oxoetiocholanolone
+C19H28O3 oxo-androstane (putatively 11-oxoetiocholanolone)
 Androsterone glucuronide
 Tetrahydrocortisone
 Cortolone
@@ -16,3 +16,4 @@ Linoleyl carnitine
 Cholic acid
 Valyl-Leucine
 Threonyl-Phenylalanine
+Tetrahydrocortisone glucuronide (putative)

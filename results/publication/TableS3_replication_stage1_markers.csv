@@ -1,17 +1,17 @@
-Marker (stage 1),Formula,Ion,m/z (stage 1),"RT, min (stage 1)",Candidate,m/z (this study),"RT, min (this study)","ΔRT, min",Status (this study),log2FC BC/Control,AUC,p (Mann–Whitney),q (adjusted model),Same direction,Note on stage-1 entry
-Val-Leu,C11H22N2O3,[M+H]+,231.1701,4.15,1/2,231.1706,3.92,-0.23,Quantified,-0.2,0.49,0.91,0.95,no,log2FC 4.5)
-Val-Leu,C11H22N2O3,[M+H]+,231.1701,4.15,2/2,231.1704,3.72,-0.43,Quantified,1.99,0.76,0.00014,0.048,yes,log2FC 4.5)
-Glu-Ile-Val,C16H29N3O6,[M+H]+,360.2132,2.57,,,,,Not detected,,,,,,log2FC 3.68)
-Phe-Ile-Arg,C21H34N6O4,[M+H]+,435.2716,8.11,,,,,Not detected,,,,,,log2FC 8.32)
-Leu-Leu-Arg,C18H36N6O4,[M+H]+,401.2877,7.9,1/1,401.2876,7.66,-0.24,"Detected, < detection filter",,,,,,log2FC 10.12)
-Leu-Leu-Tyr (neurotensin 11-13),C21H33N3O5,[M+H]+,408.2497,9.23,,,,,Not detected,,,,,,формула в статье C22H29N7O не соответствует пептиду
-Glutaminylproline,C10H17N3O4,[M+H]+,244.1295,2.58,1/1,244.1295,2.22,-0.36,Quantified,1.03,0.6,0.17,0.74,yes,log2FC 6.59)
-Leu-Thr-Ser,C13H25N3O6,[M+H]+,320.1823,2.68,1/2,320.1821,2.87,0.19,Quantified,-1.03,0.35,0.035,0.55,no,формула в статье C18H27NO5 не соответствует пептиду
-Leu-Thr-Ser,C13H25N3O6,[M+H]+,320.1823,2.68,2/2,320.1818,2.37,-0.31,"Detected, < detection filter",,,,,,формула в статье C18H27NO5 не соответствует пептиду
-N-Acetyltryptophan,C13H14N2O3,[M+H]+,247.1077,6.34,,,,,Not detected,,,,,,в тексте XIC 247.1065; использован теоретический [M+H]+
-LysoPE(20:4/0:0),C25H44NO7P,[M+H]+,502.2934,15.81,1/1,502.2934,15.93,0.12,Quantified,0.61,0.59,0.2,0.43,yes,log2FC 7.26)
-Inosine isomer,C10H12N4O5,[M+H]+,269.088,2.01,,,,,Not detected,,,,,,log2FC 6.2)
-5-Hydroxyomeprazole,C17H19N3O4S,[M+H]+,362.1248,8.79,,,,,Not detected,,,,,,m/z на +22 ppm от теоретического 362.1169
-2-Iminobiotin,C10H17N3O2S,[M+H]+,244.1115,5.74,1/1,244.112,5.42,-0.32,"Detected, < detection filter",,,,,,log2FC 6.05)
-(3S)-3-[(2S)-2-Amino-3-hydroxybutyl]pyrrolidin-2-one,C8H16N2O2,[M+H]+,173.1286,7.41,,,,,Not detected,,,,,,log2FC 8.15)
-2-Amino-3-{[2-(pyridin-4-yl)ethyl]sulfanyl}propanoic acid,C10H14N2O2S,[M+Na]+,249.0661,12.45,,,,,Not detected,,,,,,m/z соответствует [M+Na]+
+Marker (stage 1),Formula,Ion,m/z reported (stage 1),m/z theoretical,Δ reported vs theoretical,"RT, min (stage 1)",Candidate,m/z (this study),"Δ vs theoretical, ppm","RT, min (this study)","ΔRT, min",Status (this study),log2FC BC/Control,AUC,p (Mann–Whitney),q (adjusted model),Same direction
+Val-Leu,C11H22N2O3,[M+H]+,231.1701,231.1703,-0.9 ppm,4.15,1/2,231.1706,1.2,3.92,-0.23,Quantified,-0.2,0.49,0.91,0.95,no
+Val-Leu,C11H22N2O3,[M+H]+,231.1701,231.1703,-0.9 ppm,4.15,2/2,231.1704,0.3,3.72,-0.43,Quantified,1.99,0.76,0.00014,0.048,yes
+Glu-Ile-Val,C16H29N3O6,[M+H]+,360.2132,360.2129,+0.8 ppm,2.57,,,,,,Not detected,,,,,
+Phe-Ile-Arg,C21H34N6O4,[M+H]+,435.2716,435.2714,+0.4 ppm,8.11,,,,,,Not detected,,,,,
+Leu-Leu-Arg,C18H36N6O4,[M+H]+,401.2877,401.2871,+1.5 ppm,7.9,1/1,401.2876,1.2,7.66,-0.24,"Detected, < detection filter",,,,,
+Leu-Leu-Tyr (neurotensin 11-13),C21H33N3O5,[M+H]+,408.2497,408.2493,+1.0 ppm,9.23,,,,,,Not detected,,,,,
+Glutaminylproline,C10H17N3O4,[M+H]+,244.1295,244.1292,+1.3 ppm,2.58,1/1,244.1295,1.4,2.22,-0.36,Quantified,1.03,0.6,0.17,0.74,yes
+Leu-Thr-Ser,C13H25N3O6,[M+H]+,320.1823,320.1816,+2.2 ppm,2.68,1/2,320.1821,1.6,2.87,0.19,Quantified,-1.03,0.35,0.035,0.55,no
+Leu-Thr-Ser,C13H25N3O6,[M+H]+,320.1823,320.1816,+2.2 ppm,2.68,2/2,320.1818,0.7,2.37,-0.31,"Detected, < detection filter",,,,,
+N-Acetyltryptophan,C13H14N2O3,[M+H]+,249.0923,247.1077,+1.9846 Da,6.34,,,,,,Not detected,,,,,
+LysoPE(20:4/0:0),C25H44NO7P,[M+H]+,502.2934,502.2928,+1.2 ppm,15.81,1/1,502.2934,1.2,15.93,0.12,Quantified,0.61,0.59,0.2,0.43,yes
+Inosine isomer,C10H12N4O5,[M+H]+,269.088,269.088,-0.2 ppm,2.01,,,,,,Not detected,,,,,
+5-Hydroxyomeprazole,C17H19N3O4S,[M+H]+,362.1248,362.1169,+21.8 ppm,8.79,1/1,362.1171,0.5,8.73,-0.06,Quantified,0.43,0.51,0.84,0.93,yes
+2-Iminobiotin,C10H17N3O2S,[M+H]+,244.1115,244.1114,+0.3 ppm,5.74,1/1,244.112,2.3,5.42,-0.32,"Detected, < detection filter",,,,,
+(3S)-3-[(2S)-2-Amino-3-hydroxybutyl]pyrrolidin-2-one,C8H16N2O2,[M+H]+,173.1286,173.1285,+0.8 ppm,7.41,,,,,,Not detected,,,,,
+2-Amino-3-{[2-(pyridin-4-yl)ethyl]sulfanyl}propanoic acid,C10H14N2O2S,[M+Na]+,249.0661,249.0668,-2.9 ppm,12.45,,,,,,Not detected,,,,,
