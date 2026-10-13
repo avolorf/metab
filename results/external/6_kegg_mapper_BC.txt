@@ -1,4 +1,0 @@
-C05470 red
-C00500 red
-C00695 blue
-C07480 blue
