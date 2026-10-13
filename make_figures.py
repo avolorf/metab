@@ -11,6 +11,7 @@
 """
 import argparse
 import re
+import textwrap
 import shutil
 from pathlib import Path
 
@@ -110,7 +111,7 @@ def names_en(feat, cur, msi=None):
             lv = int(msi[f]) if msi is not None else int(cn.loc[f, "MSI_level"])
             out[f] = f"{cn.loc[f, 'name_en']} (MSI {lv}), {tag}"
         elif r.annotation_conf == "high":
-            out[f] = f"{r.annotation[:34]} (putative), {tag}"
+            out[f] = f"{r.annotation} (putative), {tag}"
         else:
             out[f] = f"unknown, {tag}"
     return pd.Series(out)
@@ -228,7 +229,14 @@ def fig2_contamination(out, meta, series):
     save(fig, out, "Figure2_contamination_index")
 
 
-def volcano_ax(ax, r, nm, title, label_top=6):
+def table2_order(r, msi):
+    """Соединения Table 2 (находки MSI 2–3) в порядке возрастания q — общая нумерация для Table 2 и Figure 3."""
+    sel = r[r.finding.astype(bool) & (msi.reindex(r.index) <= 3)].sort_values("q_model")
+    return {f: k for k, f in enumerate(sel.index, 1)}
+
+
+def volcano_ax(ax, r, nm, title, numbered=None):
+    from adjustText import adjust_text
     x, y = r.beta_model, -np.log10(r.p_model)
     cat = r.compound_category.astype(str)
     expo = cat.isin(list(EXPO_COL))
@@ -242,19 +250,27 @@ def volcano_ax(ax, r, nm, title, label_top=6):
     title = f"{title} ({f.sum()} findings)"
     q = r.p_model[r.q_model < C.FDR]
     if len(q):
-        ax.axhline(-np.log10(q.max()), c=INK2, ls="--", lw=0.6)
-        ax.text(x.max(), -np.log10(q.max()) - 0.08, f"FDR {C.FDR:.0%}", fontsize=5.5, color=INK2, ha="right", va="top")
-    for i in r[f & r.compound_category.isin(["endogenous", "annotated (high score)"])].sort_values("p_model").index[:label_top]:
-        ax.annotate(nm[i].split(" (")[0][:24], (x[i], y[i]), fontsize=5.3, xytext=(3, 2), textcoords="offset points")
+        ax.axhline(-np.log10(q.max()), c=INK2, ls="--", lw=0.6, label=f"FDR {C.FDR:.0%}")
+    if numbered:
+        idx = sorted([i for i in numbered if i in r.index], key=lambda i: -y[i])
+        ax.scatter(x[idx], y[idx], s=30, facecolor="none", edgecolor=INK, lw=0.8, zorder=5,
+                   label="Annotated finding (Table 2 no.)")
+        # номера — отдельным столбцом справа от облака, каждый с выносной линией к своей точке
+        xr = x.max() + 0.25 * (x.max() - x.min())
+        ys = np.linspace(y.max(), y.max() - 0.42 * (y.max() - y.min()), len(idx))
+        for (i, yl) in zip(idx, ys):
+            ax.plot([x[i], xr - 0.05 * (x.max() - x.min())], [y[i], yl], c=INK, lw=0.4, zorder=5)
+            ax.text(xr, yl, str(numbered[i]), fontsize=6, fontweight="bold", va="center", ha="left", zorder=6)
+        ax.set_xlim(right=xr + 0.12 * (x.max() - x.min()))
     ax.axvline(0, c=GRID, lw=0.6, zorder=0)
     ax.set(xlabel="log$_2$ fold change (adjusted)", ylabel="−log$_{10}$ p (adjusted model)", title=title)
 
 
-def fig3_volcano(out, stats_, nm):
+def fig3_volcano(out, stats_, nm, msi):
     comps = [("BC_vs_Control", "BC vs Control"), ("BC_vs_PC", "BC vs PC"), ("PC_vs_Control", "PC vs Control")]
     fig, axs = plt.subplots(1, 3, figsize=(FULL, 6 * CM), gridspec_kw={"wspace": 0.32})
     for k, (ax, (c, t)) in enumerate(zip(axs, comps)):
-        volcano_ax(ax, stats_[c], nm, t)
+        volcano_ax(ax, stats_[c], nm, t, table2_order(stats_[c], msi) if c == "BC_vs_Control" else None)
         panel(ax, "abc"[k], x=-0.22)
     h, l = axs[0].get_legend_handles_labels()
     for a in axs[1:]:
@@ -372,7 +388,7 @@ def fig6_box(out, L, meta, r, nm, msi):
     sel = sel.sort_values("q_model").head(8)
     if not len(sel):
         return
-    fig, axs = plt.subplots(2, 4, figsize=(FULL, 10 * CM), gridspec_kw={"hspace": 0.9, "wspace": 0.45})
+    fig, axs = plt.subplots(2, 4, figsize=(FULL, 11 * CM), gridspec_kw={"hspace": 1.0, "wspace": 0.5})
     for k, (ax, f) in enumerate(zip(axs.ravel(), sel.index)):
         for i, g in enumerate(C.STUDY_GROUPS):
             v = L.loc[meta.index[meta.study & (meta.group == g)], f]
@@ -383,7 +399,9 @@ def fig6_box(out, L, meta, r, nm, msi):
         ax.set_xticks(range(3), [LAB[g] for g in C.STUDY_GROUPS])
         name, tag = nm[f].split(", m/z")[0], "m/z" + nm[f].split(", m/z")[1] if ", m/z" in nm[f] else ""
         name = re.sub(r" \((putatively[^)]*|MSI \d|putative)\)", "", name)
-        ax.set_title(f"{name[:26]}\nMSI {int(msi[f])}, {tag.replace(' min', '')} min\nq = {r.loc[f, 'q_model']:.1e}", fontsize=5.8)
+        name = "\n".join(textwrap.wrap(name, 24, break_on_hyphens=True)[:2])
+        mz, rt = tag.replace("m/z ", "").replace(" min", "").split(" @ ")
+        ax.set_title(f"{name}\nMSI {int(msi[f])} · m/z {mz} · {rt} min\nq = {r.loc[f, 'q_model']:.1e}", fontsize=5.6)
         if k % 4 == 0:
             ax.set_ylabel("log$_2$ normalized intensity")
         panel(ax, "abcdefgh"[k], x=-0.3, y=1.2)
@@ -432,8 +450,11 @@ def figS2_norm(out, meta, res_dir):
     ax = axs[0]
     scatter_groups(ax, s.dilution_PQN.to_numpy(), s.dilution_MSTUS.to_numpy(), s.group.to_numpy(), order=C.STUDY_GROUPS)
     ax.set(xscale="log", yscale="log", xlabel="PQN dilution factor", ylabel="MSTUS dilution factor")
-    for i in s.index[s.dilution_PQN < C.LOW_DILUTION_FACTOR]:
-        ax.annotate(i, (s.dilution_PQN[i], s.dilution_MSTUS[i]), fontsize=5.5, xytext=(2, 2), textcoords="offset points")
+    from adjustText import adjust_text
+    low = s.index[s.dilution_PQN < C.LOW_DILUTION_FACTOR]
+    texts = [ax.text(s.dilution_PQN[i], s.dilution_MSTUS[i], i, fontsize=5.5) for i in low]
+    adjust_text(texts, x=s.dilution_PQN.to_numpy(), y=s.dilution_MSTUS.to_numpy(), ax=ax, expand=(1.4, 1.6),
+                arrowprops=dict(arrowstyle="-", color=INK2, lw=0.4))
     ax.axvline(C.LOW_DILUTION_FACTOR, c=INK2, ls=":", lw=0.6)
     rho = stats.spearmanr(s.dilution_PQN, s.dilution_MSTUS).statistic
     ax.text(0.02, 0.98, f"Spearman ρ = {rho:.2f}", transform=ax.transAxes, va="top", fontsize=6)
@@ -460,8 +481,12 @@ def figS3_pathways(out, pw):
     for k, (ax, c) in enumerate(zip(np.atleast_1d(axs), comps)):
         d = pw[pw.comparison == c].sort_values("p-value").head(10).iloc[::-1]
         ax.barh(d.pathway, -np.log10(d["p-value"]), color=[COL["BC"] if q < 0.05 else "#bdbcb8" for q in d.q_BH], height=0.7)
-        for yy, q in enumerate(d.q_BH):
-            ax.text(-np.log10(d["p-value"].iloc[yy]) + 0.03, yy, f"q = {q:.2f}", va="center", fontsize=5.3, color=INK2)
+        xmax = (-np.log10(d["p-value"])).max() * 1.05
+        ax.set_xlim(0, xmax)
+        for yy, q in enumerate(d.q_BH):     # q — отдельным столбцом справа от осей
+            ax.text(1.02, yy, f"{q:.2f}", va="center", fontsize=5.3, color=INK2, transform=ax.get_yaxis_transform(),
+                    clip_on=False)
+        ax.text(1.02, len(d) - 0.3, "q (BH)", fontsize=5.5, color=INK2, transform=ax.get_yaxis_transform(), clip_on=False)
         ax.axvline(-np.log10(0.05), c=INK2, ls="--", lw=0.6)
         ax.set(xlabel="−log$_{10}$ p (mummichog)", title=c.replace("_vs_", " vs "))
         ax.tick_params(axis="y", labelsize=5.5)
@@ -497,7 +522,8 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None)
         "AUC (all)": f.AUC.round(2), "p (age-matched)": f.p_matched.map(lambda x: f"{x:.3f}"),
         "p (low-contamination controls)": f.p_lowindex.map(lambda x: f"{x:.3f}"),
         "Detected, % Control/BC/PC": [f"{100 * f.det_Control[i]:.0f}/{100 * f.det_BC[i]:.0f}/{100 * f.det_PC[i]:.0f}" for i in f.index],
-    }).sort_values("q (adjusted model)")
+    })
+    t2 = t2.loc[f.sort_values("q_model").index]          # сортировка по числовому q
     m = mv[mv.model.str.startswith(("панель", "PLS-DA"))].copy()
     m["model"] = m.model.str.replace(r"панель top-(\d+) \+ логистическая регрессия \(отбор внутри CV\)", r"Top-\1 panel + logistic regression (in-fold selection)", regex=True) \
         .str.replace(r"панель top-(\d+), признаки скорректированы на индекс загрязнения внутри фолда", r"Top-\1 panel, features adjusted for contamination index in-fold", regex=True) \
@@ -508,6 +534,9 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None)
     t2_main["Compound (annotation)"] = t2_main["Compound (annotation)"].str.replace(r" \((MSI \d|putative)\)$", "", regex=True)
     t2_main.insert(1, "Library match (MS-DIAL)", feat.loc[t2_main.index, "annotation"].to_numpy())
     t2_main = t2_main.drop(columns=["Putative library match (low score)"])
+    order = table2_order(r, msi)
+    t2_main.insert(0, "No.", [order[i] for i in t2_main.index])
+    t2_main = t2_main.sort_values("No.")
     with pd.ExcelWriter(out / "Tables_main.xlsx") as w:
         t1.to_excel(w, sheet_name="Table1_demographics", index=False)
         tt.to_excel(w, sheet_name="Table1_tests", index=False)
@@ -530,7 +559,7 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Figure 2.** Plastic-derived surfactant contamination. (a) Homologous series of alkyl diethanolamines and their oxygenated/ethoxylated analogues ([M+H]+) used to build the contamination index; open diamonds, co-varying ions not included in the index. (b) Contamination index by group (Mann–Whitney U test).
 
-**Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs). Dashed line, FDR {fdr:.0%}.
+**Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
 **Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and MS/MS library match without isomeric ambiguity; MSI 3, formula-consistent without isomer-specific MS/MS. For compounds without a curated annotation, the MS-DIAL library match is given for transparency; ethyl 2-amino-5-methyl-3-thiophenecarboxylate is a synthetic building block and this annotation is considered implausible. All findings, including MSI level 4, are listed in Table S1.
 
@@ -590,12 +619,20 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
     d = tab.reset_index(drop=True)
     d["srank"] = d.status.map({"quantified": 0, "failed QC RSD filter": 1, "below detection filter": 2, "not detected": 3})
     order = d.sort_values(["srank", "marker", "candidate"], ascending=[False, True, False]).index
-    fig, ax = plt.subplots(figsize=(FULL * 0.55, 0.42 * CM * len(d) + 2.4 * CM))
-    for y, i in enumerate(order):
+    labs, hts = [], []
+    for i in order:     # название переносится, координаты (m/z, RT) — отдельной строкой; высота строки по числу строк
         r = d.loc[i]
         cand = f" [{int(r.candidate)}/{int(r.n_candidates)}, {r.rt_obs:.2f} min]" if r.n_candidates > 1 else ""
-        lab = f"{r.marker[:30]} ({r.mz:.4f}, {r.rt_min:.2f}){cand}"
-        ax.text(-0.02, y, lab, transform=ax.get_yaxis_transform(), ha="right", va="center", fontsize=6)
+        lines = textwrap.wrap(str(r.marker), 40, break_on_hyphens=True)
+        coord = f"({r.mz:.4f}, {r.rt_min:.2f}){cand}"
+        lines = lines[:-1] + [f"{lines[-1]} {coord}"] if len(lines) == 1 and len(lines[-1]) + len(coord) <= 48 else lines + [coord]
+        labs.append("\n".join(lines))
+        hts.append(1 + 0.45 * (len(lines) - 1))
+    ys = np.cumsum([0] + [(a + b) / 2 for a, b in zip(hts[:-1], hts[1:])])
+    fig, ax = plt.subplots(figsize=(FULL * 0.55, 0.42 * CM * sum(hts) + 2.4 * CM))
+    for y, i, lab in zip(ys, order, labs):
+        r = d.loc[i]
+        ax.text(-0.02, y, lab, transform=ax.get_yaxis_transform(), ha="right", va="center", fontsize=6, linespacing=1.05)
         if r.status == "quantified":
             col = COL["BC"] if r.nominal else "#bdbcb8"
             ax.scatter(r.log2FC, y, s=26, c=col, marker="o", edgecolor=INK2, lw=0.5, zorder=3)
@@ -605,7 +642,7 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
                     transform=ax.get_yaxis_transform())
     ax.axvline(0, c=GRID, lw=0.8)
     ax.set_yticks([])
-    ax.set_ylim(-0.7, len(d) - 0.3)
+    ax.set_ylim(-0.7, ys[-1] + hts[-1] / 2 + 0.2)
     ax.set_xlabel("log$_2$ fold change BC/Control in the independent cohort (unadjusted)")
     ax.spines["left"].set_visible(False)
     q = summ.iloc[0]
@@ -654,7 +691,7 @@ def main():
     nm = names_en(feat, cur, msi)
     fig1_quality(out, meta, L, feat, X_all)
     fig2_contamination(out, meta, series)
-    fig3_volcano(out, stats_, nm)
+    fig3_volcano(out, stats_, nm, msi)
     fig4_heatmap(out, L, meta, stats_["BC_vs_Control"], nm)
     fig5_roc(out, L, meta, feat, mv, pairs)
     fig6_box(out, L, meta, stats_["BC_vs_Control"], nm, msi)

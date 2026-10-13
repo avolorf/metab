@@ -8,7 +8,7 @@
 
 **Figure 2.** Plastic-derived surfactant contamination. (a) Homologous series of alkyl diethanolamines and their oxygenated/ethoxylated analogues ([M+H]+) used to build the contamination index; open diamonds, co-varying ions not included in the index. (b) Contamination index by group (Mann–Whitney U test).
 
-**Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs). Dashed line, FDR 5%.
+**Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs); dashed line, FDR 5%. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
 **Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within 5 ppm of the curated formula and MS/MS library match without isomeric ambiguity; MSI 3, formula-consistent without isomer-specific MS/MS. For compounds without a curated annotation, the MS-DIAL library match is given for transparency; ethyl 2-amino-5-methyl-3-thiophenecarboxylate is a synthetic building block and this annotation is considered implausible. All findings, including MSI level 4, are listed in Table S1.
 
