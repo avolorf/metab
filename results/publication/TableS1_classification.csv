@@ -1,0 +1,13 @@
+comparison,set,model,n_case,n_ref,AUC_mean,AUC_sd,Q2,perm_p
+BC_vs_Control,all,Top-5 panel + logistic regression (in-fold selection),29,45,0.809,0.03,0.269,0.001
+BC_vs_Control,all,"PLS-DA, 2 components (all non-exposure compounds)",29,45,0.831,0.023,0.338,0.001
+BC_vs_Control,matched,Top-5 panel + logistic regression (in-fold selection),8,8,0.511,0.113,-0.424,0.467
+BC_vs_Control,matched,"PLS-DA, 2 components (all non-exposure compounds)",8,8,0.454,0.058,-0.19,0.505
+BC_vs_PC,all,Top-5 panel + logistic regression (in-fold selection),29,20,0.858,0.036,0.375,0.002
+BC_vs_PC,all,"PLS-DA, 2 components (all non-exposure compounds)",29,20,0.72,0.034,0.124,0.011
+BC_vs_PC,matched,Top-5 panel + logistic regression (in-fold selection),14,14,0.845,0.047,0.325,0.007
+BC_vs_PC,matched,"PLS-DA, 2 components (all non-exposure compounds)",14,14,0.766,0.033,0.221,0.026
+PC_vs_Control,all,Top-5 panel + logistic regression (in-fold selection),20,45,0.714,0.058,0.046,0.015
+PC_vs_Control,all,"PLS-DA, 2 components (all non-exposure compounds)",20,45,0.784,0.036,0.231,0.004
+PC_vs_maleControl,all,Top-5 panel + logistic regression (in-fold selection),20,18,0.77,0.06,0.175,0.015
+PC_vs_maleControl,all,"PLS-DA, 2 components (all non-exposure compounds)",20,18,0.775,0.045,0.232,0.009

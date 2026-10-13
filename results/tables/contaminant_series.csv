@@ -1,0 +1,15 @@
+feature,label,formula,ion,rt_min,mz,ppm,in_index
+13.646_274.27405_Lauryldiethanolamine,C12-DEA,C16H35NO2,[M+H]+,13.646,274.27405,-0.02,1
+12.284_290.2692_Unknown,C12-DEA+O,C16H35NO3,[M+H]+,12.284,290.2692,0.79,1
+"15.002_302.30563_2,2'-(Tetradecylimino)diethanol",C14-DEA,C18H39NO2,[M+H]+,15.002,302.30563,0.91,1
+"13.729_318.3002_low score: Phytosphingosine (not validated, isomer of 1696)",C14-DEA+O,C18H39NO3,[M+H]+,13.729,318.3002,-0.22,1
+"15.065_346.33188_low score: icos-19-ene-1,2,4-triol",C16-DEA+O,C20H43NO3,[M+H]+,15.065,346.33188,0.89,1
+13.807_362.32672_Unknown,C14-DEA+C2H4O2,C20H43NO4,[M+H]+,13.807,362.32672,0.65,1
+"16.281_374.36337_low score: 21-Amino-3,20-dihydroxydocosan-2-yl hexopyranoside",C18-DEA+O,C22H47NO3,[M+H]+,16.281,374.36337,1.34,1
+"16.36_374.36331_low score: 21-Amino-3,20-dihydroxydocosan-2-yl hexopyranoside",C18-DEA+O isomer,C22H47NO3,[M+H]+,16.36,374.36331,1.17,1
+17.06_402.39432_Unknown,C20-DEA+O,C24H51NO3,[M+H]+,17.06,402.39432,0.37,1
+13.828_406.35327_Unknown,C14-DEA+(C2H4O)2+O,C22H47NO5,[M+H]+,13.828,406.35327,1.4,1
+"10.584_262.23807_low score: 2-(Dipentylamino)-2-(hydroxymethyl)-1,3-propanediol",alkylaminopropanediol,C14H31NO3,[M+H]+,10.584,262.23807,1.53,0
+"14.183_415.21213_low score: NCGC00180384-03_C22H32O6_(1S,2R,4aR,8aR)-1-Acetoxy-7-isopropylidene-1,4a-dimethyl-6-oxodecahydro-2-naphthalenyl 2,3-dimethyl-2-oxiranecarboxylate",C24H30O6,C24H30O6,[M+H]+,14.183,415.21213,1.48,0
+"15.143_415.21213_low score: NCGC00347704-02_C24H32O7_2H-Oxireno[1,10a]phenanthro[3,2-b]furan-10(11bH)-one, 5,7-bis(acetyloxy)-3,3a,4,5,6,7,7a,7b,8,8a-decahydro-4,4,7a,11-tetramethyl-, (1aS,3aR,5S,7S,7aR,7bS,8aR,11bR)-",C24H30O6,C24H30O6,[M+H]+,15.143,415.21213,1.48,0
+"15.155_437.194_low score: NCGC00381156-01_C24H30O6_Methyl 3-[(1E,3E)-3,5-dimethyl-1,3-heptadien-1-yl]-8-hydroxy-6a,8-dimethyl-6-oxo-6a,8,9,9a-tetrahydro-6H-furo[2,3-h]isochromene-9-carboxylate",C24H30O6 Na,C24H30O6,[M+Na]+,15.155,437.194,1.24,0

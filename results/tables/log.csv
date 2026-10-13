@@ -1,0 +1,85 @@
+log
+"Таблица: 106 инъекций (6 QC, 0 бланков), 14693 признаков; дублированных строк удалено: 2"
+"Метаданные: metadata/metadata.csv; включено 94: Control 45, BC 29, PC 20"
+Исключены: 3 (рак почки (вне дизайна)); 18 (рак поджелудочной железы (вне дизайна)); 42 (множественные опухоли (РПЖ + РМП + рак кожи)); 45 (рак почки (вне дизайна)); 53 (рак почки (вне дизайна)); 93 (рак поджелудочной железы (вне дизайна))
+"
+Возраст и пол по группам:
+  group  n  male  female  sex_unknown  age_n  age_missing  age_mean  age_sd  age_median  age_min  age_max  male_age_ge60
+Control 45    18      25            2     23           22      50.9    15.5        56.0     25.0     71.0              3
+     BC 29    24       5            0     28            1      63.0     9.8        63.0     41.0     78.0             16
+     PC 20    20       0            0     15            5      71.1     6.7        70.0     62.0     86.0             15"
+"                                      test        p
+        возраст, Краскел–Уоллис (3 группы) 3.07e-05
+         возраст BC vs Control, Манн–Уитни  0.00636
+     пол BC vs Control, точный тест Фишера  0.00064
+         возраст PC vs Control, Манн–Уитни 1.46e-05
+     пол PC vs Control, точный тест Фишера 3.19e-06
+              возраст BC vs PC, Манн–Уитни   0.0142
+          пол BC vs PC, точный тест Фишера   0.0704
+возраст PC vs мужчины-контроли, Манн–Уитни  0.00373"
+"Фильтр детекции (QC ≥ 80%, ≥ 50% хотя бы в одной группе): 14693 → 8867"
+Бланки в таблице отсутствуют — фильтр по бланкам НЕ применён (нужны холостые пробы).
+"Фильтр RSD_QC ≤ 30% (без коррекции дрейфа): 8867 → 7403. Медианный RSD в QC: 10.4% до RSD-фильтра, 8.6% после"
+"Дрейф: leave-one-QC-out median |Δlog2| без коррекции 0.081, LOWESS 0.074. Коррекция: none"
+Нормализация PQN (референс — медианный спектр QC): факторы образцов 0.06–2.13
+"Нормализация MSTUS (1900 признаков, обнаруженных во всех пробах): факторы образцов 0.14–5.00"
+Основная нормализация: PQN. Импутировано 11.8% значений (½ минимума признака)
+"Пробы с PQN-фактором < 0.2: 13, 17, 23, 29, 36, 39, 40 — требуют просмотра хроматограмм; ниже — анализ чувствительности без них"
+"
+Группировка признаков (ΔRT ≤ 0.02 мин, ρ ≥ 0.8): 7403 признаков → 5792 соединений; многоионных соединений 718"
+Индекс загрязнения: 10 признаков ряда диэтаноламинов; граница high/low = 0.03 (медиана)
+"  средний индекс: Control -0.37, BC -0.02, PC +0.87"
+"Категории соединений: putative (low score) 4521, annotated (high score) 551, possible drug (low score) 250, unknown 164, possible food (low score) 108, drug 94, food 60, endogenous 16, contaminant 13, ambiguous 6, tobacco 5, possible tobacco (low score) 4"
+"
+Одномерная статистика (уровень соединений):
+       comparison  n_case  n_ref     model_covariates  model_n_case  model_n_ref  matched_pairs  n_ref_lowindex  n_ref_highindex  n_q_model  n_findings
+    BC_vs_Control      29     45 sex+age+contam_index            28           23              8            31.0             14.0         70          34
+         BC_vs_PC      29     20 sex+age+contam_index            28           15             14             NaN              NaN          0           0
+    PC_vs_Control      20     45 sex+age+contam_index            15           23              3            31.0             14.0          0           0
+PC_vs_maleControl      20     18     age+contam_index            15            7              3            16.0              2.0          0           0"
+Признаки «есть/нет» (детекция <50% в одной группе и ≥80% в другой): 41
+"
+Чувствительность (PQN vs MSTUS; без проб с низким фактором разведения):
+       comparison  q<FDR_PQN  q<FDR_MSTUS  overlap  jaccard  findings_PQN  findings_MSTUS  findings_overlap  rho_log2FC  log2FC_shift  q_without_lowdilution  overlap_with_main  findings_without_lowdilution  findings_overlap_main
+    BC_vs_Control         70           19       19     0.27            34              14                12         1.0          0.03                    162                 68                            81                     29
+         BC_vs_PC          0            0        0     0.00             0               0                 0         1.0          0.05                      2                  0                             2                      0
+    PC_vs_Control          0            0        0     0.00             0               0                 0         1.0          0.11                      0                  0                             0                      0
+PC_vs_maleControl          0            0        0     0.00             0               0                 0         1.0         -0.03                      0                  0                             0                      0"
+"
+Пул для моделей (без контаминантов, пищи, лекарств): 5366 соединений"
+"
+Многомерные модели (повторная CV, отбор признаков внутри фолдов):
+       comparison     set                                                    model  n_case  n_ref  n_features  AUC_mean  AUC_sd  AUC_p5  AUC_p95     Q2  perm_p  n_perm
+    BC_vs_Control     all панель top-5 + логистическая регрессия (отбор внутри CV)      29     45      5366.0     0.809   0.030   0.768    0.861  0.269   0.001  1000.0
+    BC_vs_Control     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      29     45      5366.0     0.831   0.023   0.798    0.862  0.338   0.001  1000.0
+    BC_vs_Control     all                  только sex (базовая линия; выше у case)      29     43         NaN     0.704     NaN     NaN      NaN    NaN     NaN     NaN
+    BC_vs_Control     all         только contam_index (базовая линия; выше у case)      29     45         NaN     0.628     NaN     NaN      NaN    NaN     NaN     NaN
+    BC_vs_Control matched панель top-5 + логистическая регрессия (отбор внутри CV)       8      8      5366.0     0.511   0.113   0.373    0.735 -0.424   0.467  1000.0
+    BC_vs_Control matched       PLS-DA, 2 компоненты (все признаки без экспозиций)       8      8      5366.0     0.454   0.058   0.373    0.532 -0.190   0.505  1000.0
+    BC_vs_Control matched                  только sex (базовая линия; выше у case)       8      8         NaN     0.500     NaN     NaN      NaN    NaN     NaN     NaN
+    BC_vs_Control matched         только contam_index (базовая линия; ниже у case)       8      8         NaN     0.578     NaN     NaN      NaN    NaN     NaN     NaN
+         BC_vs_PC     all панель top-5 + логистическая регрессия (отбор внутри CV)      29     20      5366.0     0.858   0.036   0.782    0.895  0.375   0.002  1000.0
+         BC_vs_PC     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      29     20      5366.0     0.720   0.034   0.669    0.764  0.124   0.011  1000.0
+         BC_vs_PC     all                  только sex (базовая линия; ниже у case)      29     20         NaN     0.586     NaN     NaN      NaN    NaN     NaN     NaN
+         BC_vs_PC     all         только contam_index (базовая линия; ниже у case)      29     20         NaN     0.803     NaN     NaN      NaN    NaN     NaN     NaN
+         BC_vs_PC matched панель top-5 + логистическая регрессия (отбор внутри CV)      14     14      5366.0     0.845   0.047   0.785    0.908  0.325   0.007  1000.0
+         BC_vs_PC matched       PLS-DA, 2 компоненты (все признаки без экспозиций)      14     14      5366.0     0.766   0.033   0.723    0.817  0.221   0.026  1000.0
+         BC_vs_PC matched         только contam_index (базовая линия; ниже у case)      14     14         NaN     0.801     NaN     NaN      NaN    NaN     NaN     NaN
+    PC_vs_Control     all панель top-5 + логистическая регрессия (отбор внутри CV)      20     45      5366.0     0.714   0.058   0.640    0.798  0.046   0.015  1000.0
+    PC_vs_Control     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      20     45      5366.0     0.784   0.036   0.719    0.829  0.231   0.004  1000.0
+    PC_vs_Control     all                  только sex (базовая линия; выше у case)      20     43         NaN     0.791     NaN     NaN      NaN    NaN     NaN     NaN
+    PC_vs_Control     all         только contam_index (базовая линия; выше у case)      20     45         NaN     0.866     NaN     NaN      NaN    NaN     NaN     NaN
+    PC_vs_Control matched                                    недостаточно образцов       3      3         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
+PC_vs_maleControl     all панель top-5 + логистическая регрессия (отбор внутри CV)      20     18      5366.0     0.770   0.060   0.677    0.842  0.175   0.015  1000.0
+PC_vs_maleControl     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      20     18      5366.0     0.775   0.045   0.705    0.834  0.232   0.009  1000.0
+PC_vs_maleControl     all         только contam_index (базовая линия; выше у case)      20     18         NaN     0.939     NaN     NaN      NaN    NaN     NaN     NaN
+PC_vs_maleControl matched                                    недостаточно образцов       3      3         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN"
+"
+Курированные кандидаты: 30 с массой ≤5.0 ppm; 9 вынесены на лист candidates_mass_mismatch"
+"Находки (правило в README): BC_vs_Control 34, BC_vs_PC 0, PC_vs_Control 0, PC_vs_maleControl 0"
+"
+Пути (mummichog, без экспозиций, BH по путям):
+   comparison  n_features  n_significant  p_cutoff  excluded_exposure_features  permutations  n_pathways_p05  n_pathways_q05
+BC_vs_Control        7157            716  0.018637                         246           500               3               0
+     BC_vs_PC        7157            716  0.050135                         246           500               5               0
+PC_vs_Control        7157            716  0.046811                         246           500               7               1"

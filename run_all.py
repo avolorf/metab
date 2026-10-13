@@ -302,6 +302,9 @@ def main():
                 sheets[k].to_csv(out / "tables" / f"{k}.csv", index=not isinstance(sheets[k].index, pd.RangeIndex))
     L.T.join(info).to_csv(out / "tables" / "processed_log2_matrix.csv")
     (out / "log.txt").write_text("\n".join(log_lines), encoding="utf-8")
+    import subprocess
+    import sys
+    subprocess.run([sys.executable, "make_figures.py", "--res", str(out), "--data", a.data], check=True)
     print(f"\nГотово → {out}")
 
 

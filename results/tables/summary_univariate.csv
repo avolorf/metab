@@ -1,0 +1,5 @@
+comparison,n_case,n_ref,model_covariates,model_n_case,model_n_ref,matched_pairs,n_ref_lowindex,n_ref_highindex,n_q_model,n_findings
+BC_vs_Control,29,45,sex+age+contam_index,28,23,8,31.0,14.0,70,34
+BC_vs_PC,29,20,sex+age+contam_index,28,15,14,,,0,0
+PC_vs_Control,20,45,sex+age+contam_index,15,23,3,31.0,14.0,0,0
+PC_vs_maleControl,20,18,age+contam_index,15,7,3,16.0,2.0,0,0

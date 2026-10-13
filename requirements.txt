@@ -5,3 +5,8 @@ scipy
 scikit-learn
 statsmodels
 matplotlib
+seaborn
+joblib
+mummichog
+adjustText
+pillow
