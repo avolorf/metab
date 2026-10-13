@@ -45,40 +45,44 @@ PC_vs_maleControl      20     18     age+contam_index            15            7
     PC_vs_Control          0            0        0     0.00             0               0                 0         1.0          0.11                      0                  0                             0                      0
 PC_vs_maleControl          0            0        0     0.00             0               0                 0         1.0         -0.03                      0                  0                             0                      0
 
-Пул для моделей (без контаминантов, пищи, лекарств): 5366 соединений
+Пул для моделей: 5351 соединений (исключены до CV: экспозиции 426, |ρ с индексом загрязнения| ≥ 0.5 ещё 15: unknown 244.1294@1.76*, unknown 246.2428@12.16, unknown 261.0983@0.85*, unknown 277.0931@0.60*, unknown 334.2956@13.77, Erucamide 338.3419@19.65, unknown 349.1393@8.70*, unknown 365.2879@18.64*, unknown 380.1920@11.37*, unknown 386.2387@9.85*, unknown 462.2333@9.56*, unknown 531.2749@18.07*, unknown 533.3411@10.44*, unknown 577.3670@10.59*, unknown 654.3327@18.11*)
 
 Многомерные модели (повторная CV, отбор признаков внутри фолдов):
-       comparison     set                                                    model  n_case  n_ref  n_features  AUC_mean  AUC_sd  AUC_p5  AUC_p95     Q2  perm_p  n_perm
-    BC_vs_Control     all панель top-5 + логистическая регрессия (отбор внутри CV)      29     45      5366.0     0.809   0.030   0.768    0.861  0.269   0.001  1000.0
-    BC_vs_Control     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      29     45      5366.0     0.831   0.023   0.798    0.862  0.338   0.001  1000.0
-    BC_vs_Control     all                  только sex (базовая линия; выше у case)      29     43         NaN     0.704     NaN     NaN      NaN    NaN     NaN     NaN
-    BC_vs_Control     all         только contam_index (базовая линия; выше у case)      29     45         NaN     0.628     NaN     NaN      NaN    NaN     NaN     NaN
-    BC_vs_Control matched панель top-5 + логистическая регрессия (отбор внутри CV)       8      8      5366.0     0.511   0.113   0.373    0.735 -0.424   0.467  1000.0
-    BC_vs_Control matched       PLS-DA, 2 компоненты (все признаки без экспозиций)       8      8      5366.0     0.454   0.058   0.373    0.532 -0.190   0.505  1000.0
-    BC_vs_Control matched                  только sex (базовая линия; выше у case)       8      8         NaN     0.500     NaN     NaN      NaN    NaN     NaN     NaN
-    BC_vs_Control matched         только contam_index (базовая линия; ниже у case)       8      8         NaN     0.578     NaN     NaN      NaN    NaN     NaN     NaN
-         BC_vs_PC     all панель top-5 + логистическая регрессия (отбор внутри CV)      29     20      5366.0     0.858   0.036   0.782    0.895  0.375   0.002  1000.0
-         BC_vs_PC     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      29     20      5366.0     0.720   0.034   0.669    0.764  0.124   0.011  1000.0
-         BC_vs_PC     all                  только sex (базовая линия; ниже у case)      29     20         NaN     0.586     NaN     NaN      NaN    NaN     NaN     NaN
-         BC_vs_PC     all         только contam_index (базовая линия; ниже у case)      29     20         NaN     0.803     NaN     NaN      NaN    NaN     NaN     NaN
-         BC_vs_PC matched панель top-5 + логистическая регрессия (отбор внутри CV)      14     14      5366.0     0.845   0.047   0.785    0.908  0.325   0.007  1000.0
-         BC_vs_PC matched       PLS-DA, 2 компоненты (все признаки без экспозиций)      14     14      5366.0     0.766   0.033   0.723    0.817  0.221   0.026  1000.0
-         BC_vs_PC matched         только contam_index (базовая линия; ниже у case)      14     14         NaN     0.801     NaN     NaN      NaN    NaN     NaN     NaN
-    PC_vs_Control     all панель top-5 + логистическая регрессия (отбор внутри CV)      20     45      5366.0     0.714   0.058   0.640    0.798  0.046   0.015  1000.0
-    PC_vs_Control     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      20     45      5366.0     0.784   0.036   0.719    0.829  0.231   0.004  1000.0
-    PC_vs_Control     all                  только sex (базовая линия; выше у case)      20     43         NaN     0.791     NaN     NaN      NaN    NaN     NaN     NaN
-    PC_vs_Control     all         только contam_index (базовая линия; выше у case)      20     45         NaN     0.866     NaN     NaN      NaN    NaN     NaN     NaN
-    PC_vs_Control matched                                    недостаточно образцов       3      3         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
-PC_vs_maleControl     all панель top-5 + логистическая регрессия (отбор внутри CV)      20     18      5366.0     0.770   0.060   0.677    0.842  0.175   0.015  1000.0
-PC_vs_maleControl     all       PLS-DA, 2 компоненты (все признаки без экспозиций)      20     18      5366.0     0.775   0.045   0.705    0.834  0.232   0.009  1000.0
-PC_vs_maleControl     all         только contam_index (базовая линия; выше у case)      20     18         NaN     0.939     NaN     NaN      NaN    NaN     NaN     NaN
-PC_vs_maleControl matched                                    недостаточно образцов       3      3         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
+       comparison     set                                                                     model  n_case  n_ref  n_features  AUC_mean  AUC_sd  AUC_p5  AUC_p95     Q2  perm_p  n_perm
+    BC_vs_Control     all                  панель top-5 + логистическая регрессия (отбор внутри CV)      29     45      5351.0     0.808   0.031   0.767    0.861  0.267   0.001  1000.0
+    BC_vs_Control     all панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      29     45      5351.0     0.775   0.046   0.714    0.837  0.194   0.002  1000.0
+    BC_vs_Control     all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      29     45      5351.0     0.830   0.023   0.796    0.862  0.337   0.001  1000.0
+    BC_vs_Control     all                                   только sex (базовая линия; выше у case)      29     43         NaN     0.704     NaN     NaN      NaN    NaN     NaN     NaN
+    BC_vs_Control     all                          только contam_index (базовая линия; выше у case)      29     45         NaN     0.628     NaN     NaN      NaN    NaN     NaN     NaN
+    BC_vs_Control matched                                          не оценивается: 8 < 10 на группу       8      8         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
+         BC_vs_PC     all                  панель top-5 + логистическая регрессия (отбор внутри CV)      29     20      5351.0     0.857   0.036   0.782    0.895  0.375   0.002  1000.0
+         BC_vs_PC     all панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      29     20      5351.0     0.634   0.073   0.534    0.737 -0.078   0.113  1000.0
+         BC_vs_PC     all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      29     20      5351.0     0.720   0.034   0.673    0.765  0.121   0.011  1000.0
+         BC_vs_PC     all                                   только sex (базовая линия; ниже у case)      29     20         NaN     0.586     NaN     NaN      NaN    NaN     NaN     NaN
+         BC_vs_PC     all                          только contam_index (базовая линия; ниже у case)      29     20         NaN     0.803     NaN     NaN      NaN    NaN     NaN     NaN
+         BC_vs_PC matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      14     14      5351.0     0.842   0.047   0.790    0.909  0.323   0.008  1000.0
+         BC_vs_PC matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      14     14      5351.0     0.672   0.067   0.565    0.771 -0.008   0.111  1000.0
+         BC_vs_PC matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      14     14      5351.0     0.766   0.033   0.723    0.817  0.220   0.026  1000.0
+         BC_vs_PC matched                          только contam_index (базовая линия; ниже у case)      14     14         NaN     0.801     NaN     NaN      NaN    NaN     NaN     NaN
+    PC_vs_Control     all                  панель top-5 + логистическая регрессия (отбор внутри CV)      20     45      5351.0     0.537   0.061   0.460    0.601 -0.349   0.354  1000.0
+    PC_vs_Control     all панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      20     45      5351.0     0.736   0.066   0.593    0.816  0.138   0.012  1000.0
+    PC_vs_Control     all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      20     45      5351.0     0.780   0.036   0.709    0.824  0.226   0.004  1000.0
+    PC_vs_Control     all                                   только sex (базовая линия; выше у case)      20     43         NaN     0.791     NaN     NaN      NaN    NaN     NaN     NaN
+    PC_vs_Control     all                          только contam_index (базовая линия; выше у case)      20     45         NaN     0.866     NaN     NaN      NaN    NaN     NaN     NaN
+    PC_vs_Control matched                                          не оценивается: 3 < 10 на группу       3      3         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
+PC_vs_maleControl     all                  панель top-5 + логистическая регрессия (отбор внутри CV)      20     18      5351.0     0.623   0.055   0.528    0.721 -0.184   0.130  1000.0
+PC_vs_maleControl     all панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      20     18      5351.0     0.614   0.061   0.508    0.695 -0.042   0.166  1000.0
+PC_vs_maleControl     all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      20     18      5351.0     0.771   0.045   0.700    0.831  0.225   0.010  1000.0
+PC_vs_maleControl     all                          только contam_index (базовая линия; выше у case)      20     18         NaN     0.939     NaN     NaN      NaN    NaN     NaN     NaN
+PC_vs_maleControl matched                                          не оценивается: 3 < 10 на группу       3      3         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
 
 Курированные кандидаты: 30 с массой ≤5.0 ppm; 9 вынесены на лист candidates_mass_mismatch
 Находки (правило в README): BC_vs_Control 34, BC_vs_PC 0, PC_vs_Control 0, PC_vs_maleControl 0
 
+Сверка с маркерами: файл curation/prior_markers.csv не найден — раздел пропущен (шаблон: curation/prior_markers_template.csv)
+
 Пути (mummichog, без экспозиций, BH по путям):
    comparison  n_features  n_significant  p_cutoff  excluded_exposure_features  permutations  n_pathways_p05  n_pathways_q05
 BC_vs_Control        7157            716  0.018637                         246           500               3               0
-     BC_vs_PC        7157            716  0.050135                         246           500               5               0
-PC_vs_Control        7157            716  0.046811                         246           500               7               1
+     BC_vs_PC        7157            716  0.050135                         246           500               4               0
+PC_vs_Control        7157            716  0.046811                         246           500               7               0

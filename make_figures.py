@@ -296,9 +296,9 @@ def fig5_roc(out, L, meta, feat, mv, pairs):
         k = keys.index(c)
         case, ref = st.comparison_sets(meta, C.COMPARISONS[c])
         pr = pairs[pairs.comparison == c]
-        runs = [("all", "panel", case, ref, "-", "All"), ("all", "panel_adj", case, ref, "-.", "Contamination-adjusted")]
+        runs = [("all", "panel", case, ref, "-", "All"), ("all", "panel_adj", case, ref, "-.", "Contam.-adjusted")]
         if len(pr) >= C.MIN_PAIRS_CV:
-            runs.append(("matched", "panel", list(pr.case), list(pr.ref), "--", f"Age-matched, {len(pr)} pairs"))
+            runs.append(("matched", "panel", list(pr.case), list(pr.ref), "--", f"Age-matched ({len(pr)} pairs)"))
         else:
             ax.text(0.97, 0.03, f"Age-matched: {len(pr)} pairs\n(< {C.MIN_PAIRS_CV}, not estimated)", transform=ax.transAxes,
                     ha="right", va="bottom", fontsize=5.5, color=INK2)
@@ -314,7 +314,7 @@ def fig5_roc(out, L, meta, feat, mv, pairs):
             if sname == "all" and method == "panel":
                 ax.fill_between(multivariate.FPR, np.percentile(tprs, 10, 0), np.percentile(tprs, 90, 0), color=col, alpha=0.15, lw=0)
             ax.plot(multivariate.FPR, tprs.mean(0), c=col if method == "panel" else INK, ls=ls, lw=1.4 if method == "panel" else 1.0,
-                    label=f"{lab}: AUC {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(p)}")
+                    label=f"{lab}: {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(p)}")
         y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
         for cov, colr, nmc in [("contam_index", EXPO_COL["contaminant"], "Contamination index only"),
                                ("sex", INK2, "Sex only")]:
@@ -325,10 +325,10 @@ def fig5_roc(out, L, meta, feat, mv, pairs):
                 from sklearn.metrics import roc_auc_score, roc_curve
                 a = roc_auc_score(y[m], v[m])
                 fpr, tpr, _ = roc_curve(y[m], v[m] if a >= 0.5 else -v[m])
-                ax.plot(fpr, tpr, c=colr, ls=":", lw=1, label=f"{nmc}: AUC {max(a, 1 - a):.2f}")
+                ax.plot(fpr, tpr, c=colr, ls=":", lw=1, label=f"{nmc}: {max(a, 1 - a):.2f}")
         
         ax.plot([0, 1], [0, 1], c=GRID, lw=0.6)
-        ax.set(xlabel="1 − specificity", ylabel="Sensitivity", title=t, xlim=(-0.01, 1.01), ylim=(-0.01, 1.01), aspect="equal")
+        ax.set(xlabel="1 − specificity", ylabel="Sensitivity", title=f"{t} (AUC)", xlim=(-0.01, 1.01), ylim=(-0.01, 1.01), aspect="equal")
         ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22), fontsize=5.3, handlelength=1.8)
         panel(ax, "abc"[n], x=-0.25)
     save(fig, out, "Figure5_ROC_cross_validated")

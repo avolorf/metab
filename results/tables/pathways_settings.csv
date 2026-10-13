@@ -1,4 +1,4 @@
 comparison,n_features,n_significant,p_cutoff,excluded_exposure_features,permutations,n_pathways_p05,n_pathways_q05
 BC_vs_Control,7157,716,0.018637175402989637,246,500,3,0
-BC_vs_PC,7157,716,0.05013460075886602,246,500,5,0
-PC_vs_Control,7157,716,0.04681105181571149,246,500,7,1
+BC_vs_PC,7157,716,0.05013460075886602,246,500,4,0
+PC_vs_Control,7157,716,0.04681105181571149,246,500,7,0
