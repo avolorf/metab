@@ -20,14 +20,24 @@ def pareto_fit(X):
     return mu, sd
 
 
-def cv_predict(X, y, method, seed):
-    """Одна 5-fold CV. method: 'panel' (top-k Манн–Уитни в фолде + логистическая регрессия) | 'plsda'."""
+def residualize(Xtr, Xte, ztr, zte):
+    """Убирает линейную связь признаков с ковариатой z; коэффициенты — только по обучающему фолду."""
+    zc = ztr - ztr.mean()
+    beta = (zc @ (Xtr - Xtr.mean(0))) / (zc @ zc)
+    return Xtr - np.outer(zc, beta), Xte - np.outer(zte - ztr.mean(), beta)
+
+
+def cv_predict(X, y, method, seed, z=None):
+    """Одна 5-fold CV. method: 'panel' (top-k Манн–Уитни в фолде + логистическая регрессия) | 'plsda' |
+    'panel_adj' (как panel, но признаки предварительно скорректированы на ковариату z внутри фолда)."""
     skf = StratifiedKFold(C.CV_FOLDS, shuffle=True, random_state=seed)
     pred = np.zeros(len(y))
     chosen = []
     for tr, te in skf.split(X, y):
         Xtr, Xte = X[tr], X[te]
-        if method == "panel":
+        if method == "panel_adj":
+            Xtr, Xte = residualize(Xtr, Xte, z[tr], z[te])
+        if method in ("panel", "panel_adj"):
             p = stats.mannwhitneyu(Xtr[y[tr] == 1], Xtr[y[tr] == 0], axis=0).pvalue
             sel = np.argsort(p)[:C.PANEL_K]
             chosen.extend(sel)
@@ -41,11 +51,11 @@ def cv_predict(X, y, method, seed):
     return pred, chosen
 
 
-def repeated_cv(X, y, method, seed):
+def repeated_cv(X, y, method, seed, z=None):
     rng = np.random.RandomState(seed)
     aucs, tprs, chosen, q2 = [], [], [], []
     for _ in range(C.CV_REPEATS):
-        pred, ch = cv_predict(X, y, method, rng.randint(1e9))
+        pred, ch = cv_predict(X, y, method, rng.randint(1e9), z)
         aucs.append(roc_auc_score(y, pred))
         fpr, tpr, _ = roc_curve(y, pred)
         tprs.append(np.interp(FPR, fpr, tpr))
@@ -54,16 +64,16 @@ def repeated_cv(X, y, method, seed):
     return np.array(aucs), np.array(tprs), np.array(chosen, int), float(np.mean(q2))
 
 
-def _perm_one(X, y, method, seed):
+def _perm_one(X, y, method, seed, z=None):
     rng = np.random.RandomState(seed)
-    yp = rng.permutation(y)
-    pred, _ = cv_predict(X, yp, method, rng.randint(1e9))
+    yp = rng.permutation(y)          # z остаётся привязан к пробам
+    pred, _ = cv_predict(X, yp, method, rng.randint(1e9), z)
     return roc_auc_score(yp, pred)
 
 
-def perm_test(X, y, method, observed, seed, n_perm=C.N_PERM):
+def perm_test(X, y, method, observed, seed, n_perm=C.N_PERM, z=None):
     seeds = np.random.RandomState(seed).randint(1e9, size=n_perm)
-    null = Parallel(n_jobs=C.N_JOBS)(delayed(_perm_one)(X, y, method, s) for s in seeds)
+    null = Parallel(n_jobs=C.N_JOBS)(delayed(_perm_one)(X, y, method, s, z) for s in seeds)
     null = np.array(null)
     return (np.sum(null >= observed) + 1) / (n_perm + 1), null
 
@@ -87,11 +97,13 @@ def evaluate(L, meta, case, ref, pool, label, seed, names=None, n_perm=None):
     idx = case + ref
     y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
     X = L.loc[idx, pool].to_numpy()
+    z = meta.loc[idx, "contam_index"].to_numpy(float)
     rows, curves = [], {}
     for method, nm in [("panel", f"панель top-{C.PANEL_K} + логистическая регрессия (отбор внутри CV)"),
+                       ("panel_adj", f"панель top-{C.PANEL_K}, признаки скорректированы на индекс загрязнения внутри фолда"),
                        ("plsda", "PLS-DA, 2 компоненты (все признаки без экспозиций)")]:
-        aucs, tprs, chosen, q2 = repeated_cv(X, y, method, seed)
-        p, _ = perm_test(X, y, method, aucs.mean(), seed + 1, n_perm or C.N_PERM) if (n_perm or C.N_PERM) else (np.nan, None)
+        aucs, tprs, chosen, q2 = repeated_cv(X, y, method, seed, z)
+        p, _ = perm_test(X, y, method, aucs.mean(), seed + 1, n_perm or C.N_PERM, z) if (n_perm or C.N_PERM) else (np.nan, None)
         sel = ""
         if len(chosen):
             vc = pd.Series(chosen).value_counts().head(10)

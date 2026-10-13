@@ -183,15 +183,23 @@ def main():
     log("\nЧувствительность (PQN vs MSTUS; без проб с низким фактором разведения):\n" + ncs.round(2).to_string(index=False))
 
     # ------------------------------------------------------------ 5. многомерный анализ
-    pool = list(Lc.columns[~features.panel_excluded(comp_cat)])
-    log(f"\nПул для моделей (без контаминантов, пищи, лекарств): {len(pool)} соединений")
+    rho_ci = Lc.corrwith(meta.loc[study, "contam_index"], method="spearman")
+    feat_table["rho_contam_index"] = rho_ci.reindex(feat_table.index)
+    ex_cat = features.panel_excluded(comp_cat)
+    ex_rho = rho_ci.abs() >= C.PANEL_MAX_ABS_RHO_CONTAM
+    pool = list(Lc.columns[~ex_cat & ~ex_rho])
+    log(f"\nПул для моделей: {len(pool)} соединений (исключены до CV: экспозиции {int(ex_cat.sum())}, "
+        f"|ρ с индексом загрязнения| ≥ {C.PANEL_MAX_ABS_RHO_CONTAM} ещё {int((ex_rho & ~ex_cat).sum())}: "
+        + ", ".join(names[f] for f in Lc.columns[ex_rho & ~ex_cat]) + ")")
     mv_rows, curves = [], {}
     for k, (name, spec) in enumerate(C.COMPARISONS.items()):
         case, ref = st.comparison_sets(meta, spec)
         pr = pairs_all[k]
         for label, (cs, rf) in {"all": (case, ref), "matched": (list(pr.case), list(pr.ref))}.items():
-            if min(len(cs), len(rf)) < 2 * C.CV_FOLDS // 2 + 1:
-                mv_rows.append(dict(comparison=name, set=label, model="недостаточно образцов", n_case=len(cs), n_ref=len(rf)))
+            need = C.MIN_PAIRS_CV if label == "matched" else C.CV_FOLDS
+            if min(len(cs), len(rf)) < need:
+                mv_rows.append(dict(comparison=name, set=label, n_case=len(cs), n_ref=len(rf),
+                                    model=f"не оценивается: {min(len(cs), len(rf))} < {need} на группу"))
                 continue
             rows, cv = multivariate.evaluate(Lc, meta, cs, rf, pool, label, C.SEED + k, names)
             for r_ in rows:
@@ -245,6 +253,13 @@ def main():
     sheets["findings"] = findings
     log("Находки (правило в README): " + ", ".join(f"{n} {int(r.finding.sum())}" for n, r in res.items()))
 
+    # ------------------------------------------------------------ 6б. сверка с маркерами первого этапа / статьи ABC
+    from pipeline import replication
+    rep_tab, rep_sum = replication.run(C.PRIOR_MARKERS, info, groups, res, log)
+    if rep_tab is not None:
+        sheets["replication_markers"] = rep_tab
+        sheets["replication_summary"] = rep_sum
+
     # ------------------------------------------------------------ 7. пути (приложение)
     if C.RUN_PATHWAYS:
         from pipeline import pathways
@@ -292,6 +307,7 @@ def main():
     sheets["contaminant_series"] = series
     sheets["log"] = pd.DataFrame({"log": log_lines})
     order = ["log", "demographics", "demographics_tests", "summary_univariate", "findings", "multivariate_CV",
+             "replication_summary", "replication_markers",
              "normalization_sensitivity", "candidates_curated", "candidates_mass_mismatch", "low_dilution_samples",
              "presence_absence", "age_matched_pairs", "samples", "contaminant_series"] + \
             [f"stats_{n}" for n in C.COMPARISONS] + ["features", "pathways_appendix", "pathways_settings"]

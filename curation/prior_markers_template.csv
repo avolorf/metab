@@ -1,0 +1,3 @@
+source,marker,comparison,direction,mz,rt_min,ion,formula,hmdb,comment
+stage1,Example compound,BC_vs_Control,up,287.2007,11.06,[M+H-H2O]+,C19H28O3,,пример строки; скопируйте в prior_markers.csv
+ABC,Example compound 2,BC_vs_Control,down,181.0720,,[M+H]+,C7H8N4O2,HMDB0002825,RT пусто -> сопоставление только по m/z

@@ -287,30 +287,33 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
 def fig5_roc(out, L, meta, feat, mv, pairs):
     reps = feat.index[feat.is_representative.fillna(False).astype(bool)]
     cat = feat.loc[reps, "compound_category"].fillna("")
-    pool = list(reps[~features.panel_excluded(cat)])
+    rho = feat.loc[reps, "rho_contam_index"].abs()
+    pool = list(reps[~features.panel_excluded(cat) & ~(rho >= C.PANEL_MAX_ABS_RHO_CONTAM)])   # как в run_all.py
     comps = [("BC_vs_Control", "BC vs Control"), ("BC_vs_PC", "BC vs PC"), ("PC_vs_Control", "PC vs Control")]
     fig, axs = plt.subplots(1, 3, figsize=(FULL, 6.4 * CM), gridspec_kw={"wspace": 0.3})
     keys = list(C.COMPARISONS)
     for n, (ax, (c, t)) in enumerate(zip(axs, comps)):
         k = keys.index(c)
         case, ref = st.comparison_sets(meta, C.COMPARISONS[c])
-        sets = {"all": (case, ref)}
         pr = pairs[pairs.comparison == c]
-        if len(pr) >= C.CV_FOLDS:
-            sets["matched"] = (list(pr.case), list(pr.ref))
-        for sname, (cs, rf) in sets.items():
+        runs = [("all", "panel", case, ref, "-", "All"), ("all", "panel_adj", case, ref, "-.", "Contamination-adjusted")]
+        if len(pr) >= C.MIN_PAIRS_CV:
+            runs.append(("matched", "panel", list(pr.case), list(pr.ref), "--", f"Age-matched, {len(pr)} pairs"))
+        else:
+            ax.text(0.97, 0.03, f"Age-matched: {len(pr)} pairs\n(< {C.MIN_PAIRS_CV}, not estimated)", transform=ax.transAxes,
+                    ha="right", va="bottom", fontsize=5.5, color=INK2)
+        col = COL[C.COMPARISONS[c]["case"]]
+        for sname, method, cs, rf, ls, lab in runs:
             y = np.r_[np.ones(len(cs)), np.zeros(len(rf))].astype(int)
             X = L.loc[cs + rf, pool].to_numpy()
-            aucs, tprs, _, _ = multivariate.repeated_cv(X, y, "panel", C.SEED + k)
-            row = mv[(mv.comparison == c) & (mv.set == sname) & mv.model.str.startswith("панель")]
+            z = meta.loc[cs + rf, "contam_index"].to_numpy(float)
+            aucs, tprs, _, _ = multivariate.repeated_cv(X, y, method, C.SEED + k, z)
+            key = "скорректированы" if method == "panel_adj" else "логистическая"
+            row = mv[(mv.comparison == c) & (mv.set == sname) & mv.model.astype(str).str.contains(key)]
             p = row.perm_p.iloc[0] if len(row) else np.nan
-            lo, hi = np.percentile(tprs, 10, 0), np.percentile(tprs, 90, 0)
-            col = COL[C.COMPARISONS[c]["case"]]
-            ls = "-" if sname == "all" else "--"
-            if sname == "all":
-                ax.fill_between(multivariate.FPR, lo, hi, color=col, alpha=0.15, lw=0)
-            lab = "All" if sname == "all" else f"Age-matched, {len(cs)} pairs"
-            ax.plot(multivariate.FPR, tprs.mean(0), c=col, ls=ls, lw=1.4,
+            if sname == "all" and method == "panel":
+                ax.fill_between(multivariate.FPR, np.percentile(tprs, 10, 0), np.percentile(tprs, 90, 0), color=col, alpha=0.15, lw=0)
+            ax.plot(multivariate.FPR, tprs.mean(0), c=col if method == "panel" else INK, ls=ls, lw=1.4 if method == "panel" else 1.0,
                     label=f"{lab}: AUC {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(p)}")
         y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
         for cov, colr, nmc in [("contam_index", EXPO_COL["contaminant"], "Contamination index only"),
@@ -464,6 +467,7 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat):
     }).sort_values("q (adjusted model)")
     m = mv[mv.model.str.startswith(("панель", "PLS-DA"))].copy()
     m["model"] = m.model.str.replace(r"панель top-(\d+) \+ логистическая регрессия \(отбор внутри CV\)", r"Top-\1 panel + logistic regression (in-fold selection)", regex=True) \
+        .str.replace(r"панель top-(\d+), признаки скорректированы на индекс загрязнения внутри фолда", r"Top-\1 panel, features adjusted for contamination index in-fold", regex=True) \
         .str.replace(r"PLS-DA, 2 компоненты \(все признаки без экспозиций\)", "PLS-DA, 2 components (all non-exposure compounds)", regex=True)
     ts1 = m[["comparison", "set", "model", "n_case", "n_ref", "AUC_mean", "AUC_sd", "Q2", "perm_p"]].round(3)
     with pd.ExcelWriter(out / "Tables.xlsx") as w:
@@ -487,7 +491,7 @@ CAPTIONS = """# Figure captions (draft)
 
 **Figure 4.** Heatmap of bladder-cancer findings (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and contamination index.
 
-**Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Shaded band, 10th–90th percentile across repeats; p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex; contamination index).
+**Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs (shown only with ≥ {minp} pairs). p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex; contamination index).
 
 **Figure 6.** Top bladder-cancer findings across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
 
@@ -522,7 +526,7 @@ def main():
     tables(out, demo, demo_t, stats_, nm, cur, mv, feat)
     (out / "figure_captions.md").write_text(CAPTIONS.format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
-        cal=C.MATCH_CALIPER_YEARS, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM), encoding="utf-8")
+        cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM), encoding="utf-8")
     print(f"Публикационные рисунки и таблицы → {out}")
 
 
