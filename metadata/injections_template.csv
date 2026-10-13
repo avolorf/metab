@@ -1,0 +1,4 @@
+file,sample,batch,injection_order,type,comment
+QC_b1_01.raw,QC1_b1,1,1,QC,первый QC батча 1 (кондиционирование отметить в comment)
+blank_b1_01.raw,Blank1_b1,1,2,blank,вода/метанол по протоколу пробоподготовки
+S001.raw,1,1,3,sample,
