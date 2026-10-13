@@ -10,6 +10,7 @@
 Ширина: 17 см (полная полоса) / 8.5 см (колонка). Шрифт Liberation Sans (метрически = Arial), 7 pt.
 """
 import argparse
+import re
 import shutil
 from pathlib import Path
 
@@ -365,11 +366,10 @@ def fig5_roc(out, L, meta, feat, mv, pairs):
     save(fig, out, "Figure5_ROC_cross_validated")
 
 
-def fig6_box(out, L, meta, r, nm):
-    sel = r[r.finding.astype(bool) & r.compound_category.isin(["endogenous", "annotated (high score)"])]
-    if len(sel) < 8:
-        sel = pd.concat([sel, r[r.finding.astype(bool) & ~r.index.isin(sel.index)].sort_values("p_model")])
-    sel = sel.sort_values("p_model").head(8)
+def fig6_box(out, L, meta, r, nm, msi):
+    """Figure 4: те же соединения, что в Table 2 (находки MSI 2–3), по возрастанию q."""
+    sel = r[r.finding.astype(bool) & (msi.reindex(r.index) <= 3)]
+    sel = sel.sort_values("q_model").head(8)
     if not len(sel):
         return
     fig, axs = plt.subplots(2, 4, figsize=(FULL, 10 * CM), gridspec_kw={"hspace": 0.9, "wspace": 0.45})
@@ -382,7 +382,8 @@ def fig6_box(out, L, meta, r, nm):
                        alpha=0.85, zorder=3)
         ax.set_xticks(range(3), [LAB[g] for g in C.STUDY_GROUPS])
         name, tag = nm[f].split(", m/z")[0], "m/z" + nm[f].split(", m/z")[1] if ", m/z" in nm[f] else ""
-        ax.set_title(f"{name[:30]}\n{tag}\nq = {r.loc[f, 'q_model']:.1e}", fontsize=6)
+        name = re.sub(r" \((putatively[^)]*|MSI \d|putative)\)", "", name)
+        ax.set_title(f"{name[:26]}\nMSI {int(msi[f])}, {tag.replace(' min', '')} min\nq = {r.loc[f, 'q_model']:.1e}", fontsize=5.8)
         if k % 4 == 0:
             ax.set_ylabel("log$_2$ normalized intensity")
         panel(ax, "abcdefgh"[k], x=-0.3, y=1.2)
@@ -533,7 +534,7 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and MS/MS library match without isomeric ambiguity; MSI 3, formula-consistent without isomer-specific MS/MS. For compounds without a curated annotation, the MS-DIAL library match is given for transparency; ethyl 2-amino-5-methyl-3-thiophenecarboxylate is a synthetic building block and this annotation is considered implausible. All findings, including MSI level 4, are listed in Table S1.
 
-**Figure 4.** Top bladder-cancer findings across groups (log2 PQN-normalized intensities); annotated compounds first. q, FDR-adjusted p of the adjusted model (BC vs Control).
+**Figure 4.** Annotated bladder-cancer findings (MSI levels 2–3; the compounds of Table 2) across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
 
 **Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs (shown only with ≥ {minp} pairs). p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex; contamination index).
 
@@ -656,7 +657,7 @@ def main():
     fig3_volcano(out, stats_, nm)
     fig4_heatmap(out, L, meta, stats_["BC_vs_Control"], nm)
     fig5_roc(out, L, meta, feat, mv, pairs)
-    fig6_box(out, L, meta, stats_["BC_vs_Control"], nm)
+    fig6_box(out, L, meta, stats_["BC_vs_Control"], nm, msi)
     figS1_age(out, meta, pairs)
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
