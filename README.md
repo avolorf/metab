@@ -111,7 +111,7 @@ mummichog без экспозиций, p из основной модели, т�
   * глутаминилпролин и LysoPE(20:4) — то же направление, незначимо;
   * Leu-Thr-Ser — обратное направление.
 
-Воспроизведён 1 маркер из 14 — Val-Leu (Table 3, Figure 7).
+Воспроизведён 1 маркер из 14 — Val-Leu (Figure 6, Table S3).
 
 В Table 5 статьи есть несоответствия, их нужно проверить:
 * у N-ацетилтриптофана указан m/z 249.0923 вместо [M+H]⁺ 247.108;
@@ -119,7 +119,7 @@ mummichog без экспозиций, p из основной модели, т�
 * у Leu-Leu-Tyr и Leu-Thr-Ser неверные формулы.
 
 ## Пакет для журнала
-* `results/publication/` — рисунки 1–7 и S1–S3 (PDF / TIFF / PNG, 600 dpi), Tables 1–3 и S1, `Supplementary_Tables.xlsx` (S1–S5), `figure_captions.md`;
+* `results/publication/` — основной текст: Figures 1–6, `Tables_main.xlsx` (Table 1, Table 2 — аннотированные находки MSI 2–3); приложение: Figures S1–S4, `Supplementary_Tables.xlsx` (Tables S1–S6); `figure_captions.md`. Рисунки в PDF / TIFF / PNG, 600 dpi;
 * `docs/manuscript_text_draft.md` — черновик разделов «Methods» и «Results» (англ.), с отметками, что обновить после пересчёта возрастов;
 * `docs/METABOANALYST_GUIDE.md` — инструкция по MetaboAnalyst.
 

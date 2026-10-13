@@ -10,6 +10,7 @@
 Ширина: 17 см (полная полоса) / 8.5 см (колонка). Шрифт Liberation Sans (метрически = Arial), 7 pt.
 """
 import argparse
+import shutil
 from pathlib import Path
 
 import matplotlib
@@ -307,10 +308,10 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
         cb.set_label(lab, fontsize=6)
         cb.ax.tick_params(labelsize=5.5, length=1.5)
         cb.outline.set_linewidth(0.3)
-    g.savefig(out / "Figure4_heatmap_BC_vs_Control.pdf", bbox_inches="tight")
-    g.savefig(out / "Figure4_heatmap_BC_vs_Control.png", dpi=DPI, bbox_inches="tight")
-    Image.open(out / "Figure4_heatmap_BC_vs_Control.png").convert("RGB").save(
-        out / "Figure4_heatmap_BC_vs_Control.tif", compression="tiff_lzw", dpi=(DPI, DPI))
+    g.savefig(out / "FigureS1_heatmap_BC_vs_Control.pdf", bbox_inches="tight")
+    g.savefig(out / "FigureS1_heatmap_BC_vs_Control.png", dpi=DPI, bbox_inches="tight")
+    Image.open(out / "FigureS1_heatmap_BC_vs_Control.png").convert("RGB").save(
+        out / "FigureS1_heatmap_BC_vs_Control.tif", compression="tiff_lzw", dpi=(DPI, DPI))
     plt.close(g.fig)
 
 
@@ -387,7 +388,7 @@ def fig6_box(out, L, meta, r, nm):
         panel(ax, "abcdefgh"[k], x=-0.3, y=1.2)
     for ax in axs.ravel()[len(sel):]:
         ax.axis("off")
-    save(fig, out, "Figure6_top_findings_BC")
+    save(fig, out, "Figure4_top_findings_BC")
 
 
 def figS1_age(out, meta, pairs):
@@ -421,7 +422,7 @@ def figS1_age(out, meta, pairs):
     ax.set_ylim(18, 92)
     ax.set_title(f"1:1 nearest-age matching within sex (±{C.MATCH_CALIPER_YEARS} years)")
     panel(ax, "b")
-    save(fig, out, "FigureS1_age_and_matching")
+    save(fig, out, "FigureS2_age_and_matching")
 
 
 def figS2_norm(out, meta, res_dir):
@@ -447,7 +448,7 @@ def figS2_norm(out, meta, res_dir):
     ax.set_ylabel(f"Compounds with q < {C.FDR}")
     ax.legend()
     panel(ax, "b")
-    save(fig, out, "FigureS2_normalization")
+    save(fig, out, "FigureS3_normalization")
 
 
 def figS3_pathways(out, pw):
@@ -464,7 +465,7 @@ def figS3_pathways(out, pw):
         ax.set(xlabel="−log$_{10}$ p (mummichog)", title=c.replace("_vs_", " vs "))
         ax.tick_params(axis="y", labelsize=5.5)
         panel(ax, "abc"[k], x=-0.75, y=1.02)
-    save(fig, out, "FigureS3_pathways")
+    save(fig, out, "FigureS4_pathways")
 
 
 # ------------------------------------------------------------------ таблицы
@@ -501,18 +502,28 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None)
         .str.replace(r"панель top-(\d+), признаки скорректированы на индекс загрязнения внутри фолда", r"Top-\1 panel, features adjusted for contamination index in-fold", regex=True) \
         .str.replace(r"PLS-DA, 2 компоненты \(все признаки без экспозиций\)", "PLS-DA, 2 components (all non-exposure compounds)", regex=True)
     ts1 = m[["comparison", "set", "model", "n_case", "n_ref", "AUC_mean", "AUC_sd", "Q2", "perm_p"]].round(3)
-    with pd.ExcelWriter(out / "Tables.xlsx") as w:
+    # Table 2 (основной текст): только аннотированные находки (MSI ≤ 3); полный список — Table S1
+    t2_main = t2[t2["MSI level"] <= 3].copy()
+    t2_main["Compound (annotation)"] = t2_main["Compound (annotation)"].str.replace(r" \((MSI \d|putative)\)$", "", regex=True)
+    t2_main.insert(1, "Library match (MS-DIAL)", feat.loc[t2_main.index, "annotation"].to_numpy())
+    t2_main = t2_main.drop(columns=["Putative library match (low score)"])
+    with pd.ExcelWriter(out / "Tables_main.xlsx") as w:
         t1.to_excel(w, sheet_name="Table1_demographics", index=False)
         tt.to_excel(w, sheet_name="Table1_tests", index=False)
-        t2.to_excel(w, sheet_name="Table2_findings_BC", index=False)
-        ts1.to_excel(w, sheet_name="TableS1_classification", index=False)
+        t2_main.to_excel(w, sheet_name="Table2_annotated_findings_BC", index=False)
     t1.to_csv(out / "Table1_demographics.csv", index=False)
     tt.to_csv(out / "Table1_tests.csv", index=False)
-    t2.to_csv(out / "Table2_findings_BC_vs_Control.csv", index=False)
-    ts1.to_csv(out / "TableS1_classification.csv", index=False)
+    t2_main.to_csv(out / "Table2_annotated_findings_BC.csv", index=False)
+    t2.to_csv(out / "TableS1_all_findings_BC.csv", index=False)
+    ts1.to_csv(out / "TableS2_classification.csv", index=False)
+    return t2, ts1
 
 
-CAPTIONS = """# Figure captions (draft)
+CAPTIONS = """# Figure and table captions (draft)
+
+## Main text
+
+**Table 1.** Clinical and demographic characteristics of the independent cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex).
 
 **Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound). (d) The same scores coloured by the contamination index.
 
@@ -520,19 +531,35 @@ CAPTIONS = """# Figure captions (draft)
 
 **Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs). Dashed line, FDR {fdr:.0%}.
 
-**Figure 4.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities; full list in Table 2). Column bars: group, sex, age and contamination index.
+**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and MS/MS library match without isomeric ambiguity; MSI 3, formula-consistent without isomer-specific MS/MS. For compounds without a curated annotation, the MS-DIAL library match is given for transparency; ethyl 2-amino-5-methyl-3-thiophenecarboxylate is a synthetic building block and this annotation is considered implausible. All findings, including MSI level 4, are listed in Table S1.
+
+**Figure 4.** Top bladder-cancer findings across groups (log2 PQN-normalized intensities); annotated compounds first. q, FDR-adjusted p of the adjusted model (BC vs Control).
 
 **Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs (shown only with ≥ {minp} pairs). p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex; contamination index).
 
-**Figure 6.** Top bladder-cancer findings across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
+**Figure 6.** Stage-1 bladder-cancer markers (Frolova et al., Anal Bioanal Chem 2026, Table 5) in the independent cohort. Features were matched by m/z (±{ppm:.0f} ppm) and retention time (±{rttol} min); all isomeric candidates are shown. Points, unadjusted log2 fold change (BC vs Control) of quantified features; coloured, same direction and Mann–Whitney p < 0.05; text gives AUC, unadjusted p and FDR-adjusted q of the adjusted model. Markers not detected or removed by the detection/QC filters are labelled. Exact values are given in Table S3.
 
-**Figure 7.** Stage-1 bladder-cancer markers (Frolova et al., Anal Bioanal Chem 2026, Table 5) in the independent cohort. Features were matched by m/z (±{ppm:.0f} ppm) and retention time (±{rttol} min). Points, unadjusted log2 fold change (BC vs Control) of quantified features; coloured, same direction and Mann–Whitney p < 0.05; text gives AUC, unadjusted p and FDR-adjusted q of the adjusted model (sex, age, contamination index). Markers not detected or removed by the detection/QC filters are labelled.
+## Supplementary Materials
 
-**Figure S1.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
+**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and contamination index.
 
-**Figure S2.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
+**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
 
-**Figure S3.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exposure-related features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
+**Figure S3.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
+
+**Figure S4.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exposure-related features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
+
+**Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
+
+**Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, Q², permutation p).
+
+**Table S3.** Stage-1 markers: all candidate features within the m/z and retention-time windows, detection/filter status and statistics in the independent cohort.
+
+**Table S4.** Curated candidate annotations: formula, ion, mass error, HMDB/KEGG identifiers, supporting ions, MSI level, detection and imputation by group, correlation with the contamination index and the dilution factor; annotations with mass error > {ppm:.0f} ppm are listed separately.
+
+**Table S5.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
+
+**Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
 """
 
 
@@ -556,12 +583,8 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
         "Same direction": tab.get("same_direction").map({True: "yes", False: "no"}),
         "Note on stage-1 entry": tab.comment.str.extract(r";\s*(.*)$")[0].fillna(""),
     })
-    t3.to_csv(out / "Table3_replication_stage1_markers.csv", index=False)
-    summ.to_csv(out / "Table3_replication_summary.csv", index=False)
-    with pd.ExcelWriter(out / "Table3_replication_stage1_markers.xlsx") as w:
-        t3.to_excel(w, sheet_name="Table3", index=False)
-        summ.to_excel(w, sheet_name="summary", index=False)
-        tab.to_excel(w, sheet_name="full", index=False)
+    t3.to_csv(out / "TableS3_replication_stage1_markers.csv", index=False)
+    summ.to_csv(out / "TableS3_replication_summary.csv", index=False)
     # Figure 7
     d = tab.reset_index(drop=True)
     d["srank"] = d.status.map({"quantified": 0, "failed QC RSD filter": 1, "below detection filter": 2, "not detected": 3})
@@ -591,26 +614,27 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
     ax.legend(handles=[Line2D([], [], marker="o", ls="", mfc=COL["BC"], mec=INK2, label="same direction, p < 0.05"),
                        Line2D([], [], marker="o", ls="", mfc="#bdbcb8", mec=INK2, label="not significant")],
               loc="lower right", fontsize=6)
-    save(fig, out, "Figure7_replication_stage1_markers")
-    return summ
+    save(fig, out, "Figure6_replication_stage1_markers")
+    return t3, summ
 
 
-def supplementary_tables(out, res_dir):
-    """Supplementary_Tables.xlsx: S1 классификация, S2 статистика по соединениям, S3 кандидаты, S4 «есть/нет»,
-    S5 сопоставление маркеров первого этапа (все кандидаты)."""
+def supplementary_tables(out, res_dir, t2_full, ts_class, rep):
+    """Supplementary_Tables.xlsx: S1 все находки РМП, S2 классификация, S3 сверка с первым этапом,
+    S4 курированные кандидаты (+ несходящаяся масса), S5 признаки «есть/нет», S6 статистика по соединениям."""
     t = res_dir / "tables"
-    sheets = {"S1_classification": "multivariate_CV.csv", "S3_curated_candidates": "candidates_curated.csv",
-              "S3b_mass_mismatch": "candidates_mass_mismatch.csv", "S4_presence_absence": "presence_absence.csv"}
     with pd.ExcelWriter(out / "Supplementary_Tables.xlsx") as w:
-        for sh, fn_ in sheets.items():
+        t2_full.to_excel(w, sheet_name="S1_all_findings_BC", index=False)
+        ts_class.to_excel(w, sheet_name="S2_classification", index=False)
+        if rep is not None:
+            rep[0].to_excel(w, sheet_name="S3_stage1_markers", index=False)
+            rep[1].to_excel(w, sheet_name="S3_summary", index=False)
+        for sh, fn_ in {"S4_curated_candidates": "candidates_curated.csv", "S4b_mass_mismatch": "candidates_mass_mismatch.csv",
+                        "S5_presence_absence": "presence_absence.csv"}.items():
             if (t / fn_).exists():
                 pd.read_csv(t / fn_).to_excel(w, sheet_name=sh, index=False)
         for n in C.COMPARISONS:
             if (t / f"stats_{n}.csv").exists():
-                pd.read_csv(t / f"stats_{n}.csv").to_excel(w, sheet_name=f"S2_{n}"[:31], index=False)
-        rep = out / "Table3_replication_stage1_markers.xlsx"
-        if rep.exists():
-            pd.read_excel(rep, sheet_name="full").to_excel(w, sheet_name="S5_stage1_markers_all", index=False)
+                pd.read_csv(t / f"stats_{n}.csv").to_excel(w, sheet_name=f"S6_{n}"[:31], index=False)
 
 
 def main():
@@ -620,7 +644,9 @@ def main():
     a = ap.parse_args()
     res = Path(a.res)
     out = res / "publication"
-    out.mkdir(parents=True, exist_ok=True)
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
     meta, L, info, feat, stats_, mv, series, cur, pairs, demo, demo_t, pw = load(res)
     X_all, _, info_all, _ = io.load_features(a.data)
     msi, has_ms2 = msi_levels(feat, res)
@@ -634,9 +660,9 @@ def main():
     figS1_age(out, meta, pairs)
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
-    tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2)
-    replication_outputs(out, res, feat, stats_, info_all)
-    supplementary_tables(out, res)
+    t2_full, ts_class = tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2)
+    rep = replication_outputs(out, res, feat, stats_, info_all)
+    supplementary_tables(out, res, t2_full, ts_class, rep)
     (out / "figure_captions.md").write_text(CAPTIONS.format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
         cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL), encoding="utf-8")
