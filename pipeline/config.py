@@ -3,7 +3,7 @@
 
 # ---------------------------------------------------------------- пути
 DATA = "data/s266_table_for_calc.csv"          # таблица признаков (Sample, Group, Diag, RT_mz_annotation...)
-METADATA = "metadata/metadata.csv"             # sample, group, sex, age, include, exclude_reason, comment
+METADATA = "metadata/metadata_stage2.csv"      # sample, group, sex, age, include, exclude_reason, comment (возрасты уточнены)
 OUT = "results"
 CURATION = "curation/candidates_curated.csv"   # ручная курация кандидатов (формула, ион, ID, категория, MS2)
 CONTAMINANT_SERIES = "curation/contaminant_series.csv"

@@ -36,7 +36,8 @@ def filter_features(X, meta, log):
         log(f"Фильтр по бланкам ({len(blanks)} проб, QC/бланк ≥ {C.BLANK_RATIO}): удалено {(keep & ~kb).sum()}")
         keep &= kb
     else:
-        log("Бланки в таблице отсутствуют — фильтр по бланкам НЕ применён (нужны холостые пробы).")
+        log("Бланков в экспортированной таблице нет: по методике фильтр по бланкам (проба/бланк ≥ 5) выполнен в MS-DIAL; "
+            "повторно не применяется.")
     det["RSD_QC_raw"] = rsd(X.loc[qc])
     k2 = keep & (det.RSD_QC_raw <= C.MAX_QC_RSD)
     log(f"Фильтр RSD_QC ≤ {C.MAX_QC_RSD:.0%} (без коррекции дрейфа): {keep.sum()} → {k2.sum()}. Медианный RSD в QC: "
