@@ -1,0 +1,22 @@
+pattern,category
+acetaminophen|paracetamol|acetanilide|4-acetamidophenol,drug
+ibuprofen|naproxen|diclofenac|ketoprofen|indomethacin|celecoxib|meloxicam|nimesulide|metamizole|aminoantipyrine|antipyrine|salicyl,drug
+omeprazole|pantoprazole|lansoprazole|esomeprazole|rabeprazole|ranitidine|famotidine|cimetidine,drug
+metformin|gliclazide|glibenclamide|glimepiride|sitagliptin|vildagliptin|empagliflozin|dapagliflozin,drug
+atorvastatin|rosuvastatin|simvastatin|pravastatin|fenofibr|ezetimibe,drug
+amlodipine|nifedipine|felodipine|verapamil|diltiazem|lisinopril|enalapril|perindopril|ramipril|captopril|losartan|valsartan|telmisartan|irbesartan|candesartan,drug
+bisoprolol|metoprolol|atenolol|propranolol|carvedilol|nebivolol|talinolol|sotalol,drug
+furosemide|torasemide|hydrochlorothiazide|indapamide|spironolactone|eplerenone,drug
+warfarin|rivaroxaban|apixaban|dabigatran|clopidogrel|ticagrelor|cilostazol|dipyridamole|pentoxifylline,drug
+tamsulosin|alfuzosin|silodosin|doxazosin|finasteride|dutasteride|solifenacin|tolterodine|oxybutynin|mirabegron|sildenafil|tadalafil,drug
+bicalutamide|enzalutamide|abiraterone|flutamide|leuprolide|goserelin|degarelix|tamoxifen|letrozole|anastrozole,drug
+cediranib|sorafenib|sunitinib|pazopanib|imatinib|erlotinib|gefitinib|lapatinib|everolimus|temsirolimus|cisplatin|gemcitabine|methotrexate|mitomycin|doxorubicin|epirubicin|valrubicin|docetaxel|paclitaxel|cabazitaxel|etoposide|capecitabine|fluorouracil,drug
+carbamazepine|oxcarbazepine|levetiracetam|valpro|lamotrigine|topiramate|gabapentin|pregabalin|primidone|phenobarbital|phenytoin,drug
+sertraline|fluoxetine|paroxetine|citalopram|escitalopram|venlafaxine|duloxetine|mirtazapine|amitriptyline|trazodone|quetiapine|olanzapine|risperidone|haloperidol|diazepam|lorazepam|alprazolam|zolpidem|zopiclone,drug
+tramadol|morphine|codeine|oxycodone|fentanyl|methadone|naloxone|buprenorphine|loperamide|ketamine|lidocaine|bupivacaine|procaine,drug
+metronidazole|ciprofloxacin|levofloxacin|ofloxacin|norfloxacin|moxifloxacin|amoxicillin|ampicillin|penicillin|cefuroxime|ceftriaxone|cefixime|cephalexin|azithromycin|clarithromycin|erythromycin|doxycycline|tetracycline|nitrofurantoin|furazidin|fosfomycin|trimethoprim|sulfamethoxazole|tobramycin|gentamicin|amikacin|vancomycin|linezolid|rifampicin|fluconazole|nystatin,drug
+prednisolone|prednisone|methylprednisolone|dexamethasone|\bhydrocortisone|betamethasone|budesonide,drug
+levothyroxine|thiamazole|allopurinol|febuxostat|colchicine|mepirizole|epirizole|drotaverine|papaverine|mebeverine|metoclopramide|domperidone|ondansetron|loratadine|cetirizine|diphenhydramine|chloropyramine|hydroxyzine|crotamiton|quinidine|quinine|amiodarone|digoxin|trimetazidine|meldonium|mildronate|ivabradine|nitroglycerin|isosorbide|ambroxol|acetylcysteine|bromhexine|montelukast,drug
+caffeine|paraxanthine|theobromine|theophylline|methylxanthine|methyluric|trimethyluric|dimethyluric|AFMU|acetylamino-6-formylamino,food
+pyrazine|scopoletin|lupanine|sparteine|catechin|epicatechin|hesperetin|hesperidin|naringenin|naringin|quercetin|kaempferol|isorhamnetin|phloretin|enterolactone|enterodiol|equol|daidzein|genistein|ferul|caffe|chlorogenic|quinic|(?<!homo)vanill|piperine|capsaicin|menthol|limonene|perillyl|carvone|thymol|eugenol|sucrose|trigonelline|stachydrine|proline betaine|hordenine|ergothioneine|solanidine|tomatidine|alliin|sulforaphane|cyanidin|resveratrol|gingerol|curcumin|abscisic|cyclo\(|paeonol|chrysanthemic|costunolide|podophyllotoxin|muscarine|furaneol|maltol,food
+nicotine|cotinine|nornicotine|anabasine|anatabine|myosmine,tobacco
