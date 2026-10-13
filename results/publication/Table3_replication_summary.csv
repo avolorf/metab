@@ -1,2 +1,2 @@
 source,comparison,markers,not_detected,below_detection_filter,failed_rsd,quantified,ambiguous_isomers,same_direction_all_candidates,same_direction_any_candidate,nominal_p05_any_candidate,replicated_q05_any_candidate
-ABC,BC_vs_Control,14,8,2,0,4,1,2,3,1,0
+ABC,BC_vs_Control,14,8,2,0,4,1,2,3,1,1

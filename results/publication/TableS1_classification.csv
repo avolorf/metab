@@ -2,12 +2,15 @@ comparison,set,model,n_case,n_ref,AUC_mean,AUC_sd,Q2,perm_p
 BC_vs_Control,all,Top-5 panel + logistic regression (in-fold selection),29,45,0.808,0.031,0.267,0.001
 BC_vs_Control,all,"Top-5 panel, features adjusted for contamination index in-fold",29,45,0.775,0.046,0.194,0.002
 BC_vs_Control,all,"PLS-DA, 2 components (all non-exposure compounds)",29,45,0.83,0.023,0.337,0.001
+BC_vs_Control,matched,Top-5 panel + logistic regression (in-fold selection),18,18,0.711,0.055,-0.019,0.059
+BC_vs_Control,matched,"Top-5 panel, features adjusted for contamination index in-fold",18,18,0.583,0.038,-0.262,0.229
+BC_vs_Control,matched,"PLS-DA, 2 components (all non-exposure compounds)",18,18,0.69,0.049,0.102,0.055
 BC_vs_PC,all,Top-5 panel + logistic regression (in-fold selection),29,20,0.857,0.036,0.375,0.002
 BC_vs_PC,all,"Top-5 panel, features adjusted for contamination index in-fold",29,20,0.634,0.073,-0.078,0.113
 BC_vs_PC,all,"PLS-DA, 2 components (all non-exposure compounds)",29,20,0.72,0.034,0.121,0.011
-BC_vs_PC,matched,Top-5 panel + logistic regression (in-fold selection),14,14,0.842,0.047,0.323,0.008
-BC_vs_PC,matched,"Top-5 panel, features adjusted for contamination index in-fold",14,14,0.672,0.067,-0.008,0.111
-BC_vs_PC,matched,"PLS-DA, 2 components (all non-exposure compounds)",14,14,0.766,0.033,0.22,0.026
+BC_vs_PC,matched,Top-5 panel + logistic regression (in-fold selection),18,18,0.782,0.045,0.173,0.021
+BC_vs_PC,matched,"Top-5 panel, features adjusted for contamination index in-fold",18,18,0.609,0.063,-0.134,0.184
+BC_vs_PC,matched,"PLS-DA, 2 components (all non-exposure compounds)",18,18,0.707,0.029,0.121,0.046
 PC_vs_Control,all,Top-5 panel + logistic regression (in-fold selection),20,45,0.537,0.061,-0.349,0.354
 PC_vs_Control,all,"Top-5 panel, features adjusted for contamination index in-fold",20,45,0.736,0.066,0.138,0.012
 PC_vs_Control,all,"PLS-DA, 2 components (all non-exposure compounds)",20,45,0.78,0.036,0.226,0.004

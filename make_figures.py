@@ -98,19 +98,45 @@ def load(res):
     return meta, L, info, feat, stats_, mv, series, cur, pairs, demo, demo_t, pw
 
 
-def names_en(feat, cur):
+def names_en(feat, cur, msi=None):
     """Подпись соединения: курированное англ. название (MSI) > уверенная аннотация > unknown m/z@RT."""
     out = {}
     cn = cur.dropna(subset=["feature"]).set_index("feature")
     for f, r in feat.iterrows():
         tag = f"m/z {r.mz:.4f} @ {r.rt_min:.2f} min"
         if f in cn.index and isinstance(cn.loc[f, "name_en"], str) and cn.loc[f, "name_en"]:
-            out[f] = f"{cn.loc[f, 'name_en']} (MSI {int(cn.loc[f, 'MSI_level'])}), {tag}"
+            lv = int(msi[f]) if msi is not None else int(cn.loc[f, "MSI_level"])
+            out[f] = f"{cn.loc[f, 'name_en']} (MSI {lv}), {tag}"
         elif r.annotation_conf == "high":
             out[f] = f"{r.annotation[:34]} (putative), {tag}"
         else:
             out[f] = f"unknown, {tag}"
     return pd.Series(out)
+
+
+def msi_levels(feat, res_dir):
+    """Уровень MSI для каждого признака (см. правило в pipeline/annotate.msi_level), на уровне соединения:
+    совпадение MS2 засчитывается, если оно есть у любого иона соединения."""
+    t = res_dir / "tables"
+    ok = pd.read_csv(t / "candidates_curated.csv")
+    bad = pd.read_csv(t / "candidates_mass_mismatch.csv") if (t / "candidates_mass_mismatch.csv").exists() else pd.DataFrame(columns=["feature"])
+    cfile = pd.read_csv(C.CURATION, dtype=str).fillna("")
+    amb = set(cfile.loc[cfile.get("isomer_ambiguous", "").isin(["1", "yes", "да", "true"]), "name"]) if "isomer_ambiguous" in cfile else set()
+    ms2f = set(pd.read_csv(C.MS2_IDENTIFIED).feature) if Path(C.MS2_IDENTIFIED).exists() else set()
+    comp = feat["compound"]
+    ms2_comp = set(comp[comp.index.isin(ms2f)].dropna())
+    has_ms2 = comp.isin(ms2_comp)
+    lvl = pd.Series(4, index=feat.index)
+    lvl[has_ms2] = 3
+    for _, r in ok.dropna(subset=["feature"]).iterrows():
+        if r.feature in lvl.index:
+            ms2 = bool(has_ms2.get(r.feature, False))
+            lvl[r.feature] = 1 if str(r.get("standard_confirmed", "")).strip().lower() in {"1", "yes", "да", "true"} else \
+                (2 if ms2 and r["name"] not in amb else 3)
+    for f in bad.feature.dropna():
+        if f in lvl.index:
+            lvl[f] = 4
+    return lvl, has_ms2
 
 
 # ------------------------------------------------------------------ рисунки
@@ -239,13 +265,17 @@ def fig3_volcano(out, stats_, nm):
 
 
 def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
-    sel = r[r.finding.astype(bool)].sort_values("beta_model")
+    sel = r[r.finding.astype(bool)].sort_values("q_model").head(50).sort_values("beta_model")   # не более 50 строк
     if len(sel) < 2:
         return
     smp = list(meta.index[meta.study & meta.group.isin([case, ref])])
     Z = L.loc[smp, sel.index]
     Z = ((Z - Z.mean()) / Z.std()).clip(-2.5, 2.5).T
-    Z.index = [nm[i] for i in sel.index]
+    def short_lab(i):
+        name, _, tag = nm[i].partition(", m/z")
+        name = name.replace(" (putatively 11-oxoetiocholanolone)", "")
+        return f"{name[:40]}, m/z{tag}"
+    Z.index = [short_lab(i) for i in sel.index]
     age_n = Normalize(meta.age.min(), meta.age.max())
     ci = meta.loc[meta.study, "contam_index"]
     ci_n = Normalize(ci.quantile(0.02), ci.quantile(0.98))
@@ -272,7 +302,7 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
     for i, (cm, lab, nr) in enumerate([(plt.get_cmap("RdBu_r"), "z-score", Normalize(-2.5, 2.5)),
                                        (cmA, "Age (years)", age_n), (cmC, "Contamination index", ci_n)]):
         pos = g.ax_heatmap.get_position()
-        cax = g.fig.add_axes([pos.x0 + i * 0.22 * pos.width / 0.66, 0.02, 0.15, 0.008])
+        cax = g.fig.add_axes([pos.x0 + i * pos.width / 3, pos.y0 - 0.035, pos.width / 3.6, 0.007])
         cb = plt.colorbar(plt.cm.ScalarMappable(norm=nr, cmap=cm), cax=cax, orientation="horizontal")
         cb.set_label(lab, fontsize=6)
         cb.ax.tick_params(labelsize=5.5, length=1.5)
@@ -438,7 +468,7 @@ def figS3_pathways(out, pw):
 
 
 # ------------------------------------------------------------------ таблицы
-def tables(out, demo, demo_t, stats_, nm, cur, mv, feat):
+def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None):
     t1 = demo.rename(columns={"group": "Group"})
     t1["Group"] = t1.Group.map(LAB)
     t1["Sex, M/F (n/a)"] = t1.male.astype(str) + "/" + t1.female.astype(str) + " (" + t1.sex_unknown.astype(str) + ")"
@@ -459,7 +489,8 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat):
         "m/z": f.mz.round(4), "RT (min)": f.rt_min.round(2),
         "Putative library match (low score)": [feat.loc[i, "annotation"] if feat.loc[i, "annotation_conf"] == "low" else "" for i in f.index],
         "Ions in group": f.n_ions,
-        "MSI level": [int(cn.loc[i, "MSI_level"]) if i in cn.index else (3 if feat.loc[i, "annotation_conf"] == "high" else 4) for i in f.index],
+        "MS2 library match": ["yes" if has_ms2 is not None and has_ms2.get(i, False) else "no" for i in f.index],
+        "MSI level": [int(msi[i]) for i in f.index],
         "log2FC (adjusted)": f.beta_model.round(2), "q (adjusted model)": f.q_model.map(lambda x: f"{x:.1e}"),
         "AUC (all)": f.AUC.round(2), "p (age-matched)": f.p_matched.map(lambda x: f"{x:.3f}"),
         "p (low-contamination controls)": f.p_lowindex.map(lambda x: f"{x:.3f}"),
@@ -489,7 +520,7 @@ CAPTIONS = """# Figure captions (draft)
 
 **Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs). Dashed line, FDR {fdr:.0%}.
 
-**Figure 4.** Heatmap of bladder-cancer findings (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and contamination index.
+**Figure 4.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities; full list in Table 2). Column bars: group, sex, age and contamination index.
 
 **Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs (shown only with ≥ {minp} pairs). p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex; contamination index).
 
@@ -592,7 +623,8 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     meta, L, info, feat, stats_, mv, series, cur, pairs, demo, demo_t, pw = load(res)
     X_all, _, info_all, _ = io.load_features(a.data)
-    nm = names_en(feat, cur)
+    msi, has_ms2 = msi_levels(feat, res)
+    nm = names_en(feat, cur, msi)
     fig1_quality(out, meta, L, feat, X_all)
     fig2_contamination(out, meta, series)
     fig3_volcano(out, stats_, nm)
@@ -602,7 +634,7 @@ def main():
     figS1_age(out, meta, pairs)
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
-    tables(out, demo, demo_t, stats_, nm, cur, mv, feat)
+    tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2)
     replication_outputs(out, res, feat, stats_, info_all)
     supplementary_tables(out, res)
     (out / "figure_captions.md").write_text(CAPTIONS.format(

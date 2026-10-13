@@ -8,6 +8,7 @@ OUT = "results"
 CURATION = "curation/candidates_curated.csv"   # ручная курация кандидатов (формула, ион, ID, категория, MS2)
 CONTAMINANT_SERIES = "curation/contaminant_series.csv"
 EXPOSURE_KEYWORDS = "curation/exposure_keywords.csv"
+MS2_IDENTIFIED = "curation/ms2_identified.csv"   # признаки с совпадением MS2 в библиотеке (из MS-DIAL)
 
 SEED = 20261013
 N_JOBS = -1                                    # параллельные перестановки (joblib)

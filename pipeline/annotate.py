@@ -22,16 +22,27 @@ def hmdb_alternatives(mz, tol=3.0, top=6):
 
 
 def msi_level(r):
+    """1 — стандарт; 2 — масса ≤ PPM и совпадение MS2 с библиотекой без изомерной неоднозначности;
+    3 — формула/масса без MS2 или изомеры неразличимы; 4 — масса не сходится."""
     if str(r.get("standard_confirmed", "")).strip().lower() in {"1", "yes", "да", "true"}:
         return 1
     if not r["mass_ok"]:
         return 4
+    if r.get("ms2_library_match") and str(r.get("isomer_ambiguous", "")).strip() not in {"1", "yes", "да", "true"}:
+        return 2
     try:
         if float(r.get("ms2_score")) >= 0.7:
             return 2
     except (TypeError, ValueError):
         pass
     return 3
+
+
+def ms2_features():
+    """Признаки с совпадением MS2 в библиотеке (экспорт MS-DIAL / флаг ms2_identified): curation/ms2_identified.csv."""
+    from pathlib import Path
+    p = Path(C.MS2_IDENTIFIED)
+    return set(pd.read_csv(p).feature) if p.exists() else set()
 
 
 def curate(path, info_all, info, Lraw_all, L, meta, groups, feat_table):
@@ -51,6 +62,7 @@ def curate(path, info_all, info, Lraw_all, L, meta, groups, feat_table):
         x.update(feature=f, theo_mz=round(theo, 5), ppm=round(e, 2), mass_ok=abs(e) <= C.PPM)
         x["hmdb"] = r.hmdb if r.hmdb and r.hmdb in hmdb_dict and abs(float(hmdb_dict[r.hmdb][1]) - M) < 0.005 and x["mass_ok"] else ""
         x["kegg"] = r.kegg if r.kegg and r.kegg in kegg_dict and abs(float(kegg_dict[r.kegg][1] or 0) - M) < 0.005 and x["mass_ok"] else ""
+        x["ms2_library_match"] = bool(f) and f in ms2_features()
         x["MSI_level"] = msi_level(x)
         if f is not None:
             x["confirming_ions"] = confirming_ions(f, r.formula, info_all, Lraw_all) if x["mass_ok"] else ""

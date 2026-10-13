@@ -6,7 +6,7 @@
 
 **Figure 3.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + contamination index). Filled circles, findings that passed all robustness criteria; crosses, exposure-related compounds (contaminants, food, drugs). Dashed line, FDR 5%.
 
-**Figure 4.** Heatmap of bladder-cancer findings (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and contamination index.
+**Figure 4.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities; full list in Table 2). Column bars: group, sex, age and contamination index.
 
 **Figure 5.** Cross-validated ROC curves (20×5-fold CV; top-5 features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ 0.5) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs (shown only with ≥ 10 pairs). p, permutation test (1000 permutations). Dotted lines, single-covariate baselines (sex; contamination index).
 
