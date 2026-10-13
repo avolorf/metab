@@ -11,10 +11,10 @@ Leave-one-QC-out ошибка прогноза (median |Δlog2|): none=0.1110, l
 PQN-факторы образцов: медиана 0.54, диапазон 0.06–2.19
 Импутировано значений: 97696 (11.6%)
 Разброс QC относительно образцов на PC1/PC2: 0.05
-Связь PC1–3 с порядком инъекции (Spearman): PC1 ρ=-0.06 p=0.526, PC2 ρ=-0.22 p=0.025, PC3 ρ=-0.07 p=0.466
+Связь PC1–3 с порядком инъекции (Spearman): PC1 ρ=-0.06 p=0.526, PC2 ρ=-0.22 p=0.025, PC3 ρ=-0.07 p=0.465
 PC1: м vs ж p=0.291; Cancer vs Control p=0.0261
 PC2: м vs ж p=0.479; Cancer vs Control p=0.009
-PC3: м vs ж p=0.394; Cancer vs Control p=0.528
+PC3: м vs ж p=0.39; Cancer vs Control p=0.524
 
 Одномерная статистика (признаков):
              comparison  n_case  n_control  q_MW_lt_0_05  q_MW_lt_0_05_and_absFC_ge_2 q_sex_adj_lt_0_05 both_q_lt_0_05
@@ -22,6 +22,7 @@ PC3: м vs ж p=0.394; Cancer vs Control p=0.528
           BC_vs_Control      29         45           874                          532               591            506
           PC_vs_Control      19         45            15                           15                20             15
       PC_vs_maleControl      19         18            16                           16               n/a            n/a
+               BC_vs_PC      29         19           207                          179               168            129
 Cancer_vs_Control_males      48         18            25                           21               n/a            n/a
 
 PLS-DA (2 компоненты, 5×5-fold CV, Pareto внутри фолда):
@@ -29,3 +30,4 @@ PLS-DA (2 компоненты, 5×5-fold CV, Pareto внутри фолда):
 Cancer_vs_Control 0.784566 0.234477 0.004975     200
     BC_vs_Control 0.806590 0.291337 0.004975     200
     PC_vs_Control 0.814503 0.255770 0.004975     200
+         BC_vs_PC 0.777858 0.221689 0.009950     200

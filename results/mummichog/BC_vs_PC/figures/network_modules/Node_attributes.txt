@@ -1,0 +1,723 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+CE5276	dopamine o-quinone	1.3715424189652785	row1469	E2131
+C00822	Dopaquinone	-1.7892937555575814	row909	E1094
+CE2153		1.4860234193211483	row1320	E2390
+C18075		-3.1805013896998253	row135	E302
+C05487	17alpha,21-Dihydroxypregnenolone	1.4784837805178266	row1334	E331
+C05588	L-Metanephrine	-1.9952354438535762	row721	E531
+C01176	17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone	1.4784837805178266	row1334	E886
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	1.7643405655965754	row948	E57
+C16596	5-Phenyl-1,3-oxazinane-2,4-dione	-2.157096919532863	row587	E1412
+C00822	Dopaquinone	-1.4557879746129516	row1362	E1094
+C00079	L-Phenylalanine	-2.456845179596384	row365	E777
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-2.7580089787038014	row242	E291
+CE3087	beta-carboline	2.0982064091345127	row638	E1476
+C06212	N-Methylserotonin	-1.4787336120912165	row1324	E728
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-1.7398624725073548	row968	E434
+C00078	L-Tryptophan	1.5019844225430163	row1299	E401
+C01074	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc	-1.3017250278536416	row1596	E1434
+C05284	11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione	-1.7083133471371337	row1020	E1543
+CE5538	noradrenochrome	-1.7395622162742272	row985	E1858
+C00795	D-Tagatose; lyxo-Hexulose	-1.3667241134761006	row1489	E689
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-1.9719017689793001	row728	E546
+C00795	D-Tagatose; lyxo-Hexulose	-2.157192480414902	row586	E690
+C18075		1.4109126291849383	row1416	E302
+C05634	5-Hydroxyindoleacetaldehyde	-3.1958170030576505	row131	E297
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.8054613910262027	row229	E434
+C03758	Dopamine	-1.83972540232013	row853	E1441
+C03758	Dopamine	-2.104294127417452	row621	E1441
+C05576	3,4-Dihydroxyphenylethyleneglycol	1.4784837805178266	row1336	E2407
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	1.5945529833792758	row1161	E625
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	1.7643405655965754	row948	E57
+C00984	alpha-D-Galactose	-2.8054613910262027	row224	E690
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.0217703150113664	row699	E1097
+C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-2.3253444680713224	row454	E1171
+CE5665	leukoaminochrome	-1.503579891509542	row1296	E2314
+C00535	Testosterone	2.240420375024219	row527	E1285
+C00137	myo-Inositol	-1.3667241134761006	row1489	E689
+andrstrnglc	androsterone glucuronide	2.3253444680713224	row457	E94
+C05487	17alpha,21-Dihydroxypregnenolone	2.0217703150113664	row710	E331
+C14497	6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one	-3.1805013896998253	row135	E302
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	-1.501644701048802	row1301	E627
+CE5236	O2'-4a-cyclic-tetrahydrobiopterin	2.3004522788494577	row469	E410
+C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine	-1.5476064016414328	row1228	E2242
+C05301	2-Hydroxyestradiol-17beta; 2-OH-Estradiol	-1.5013519740043666	row1314	E2377
+C02700	L-Formylkynurenine	-1.7396372687439383	row970	E1843
+C00137	myo-Inositol	-2.157192480414902	row586	E690
+C02406	Formylkynurenine	-1.7396372687439383	row970	E1843
+C05140	16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione	-1.7083133471371337	row1020	E1543
+C04295	Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol	1.83972540232013	row845	E187
+CE5860		-1.6182863584910847	row1141	E517
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	1.6905292793253353	row1041	E57
+C00822	Dopaquinone	-1.4784837805178266	row1329	E1094
+C00984	alpha-D-Galactose	-1.5710599587361354	row1185	E692
+CE2119		-1.3019412192854771	row1584	E1603
+C00328	L-Kynurenine	-2.157096919532863	row587	E942
+C05488	11-Deoxycortisol; Cortodoxone	1.5945529833792758	row1161	E57
+andrstrnglc	androsterone glucuronide	1.982121098833371	row726	E94
+C05589	L-Normetanephrine	-2.456845179596384	row365	E770
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	1.865204225348284	row824	E331
+C05487	17alpha,21-Dihydroxypregnenolone	-3.1805013896998253	row135	E331
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.456845179596384	row365	E770
+andrstrnglc	androsterone glucuronide	3.648222239940718	row58	E95
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	2.58975905351422	row308	E94
+C05488	11-Deoxycortisol; Cortodoxone	-1.501644701048802	row1301	E59
+C05582	Homovanillate; Homovanillic acid	-1.508179275369145	row1292	E1569
+C00031	D-Glucose	-1.3887326336254697	row1457	E689
+C03205	11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC	1.4784837805178266	row1334	E886
+C14497	6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one	1.4109126291849383	row1416	E302
+C00410	Progesterone; 4-Pregnene-3,20-dione	2.296858343196294	row475	E1182
+C02406	Formylkynurenine	-1.6905292793253353	row1036	E1843
+C00780	Serotonin	-1.8144219730158297	row877	E1951
+CE5536	adrenochrome	-1.503579891509542	row1296	E2257
+CE2174		-1.6421933981340318	row1120	E702
+C05488	11-Deoxycortisol; Cortodoxone	1.3340879001954304	row1542	E57
+C05293	5beta-Dihydrotestosterone	1.83972540232013	row845	E187
+CE5860		-1.5476064016414328	row1228	E517
+C00078	L-Tryptophan	-1.5945529833792758	row1165	E399
+C00780	Serotonin	-1.7651035041420253	row931	E1951
+C03711	N-Methylphenylethanolamine	-1.3448868326401027	row1519	E1149
+C00221	beta-D-Glucose	-2.157192480414902	row586	E690
+C05480	3alpha-Hydroxy-5beta-pregnane-20-one	2.559663412269029	row327	E997
+C01953	Pregnenolone; 5-Pregnen-3beta-ol-20-one; 3beta-Hydroxypregn-5-en-20-one	1.7643405655965754	row951	E959
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.12967743133576	row609	E1094
+C05642	Formyl-N-acetyl-5-methoxykynurenamine	1.7892937555575814	row914	E671
+C05498	11beta-Hydroxyprogesterone	1.5243927753089017	row1273	E886
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	1.4784837805178266	row1337	E105
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	2.9006080600791724	row206	E625
+C05487	17alpha,21-Dihydroxypregnenolone	1.4784837805178266	row1337	E331
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-1.7892937555575814	row909	E1094
+C05498	11beta-Hydroxyprogesterone	1.4784837805178266	row1337	E887
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	1.5945529833792758	row1161	E625
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	1.7027953657397001	row1027	E1567
+CE2705	quinonoid dihydrobiopterin	1.5019844225430163	row1299	E410
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	1.6905292793253353	row1041	E625
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	-1.501644701048802	row1301	E59
+C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid	-1.5489229967959008	row1216	E1779
+CE2172		1.3667241134761006	row1488	E773
+C01176	17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone	2.0217703150113664	row710	E886
+C05660	5-Methoxyindoleacetate	-1.5945529833792758	row1165	E557
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-1.4557879746129516	row1362	E1094
+C00535	Testosterone	1.5013519740043666	row1313	E1286
+C02763	enol-Phenylpyruvate	-1.6266381178519802	row1127	E1559
+C00674	5alpha-Androstane-3,17-dione; Androstanedione	2.240420375024219	row527	E1285
+C05642	Formyl-N-acetyl-5-methoxykynurenamine	-1.5476064016414328	row1229	E671
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	-1.501644701048802	row1301	E627
+C05469	17alpha,21-Dihydroxy-5beta-pregnane-3,11,20-trione; 5beta-Pregnane-17alpha,21-diol-3,11,20-trione; 4,5beta-Dihydrocortisone	1.5709930672324908	row1190	E1640
+C04373	3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one	1.5243927753089017	row1273	E184
+C05580	3,4-Dihydroxymandelate	4.52443787947654	row15	E62
+C05139	16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one	1.3887326336254697	row1443	E302
+C05290	19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione	-1.7643405655965754	row942	E1546
+C00355	3,4-Dihydroxy-L-phenylalanine	-1.6424747569734066	row1101	E1873
+CE2173		-1.8144219730158297	row877	E434
+andrstrnglc	androsterone glucuronide	3.4705739517549925	row78	E95
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	1.3340879001954304	row1542	E625
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	1.3340879001954304	row1542	E57
+17ahprgstrn	17alpha-Hydroxyprogesterone	2.038243077581797	row689	E886
+CE2174		-1.7892937555575814	row912	E702
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	-1.9166887679605031	row788	E105
+C01953	Pregnenolone; 5-Pregnen-3beta-ol-20-one; 3beta-Hydroxypregn-5-en-20-one	1.559941670750164	row1203	E959
+C01176	17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone	2.411873120757067	row410	E886
+CE2173		-1.43326433297949	row1397	E434
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	-2.459329603015162	row363	E59
+andrstrnglc	androsterone glucuronide	4.017243030422069	row34	E95
+C05488	11-Deoxycortisol; Cortodoxone	2.9006080600791724	row206	E57
+C00525	D-Tryptophan	-1.9706041002684689	row729	E399
+17ahprgstrn	17alpha-Hydroxyprogesterone	2.0217703150113664	row710	E886
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	1.6182863584910847	row1142	E57
+C05594	3-Methoxy-4-hydroxyphenylethyleneglycol	1.7395622162742272	row975	E1136
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	1.3887326336254697	row1451	E625
+CE5665	leukoaminochrome	-1.5476064016414328	row1234	E2313
+C04043	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde	1.4784837805178266	row1336	E2400
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.681123457613458	row282	E434
+C05138	17alpha-Hydroxypregnenolone	2.1559879932540165	row598	E12
+C05582	Homovanillate; Homovanillic acid	-1.7892937555575814	row912	E1565
+C05643	6-Hydroxymelatonin	-1.3019412192854771	row1584	E1603
+C02693	Indole-3-acetamide	-1.6424747569734066	row1101	E1661
+CE5538	noradrenochrome	-1.3017250278536416	row1585	E1858
+17ahprgstrn	17alpha-Hydroxyprogesterone	2.411873120757067	row410	E886
+CE2174		-1.4109126291849383	row1417	E702
+C00822	Dopaquinone	-2.240420375024219	row522	E1094
+C00089	Sucrose	-2.6200341909908795	row304	E932
+C02763	enol-Phenylpyruvate	-1.5549032013300605	row1208	E1561
+C00082	L-Tyrosine	1.5243927753089017	row1269	E702
+C00078	L-Tryptophan	-1.9706041002684689	row729	E399
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	-1.4557879746129516	row1370	E331
+C04373	3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one	2.456845179596384	row366	E184
+C05487	17alpha,21-Dihydroxypregnenolone	1.5243927753089017	row1273	E331
+CE2174		-1.83972540232013	row853	E702
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-1.4784837805178266	row1329	E1094
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	2.9006080600791724	row206	E57
+CE2186	4-methoxy-17beta-estradiol	2.0516440356234265	row669	E1546
+C00267	alpha-D-Glucose	-2.8054613910262027	row224	E690
+C01176	17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone	1.4784837805178266	row1337	E887
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-2.8054613910262027	row224	E690
+CE5236	O2'-4a-cyclic-tetrahydrobiopterin	3.096353904959745	row157	E408
+CE5538	noradrenochrome	-1.83972540232013	row850	E1857
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	2.9006080600791724	row206	E625
+CE2176	3-O-methyldopa	-3.1958170030576505	row131	E25
+C00822	Dopaquinone	-2.452032169995225	row371	E1094
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-2.41295601543261	row398	E291
+C00140	N-Acetyl-D-glucosamine	1.3887326336254697	row1448	E1436
+C03205	11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC	2.038243077581797	row689	E886
+CE2176	3-O-methyldopa	-1.304759720226816	row1577	E25
+C05647	Formyl-5-hydroxykynurenamine	-1.7396372687439383	row970	E942
+C03681	5alpha-Pregnane-3,20-dione	2.5039598011590547	row345	E958
+C05582	Homovanillate; Homovanillic acid	-1.7395622162742272	row982	E1567
+C01780	Aldosterone; 11beta,21-Dihydroxy-3,20-dioxo-4-pregnen-18-al	1.5712606743729924	row1182	E1686
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	1.6182863584910847	row1142	E625
+C00637	Indole-3-acetaldehyde	-1.8144219730158297	row877	E1960
+CE1918	5-hydroxytryptophol	-1.7398624725073548	row968	E853
+C00674	5alpha-Androstane-3,17-dione; Androstanedione	1.5013519740043666	row1313	E1286
+C03205	11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC	2.0217703150113664	row710	E886
+CE5860		2.8054613910262027	row230	E519
+CE3140		-1.6662743050750706	row1086	E593
+C00637	Indole-3-acetaldehyde	-1.43326433297949	row1397	E1960
+C00267	alpha-D-Glucose	-1.5710599587361354	row1185	E692
+C00523	Androsterone	1.5243927753089017	row1273	E184
+C00523	Androsterone	1.83972540232013	row845	E187
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	1.3340879001954304	row1542	E625
+C11134	Testosterone glucuronide; Testosterone 17beta-(beta-D-glucuronide)	2.9006080600791724	row204	E612
+C05294	19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one	-1.4557879746129516	row1370	E302
+C01124	18-Hydroxycorticosterone	1.5709930672324908	row1190	E1640
+CE6205	5-methoxytryptophol	-1.5476064016414328	row1225	E1761
+C03205	11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC	2.411873120757067	row410	E886
+C00645	N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose	-2.12967743133576	row610	E1434
+C16591	3-Carbamoyl-2-phenylpropionic acid	-2.157096919532863	row587	E780
+CE2183	2-hydroxy-3-methoxy-17beta-estradiol	-1.7643405655965754	row942	E1546
+CE5860		1.6302879072293677	row1124	E517
+C00822	Dopaquinone	-1.4557879746129516	row1374	E1094
+andrstrnglc	androsterone glucuronide	1.6905292793253353	row1052	E94
+C00822	Dopaquinone	-2.0217703150113664	row699	E1097
+CE2174		-1.4787336120912165	row1325	E703
+C00280	Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione	1.4109126291849383	row1416	E2463
+CE2119		-1.5476064016414328	row1229	E1603
+C00166	Phenylpyruvate	-1.6266381178519802	row1127	E1559
+hestratriol	4,17 dihydroxy estradiol	-1.5013519740043666	row1314	E2377
+CE2174		-2.0484817869771685	row681	E704
+C00795	D-Tagatose; lyxo-Hexulose	-1.3887326336254697	row1457	E689
+C00984	alpha-D-Galactose	-2.157192480414902	row586	E690
+C05577	3,4-Dihydroxymandelaldehyde	-2.07537002318351	row651	E1171
+C03917	5alpha-Dihydrotestosterone	1.5243927753089017	row1273	E184
+CE2172		-1.4557879746129516	row1367	E777
+C14497	6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one	1.3887326336254697	row1443	E302
+C00547	Norepinephrine	-1.5476064016414328	row1234	E2305
+C00523	Androsterone	2.456845179596384	row366	E184
+C05284	11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione	-1.7643405655965754	row942	E1546
+C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine	-1.5709930672324908	row1192	E2242
+C01252	4-(2-Aminophenyl)-2,4-dioxobutanoate	-2.516829216164942	row343	E1025
+C01235	1-alpha-D-Galactosyl-myo-inositol; 1-O-alpha-D-Galactosyl-D-myo-inositol; Galactinol	-2.6200341909908795	row304	E932
+CE2172		-1.4784837805178266	row1339	E776
+C00355	3,4-Dihydroxy-L-phenylalanine	1.3715424189652785	row1469	E1873
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-1.44054290708228	row1382	E291
+C03681	5alpha-Pregnane-3,20-dione	2.58975905351422	row316	E958
+C00410	Progesterone; 4-Pregnene-3,20-dione	2.1559879932540165	row598	E1183
+C00166	Phenylpyruvate	-1.3129971757176717	row1572	E1561
+C16591	3-Carbamoyl-2-phenylpropionic acid	-1.4129889483399651	row1409	E780
+CE6205	5-methoxytryptophol	-1.8908586215452134	row810	E1768
+CE5538	noradrenochrome	-1.6905292793253353	row1051	E1857
+C00544	Homogentisate	-2.3253444680713224	row454	E1171
+C05647	Formyl-5-hydroxykynurenamine	1.7052907738679062	row1022	E947
+C05350	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate	-1.5489229967959008	row1216	E2275
+C05402	Melibiose	-1.9952354438535762	row722	E932
+C01598	Melatonin; N-Acetyl-5-methoxytryptamine	-1.678452102787271	row1062	E376
+C18045		-1.4557879746129516	row1370	E302
+C00079	L-Phenylalanine	1.3667241134761006	row1488	E773
+C00822	Dopaquinone	1.3715424189652785	row1469	E1094
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.240420375024219	row522	E1094
+C00166	Phenylpyruvate	-1.5549032013300605	row1208	E1561
+C00328	L-Kynurenine	-1.7396372687439383	row970	E942
+CE2176	3-O-methyldopa	-2.7580089787038014	row242	E25
+C03917	5alpha-Dihydrotestosterone	2.456845179596384	row366	E184
+CE2174		-2.8054613910262027	row224	E702
+C00822	Dopaquinone	-2.12967743133576	row609	E1094
+C13690	Dopamine 3-O-sulfate	-1.8144219730158297	row871	E36
+CE2119		-1.4226648008163714	row1405	E1601
+CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.1024351849139	row635	E410
+C11135	androsterone glucuronide	2.58975905351422	row308	E94
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	1.4784837805178266	row1334	E105
+C05582	Homovanillate; Homovanillic acid	-1.3129971757176717	row1572	E1569
+C00166	Phenylpyruvate	-1.43326433297949	row1400	E1562
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.452032169995225	row371	E1094
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	2.58975905351422	row308	E94
+C03917	5alpha-Dihydrotestosterone	3.400792128897474	row87	E186
+C00221	beta-D-Glucose	-1.3887326336254697	row1457	E689
+C01083	Trehalose	-1.9952354438535762	row722	E932
+C05488	11-Deoxycortisol; Cortodoxone	-1.9427798222655879	row760	E59
+CE5542	noradrenochrome o-semiquinone	1.3573639260060637	row1503	E1861
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	1.7643405655965754	row948	E57
+CE5860		-2.9825086909074647	row183	E519
+C05589	L-Normetanephrine	-1.3667241134761006	row1483	E770
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	-1.4557879746129516	row1370	E331
+CE4888	dopaminochrome	-1.7892937555575814	row909	E1085
+C07480		-1.3887326336254697	row1457	E689
+C05582	Homovanillate; Homovanillic acid	-2.0484817869771685	row681	E1569
+C00525	D-Tryptophan	-1.5243927753089017	row1268	E399
+C05643	6-Hydroxymelatonin	-1.5476064016414328	row1229	E1603
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-1.3667241134761006	row1483	E770
+C00243	Lactose	-1.9952354438535762	row722	E932
+CE5536	adrenochrome	-1.4109126291849383	row1412	E2260
+CE4888	dopaminochrome	-1.4557879746129516	row1362	E1085
+C01074	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc	-2.12967743133576	row610	E1434
+C00166	Phenylpyruvate	-2.0484817869771685	row681	E1562
+CE5541	adrenochrome o-semiquinone	-2.8054613910262027	row224	E694
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	1.6905292793253353	row1041	E625
+C04042	20alpha-Hydroxy-4-pregnen-3-one; 20alpha-Hydroxypregn-4-en-3-one; 20alpha-Hydroxyprogesterone	2.5039598011590547	row345	E958
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	1.4784837805178266	row1337	E331
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-1.4557879746129516	row1374	E1094
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	2.3253444680713224	row457	E94
+C05498	11beta-Hydroxyprogesterone	2.038243077581797	row689	E886
+C05294	19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one	-3.1805013896998253	row135	E302
+C00140	N-Acetyl-D-glucosamine	-1.3017250278536416	row1596	E1434
+CE2172		-2.7580089787038014	row242	E777
+C05582	Homovanillate; Homovanillic acid	-1.6266381178519802	row1127	E1567
+C00078	L-Tryptophan	-1.5243927753089017	row1268	E399
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-3.1958170030576505	row131	E291
+C13690	Dopamine 3-O-sulfate	-1.4784837805178266	row1338	E36
+C05582	Homovanillate; Homovanillic acid	-1.43326433297949	row1400	E1569
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	2.0217703150113664	row710	E105
+C00031	D-Glucose	-1.5710599587361354	row1185	E692
+C05498	11beta-Hydroxyprogesterone	2.0217703150113664	row710	E886
+C00328	L-Kynurenine	1.7052907738679062	row1022	E947
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	-1.9427798222655879	row760	E59
+C03758	Dopamine	1.6662743050750706	row1080	E1443
+CE2119		-1.3017250278536416	row1586	E1603
+CE5541	adrenochrome o-semiquinone	-1.5710599587361354	row1185	E697
+C00249	Hexadecanoate (n-C16:0)	-2.184693804537182	row577	E275
+CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.9649424283698202	row190	E408
+C00355	3,4-Dihydroxy-L-phenylalanine	-1.561603598234782	row1202	E1873
+C04295	Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol	1.5243927753089017	row1273	E184
+C00159	D-Mannose	-2.8054613910262027	row224	E690
+C05488	11-Deoxycortisol; Cortodoxone	1.6905292793253353	row1041	E57
+CE2176	3-O-methyldopa	1.3667241134761006	row1488	E21
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	1.982121098833371	row726	E94
+C01252	4-(2-Aminophenyl)-2,4-dioxobutanoate	-1.6421933981340318	row1111	E1025
+C05490	11-Dehydrocorticosterone	1.5709930672324908	row1190	E1065
+C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-2.07537002318351	row651	E1171
+CE5860		-1.5709930672324908	row1196	E517
+C05498	11beta-Hydroxyprogesterone	2.411873120757067	row410	E886
+C00252	Isomaltose; Brachiose	-1.9952354438535762	row722	E932
+C03772	5beta-Androstane-3,17-dione	2.240420375024219	row527	E1285
+C05660	5-Methoxyindoleacetate	-1.6182863584910847	row1136	E561
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	3.648222239940718	row58	E95
+C02693	Indole-3-acetamide	-1.3125060070318266	row1574	E1664
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-1.3667241134761006	row1489	E689
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.7395622162742272	row982	E1567
+C00645	N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose	2.1024351849139	row627	E1434
+C02700	L-Formylkynurenine	-1.6905292793253353	row1036	E1843
+CE3140		-2.0560905366802493	row666	E591
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-2.157192480414902	row586	E690
+C00159	D-Mannose	-1.5710599587361354	row1185	E692
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	-1.9427798222655879	row760	E59
+C00962	beta-D-Galactose	-1.5710599587361354	row1185	E692
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	1.3715424189652785	row1469	E1094
+C04042	20alpha-Hydroxy-4-pregnen-3-one; 20alpha-Hydroxypregn-4-en-3-one; 20alpha-Hydroxyprogesterone	2.58975905351422	row316	E958
+C00221	beta-D-Glucose	-1.3667241134761006	row1489	E689
+C05293	5beta-Dihydrotestosterone	1.5243927753089017	row1273	E184
+C00166	Phenylpyruvate	-1.7892937555575814	row912	E1556
+C04373	3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one	3.3317392036915794	row101	E186
+CE1918	5-hydroxytryptophol	-2.681123457613458	row282	E853
+C06212	N-Methylserotonin	-1.5243927753089017	row1277	E730
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	1.5243927753089017	row1273	E331
+C07453	Epinine; Deoxyepinephrine	-1.304759720226816	row1577	E2154
+C18045		-3.1805013896998253	row135	E302
+C07480		-1.3667241134761006	row1489	E689
+C04295	Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol	2.456845179596384	row366	E184
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	1.5945529833792758	row1161	E57
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-1.6182863584910847	row1136	E545
+C00079	L-Phenylalanine	-1.4784837805178266	row1339	E776
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	1.6905292793253353	row1041	E625
+CE5541	adrenochrome o-semiquinone	-2.157192480414902	row586	E694
+C01176	17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone	2.038243077581797	row689	E886
+CE2119		-1.888769451317049	row813	E1602
+C05302	2-Methoxyestradiol-17beta	2.0516440356234265	row669	E1546
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	1.6182863584910847	row1142	E625
+C03917	5alpha-Dihydrotestosterone	3.2634144199141484	row118	E186
+CE2705	quinonoid dihydrobiopterin	2.3004522788494577	row469	E410
+C05638	5-Hydroxykynurenamine	1.7052907738679062	row1022	E2104
+CE5860		-1.5709930672324908	row1192	E517
+C05488	11-Deoxycortisol; Cortodoxone	-4.5637480511367965	row14	E59
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	3.4705739517549925	row78	E95
+C04295	Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol	3.400792128897474	row87	E186
+C05588	L-Metanephrine	-2.382958505490552	row422	E535
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.6421933981340318	row1112	E1569
+C00525	D-Tryptophan	3.096353904959745	row157	E399
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	2.411873120757067	row410	E105
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	4.017243030422069	row34	E95
+C05487	17alpha,21-Dihydroxypregnenolone	2.411873120757067	row410	E331
+CE2176	3-O-methyldopa	2.3540088785791684	row443	E21
+C05488	11-Deoxycortisol; Cortodoxone	-2.459329603015162	row363	E59
+C18045		1.4109126291849383	row1416	E302
+C05582	Homovanillate; Homovanillic acid	-1.5549032013300605	row1208	E1569
+C16609	Didemethylcitalopram	2.0217703150113664	row702	E1614
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	1.7643405655965754	row948	E625
+C00082	L-Tyrosine	1.5712606743729924	row1181	E702
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	1.5945529833792758	row1161	E57
+C04518	17alpha,20alpha-Dihydroxypregn-4-en-3-one	2.1559879932540165	row598	E12
+C00525	D-Tryptophan	-1.7651035041420253	row931	E399
+C05293	5beta-Dihydrotestosterone	2.456845179596384	row366	E184
+C03772	5beta-Androstane-3,17-dione	1.5013519740043666	row1313	E1286
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	1.3340879001954304	row1542	E57
+C00984	alpha-D-Galactose	-1.3887326336254697	row1457	E689
+CE5860		1.5243927753089017	row1279	E519
+dhea	Dehydroepiandrosterone	2.240420375024219	row527	E1285
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	-3.1805013896998253	row135	E331
+C05139	16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one	-1.4557879746129516	row1370	E302
+C05588	L-Metanephrine	1.5016061895747381	row1302	E535
+C00468	Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one	-1.3062835652840319	row1576	E2589
+C02763	enol-Phenylpyruvate	-1.3129971757176717	row1572	E1561
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	-1.501644701048802	row1301	E59
+C02693	Indole-3-acetamide	-1.9688770078887614	row741	E1664
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-1.8144219730158297	row877	E434
+CE3140		2.240420375024219	row528	E594
+C05400	Epimelibiose	-1.9952354438535762	row722	E932
+C00208	Maltose	-1.9952354438535762	row722	E932
+C00078	L-Tryptophan	3.096353904959745	row157	E399
+C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-1.3448868326401027	row1522	E1171
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-1.43326433297949	row1397	E434
+C05487	17alpha,21-Dihydroxypregnenolone	2.038243077581797	row689	E331
+tststeroneglc	testosterone glucuronide	1.8319339203453922	row859	E613
+C05293	5beta-Dihydrotestosterone	3.400792128897474	row87	E186
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	-4.5637480511367965	row14	E59
+CE2186	4-methoxy-17beta-estradiol	-1.7083133471371337	row1020	E1543
+C00078	L-Tryptophan	-1.7651035041420253	row931	E399
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	1.3340879001954304	row1542	E57
+C05660	5-Methoxyindoleacetate	-1.8144219730158297	row877	E557
+C13690	Dopamine 3-O-sulfate	-1.3448868326401027	row1527	E36
+C05660	5-Methoxyindoleacetate	-1.43326433297949	row1397	E557
+C00523	Androsterone	3.3317392036915794	row101	E186
+C01194	Phosphatidylinositol	4.52443787947654	row15	E75
+C01074	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc	2.1024351849139	row627	E1434
+CE2176	3-O-methyldopa	-1.4557879746129516	row1367	E25
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	1.4784837805178266	row1337	E331
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	1.6182863584910847	row1142	E625
+C05141	Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol	-1.5013519740043666	row1314	E2377
+C02763	enol-Phenylpyruvate	-1.43326433297949	row1400	E1562
+C04373	3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one	3.400792128897474	row87	E186
+C04042	20alpha-Hydroxy-4-pregnen-3-one; 20alpha-Hydroxypregn-4-en-3-one; 20alpha-Hydroxyprogesterone	1.559941670750164	row1203	E959
+CE2119		2.0217703150113664	row701	E1601
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	-4.5637480511367965	row14	E59
+C16591	3-Carbamoyl-2-phenylpropionic acid	-1.4787336120912165	row1325	E782
+C18075		1.3887326336254697	row1443	E302
+C00079	L-Phenylalanine	-2.7580089787038014	row242	E777
+C01598	Melatonin; N-Acetyl-5-methoxytryptamine	-2.5001227540502127	row347	E376
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	1.3887326336254697	row1456	E543
+C00954	Indole-3-acetate	-3.1958170030576505	row131	E297
+C16608	Demethylcitalopram	1.83972540232013	row846	E1841
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.6200341909908795	row299	E544
+CE4888	dopaminochrome	-2.452032169995225	row371	E1085
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	2.9006080600791724	row206	E57
+C03917	5alpha-Dihydrotestosterone	3.3317392036915794	row101	E186
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-1.4557879746129516	row1367	E770
+C02763	enol-Phenylpyruvate	-2.0484817869771685	row681	E1562
+C05504	16-Glucuronide-estriol; 16alpha,17beta-Estriol 16-(beta-D-glucuronide)	2.239099437201772	row535	E1301
+ahandrostanglc	Etiocholan-3alpha-ol-17-one 3-glucuronide	1.6905292793253353	row1052	E94
+dhea	Dehydroepiandrosterone	1.5013519740043666	row1313	E1286
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	1.4784837805178266	row1334	E331
+CE5860		-1.6905292793253353	row1049	E517
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	-2.839591119961987	row214	E105
+C00642	4-Hydroxyphenylacetate	1.4784837805178266	row1336	E2400
+C00137	myo-Inositol	-1.5710599587361354	row1185	E692
+C00984	alpha-D-Galactose	-1.3667241134761006	row1489	E689
+C04295	Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol	3.2634144199141484	row118	E186
+C05589	L-Normetanephrine	-1.4784837805178266	row1339	E769
+tststeroneglc	testosterone glucuronide	2.9006080600791724	row204	E612
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	1.865204225348284	row821	E770
+CE2173		-1.7164370930429569	row1001	E434
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-1.4784837805178266	row1339	E769
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	2.9006080600791724	row206	E625
+CE2174		1.5712606743729924	row1181	E702
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	1.5243927753089017	row1273	E331
+CE2705	quinonoid dihydrobiopterin	3.096353904959745	row157	E408
+C05401	3-beta-D-Galactosyl-sn-glycerol; Galactosylglycerol	-1.7651035041420253	row932	E1158
+CE2705	quinonoid dihydrobiopterin	1.554120709706203	row1209	E408
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.296858343196294	row476	E1094
+C16591	3-Carbamoyl-2-phenylpropionic acid	-1.4109126291849383	row1417	E780
+CE3140		1.7785352182095273	row918	E596
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.508179275369145	row1292	E1569
+C00159	D-Mannose	-2.157192480414902	row586	E690
+C11135	androsterone glucuronide	2.3253444680713224	row457	E94
+CE5860		-1.4109126291849383	row1414	E519
+C05290	19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione	2.0516440356234265	row669	E1546
+C05589	L-Normetanephrine	-2.7580089787038014	row242	E770
+C05588	L-Metanephrine	-1.6182863584910847	row1136	E535
+CE5025	5-S-glutathionyl-dopamine	3.541085410726352	row67	E144
+CE5982		-2.2122115759924244	row560	E1357
+C00547	Norepinephrine	-1.503579891509542	row1296	E2307
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.7580089787038014	row242	E770
+C14497	6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one	-1.4557879746129516	row1370	E302
+CE5277	aminochrome o-semiquinone	-2.296858343196294	row476	E1193
+C01179	3-(4-Hydroxyphenyl)pyruvate	-1.5489229967959008	row1216	E2275
+C00523	Androsterone	3.400792128897474	row87	E186
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	2.3253444680713224	row457	E94
+CE2174		1.5243927753089017	row1269	E702
+C05293	5beta-Dihydrotestosterone	3.2634144199141484	row118	E186
+C05582	Homovanillate; Homovanillic acid	-1.865204225348284	row826	E1569
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	2.0217703150113664	row710	E331
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	3.648222239940718	row58	E95
+C05402	Melibiose	-2.6200341909908795	row304	E932
+C11135	androsterone glucuronide	1.982121098833371	row726	E94
+C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol	-1.4109126291849383	row1412	E2254
+C00355	3,4-Dihydroxy-L-phenylalanine	-1.5476064016414328	row1234	E1873
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	2.58975905351422	row308	E94
+C00544	Homogentisate	-2.07537002318351	row651	E1171
+C02763	enol-Phenylpyruvate	-1.7892937555575814	row912	E1556
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.240420375024219	row520	E1094
+C05582	Homovanillate; Homovanillic acid	1.7027953657397001	row1027	E1567
+C00267	alpha-D-Glucose	-1.3887326336254697	row1457	E689
+C11135	androsterone glucuronide	3.648222239940718	row58	E95
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-1.3887326336254697	row1457	E689
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	1.982121098833371	row726	E94
+C05140	16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione	-1.7643405655965754	row942	E1546
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	-3.1805013896998253	row135	E331
+C00355	3,4-Dihydroxy-L-phenylalanine	-1.83972540232013	row853	E1873
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	3.648222239940718	row58	E95
+C00082	L-Tyrosine	-1.7395622162742272	row982	E702
+C05473	11beta,21-Dihydroxy-3,20-oxo-5beta-pregnan-18-al	1.5709930672324908	row1190	E1640
+C04373	3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one	3.2634144199141484	row118	E186
+C18045		1.3887326336254697	row1443	E302
+CE5536	adrenochrome	-1.5489229967959008	row1216	E2257
+C05485	21-Hydroxypregnenolone	2.1559879932540165	row598	E12
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-3.1958170030576505	row131	E291
+C05587	3-Methoxytyramine	-1.304759720226816	row1577	E2154
+C05488	11-Deoxycortisol; Cortodoxone	1.7643405655965754	row948	E57
+andrstndn	Androstenedione	1.4109126291849383	row1416	E2463
+C01953	Pregnenolone; 5-Pregnen-3beta-ol-20-one; 3beta-Hydroxypregn-5-en-20-one	2.5039598011590547	row345	E958
+C00031	D-Glucose	-2.8054613910262027	row224	E690
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.7892937555575814	row912	E1565
+CE6205	5-methoxytryptophol	-1.5243927753089017	row1271	E1769
+C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine	-1.4109126291849383	row1414	E2246
+C05577	3,4-Dihydroxymandelaldehyde	-1.3448868326401027	row1522	E1171
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	3.4705739517549925	row78	E95
+C04295	Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol	3.3317392036915794	row101	E186
+C00243	Lactose	-2.6200341909908795	row304	E932
+CE1918	5-hydroxytryptophol	-1.8144219730158297	row877	E853
+C01674	Chitobiose	1.8144219730158297	row872	E1932
+C05589	L-Normetanephrine	1.3667241134761006	row1488	E767
+C15658	6-(alpha-D-Glucosaminyl)-1D-myo-inositol	1.6182863584910847	row1143	E2213
+C01717	4-Hydroxy-2-quinolinecarboxylic acid	1.459233947588417	row1354	E2418
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	4.017243030422069	row34	E95
+CE1918	5-hydroxytryptophol	-1.43326433297949	row1397	E853
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	1.3667241134761006	row1488	E767
+C11135	androsterone glucuronide	3.4705739517549925	row78	E95
+C05476	Tetrahydrocorticosterone	2.1559879932540165	row598	E1394
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	1.865204225348284	row824	E105
+C05487	17alpha,21-Dihydroxypregnenolone	1.865204225348284	row824	E331
+CE2173		-1.7398624725073548	row968	E434
+CE5860		-1.5243927753089017	row1277	E519
+C11135	androsterone glucuronide	4.017243030422069	row34	E95
+C00140	N-Acetyl-D-glucosamine	-2.12967743133576	row610	E1434
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	1.7643405655965754	row948	E625
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	3.4705739517549925	row78	E95
+CE2183	2-hydroxy-3-methoxy-17beta-estradiol	2.0516440356234265	row669	E1546
+C03681	5alpha-Pregnane-3,20-dione	1.559941670750164	row1203	E959
+C01252	4-(2-Aminophenyl)-2,4-dioxobutanoate	1.459233947588417	row1354	E1025
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	2.411873120757067	row410	E331
+C13690	Dopamine 3-O-sulfate	-1.7149585181827895	row1005	E36
+C00822	Dopaquinone	-1.3432781270072909	row1537	E1096
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	4.017243030422069	row34	E95
+C05489	11beta,17alpha,21-Trihydroxypregnenolone	1.3887326336254697	row1451	E625
+C18038		2.1559879932540165	row598	E12
+CE2173		-2.8054613910262027	row229	E434
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	-1.9427798222655879	row760	E59
+CE2705	quinonoid dihydrobiopterin	-2.1024351849139	row635	E410
+C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine	-1.5243927753089017	row1277	E2246
+C00962	beta-D-Galactose	-2.8054613910262027	row224	E690
+C05660	5-Methoxyindoleacetate	-1.5945529833792758	row1171	E557
+C00331	Indolepyruvate; Indolepyruvic acid; (Indol-3-yl)pyruvate; Indole-3-pyruvate; 3-(Indol-3-yl)pyruvate	-1.3898970519012033	row1438	E1945
+CE5536	adrenochrome	-1.561603598234782	row1202	E2257
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-1.503579891509542	row1296	E1095
+C05293	5beta-Dihydrotestosterone	3.3317392036915794	row101	E186
+C05588	L-Metanephrine	-2.6200341909908795	row299	E535
+C05647	Formyl-5-hydroxykynurenamine	1.83972540232013	row848	E947
+C00267	alpha-D-Glucose	-1.3667241134761006	row1489	E689
+C06212	N-Methylserotonin	2.8054613910262027	row230	E730
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	1.4784837805178266	row1334	E331
+17ahprgstrn	17alpha-Hydroxyprogesterone	1.4784837805178266	row1334	E886
+C00252	Isomaltose; Brachiose	-2.6200341909908795	row304	E932
+C00082	L-Tyrosine	-1.7892937555575814	row912	E702
+C00544	Homogentisate	-1.3448868326401027	row1522	E1171
+C05294	19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one	1.4109126291849383	row1416	E302
+C00267	alpha-D-Glucose	-2.157192480414902	row586	E690
+C05643	6-Hydroxymelatonin	-1.4226648008163714	row1405	E1601
+C00523	Androsterone	3.2634144199141484	row118	E186
+C05284	11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione	2.0516440356234265	row669	E1546
+C01953	Pregnenolone; 5-Pregnen-3beta-ol-20-one; 3beta-Hydroxypregn-5-en-20-one	2.58975905351422	row316	E958
+C05653	N-Formylanthranilate	-1.7395622162742272	row985	E1858
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	2.038243077581797	row689	E331
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-2.7580089787038014	row242	E291
+C00280	Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione	1.3887326336254697	row1443	E2463
+CE2186	4-methoxy-17beta-estradiol	-1.7643405655965754	row942	E1546
+CE5236	O2'-4a-cyclic-tetrahydrobiopterin	1.5019844225430163	row1299	E410
+C00079	L-Phenylalanine	-1.4557879746129516	row1367	E777
+C05302	2-Methoxyestradiol-17beta	-1.7083133471371337	row1020	E1543
+C00082	L-Tyrosine	-1.4109126291849383	row1417	E702
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	1.6905292793253353	row1041	E57
+C05660	5-Methoxyindoleacetate	-2.9388643449396374	row192	E561
+C13690	Dopamine 3-O-sulfate	-2.71193783431291	row264	E36
+C01598	Melatonin; N-Acetyl-5-methoxytryptamine	-1.6424747569734066	row1102	E376
+C05642	Formyl-N-acetyl-5-methoxykynurenamine	1.4785462288399083	row1328	E667
+C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one	2.038243077581797	row689	E105
+C00645	N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose	1.3887326336254697	row1448	E1436
+CE2174		-1.7395622162742272	row982	E702
+C05635	5-Hydroxyindoleacetate	-1.865204225348284	row825	E1412
+C00355	3,4-Dihydroxy-L-phenylalanine	-1.503579891509542	row1296	E1873
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	1.5945529833792758	row1161	E57
+C00951	Estradiol-17beta; beta-Estradiol; Estradiol	1.9183645398123017	row776	E1709
+C00082	L-Tyrosine	-1.83972540232013	row853	E702
+C05140	16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione	2.0516440356234265	row669	E1546
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	2.0217703150113664	row710	E331
+C00082	L-Tyrosine	-1.5549032013300605	row1208	E703
+C00525	D-Tryptophan	-1.5945529833792758	row1165	E399
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	1.6905292793253353	row1052	E94
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	-1.501644701048802	row1301	E59
+CE2705	quinonoid dihydrobiopterin	-2.9649424283698202	row190	E408
+C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine	-1.5476064016414328	row1239	E2242
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	1.7643405655965754	row948	E625
+C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine	-1.5945529833792758	row1169	E2246
+andrstrnglc	androsterone glucuronide	2.58975905351422	row308	E94
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	1.6905292793253353	row1041	E57
+C00082	L-Tyrosine	-1.5710599587361354	row1185	E702
+C00166	Phenylpyruvate	-1.7395622162742272	row982	E1559
+C05474	3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al	1.3887326336254697	row1451	E625
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.9388643449396374	row192	E544
+CE5542	noradrenochrome o-semiquinone	-1.5244574252539718	row1265	E1861
+C11135	androsterone glucuronide	1.6905292793253353	row1052	E94
+C00822	Dopaquinone	-2.296858343196294	row476	E1094
+C05643	6-Hydroxymelatonin	-1.3017250278536416	row1586	E1603
+C05488	11-Deoxycortisol; Cortodoxone	1.6182863584910847	row1142	E57
+CE2176	3-O-methyldopa	-2.456845179596384	row365	E25
+CE5860		-2.3599254286496127	row435	E517
+C05588	L-Metanephrine	1.5476064016414328	row1240	E535
+CE2122	methyl indole-3-acetate	-2.9388643449396374	row192	E552
+C11136	Etiocholan-3alpha-ol-17-one 3-glucuronide	1.6905292793253353	row1052	E94
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.865204225348284	row826	E1569
+C00328	L-Kynurenine	1.83972540232013	row848	E947
+C00268	6,7-Dihydrobiopterin	-1.3017250278536416	row1596	E2511
+C16591	3-Carbamoyl-2-phenylpropionic acid	-1.7089025123778494	row1019	E783
+C05400	Epimelibiose	-2.6200341909908795	row304	E932
+C00208	Maltose	-2.6200341909908795	row304	E932
+C04042	20alpha-Hydroxy-4-pregnen-3-one; 20alpha-Hydroxypregn-4-en-3-one; 20alpha-Hydroxyprogesterone	1.7643405655965754	row951	E959
+C00159	D-Mannose	-1.3887326336254697	row1457	E689
+C00962	beta-D-Galactose	-1.3887326336254697	row1457	E689
+C00082	L-Tyrosine	-1.4787336120912165	row1325	E703
+C00822	Dopaquinone	-2.240420375024219	row520	E1094
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	1.5945529833792758	row1161	E625
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-1.3432781270072909	row1537	E1096
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	-4.5637480511367965	row14	E59
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	-2.459329603015162	row363	E59
+C04373	3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one	1.83972540232013	row845	E187
+C16591	3-Carbamoyl-2-phenylpropionic acid	-1.4784837805178266	row1339	E782
+CE2173		-2.681123457613458	row282	E434
+C00082	L-Tyrosine	-2.0484817869771685	row681	E704
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.3129971757176717	row1572	E1569
+C00525	D-Tryptophan	2.0982064091345127	row638	E399
+C02140	Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H	1.6182863584910847	row1142	E57
+CE5542	noradrenochrome o-semiquinone	-1.83972540232013	row850	E1861
+C00795	D-Tagatose; lyxo-Hexulose	-2.8054613910262027	row224	E690
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	-1.501644701048802	row1301	E627
+CE5665	leukoaminochrome	1.3715424189652785	row1469	E2313
+C11134	Testosterone glucuronide; Testosterone 17beta-(beta-D-glucuronide)	1.8319339203453922	row859	E613
+andrstndn	Androstenedione	1.3887326336254697	row1443	E2463
+C00735	Cortisol; Hydrocortisone; 11beta,17alpha,21-Trihydroxy-4-pregnene-3,20-dione; Kendall's compound F; Reichstein's substance M	1.5709930672324908	row1190	E1640
+CE2211	allopregnanolone	2.559663412269029	row327	E997
+C05477	21-Hydroxy-5beta-pregnane-3,11,20-trione	2.9006080600791724	row206	E57
+C01252	4-(2-Aminophenyl)-2,4-dioxobutanoate	-1.561603598234782	row1202	E1025
+C07572	Citalopram	2.2685503605917385	row505	E1224
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-2.0484817869771685	row681	E1569
+CE2172		-2.456845179596384	row365	E777
+C16591	3-Carbamoyl-2-phenylpropionic acid	-2.212468239360301	row552	E783
+C05643	6-Hydroxymelatonin	-1.888769451317049	row813	E1602
+C00089	Sucrose	-1.9952354438535762	row722	E932
+C00795	D-Tagatose; lyxo-Hexulose	-1.5710599587361354	row1185	E692
+CE2179	4-hydroxy-17beta-estradiol	-1.5013519740043666	row1314	E2377
+C00140	N-Acetyl-D-glucosamine	2.1024351849139	row627	E1434
+C00078	L-Tryptophan	2.0982064091345127	row638	E399
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	2.411873120757067	row410	E331
+C00137	myo-Inositol	-2.8054613910262027	row224	E690
+CE2209	5alpha-androstane-3alpha,17beta-diol	2.1559879932540165	row598	E430
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	-2.459329603015162	row363	E59
+C05589	L-Normetanephrine	-1.4557879746129516	row1367	E770
+C05635	5-Hydroxyindoleacetate	-2.157096919532863	row587	E1412
+CE4888	dopaminochrome	-2.296858343196294	row476	E1085
+C05497	21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone	1.6182863584910847	row1142	E57
+C00031	D-Glucose	-1.3667241134761006	row1489	E689
+C01074	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc	1.3887326336254697	row1448	E1436
+C18075		-1.4557879746129516	row1370	E302
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-1.44054290708228	row1382	E291
+C05653	N-Formylanthranilate	-1.3017250278536416	row1585	E1858
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.43326433297949	row1400	E1569
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.6266381178519802	row1127	E1567
+C16591	3-Carbamoyl-2-phenylpropionic acid	-1.865204225348284	row825	E780
+C00031	D-Glucose	-2.157192480414902	row586	E690
+C00643	5-Hydroxy-L-tryptophan	-1.3125060070318266	row1574	E2584
+C05588	L-Metanephrine	-2.9388643449396374	row192	E535
+C13747	1,7-Dimethylxanthine; Paraxanthine	-1.3887326336254697	row1457	E689
+C01176	17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone	1.5243927753089017	row1273	E886
+CE3140		-2.9011394266707504	row200	E591
+C00082	L-Tyrosine	-2.8054613910262027	row224	E702
+C05589	L-Normetanephrine	1.865204225348284	row821	E770
+CE2174		-1.5549032013300605	row1208	E703
+CE5236	O2'-4a-cyclic-tetrahydrobiopterin	1.554120709706203	row1209	E408
+C05478	3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione	2.038243077581797	row689	E331
+CE2174		-1.5710599587361354	row1185	E702
+C05294	19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one	1.3887326336254697	row1443	E302
+C05589	L-Normetanephrine	-1.969222140430588	row734	E769
+CE2176	3-O-methyldopa	-1.5851165118953077	row1176	E21
+C05290	19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione	-1.7083133471371337	row1020	E1543
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	2.3253444680713224	row457	E94
+C00159	D-Mannose	-1.3667241134761006	row1489	E689
+17ahprgstrn	17alpha-Hydroxyprogesterone	1.5243927753089017	row1273	E886
+C05653	N-Formylanthranilate	-1.83972540232013	row850	E1857
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-1.969222140430588	row734	E769
+C01674	Chitobiose	1.7643405655965754	row945	E1932
+C00822	Dopaquinone	-1.503579891509542	row1296	E1095
+C00962	beta-D-Galactose	-1.3667241134761006	row1489	E689
+17ahprgstrn	17alpha-Hydroxyprogesterone	1.4784837805178266	row1337	E887
+C00221	beta-D-Glucose	-2.8054613910262027	row224	E690
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-1.5710599587361354	row1185	E692
+C16596	5-Phenyl-1,3-oxazinane-2,4-dione	-1.865204225348284	row825	E1412
+C01227	3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA	2.240420375024219	row527	E1285
+C05642	Formyl-N-acetyl-5-methoxykynurenamine	-1.4109126291849383	row1414	E670
+C00962	beta-D-Galactose	-2.157192480414902	row586	E690
+C00055	CMP	1.3448868326401027	row1533	E1982
+C00645	N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose	-1.3017250278536416	row1596	E1434
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-1.7164370930429569	row1001	E434
+C05471	11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione	1.3340879001954304	row1542	E625
+5adtststeroneglc	5alpha-Dihydrotestosterone glucuronide	1.982121098833371	row726	E94
+C05577	3,4-Dihydroxymandelaldehyde	-2.3253444680713224	row454	E1171
+C16591	3-Carbamoyl-2-phenylpropionic acid	-2.7580089787038014	row242	E783
+C05852	2-Hydroxyphenylacetate	1.4784837805178266	row1336	E2400
+C05475	11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione	1.865204225348284	row824	E331
+C01598	Melatonin; N-Acetyl-5-methoxytryptamine	-2.07339261160777	row661	E376
+CE5536	adrenochrome	1.3715424189652785	row1469	E2256
+C05139	16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one	-3.1805013896998253	row135	E302
+C00221	beta-D-Glucose	-1.5710599587361354	row1185	E692
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-2.41295601543261	row398	E291
+C05498	11beta-Hydroxyprogesterone	1.4784837805178266	row1334	E886
+C05643	6-Hydroxymelatonin	2.0217703150113664	row701	E1601
+C00547	Norepinephrine	1.3715424189652785	row1469	E2305
+C03917	5alpha-Dihydrotestosterone	1.83972540232013	row845	E187
+C05487	17alpha,21-Dihydroxypregnenolone	-1.4557879746129516	row1370	E331
+C01235	1-alpha-D-Galactosyl-myo-inositol; 1-O-alpha-D-Galactosyl-D-myo-inositol; Galactinol	-1.9952354438535762	row722	E932
+C05582	Homovanillate; Homovanillic acid	-1.6421933981340318	row1112	E1569
+C00355	3,4-Dihydroxy-L-phenylalanine	-1.4109126291849383	row1412	E1875
+C03205	11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC	1.5243927753089017	row1273	E886
+C05139	16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one	1.4109126291849383	row1416	E302
+C13747	1,7-Dimethylxanthine; Paraxanthine	-1.3667241134761006	row1489	E689
+C05588	L-Metanephrine	1.3887326336254697	row1456	E533
+C00762	Cortisone; 17alpha,21-Dihydroxy-4-pregnene-3,11,20-trione; Kendall's compound E; Reichstein's substance Fa	1.5712606743729924	row1182	E1686
+C03205	11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC	1.4784837805178266	row1337	E887
+C00137	myo-Inositol	-1.3887326336254697	row1457	E689
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-1.5549032013300605	row1208	E1569
+C01083	Trehalose	-2.6200341909908795	row304	E932
+C02763	enol-Phenylpyruvate	-1.7395622162742272	row982	E1559
+C03681	5alpha-Pregnane-3,20-dione	1.7643405655965754	row951	E959
+C05653	N-Formylanthranilate	-1.6905292793253353	row1051	E1857
+C05302	2-Methoxyestradiol-17beta	-1.7643405655965754	row942	E1546
+C00082	L-Tyrosine	-1.6421933981340318	row1120	E702
+C05647	Formyl-5-hydroxykynurenamine	-2.157096919532863	row587	E942
+C01227	3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA	1.5013519740043666	row1313	E1286
+C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol	-1.561603598234782	row1202	E2250
+CE2183	2-hydroxy-3-methoxy-17beta-estradiol	-1.7083133471371337	row1020	E1543
+C00525	D-Tryptophan	1.5019844225430163	row1299	E401

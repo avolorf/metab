@@ -1,0 +1,988 @@
+EID	massfeature_rows	str_row_ion	compounds	compound_names
+E2	row1377;row2067;row3825;row4506;row4522;row4904;row6200;row7398;row7469;row7536;row7820	row1377_M+HCOOK[1+];row2067_M-CO+H[1+];row3825_M+H2O+H[1+];row4506_M+H2O+H[1+];row4522_M+H[1+];row4904_M+K[1+];row6200_M-H2O+H[1+];row7398_M+H[1+];row7469_M-H2O+H[1+];row7536_M+H[1+];row7820_M+H2O+H[1+]	C05488;C05497;C05477;C02140	11-Deoxycortisol; Cortodoxone$21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone$21-Hydroxy-5beta-pregnane-3,11,20-trione$Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H
+E4	row1;row11;row1580;row1904;row4666;row5548;row6059;row6308;row7148;row7299	row1_M+HCOONa[1+];row11_M+HCOONa[1+];row1580_M-CO2+H[1+];row1904_M-CO2+H[1+];row4666_M-HCOOH+H[1+];row5548_M+H[1+];row6059_M-C3H4O2+H[1+];row6308_M-CO+H[1+];row7148_M-HCOOH+H[1+];row7299_M-HCOOH+H[1+]	C05488;C05497;C05477;C02140	11-Deoxycortisol; Cortodoxone$21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone$21-Hydroxy-5beta-pregnane-3,11,20-trione$Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H
+E7	row4400	row4400_M+H[1+]	CE2207	24-oxo-1alpha,23,25-trihydroxyvitamin D3
+E8	row2;row2480;row954;row955	row2_M+HCOOK[1+];row2480_M+H[1+];row954_M+K[1+];row955_M+K[1+]	CE2207	24-oxo-1alpha,23,25-trihydroxyvitamin D3
+E10	row1690;row2671;row369;row7	row1690_M+HCOONa[1+];row2671_M+H[1+];row369_M+HCOONa[1+];row7_M+H[1+]	C12144	Phytosphingosine; 4-D-Hydroxysphinganine
+E14	row5704	row5704_M-H2O+H[1+]	C00696;C04853;C06315;C06314;C00584;C04654;C04671;C01312;C02198;C00427	Prostaglandin D2$w-hydroxyl leukotriene B4$Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid$Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid$Prostaglandin E2$(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate$(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate$Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol$Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid$Prostaglandin H2
+E17	row3908;row4108;row8	row3908_M-H2O+H[1+];row4108_M+H[1+];row8_M+HCOOK[1+]	C00696;C04853;C06315;C06314;C00584;C04654;C04671;C01312;C02198;C00427	Prostaglandin D2$w-hydroxyl leukotriene B4$Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid$Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid$Prostaglandin E2$(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate$(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate$Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol$Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid$Prostaglandin H2
+E20	row14;row4028;row4934;row5377;row771	row14_M+H[1+];row4028_M-H2O+H[1+];row4934_M+H[1+];row5377_M+HCOONa[1+];row771_M+HCOONa[1+]	C00836	Sphinganine
+E21	row1949;row4883;row6179;row7841	row1949_M+H[1+];row4883_M-NH3+H[1+];row6179_M+H[1+];row7841_M+Na[1+]	C00780	Serotonin
+E22	row447;row5711;row5961;row6342;row682;row7496	row447_M-NH3+H[1+];row5711_M-H2O+H[1+];row5961_M+H[1+];row6342_M+H2O+H[1+];row682_M-H2O+H[1+];row7496_M+H[1+]	C00780	Serotonin
+E25	row1103;row4760	row1103_M-H2O+H[1+];row4760_M-NH3+H[1+]	C00780	Serotonin
+E30	row1652;row1696;row1750;row2148;row2171;row2328;row2777;row2826;row4194;row4660;row4665;row4961;row5813;row6132;row6328	row1652_M+H[1+];row1696_M+H[1+];row1750_M+H[1+];row2148_M+H[1+];row2171_M+H[1+];row2328_M+H[1+];row2777_M+H[1+];row2826_M+H[1+];row4194_M+H2O+H[1+];row4660_M+H[1+];row4665_M+H[1+];row4961_M(C13)+H[1+];row5813_M+H2O+H[1+];row6132_M+H2O+H[1+];row6328_M+H2O+H[1+]	C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol
+E31	row2008;row2530;row3957;row4689;row5486	row2008_M+H2O+H[1+];row2530_M+H[1+];row3957_M+H2O+H[1+];row4689_M+H[1+];row5486_M+H[1+]	C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol
+E32	row692	row692_M+H[1+]	C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol
+E33	row6926;row979	row6926_M+H2O+H[1+];row979_M+H[1+]	C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol
+E34	row18	row18_M+H[1+]	C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol
+E35	row1438	row1438_M+H[1+]	C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol
+E36	row1341;row1696;row1750;row2171;row2541;row4660;row4665;row5813;row6132;row63;row6328;row7879	row1341_M-CO+H[1+];row1696_M-H2O+H[1+];row1750_M-H2O+H[1+];row2171_M-H2O+H[1+];row2541_M+H2O+H[1+];row4660_M-H2O+H[1+];row4665_M-H2O+H[1+];row5813_M+H[1+];row6132_M+H[1+];row63_M-CO+H[1+];row6328_M+H[1+];row7879_M+H2O+H[1+]	CE5536;C01586	adrenochrome$Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid
+E37	row1652;row2008;row2022;row2148;row2328;row2517;row2530;row2777;row2826;row3957;row4194;row4689;row4804;row5360;row5486;row5497;row6219	row1652_M-H2O+H[1+];row2008_M+H[1+];row2022_M-CO+H[1+];row2148_M-H2O+H[1+];row2328_M-H2O+H[1+];row2517_M-NH3+H[1+];row2530_M-H2O+H[1+];row2777_M-H2O+H[1+];row2826_M-H2O+H[1+];row3957_M+H[1+];row4194_M+H[1+];row4689_M-H2O+H[1+];row4804_M+Na[1+];row5360_M+H2O+H[1+];row5486_M-H2O+H[1+];row5497_M-NH3+H[1+];row6219_M-CO+H[1+]	CE5536;C01586	adrenochrome$Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid
+E38	row3324;row5316;row692	row3324_M-CO+H[1+];row5316_M-NH3+H[1+];row692_M-H2O+H[1+]	CE5536;C01586	adrenochrome$Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid
+E39	row1214;row6926;row979	row1214_M-CO+H[1+];row6926_M+H[1+];row979_M-H2O+H[1+]	CE5536;C01586	adrenochrome$Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid
+E40	row18	row18_M-H2O+H[1+]	CE5536;C01586	adrenochrome$Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid
+E41	row1438;row3193	row1438_M-H2O+H[1+];row3193_M-CO+H[1+]	CE5536;C01586	adrenochrome$Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid
+E42	row1696;row1750;row2171;row332;row45;row4660;row4665	row1696_M-CO+H[1+];row1750_M-CO+H[1+];row2171_M-CO+H[1+];row332_M+H2O+H[1+];row45_M+H[1+];row4660_M-CO+H[1+];row4665_M-CO+H[1+]	C01717	4-Hydroxy-2-quinolinecarboxylic acid
+E43	row1652;row1695;row1802;row2148;row2328;row2777;row2826;row7669	row1652_M-CO+H[1+];row1695_M+H[1+];row1802_M+H[1+];row2148_M-CO+H[1+];row2328_M-CO+H[1+];row2777_M-CO+H[1+];row2826_M-CO+H[1+];row7669_M+H[1+]	C01717	4-Hydroxy-2-quinolinecarboxylic acid
+E44	row2530;row3505;row4689;row5486;row6028;row6326;row6327;row7069	row2530_M-CO+H[1+];row3505_M+H2O+H[1+];row4689_M-CO+H[1+];row5486_M-CO+H[1+];row6028_M+H[1+];row6326_M+H2O+H[1+];row6327_M+H2O+H[1+];row7069_M+H[1+]	C01717	4-Hydroxy-2-quinolinecarboxylic acid
+E49	row1341;row1652;row1669;row1696;row1750;row2008;row2022;row2148;row2171;row2328;row2530;row2541;row2777;row2826;row3280;row3635;row3957;row4194;row4329;row4660;row4665;row4689;row5116;row5305;row5360;row5415;row5486;row5813;row5886;row6132;row6219;row6233;row63;row6328;row7319;row7749;row7879	row1341_M-HCOOH+H[1+];row1652_M-H4O2+H[1+];row1669_M[1+];row1696_M-H4O2+H[1+];row1750_M-H4O2+H[1+];row2008_M-H2O+H[1+];row2022_M-HCOOH+H[1+];row2148_M-H4O2+H[1+];row2171_M-H4O2+H[1+];row2328_M-H4O2+H[1+];row2530_M-H4O2+H[1+];row2541_M+H[1+];row2777_M-H4O2+H[1+];row2826_M-H4O2+H[1+];row3280_M-CO+H[1+];row3635_M+H2O+H[1+];row3957_M-H2O+H[1+];row4194_M-H2O+H[1+];row4329_M[1+];row4660_M-H4O2+H[1+];row4665_M-H4O2+H[1+];row4689_M-H4O2+H[1+];row5116_M+HCOONa[1+];row5305_M-CO2+H[1+];row5360_M+H[1+];row5415_M-CO+H[1+];row5486_M-H4O2+H[1+];row5813_M-H2O+H[1+];row5886_M-CO2+H[1+];row6132_M-H2O+H[1+];row6219_M-HCOOH+H[1+];row6233_M-CO+H[1+];row63_M-HCOOH+H[1+];row6328_M-H2O+H[1+];row7319_M[1+];row7749_M-CO2+H[1+];row7879_M+H[1+]	C00355	3,4-Dihydroxy-L-phenylalanine
+E51	row1214;row18;row5010;row6926;row979	row1214_M-HCOOH+H[1+];row18_M-H4O2+H[1+];row5010_M-CO2+H[1+];row6926_M-H2O+H[1+];row979_M-H4O2+H[1+]	C00355	3,4-Dihydroxy-L-phenylalanine
+E54	row1193;row1321;row1652;row1695;row1696;row1750;row1802;row2148;row2171;row2328;row2777;row2826;row3228;row332;row4194;row45;row4627;row4660;row4665;row5813;row6132;row6264;row6328;row7669	row1193_M[1+];row1321_M+H2O+H[1+];row1652_M-HCOOH+H[1+];row1695_M-H2O+H[1+];row1696_M-HCOOH+H[1+];row1750_M-HCOOH+H[1+];row1802_M-H2O+H[1+];row2148_M-HCOOH+H[1+];row2171_M-HCOOH+H[1+];row2328_M-HCOOH+H[1+];row2777_M-HCOOH+H[1+];row2826_M-HCOOH+H[1+];row3228_M-CO2+H[1+];row332_M+H[1+];row4194_M-CO+H[1+];row45_M-H2O+H[1+];row4627_M+H2O+H[1+];row4660_M-HCOOH+H[1+];row4665_M-HCOOH+H[1+];row5813_M-CO+H[1+];row6132_M-CO+H[1+];row6264_M-CO2+H[1+];row6328_M-CO+H[1+];row7669_M-H2O+H[1+]	C01252	4-(2-Aminophenyl)-2,4-dioxobutanoate
+E55	row2008;row2530;row3505;row3523;row3957;row4689;row5486;row6028;row6326;row6327;row6685;row7069	row2008_M-CO+H[1+];row2530_M-HCOOH+H[1+];row3505_M+H[1+];row3523_M-CO2+H[1+];row3957_M-CO+H[1+];row4689_M-HCOOH+H[1+];row5486_M-HCOOH+H[1+];row6028_M-H2O+H[1+];row6326_M+H[1+];row6327_M+H[1+];row6685_M[1+];row7069_M-H2O+H[1+]	C01252	4-(2-Aminophenyl)-2,4-dioxobutanoate
+E62	row1696;row1750;row2171;row3463;row4660;row4665;row7380;row7512	row1696_M-CO2+H[1+];row1750_M-CO2+H[1+];row2171_M-CO2+H[1+];row3463_M+H[1+];row4660_M-CO2+H[1+];row4665_M-CO2+H[1+];row7380_M-CO+H[1+];row7512_M-CO+H[1+]	C02470	Xanthurenic acid
+E63	row1652;row1778;row2148;row2328;row2530;row2777;row2826;row4689;row5486;row7165;row7475;row7695;row7701	row1652_M-CO2+H[1+];row1778_M-CO+H[1+];row2148_M-CO2+H[1+];row2328_M-CO2+H[1+];row2530_M-CO2+H[1+];row2777_M-CO2+H[1+];row2826_M-CO2+H[1+];row4689_M-CO2+H[1+];row5486_M-CO2+H[1+];row7165_M+H2O+H[1+];row7475_M+H[1+];row7695_M-H2O+H[1+];row7701_M-HCOOH+H[1+]	C02470	Xanthurenic acid
+E70	row1068;row109;row122;row1580;row1904;row208;row2389;row3740;row825	row1068_M-HCOOH+H[1+];row109_M+HCOOK[1+];row122_M+H2O+H[1+];row1580_M+H[1+];row1904_M+H[1+];row208_M-HCOOH+H[1+];row2389_M+H2O+H[1+];row3740_M+Na[1+];row825_M-HCOOH+H[1+]	CE5932;C02075;C06428;CE5013	13,14-epoxy-retinol$Retinyl ester; all-trans-Retinyl ester$(5Z,8Z,11Z,14Z,17Z)-Icosapentaenoic acid; (5Z,8Z,11Z,14Z,17Z)-Eicosapentaenoic acid; Eicosapentaenoic acid; 5,8,11,14,17-Icosapentaenoic acid; (5Z,8Z,11Z,14Z,17Z)-Eicosapentaenoate$
+E73	row1390;row20;row2041;row2122;row2348;row2467;row2875;row2881;row393;row4120;row4531;row517;row529;row5817;row929	row1390_M[1+];row20_M+H[1+];row2041_M+H2O+H[1+];row2122_M+K[1+];row2348_M(C13)+H[1+];row2467_M[1+];row2875_M+Na[1+];row2881_M+Na[1+];row393_M[1+];row4120_M(C13)+H[1+];row4531_M[1+];row517_M(C13)+H[1+];row529_M[1+];row5817_M+Na[1+];row929_M(C13)+H[1+]	C07344	3-Hydroxyquinine
+E74	row3077;row5629	row3077_M+Na[1+];row5629_M+HCOOK[1+]	C07344	3-Hydroxyquinine
+E76	row22;row303	row22_M+K[1+];row303_M+Na[1+]	C00208;C00252;C00243;C01083;C00089;C01235;C05400;C05402	Maltose$Isomaltose; Brachiose$Lactose$Trehalose$Sucrose$1-alpha-D-Galactosyl-myo-inositol; 1-O-alpha-D-Galactosyl-D-myo-inositol; Galactinol$Epimelibiose$Melibiose
+E89	row7763	row7763_M-H2O+H[1+]	leuktrF4	leukotriene F4
+E93	row2273;row5692;row6804	row2273_M+H[1+];row5692_M[1+];row6804_M-CO+H[1+]	CE2065	acetylcarnosine
+E95	row1758;row2380;row24;row3898;row4021;row4915;row58;row7068;row7876	row1758_M-C3H4O2+H[1+];row2380_M-CO+H[1+];row24_M+Na[1+];row3898_M-CO+H[1+];row4021_M-CO+H[1+];row4915_M+Na[1+];row58_M+H[1+];row7068_M+H[1+];row7876_M+H[1+]	CE2065	acetylcarnosine
+E100	row5667	row5667_M+Na[1+]	C00669	gamma-L-Glutamyl-L-cysteine
+E120	row1684;row2131;row236;row30;row3549;row3669;row3970;row4278;row4447;row4517;row4799;row5481;row6168;row6205;row6291;row6494;row739;row850	row1684_M+H[1+];row2131_M(C13)+H[1+];row236_M-H4O2+H[1+];row30_M-H2O+H[1+];row3549_M+K[1+];row3669_M(C13)+H[1+];row3970_M+2H[2+];row4278_M+2H[2+];row4447_M-CO2+H[1+];row4517_M+H[1+];row4799_M+2H[2+];row5481_M(C13)+H[1+];row6168_M+K[1+];row6205_M+2H[2+];row6291_M+2H[2+];row6494_M-CO2+H[1+];row739_M(C13)+H[1+];row850_M-H4O2+H[1+]	CE2054;CE5976	20-carboxy-leukotriene-B4$12-oxo-10,11-dihydro-20-COOH-LTB4
+E121	row1614;row5001;row5390;row5762	row1614_M+2H[2+];row5001_M+H2O+H[1+];row5390_M-HCOOH+H[1+];row5762_M+H[1+]	CE2054;CE5976	20-carboxy-leukotriene-B4$12-oxo-10,11-dihydro-20-COOH-LTB4
+E127	row1199;row5481;row6639;row7151;row739	row1199_M+HCOONa[1+];row5481_M+H2O+H[1+];row6639_M+H[1+];row7151_M+HCOOK[1+];row739_M+H2O+H[1+]	CE5141	
+E134	row5936;row6913	row5936_M+Na[1+];row6913_M(C13)+H[1+]	CE2959;CE5756;retnglc	13-cis-retinoyl-beta-D-glucuronide$9-cis-retinoyl-beta-D-glucuronide$retinoyl glucuronide
+E142	row1687;row5500;row7545	row1687_M[1+];row5500_M+H[1+];row7545_M-CO+H[1+]	C16602;C16601;C07496	3-Hydroxycarbamazepine$2-Hydroxycarbamazepine$Carbamazepine-10,11-epoxide; Carbamazepine epoxide
+E143	row1350;row2024;row310;row3242;row3845;row502;row5940	row1350_M+H[1+];row2024_M-CO+H[1+];row310_M+HCOONa[1+];row3242_M[1+];row3845_M+H[1+];row502_M+H2O+H[1+];row5940_M(C13)+H[1+]	C16602;C16601;C07496	3-Hydroxycarbamazepine$2-Hydroxycarbamazepine$Carbamazepine-10,11-epoxide; Carbamazepine epoxide
+E144	row3150;row5871;row6415;row6826	row3150_M+H[1+];row5871_M+H2O+H[1+];row6415_M+Na[1+];row6826_M-HCOOH+H[1+]	C16602;C16601;C07496	3-Hydroxycarbamazepine$2-Hydroxycarbamazepine$Carbamazepine-10,11-epoxide; Carbamazepine epoxide
+E145	row3087;row5108;row6375	row3087_M+H[1+];row5108_M+H[1+];row6375_M+NaCl[1+]	C16602;C16601;C07496	3-Hydroxycarbamazepine$2-Hydroxycarbamazepine$Carbamazepine-10,11-epoxide; Carbamazepine epoxide
+E150	row852	row852_M+H[1+]	C05791	D-Urobilinogen
+E151	row2748;row6793	row2748_M+H[1+];row6793_M+H[1+]	C05791	D-Urobilinogen
+E152	row37;row7008;row728;row7421	row37_M-C3H4O2+H[1+];row7008_M+H[1+];row728_M+H+Na[2+];row7421_M+H[1+]	C05791	D-Urobilinogen
+E153	row4029;row4877	row4029_M-H2O+H[1+];row4877_M+H[1+]	C03793	N6,N6,N6-Trimethyl-L-lysine
+E154	row7036	row7036_M+H[1+]	C03793	N6,N6,N6-Trimethyl-L-lysine
+E159	row3133;row3634;row3681;row3813;row6405;row922	row3133_M+HCOOK[1+];row3634_M-H2O+H[1+];row3681_M+HCOOK[1+];row3813_M+HCOONa[1+];row6405_M+HCOONa[1+];row922_M-H2O+H[1+]	CE2576	
+E167	row1530;row3360;row3367;row3782;row3986;row501;row5320;row635;row7870	row1530_M-C3H4O2+H[1+];row3360_M-CO+H[1+];row3367_M+H2O+H[1+];row3782_M-CO2+H[1+];row3986_M-CO+H[1+];row501_M-HCOOH+H[1+];row5320_M-C3H4O2+H[1+];row635_M-H2O+H[1+];row7870_M-HCOOH+H[1+]	C00526	Deoxyuridine
+E168	row40;row4100	row40_M-H2O+H[1+];row4100_M(C13)+H[1+]	C00526	Deoxyuridine
+E183	row3044	row3044_M+Na[1+]	CE5626	salsolinol 1-carboxylate
+E184	row136;row4261;row43;row4463;row4953	row136_M[1+];row4261_M[1+];row43_M+H[1+];row4463_M+H[1+];row4953_M[1+]	CE5277	aminochrome o-semiquinone
+E187	row1669;row43;row4463;row7319	row1669_M+H[1+];row43_M-HCOOH+H[1+];row4463_M-HCOOH+H[1+];row7319_M+H[1+]	C00257;C00800	D-Gluconate$L-Gulonate
+E188	row4329;row5833	row4329_M+H[1+];row5833_M[1+]	C00257;C00800	D-Gluconate$L-Gulonate
+E189	row43;row4463	row43_M+H[1+];row4463_M+H[1+]	C00259;C00309;C00312;C00310;C00121;C00181	L-Arabinose$D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose$L-Xylulose$D-Xylulose$D-Ribose$D-Xylose
+E191	row7325	row7325_M+H[1+]	C00073	L-Methionine
+E193	row43;row4463;row63	row43_M[1+];row4463_M[1+];row63_M+H[1+]	CE5665	leukoaminochrome
+E194	row1341;row3280;row5415;row6233	row1341_M+H[1+];row3280_M+H2O+H[1+];row5415_M+H2O+H[1+];row6233_M+H2O+H[1+]	CE5665	leukoaminochrome
+E195	row2022;row6219	row2022_M+H[1+];row6219_M+H[1+]	CE5665	leukoaminochrome
+E196	row3324	row3324_M+H[1+]	CE5665	leukoaminochrome
+E197	row1214	row1214_M+H[1+]	CE5665	leukoaminochrome
+E198	row3193	row3193_M+H[1+]	CE5665	leukoaminochrome
+E202	row4377;row5899;row7392	row4377_M+H2O+H[1+];row5899_M-CO+H[1+];row7392_M-H2O+H[1+]	C00618;C06472;C00191	3-Dehydro-L-gulonate$L-Iduronic acid$D-Glucuronate
+E209	row146;row44	row146_M-H2O+H[1+];row44_M+H[1+]	C05635;C16596	5-Hydroxyindoleacetate$5-Phenyl-1,3-oxazinane-2,4-dione
+E210	row6086;row6264;row7902	row6086_M+H[1+];row6264_M-CO+H[1+];row7902_M+H[1+]	C05635;C16596	5-Hydroxyindoleacetate$5-Phenyl-1,3-oxazinane-2,4-dione
+E211	row3228;row5250;row5749;row5765;row7273;row7320	row3228_M-CO+H[1+];row5250_M[1+];row5749_M+H[1+];row5765_M-H2O+H[1+];row7273_M+H[1+];row7320_M+H2O+H[1+]	C05635;C16596	5-Hydroxyindoleacetate$5-Phenyl-1,3-oxazinane-2,4-dione
+E214	row2084;row2845;row3155;row3444;row3595;row4025;row47;row5448;row5773;row5854;row6341;row7611	row2084_M-H2O+H[1+];row2845_M-H2O+H[1+];row3155_M+Na[1+];row3444_M-CO+H[1+];row3595_M+H2O+H[1+];row4025_M+H[1+];row47_M-H2O+H[1+];row5448_M+H2O+H[1+];row5773_M+H2O+H[1+];row5854_M-H2O+H[1+];row6341_M-CO+H[1+];row7611_M-CO+H[1+]	C05635;C16596	5-Hydroxyindoleacetate$5-Phenyl-1,3-oxazinane-2,4-dione
+E215	row2587;row6663	row2587_M+H[1+];row6663_M-CO+H[1+]	C05635;C16596	5-Hydroxyindoleacetate$5-Phenyl-1,3-oxazinane-2,4-dione
+E217	row6086;row7902;row803	row6086_M[1+];row7902_M[1+];row803_M+H[1+]	CE2934	o-methylhippurate
+E222	row2244;row520	row2244_M+H[1+];row520_M-CO+H[1+]	C16591	3-Carbamoyl-2-phenylpropionic acid
+E223	row1004;row146;row3466;row44;row4559;row5663;row5974;row6086;row6094;row6264;row7209;row7902;row909	row1004_M-CO+H[1+];row146_M-H4O2+H[1+];row3466_M-CO+H[1+];row44_M-H2O+H[1+];row4559_M[1+];row5663_M[1+];row5974_M-CO+H[1+];row6086_M-H2O+H[1+];row6094_M+H2O+H[1+];row6264_M-HCOOH+H[1+];row7209_M-NH3+H[1+];row7902_M-H2O+H[1+];row909_M-CO2+H[1+]	C16591	3-Carbamoyl-2-phenylpropionic acid
+E224	row2956;row3228;row3281;row5749;row5765;row7273;row7312;row7320;row772	row2956_M-CO2+H[1+];row3228_M-HCOOH+H[1+];row3281_M-CO2+H[1+];row5749_M-H2O+H[1+];row5765_M-H4O2+H[1+];row7273_M-H2O+H[1+];row7312_M-CO2+H[1+];row7320_M+H[1+];row772_M-CO+H[1+]	C16591	3-Carbamoyl-2-phenylpropionic acid
+E225	row2157;row2192;row2588;row290;row3522;row3523;row775	row2157_M-CO2+H[1+];row2192_M-CO+H[1+];row2588_M-NH3+H[1+];row290_M-CO+H[1+];row3522_M-CO+H[1+];row3523_M-HCOOH+H[1+];row775_M+H[1+]	C16591	3-Carbamoyl-2-phenylpropionic acid
+E226	row2084;row2298;row2379;row2845;row3433;row3444;row3595;row3928;row4025;row4565;row4675;row47;row5448;row5773;row5854;row6341;row6739;row7611;row89;row951	row2084_M-H4O2+H[1+];row2298_M-NH3+H[1+];row2379_M-CO+H[1+];row2845_M-H4O2+H[1+];row3433_M-NH3+H[1+];row3444_M-HCOOH+H[1+];row3595_M+H[1+];row3928_M+Na[1+];row4025_M-H2O+H[1+];row4565_M-CO2+H[1+];row4675_M-CO+H[1+];row47_M-H4O2+H[1+];row5448_M+H[1+];row5773_M+H[1+];row5854_M-H4O2+H[1+];row6341_M-HCOOH+H[1+];row6739_M-NH3+H[1+];row7611_M-HCOOH+H[1+];row89_M-CO2+H[1+];row951_M-CO2+H[1+]	C16591	3-Carbamoyl-2-phenylpropionic acid
+E227	row1041;row2587;row6652;row6663	row1041_M-HCOOH+H[1+];row2587_M-H2O+H[1+];row6652_M-CO+H[1+];row6663_M-HCOOH+H[1+]	C16591	3-Carbamoyl-2-phenylpropionic acid
+E228	row2070;row3416;row343;row44;row5211;row5573;row5774;row6812;row78	row2070_M+H[1+];row3416_M+H2O+H[1+];row343_M-HCOOH+H[1+];row44_M-NH3+H[1+];row5211_M-CO2+H[1+];row5573_M+H2O+H[1+];row5774_M-CO+H[1+];row6812_M+H2O+H[1+];row78_M+H[1+]	C00328;C05647	L-Kynurenine$Formyl-5-hydroxykynurenamine
+E233	row1384;row3001;row4025;row6978	row1384_M-H2O+H[1+];row3001_M-CO+H[1+];row4025_M-NH3+H[1+];row6978_M-CO2+H[1+]	C00328;C05647	L-Kynurenine$Formyl-5-hydroxykynurenamine
+E238	row46;row5212	row46_M+H[1+];row5212_M-NH3+H[1+]	C00021	S-Adenosyl-L-homocysteine
+E245	row2251;row2744;row4640;row6321;row7562;row7801	row2251_M+2H[2+];row2744_M-H4O2+H[1+];row4640_M+H[1+];row6321_M-H4O2+H[1+];row7562_M-H2O+H[1+];row7801_M-H2O+H[1+]	C00219	arachidonic acid
+E247	row1391;row2280;row4617;row5870	row1391_M+HCOOK[1+];row2280_M+Na[1+];row4617_M+HCOOK[1+];row5870_M+Na[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E250	row733	row733_M+H[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E251	row1265;row3092;row51;row5487;row963	row1265_M+H2O+H[1+];row3092_M+H[1+];row51_M+H[1+];row5487_M+H[1+];row963_M+H[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E252	row1548;row7528	row1548_M+H[1+];row7528_M+H2O+H[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E253	row4653;row796	row4653_M+H[1+];row796_M+H[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E254	row2251;row4441	row2251_M+H[1+];row4441_M+H2O+H[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E255	row7377	row7377_M+H[1+]	C02452;C11409;C02759;C00964	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol$(+)-trans-Carveol; (4S,6R)-trans-Carveol$$(-)-trans-Carveol
+E260	row2251;row4640	row2251_M+H+Na[2+];row4640_M+Na[1+]	C00712	(9Z)-Octadecenoic acid; (Z)-Octadec-9-enoic acid; Oleate; Oleic acid
+E267	row6244;row897	row6244_M+K[1+];row897_M+H[1+]	CE2006;CE6506	$
+E268	row52	row52_M+H[1+]	CE2006;CE6506	$
+E269	row6960	row6960_M+H[1+]	CE2006;CE6506	$
+E280	row4432	row4432_M-H2O+H[1+]	C04717;C14827	(9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoic acid; (9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoate; 13(S)-HPODE; 13S-Hydroperoxy-9Z,11E-octadecadienoic acid$9(S)-HPODE; 9(S)-HPOD; (10E,12Z)-(9S)-9-Hydroperoxyoctadeca-10,12-dienoic acid
+E281	row3847;row4206;row4382;row7535	row3847_M+H[1+];row4206_M-H4O2+H[1+];row4382_M-H4O2+H[1+];row7535_M-H2O+H[1+]	C04717;C14827	(9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoic acid; (9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoate; 13(S)-HPODE; 13S-Hydroperoxy-9Z,11E-octadecadienoic acid$9(S)-HPODE; 9(S)-HPOD; (10E,12Z)-(9S)-9-Hydroperoxyoctadeca-10,12-dienoic acid
+E283	row2662;row3908;row5634	row2662_M-H2O+H[1+];row3908_M+Na[1+];row5634_M-H4O2+H[1+]	C04717;C14827	(9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoic acid; (9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoate; 13(S)-HPODE; 13S-Hydroperoxy-9Z,11E-octadecadienoic acid$9(S)-HPODE; 9(S)-HPOD; (10E,12Z)-(9S)-9-Hydroperoxyoctadeca-10,12-dienoic acid
+E285	row2460;row5409;row6074;row6254;row6473;row7010;row7453;row7600;row822	row2460_M-H4O2+H[1+];row5409_M-H4O2+H[1+];row6074_M+H[1+];row6254_M-CO2+H[1+];row6473_M+H2O+H[1+];row7010_M-CO2+H[1+];row7453_M-H2O+H[1+];row7600_M+H2O+H[1+];row822_M-CO2+H[1+]	C12448;egme	Ecgonine methyl ester; Methyl ecgonine$ecgonine methyl ester
+E286	row1456;row2661;row7797	row1456_M-HCOOH+H[1+];row2661_M-HCOOH+H[1+];row7797_M+H[1+]	C12448;egme	Ecgonine methyl ester; Methyl ecgonine$ecgonine methyl ester
+E287	row1018;row1380;row2017;row2500;row3579;row3750;row4417;row6948;row6949	row1018_M-HCOOH+H[1+];row1380_M+H2O+H[1+];row2017_M-NH3+H[1+];row2500_M+H[1+];row3579_M+H[1+];row3750_M-NH3+H[1+];row4417_M-NH3+H[1+];row6948_M+HCOOK[1+];row6949_M+HCOOK[1+]	C12448;egme	Ecgonine methyl ester; Methyl ecgonine$ecgonine methyl ester
+E289	row2314;row378;row3970;row465;row4799;row58;row6205;row6291;row7068;row7834	row2314_M-H4O2+H[1+];row378_M+H2O+H[1+];row3970_M-NH3+H[1+];row465_M+H[1+];row4799_M-NH3+H[1+];row58_M+HCOONa[1+];row6205_M-NH3+H[1+];row6291_M-NH3+H[1+];row7068_M+HCOONa[1+];row7834_M+H[1+]	C12448;egme	Ecgonine methyl ester; Methyl ecgonine$ecgonine methyl ester
+E290	row859	row859_M+H[1+]	C12448;egme	Ecgonine methyl ester; Methyl ecgonine$ecgonine methyl ester
+E291	row1331;row1614;row4072;row713	row1331_M-H2O+H[1+];row1614_M-NH3+H[1+];row4072_M+H[1+];row713_M-CO2+H[1+]	C12448;egme	Ecgonine methyl ester; Methyl ecgonine$ecgonine methyl ester
+E297	row1347;row1585;row1749;row3554;row5194;row6271;row6292;row6349;row6724;row6827	row1347_M-NH3+H[1+];row1585_M-HCOOH+H[1+];row1749_M+Na[1+];row3554_M+Na[1+];row5194_M-H2O+H[1+];row6271_M-NH3+H[1+];row6292_M-C3H4O2+H[1+];row6349_M-NH3+H[1+];row6724_M+Na[1+];row6827_M-CO2+H[1+]	C06157	[Dihydrolipoyllysine-residue succinyltransferase] S-glutaryldihydrolipoyllysine; S-Glutaryldihydrolipoamide-E
+E298	row5748;row80	row5748_M(C13)+H[1+];row80_M+Na[1+]	C06157	[Dihydrolipoyllysine-residue succinyltransferase] S-glutaryldihydrolipoyllysine; S-Glutaryldihydrolipoamide-E
+E305	row1341;row4978	row1341_M[1+];row4978_M+Na[1+]	CE5276	dopamine o-quinone
+E310	row3193;row336	row3193_M[1+];row336_M+Na[1+]	CE5276	dopamine o-quinone
+E311	row1263;row1341;row2456;row3280;row3371;row4507;row5313;row5415;row5782;row6233;row63;row7755	row1263_M+H[1+];row1341_M-H4O2+H[1+];row2456_M+H2O+H[1+];row3280_M-H2O+H[1+];row3371_M-CO+H[1+];row4507_M-CO+H[1+];row5313_M-NH3+H[1+];row5415_M-H2O+H[1+];row5782_M-CO+H[1+];row6233_M-H2O+H[1+];row63_M-H4O2+H[1+];row7755_M-CO+H[1+]	C05548	6-Acetamido-2-oxohexanoate; 2-Oxo-6-acetamidocaproate
+E318	row1263;row63	row1263_M+H2O+H[1+];row63_M-H2O+H[1+]	C00547;C00314	Norepinephrine$Pyridoxine
+E319	row1341;row3280;row5415;row6233;row6463	row1341_M-H2O+H[1+];row3280_M+H[1+];row5415_M+H[1+];row6233_M+H[1+];row6463_M-NH3+H[1+]	C00547;C00314	Norepinephrine$Pyridoxine
+E321	row1639;row2022;row6219	row1639_M-NH3+H[1+];row2022_M-H2O+H[1+];row6219_M-H2O+H[1+]	C00547;C00314	Norepinephrine$Pyridoxine
+E322	row3324;row5171;row5419;row5608	row3324_M-H2O+H[1+];row5171_M-NH3+H[1+];row5419_M-NH3+H[1+];row5608_M-NH3+H[1+]	C00547;C00314	Norepinephrine$Pyridoxine
+E323	row1214	row1214_M-H2O+H[1+]	C00547;C00314	Norepinephrine$Pyridoxine
+E324	row3193;row6413	row3193_M-H2O+H[1+];row6413_M-NH3+H[1+]	C00547;C00314	Norepinephrine$Pyridoxine
+E326	row1050;row132;row1341;row136;row1549;row3236;row4261;row478;row4953;row506;row5209;row5827;row5833;row589;row63;row676;row7380;row7512;row87;row88	row1050_M+H[1+];row132_M-CO+H[1+];row1341_M-CO2+H[1+];row136_M-HCOOH+H[1+];row1549_M-CO+H[1+];row3236_M+H[1+];row4261_M-HCOOH+H[1+];row478_M+Na[1+];row4953_M-HCOOH+H[1+];row506_M-HCOOH+H[1+];row5209_M+Na[1+];row5827_M+H[1+];row5833_M+H[1+];row589_M-HCOOH+H[1+];row63_M-CO2+H[1+];row676_M-CO+H[1+];row7380_M-H2O+H[1+];row7512_M-H2O+H[1+];row87_M+H[1+];row88_M+H[1+]	C00822;C05604	Dopaquinone$2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome
+E327	row1778;row2022;row330;row3322;row3488;row6219;row7701	row1778_M-H2O+H[1+];row2022_M-CO2+H[1+];row330_M+H[1+];row3322_M-HCOOH+H[1+];row3488_M+H[1+];row6219_M-CO2+H[1+];row7701_M-H4O2+H[1+]	C00822;C05604	Dopaquinone$2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome
+E328	row1222;row2451;row3324;row4191;row658	row1222_M+Na[1+];row2451_M+H[1+];row3324_M-CO2+H[1+];row4191_M-H2O+H[1+];row658_M+H[1+]	C00822;C05604	Dopaquinone$2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome
+E329	row1214;row389	row1214_M-CO2+H[1+];row389_M+H[1+]	C00822;C05604	Dopaquinone$2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome
+E332	row1193;row1304;row1341;row1391;row3288;row63;row7307	row1193_M+K[1+];row1304_M+H[1+];row1341_M-NH3+H[1+];row1391_M+HCOONa[1+];row3288_M+H2O+H[1+];row63_M-NH3+H[1+];row7307_M-H2O+H[1+]	C00534	Pyridoxamine
+E333	row3541	row3541_M-H2O+H[1+]	C00534	Pyridoxamine
+E339	row1749;row3554;row4157;row65;row6724	row1749_M-H4O2+H[1+];row3554_M-H4O2+H[1+];row4157_M-H2O+H[1+];row65_M[1+];row6724_M-H4O2+H[1+]	C00401	Chondroitin; Chondroitin-D-glucuronate
+E340	row1319;row3711;row3791;row5506;row80	row1319_M-CO+H[1+];row3711_M-H2O+H[1+];row3791_M-H2O+H[1+];row5506_M-H2O+H[1+];row80_M-H4O2+H[1+]	C00401	Chondroitin; Chondroitin-D-glucuronate
+E344	row5069	row5069_M+H[1+]	C00401	Chondroitin; Chondroitin-D-glucuronate
+E345	row5239	row5239_M+H[1+]	C00401	Chondroitin; Chondroitin-D-glucuronate
+E350	row5577;row5826;row68;row7255	row5577_M+H[1+];row5826_M+H2O+H[1+];row68_M+K[1+];row7255_M+H2O+H[1+]	C05490	11-Dehydrocorticosterone
+E356	row4189;row5017	row4189_M+H[1+];row5017_M+H2O+H[1+]	CE2119;C05643	$6-Hydroxymelatonin
+E357	row211;row3244;row3932;row4446;row6009;row7642	row211_M-H2O+H[1+];row3244_M+H2O+H[1+];row3932_M+NaCl[1+];row4446_M-H2O+H[1+];row6009_M-H2O+H[1+];row7642_M-NH3+H[1+]	CE2119;C05643	$6-Hydroxymelatonin
+E358	row3165;row3619;row6270;row6558	row3165_M-H2O+H[1+];row3619_M+H[1+];row6270_M+NaCl[1+];row6558_M+HCOONa[1+]	CE2119;C05643	$6-Hydroxymelatonin
+E359	row3008;row4676;row4774;row5130;row5871;row71	row3008_M-CO+H[1+];row4676_M+H[1+];row4774_M+HCOONa[1+];row5130_M+H2O+H[1+];row5871_M+Na[1+];row71_M+HCOONa[1+]	CE2119;C05643	$6-Hydroxymelatonin
+E361	row2286;row7523	row2286_M+H[1+];row7523_M+H2O+H[1+]	C11131	2-Methoxy-estradiol-17beta 3-glucuronide
+E362	row2137;row3081	row2137_M+H[1+];row3081_M+H2O+H[1+]	C11131	2-Methoxy-estradiol-17beta 3-glucuronide
+E364	row3929;row73	row3929_M-H2O+H[1+];row73_M+H[1+]	C11131	2-Methoxy-estradiol-17beta 3-glucuronide
+E370	row1391;row1550;row2070;row2797;row3765;row3948;row4617;row4971;row6358;row7662;row78	row1391_M+H[1+];row1550_M-CO2+H[1+];row2070_M-CO+H[1+];row2797_M-H4O2+H[1+];row3765_M+H2O+H[1+];row3948_M-CO2+H[1+];row4617_M+H[1+];row4971_M-CO2+H[1+];row6358_M-C3H4O2+H[1+];row7662_M-CO2+H[1+];row78_M-CO+H[1+]	C02406;C02700	Formylkynurenine$L-Formylkynurenine
+E374	row1391;row1895;row2070;row2604;row2988;row3416;row366;row3765;row4617;row501;row5573;row6014;row6812;row78;row7870	row1391_M-H2O+H[1+];row1895_M-CO2+H[1+];row2070_M-HCOOH+H[1+];row2604_M-NH3+H[1+];row2988_M-CO2+H[1+];row3416_M-CO+H[1+];row366_M+H2O+H[1+];row3765_M+H[1+];row4617_M-H2O+H[1+];row501_M-C3H4O2+H[1+];row5573_M-CO+H[1+];row6014_M-CO+H[1+];row6812_M-CO+H[1+];row78_M-HCOOH+H[1+];row7870_M-C3H4O2+H[1+]	C16582;C16584	2-Hydroxyfelbamate$p-Hydroxyfelbamate
+E378	row1087;row1584;row2070;row2244;row2315;row2690;row3416;row374;row4403;row5573;row5774;row5955;row6014;row6812;row78	row1087_M-CO+H[1+];row1584_M-CO+H[1+];row2070_M-H2O+H[1+];row2244_M-NH3+H[1+];row2315_M-CO2+H[1+];row2690_M-CO2+H[1+];row3416_M+H[1+];row374_M-CO+H[1+];row4403_M-C3H4O2+H[1+];row5573_M+H[1+];row5774_M-HCOOH+H[1+];row5955_M-CO2+H[1+];row6014_M+H[1+];row6812_M+H[1+];row78_M-H2O+H[1+]	C00931	Porphobilinogen
+E387	row2057;row4077	row2057_M-HCOOH+H[1+];row4077_M-H2O+H[1+]	C00921	Dihydropteroate; 7,8-Dihydropteroate
+E388	row4430;row6162;row7308	row4430_M-CO+H[1+];row6162_M-H2O+H[1+];row7308_M-HCOOH+H[1+]	C00921	Dihydropteroate; 7,8-Dihydropteroate
+E394	row2263	row2263_M+H[1+]	C00921	Dihydropteroate; 7,8-Dihydropteroate
+E395	row7428	row7428_M+H[1+]	C00921	Dihydropteroate; 7,8-Dihydropteroate
+E412	row1050;row3236;row3463;row4194;row5813;row5827;row5833;row6132;row6328;row6402;row7380;row7512;row87;row88	row1050_M-CO+H[1+];row3236_M-CO+H[1+];row3463_M-H2O+H[1+];row4194_M-CO2+H[1+];row5813_M-CO2+H[1+];row5827_M-CO+H[1+];row5833_M-CO+H[1+];row6132_M-CO2+H[1+];row6328_M-CO2+H[1+];row6402_M-C3H4O2+H[1+];row7380_M-HCOOH+H[1+];row7512_M-HCOOH+H[1+];row87_M-CO+H[1+];row88_M-CO+H[1+]	C05645	4-(2-Amino-3-hydroxyphenyl)-2,4-dioxobutanoate
+E413	row1778;row330;row3488;row3957;row7165;row7475;row7695	row1778_M-HCOOH+H[1+];row330_M-CO+H[1+];row3488_M-CO+H[1+];row3957_M-CO2+H[1+];row7165_M+H[1+];row7475_M-H2O+H[1+];row7695_M-H4O2+H[1+]	C05645	4-(2-Amino-3-hydroxyphenyl)-2,4-dioxobutanoate
+E415	row2451;row3476;row4191;row658	row2451_M-CO+H[1+];row3476_M+H[1+];row4191_M-HCOOH+H[1+];row658_M-CO+H[1+]	C05645	4-(2-Amino-3-hydroxyphenyl)-2,4-dioxobutanoate
+E420	row1219;row2227;row2976;row3344;row7254;row7554;row909	row1219_M+H[1+];row2227_M+H[1+];row2976_M+H2O+H[1+];row3344_M-CO+H[1+];row7254_M-CO+H[1+];row7554_M-CO+H[1+];row909_M-H2O+H[1+]	C05589;C00788	L-Normetanephrine$L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol
+E421	row3281;row4826;row7312	row3281_M-H2O+H[1+];row4826_M+HCOONa[1+];row7312_M-H2O+H[1+]	C05589;C00788	L-Normetanephrine$L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol
+E422	row2157;row2214;row2510;row2956;row4948;row7596	row2157_M-H2O+H[1+];row2214_M-NH3+H[1+];row2510_M-CO+H[1+];row2956_M-H2O+H[1+];row4948_M-CO+H[1+];row7596_M-CO+H[1+]	C05589;C00788	L-Normetanephrine$L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol
+E423	row2123;row2240;row3571;row3608;row4565;row4616;row6795;row7136;row7283	row2123_M+H[1+];row2240_M+H[1+];row3571_M+H[1+];row3608_M+H2O+H[1+];row4565_M-H2O+H[1+];row4616_M+Na[1+];row6795_M+H[1+];row7136_M-NH3+H[1+];row7283_M-CO+H[1+]	C05589;C00788	L-Normetanephrine$L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol
+E424	row89;row951	row89_M-H2O+H[1+];row951_M-H2O+H[1+]	C05589;C00788	L-Normetanephrine$L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol
+E426	row1219;row2227;row3117;row909	row1219_M+H2O+H[1+];row2227_M+H2O+H[1+];row3117_M+Na[1+];row909_M+H[1+]	C00079;CE2172	L-Phenylalanine$
+E427	row3281;row7312	row3281_M+H[1+];row7312_M+H[1+]	C00079;CE2172	L-Phenylalanine$
+E428	row2956	row2956_M+H[1+]	C00079;CE2172	L-Phenylalanine$
+E429	row2157	row2157_M+H[1+]	C00079;CE2172	L-Phenylalanine$
+E430	row2123;row2240;row3365;row3571;row4565;row6795	row2123_M+H2O+H[1+];row2240_M+H2O+H[1+];row3365_M+HCOONa[1+];row3571_M+H2O+H[1+];row4565_M+H[1+];row6795_M+H2O+H[1+]	C00079;CE2172	L-Phenylalanine$
+E431	row89;row951	row89_M+H[1+];row951_M+H[1+]	C00079;CE2172	L-Phenylalanine$
+E432	row1002;row1372;row1845;row6508;row909	row1002_M+H2O+H[1+];row1372_M-H2O+H[1+];row1845_M-H2O+H[1+];row6508_M+H2O+H[1+];row909_M-CO+H[1+]	C16595;C16587	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one$3-Carbamoyl-2-phenylpropionaldehyde
+E434	row1000;row1702;row2956;row3281;row3586;row5011;row7312	row1000_M-H2O+H[1+];row1702_M-NH3+H[1+];row2956_M-CO+H[1+];row3281_M-CO+H[1+];row3586_M-NH3+H[1+];row5011_M-NH3+H[1+];row7312_M-CO+H[1+]	C16595;C16587	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one$3-Carbamoyl-2-phenylpropionaldehyde
+E436	row1125;row1403;row1422;row1796;row2264;row3264;row3349;row4255;row4565;row480;row5739;row5753;row5952;row5968;row6678;row6756;row7314;row7423;row7458;row89;row951	row1125_M-NH3+H[1+];row1403_M-NH3+H[1+];row1422_M-NH3+H[1+];row1796_M-NH3+H[1+];row2264_M+H[1+];row3264_M-NH3+H[1+];row3349_M-NH3+H[1+];row4255_M-NH3+H[1+];row4565_M-CO+H[1+];row480_M+H[1+];row5739_M-NH3+H[1+];row5753_M-NH3+H[1+];row5952_M-H2O+H[1+];row5968_M-H2O+H[1+];row6678_M-NH3+H[1+];row6756_M-H4O2+H[1+];row7314_M+H[1+];row7423_M-NH3+H[1+];row7458_M-NH3+H[1+];row89_M-CO+H[1+];row951_M-CO+H[1+]	C16595;C16587	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one$3-Carbamoyl-2-phenylpropionaldehyde
+E437	row2676	row2676_M-H2O+H[1+]	C16595;C16587	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one$3-Carbamoyl-2-phenylpropionaldehyde
+E439	row1002;row1219;row1372;row1845;row1869;row2227;row3477;row4301;row454;row6241;row6508;row765;row909	row1002_M+H[1+];row1219_M-CO+H[1+];row1372_M-H4O2+H[1+];row1845_M-H4O2+H[1+];row1869_M-CO2+H[1+];row2227_M-CO+H[1+];row3477_M+H2O+H[1+];row4301_M+H2O+H[1+];row454_M+H2O+H[1+];row6241_M-CO2+H[1+];row6508_M+H[1+];row765_M-CO2+H[1+];row909_M-HCOOH+H[1+]	CE2176	3-O-methyldopa
+E443	row1261;row2123;row2240;row2264;row3179;row3365;row3571;row4565;row480;row4899;row5952;row6795;row6884;row7314	row1261_M-CO2+H[1+];row2123_M-CO+H[1+];row2240_M-CO+H[1+];row2264_M-H2O+H[1+];row3179_M-NH3+H[1+];row3365_M+Na[1+];row3571_M-CO+H[1+];row4565_M-HCOOH+H[1+];row480_M-H2O+H[1+];row4899_M-CO2+H[1+];row5952_M-H4O2+H[1+];row6795_M-CO+H[1+];row6884_M-NH3+H[1+];row7314_M-H2O+H[1+]	CE2176	3-O-methyldopa
+E450	row1394	row1394_M+H[1+]	C00020;C00362	AMP$dGMP
+E452	row2697;row427;row647	row2697_M-CO+H[1+];row427_M+H[1+];row647_M+H[1+]	C00020;C00362	AMP$dGMP
+E463	row5169	row5169_M-H2O+H[1+]	C05606	Melanin
+E465	row6143;row90	row6143_M+H[1+];row90_M(C13)+H[1+]	C05606	Melanin
+E467	row136;row1936;row4261;row4881;row4953;row6089	row136_M(C13)+2H[2+];row1936_M-H4O2+H[1+];row4261_M(C13)+2H[2+];row4881_M-H2O+H[1+];row4953_M(C13)+2H[2+];row6089_M+Na[1+]	C00170	5-Methylthioadenosine
+E468	row2697;row3184;row506;row589	row2697_M+Na[1+];row3184_M+H[1+];row506_M(C13)+2H[2+];row589_M(C13)+2H[2+]	C00170	5-Methylthioadenosine
+E470	row6950;row7680;row90	row6950_M(S34)+H[1+];row7680_M[1+];row90_M+Na[1+]	C00170	5-Methylthioadenosine
+E474	row3946;row4602;row5780;row5798	row3946_M-H4O2+H[1+];row4602_M-H4O2+H[1+];row5780_M-H4O2+H[1+];row5798_M-H2O+H[1+]	CE6229	13E-tetranor-16-carboxy-LTE4
+E480	row2851	row2851_M+H[1+]	CE6229	13E-tetranor-16-carboxy-LTE4
+E484	row2592;row5383;row5459;row5578;row6055;row6104;row7582;row92	row2592_M+H+Na[2+];row5383_M+Na[1+];row5459_M+H+Na[2+];row5578_M+HCOONa[1+];row6055_M+H+Na[2+];row6104_M+H+Na[2+];row7582_M+H+Na[2+];row92_M+Na[1+]	CE5528	
+E485	row3425;row5526	row3425_M+HCOONa[1+];row5526_M+Na[1+]	CE5528	
+E487	row264	row264_M+Na[1+]	CE5528	
+E493	row3658;row6760;row7003	row3658_M+H[1+];row6760_M+NaCl[1+];row7003_M+NaCl[1+]	CE2567;CE2566;CE5178;CE4990;CE4876;CE5304;CE5349;CE6508;CE7080;CE7091;CE7097;CE7084;CE7083	5(S),6(S)-epoxy-15(S)-hydroxy-7E,9E,11Z,13E-eicosatetraenoic acid anion$5(S),6(S)-epoxy-15(R)-hydroxyeicosatetraenoate$5-oxo-6-trans-leukotriene B4$12-oxo-leukotriene B4$delta12-Prostaglandin J2$$5-oxo-6E-12-epi-LTB4$5-hydroperoxy-EPA$15(S)-hydroperoxy-EPE$15(R)-hydroperoxy-EPE$5-oxo-12(S)-hydroxy-eicosa-6E,8Z,10E,14Z-tetraenoate$$leukotriene B5
+E500	row3366	row3366_M+H[1+]	C00762;C01780	Cortisone; 17alpha,21-Dihydroxy-4-pregnene-3,11,20-trione; Kendall's compound E; Reichstein's substance Fa$Aldosterone; 11beta,21-Dihydroxy-3,20-dioxo-4-pregnen-18-al
+E501	row4003	row4003_M+H[1+]	C00762;C01780	Cortisone; 17alpha,21-Dihydroxy-4-pregnene-3,11,20-trione; Kendall's compound E; Reichstein's substance Fa$Aldosterone; 11beta,21-Dihydroxy-3,20-dioxo-4-pregnen-18-al
+E507	row1112;row1382;row2657;row5221;row5354;row5938;row615;row6438;row6504;row7124;row7559;row7620;row7874;row92	row1112_M-H2O+H[1+];row1382_M+2H[2+];row2657_M+HCOOK[1+];row5221_M(C13)+H[1+];row5354_M+HCOOK[1+];row5938_M+HCOOK[1+];row615_M+2H[2+];row6438_M+2H[2+];row6504_M+2H[2+];row7124_M+2H[2+];row7559_M+2H[2+];row7620_M+2H[2+];row7874_M+2H[2+];row92_M-H4O2+H[1+]	C05962;C05956	$Prostaglandin G2; PGG2
+E511	row3984	row3984_M+Na[1+]	C04707;C06439	(5Z,13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate; (5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprosta-13-enoate$Prostaglandin E3
+E512	row1112;row6236;row6916	row1112_M+H[1+];row6236_M[1+];row6916_M+HCOONa[1+]	C04707;C06439	(5Z,13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate; (5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprosta-13-enoate$Prostaglandin E3
+E513	row92	row92_M-H2O+H[1+]	C04707;C06439	(5Z,13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate; (5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprosta-13-enoate$Prostaglandin E3
+E516	row3623;row5526;row6693	row3623_M-H4O2+H[1+];row5526_M-H2O+H[1+];row6693_M-HCOOH+H[1+]	C04707;C06439	(5Z,13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate; (5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprosta-13-enoate$Prostaglandin E3
+E517	row264;row2707;row2722	row264_M-H2O+H[1+];row2707_M+HCOONa[1+];row2722_M-HCOOH+H[1+]	C04707;C06439	(5Z,13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate; (5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprosta-13-enoate$Prostaglandin E3
+E518	row1002;row2030;row2155;row2976;row3172;row3477;row3584;row4301;row454;row6508	row1002_M-H2O+H[1+];row2030_M+H2O+H[1+];row2155_M+H2O+H[1+];row2976_M-CO+H[1+];row3172_M+H2O+H[1+];row3477_M+H[1+];row3584_M+H2O+H[1+];row4301_M+H[1+];row454_M+H[1+];row6508_M-H2O+H[1+]	CE2615	2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E519	row4826	row4826_M+Na[1+]	CE2615	2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E520	row3132;row431	row3132_M+H[1+];row431_M+Na[1+]	CE2615	2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E521	row2217;row6374;row93	row2217_M+Na[1+];row6374_M+Na[1+];row93_M+H[1+]	CE2615	2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E522	row1687;row4629	row1687_M+Na[1+];row4629_M+Na[1+]	CE2615	2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E523	row2531;row3242;row3608	row2531_M+HCOOK[1+];row3242_M+Na[1+];row3608_M-CO+H[1+]	CE2615	2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E533	row97	row97_M+H[1+]	C01185	Nicotinate D-ribonucleotide
+E534	row1309;row5597;row5652;row6278;row6860;row7541	row1309_M-CO+H[1+];row5597_M-CO2+H[1+];row5652_M+HCOONa[1+];row6278_M-C3H4O2+H[1+];row6860_M+H[1+];row7541_M-C3H4O2+H[1+]	C01736;C05512	Nebularine; Purine riboside; N-D-Ribosylpurine$Deoxyinosine
+E541	row7169	row7169_M+H[1+]	C01736;C05512	Nebularine; Purine riboside; N-D-Ribosylpurine$Deoxyinosine
+E552	row7357;row993	row7357_M+H[1+];row993_M-C3H4O2+H[1+]	C01598	Melatonin; N-Acetyl-5-methoxytryptamine
+E555	row1170;row1937;row388;row3937;row4385;row6982;row7278	row1170_M+H2O+H[1+];row1937_M-H2O+H[1+];row388_M+H[1+];row3937_M+NaCl[1+];row4385_M+H2O+H[1+];row6982_M-NH3+H[1+];row7278_M+NaCl[1+]	C01598	Melatonin; N-Acetyl-5-methoxytryptamine
+E557	row4491	row4491_M-H2O+H[1+]	C00831	Pantetheine; (R)-Pantetheine
+E559	row1008;row3432;row3638;row3807;row4535;row5347;row7476;row7538	row1008_M+HCOONa[1+];row3432_M+Na[1+];row3638_M+H2O+H[1+];row3807_M-H2O+H[1+];row4535_M-NH3+H[1+];row5347_M-NH3+H[1+];row7476_M+Na[1+];row7538_M+H2O+H[1+]	C00831	Pantetheine; (R)-Pantetheine
+E560	row1668;row6334;row99	row1668_M+Na[1+];row6334_M+H2O+H[1+];row99_M+Na[1+]	C00831	Pantetheine; (R)-Pantetheine
+E564	row2908;row4861;row6032;row7251	row2908_M+H[1+];row4861_M-CO2+H[1+];row6032_M[1+];row7251_M-CO2+H[1+]	C01674	Chitobiose
+E565	row1683	row1683_M+H[1+]	C01674	Chitobiose
+E566	row3875;row5029;row6035	row3875_M-H2O+H[1+];row5029_M+H[1+];row6035_M-H2O+H[1+]	C01674	Chitobiose
+E568	row102;row282;row3399;row662	row102_M-H2O+H[1+];row282_M-H4O2+H[1+];row3399_M-C3H4O2+H[1+];row662_M-H4O2+H[1+]	C00518	Hyaluronate; Hyaluronic acid; [beta-N-Acetyl-D-glucosaminyl(1,4)beta-D-glucuronosyl(1,3)]n
+E574	row5302	row5302_M-H2O+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E575	row106;row4008;row5321	row106_M(C13)+H[1+];row4008_M+H[1+];row5321_M-CO+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E576	row5308	row5308_M-H2O+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E577	row1506	row1506_M-H2O+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E578	row2964;row3260;row3307;row4428	row2964_M+H[1+];row3260_M+H[1+];row3307_M+HCOONa[1+];row4428_M+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E579	row1036;row1323;row1326;row1755;row1965;row2252;row2423;row2626;row2665;row2821;row2945;row3138;row3808;row4094;row4178;row4264;row4371;row4513;row5291;row5358;row5514;row5792;row6178;row6495;row7021;row7321;row7442;row7445;row7772	row1036_M-H2O+H[1+];row1323_M+HCOONa[1+];row1326_M-H2O+H[1+];row1755_M-H2O+H[1+];row1965_M+H[1+];row2252_M+H2O+H[1+];row2423_M+H2O+H[1+];row2626_M-H2O+H[1+];row2665_M+H[1+];row2821_M-H2O+H[1+];row2945_M-H2O+H[1+];row3138_M-H2O+H[1+];row3808_M-H2O+H[1+];row4094_M-CO+H[1+];row4178_M-CO+H[1+];row4264_M+H[1+];row4371_M-H2O+H[1+];row4513_M+H2O+H[1+];row5291_M-H2O+H[1+];row5358_M+H[1+];row5514_M+H[1+];row5792_M+HCOONa[1+];row6178_M+H[1+];row6495_M+H2O+H[1+];row7021_M-H2O+H[1+];row7321_M+H[1+];row7442_M-H2O+H[1+];row7445_M-H2O+H[1+];row7772_M+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E580	row4680	row4680_M+H[1+]	C00590	Coniferyl alcohol; Coniferol; 4-(3-Hydroxy-1-propenyl)-2-methoxyphenol
+E591	row122;row1580;row2389;row2609;row2781;row320;row3644;row4206;row4382;row4401;row4485;row4493;row4640;row5373;row5509;row6013;row6045;row7103	row122_M-CO+H[1+];row1580_M-HCOOH+H[1+];row2389_M-CO+H[1+];row2609_M-H2O+H[1+];row2781_M-H4O2+H[1+];row320_M+HCOOK[1+];row3644_M+H2O+H[1+];row4206_M-C3H4O2+H[1+];row4382_M-C3H4O2+H[1+];row4401_M+H[1+];row4485_M-H2O+H[1+];row4493_M+H[1+];row4640_M-CO2+H[1+];row5373_M-H2O+H[1+];row5509_M+H[1+];row6013_M-CO+H[1+];row6045_M+H[1+];row7103_M+H[1+]	C05487;C05475;C05478	17alpha,21-Dihydroxypregnenolone$11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione$3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione
+E594	row110;row1735	row110_M+H[1+];row1735_M-HCOOH+H[1+]	C14855;C14856	4,5-Dihydro-4-hydroxy-5-S-glutathionyl-benzo[a]pyrene$7,8-Dihydro-7-hydroxy-8-S-glutathionyl-benzo[a]pyrene
+E595	row1275	row1275_M+H[1+]	C01081	Thiamin monophosphate; Thiamine monophosphate; Thiamin phosphate; Thiamine phosphate; TMP
+E601	row2841;row6943;row7570	row2841_M(C13)+H[1+];row6943_M+H[1+];row7570_M-CO+H[1+]	C04079	N-((R)-Pantothenoyl)-L-cysteine; D-Pantothenoyl-L-cysteine; N-Pantothenoylcysteine
+E602	row1183;row5928	row1183_M-H2O+H[1+];row5928_M[1+]	C04079	N-((R)-Pantothenoyl)-L-cysteine; D-Pantothenoyl-L-cysteine; N-Pantothenoylcysteine
+E603	row5837	row5837_M+Na[1+]	C04079	N-((R)-Pantothenoyl)-L-cysteine; D-Pantothenoyl-L-cysteine; N-Pantothenoylcysteine
+E604	row1955	row1955_M+Na[1+]	CE5311;CE5323	6(R)-hydroxy-tetradeca-2E,4E,8Z-trienoate$6(S)-hydroxy-tetradeca-2E,4E,8Z-trienoate
+E616	row2507;row296;row6013;row6188;row6553	row2507_M+Na[1+];row296_M+NaCl[1+];row6013_M+H[1+];row6188_M+HCOOK[1+];row6553_M+K[1+]	C04805;C04742;C14749;C14748;C14778;C14770;C14771;C14769;C14768;CE5016	5-Hydroxyeicosatetraenoate$(15S)-15-Hydroxy-5,8,11-cis-13-trans-eicosatetraenoate; (15S)-15-Hydroxy-5,8,11-cis-13-trans-icosatetraenoate; (5Z,8Z,11Z,13E)-(15S)-15-Hydroxyicosa-5,8,11,13-tetraenoic acid; 15(S)-HETE$19(S)-HETE; (19S)-Hydroxyeicosatetraenoic acid; (19S)-Hydroxyicosatetraenoic acid; (19S)-Hydroxy arachidonic acid$20-Hydroxyeicosatetraenoic acid$16(R)-HETE; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyeicosa-5,8,11,14-tetraenoic acid; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyicosa-5,8,11,14-tetraenoic acid$11,12-EET$14,15-EET; (5Z,8Z,11Z)-14,15-Epoxyeicosa-5.8.11-trienoic acid; (5Z,8Z,11Z)-14,15-Epoxyicosa-5.8.11-trienoic acid$8,9-EET; (5Z,11Z,14Z)-8,9-Epoxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Epoxyicosa-5,11,14-trienoic acid$5,6-EET; (8Z,11Z,14Z)-5,6-Epoxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Epoxyicosa-8,11,14-trienoic acid$13,14-dihydroxy-retinol
+E617	row122;row1580;row2389;row2536	row122_M+H[1+];row1580_M-H2O+H[1+];row2389_M+H[1+];row2536_M+NaCl[1+]	C04805;C04742;C14749;C14748;C14778;C14770;C14771;C14769;C14768;CE5016	5-Hydroxyeicosatetraenoate$(15S)-15-Hydroxy-5,8,11-cis-13-trans-eicosatetraenoate; (15S)-15-Hydroxy-5,8,11-cis-13-trans-icosatetraenoate; (5Z,8Z,11Z,13E)-(15S)-15-Hydroxyicosa-5,8,11,13-tetraenoic acid; 15(S)-HETE$19(S)-HETE; (19S)-Hydroxyeicosatetraenoic acid; (19S)-Hydroxyicosatetraenoic acid; (19S)-Hydroxy arachidonic acid$20-Hydroxyeicosatetraenoic acid$16(R)-HETE; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyeicosa-5,8,11,14-tetraenoic acid; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyicosa-5,8,11,14-tetraenoic acid$11,12-EET$14,15-EET; (5Z,8Z,11Z)-14,15-Epoxyeicosa-5.8.11-trienoic acid; (5Z,8Z,11Z)-14,15-Epoxyicosa-5.8.11-trienoic acid$8,9-EET; (5Z,11Z,14Z)-8,9-Epoxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Epoxyicosa-5,11,14-trienoic acid$5,6-EET; (8Z,11Z,14Z)-5,6-Epoxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Epoxyicosa-8,11,14-trienoic acid$13,14-dihydroxy-retinol
+E618	row1904	row1904_M-H2O+H[1+]	C04805;C04742;C14749;C14748;C14778;C14770;C14771;C14769;C14768;CE5016	5-Hydroxyeicosatetraenoate$(15S)-15-Hydroxy-5,8,11-cis-13-trans-eicosatetraenoate; (15S)-15-Hydroxy-5,8,11-cis-13-trans-icosatetraenoate; (5Z,8Z,11Z,13E)-(15S)-15-Hydroxyicosa-5,8,11,13-tetraenoic acid; 15(S)-HETE$19(S)-HETE; (19S)-Hydroxyeicosatetraenoic acid; (19S)-Hydroxyicosatetraenoic acid; (19S)-Hydroxy arachidonic acid$20-Hydroxyeicosatetraenoic acid$16(R)-HETE; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyeicosa-5,8,11,14-tetraenoic acid; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyicosa-5,8,11,14-tetraenoic acid$11,12-EET$14,15-EET; (5Z,8Z,11Z)-14,15-Epoxyeicosa-5.8.11-trienoic acid; (5Z,8Z,11Z)-14,15-Epoxyicosa-5.8.11-trienoic acid$8,9-EET; (5Z,11Z,14Z)-8,9-Epoxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Epoxyicosa-5,11,14-trienoic acid$5,6-EET; (8Z,11Z,14Z)-5,6-Epoxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Epoxyicosa-8,11,14-trienoic acid$13,14-dihydroxy-retinol
+E622	row6013	row6013_M-H2O+H[1+]	C14774;C14775;C14772;C14773	11,12-DHET$14,15-DHET; (5Z,8Z,11Z)-14,15-Dihydroxyeicosa-5,8,11-trienoic acid; (5Z,8Z,11Z)-14,15-Dihydroxyicosa-5,8,11-trienoic acid$5,6-DHET; (8Z,11Z,14Z)-5,6-Dihydroxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Dihydroxyicosa-8,11,14-trienoic acid$8,9-DHET; (5Z,11Z,14Z)-8,9-Dihydroxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Dihydroxyicosa-5,11,14-trienoic acid
+E624	row122;row1580;row2389	row122_M-H2O+H[1+];row1580_M-H4O2+H[1+];row2389_M-H2O+H[1+]	C14774;C14775;C14772;C14773	11,12-DHET$14,15-DHET; (5Z,8Z,11Z)-14,15-Dihydroxyeicosa-5,8,11-trienoic acid; (5Z,8Z,11Z)-14,15-Dihydroxyicosa-5,8,11-trienoic acid$5,6-DHET; (8Z,11Z,14Z)-5,6-Dihydroxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Dihydroxyicosa-8,11,14-trienoic acid$8,9-DHET; (5Z,11Z,14Z)-8,9-Dihydroxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Dihydroxyicosa-5,11,14-trienoic acid
+E633	row2067;row2680;row3825;row4506;row4522;row6013;row6200;row7398;row7469;row7536;row7820	row2067_M-HCOOH+H[1+];row2680_M+K[1+];row3825_M+H[1+];row4506_M+H[1+];row4522_M-H2O+H[1+];row6013_M-CO2+H[1+];row6200_M-H4O2+H[1+];row7398_M-H2O+H[1+];row7469_M-H4O2+H[1+];row7536_M-H2O+H[1+];row7820_M+H[1+]	C05489;C05471;C05474	11beta,17alpha,21-Trihydroxypregnenolone$11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione$3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al
+E635	row122;row2389;row5548;row6308	row122_M-CO2+H[1+];row2389_M-CO2+H[1+];row5548_M-H2O+H[1+];row6308_M-HCOOH+H[1+]	C05489;C05471;C05474	11beta,17alpha,21-Trihydroxypregnenolone$11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione$3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al
+E637	row2609;row3644;row4401;row4432;row4485;row4493;row5373;row5509;row6013;row6045;row6188;row7103;row7535	row2609_M-H4O2+H[1+];row3644_M+H[1+];row4401_M-H2O+H[1+];row4432_M-C3H4O2+H[1+];row4485_M-H4O2+H[1+];row4493_M-H2O+H[1+];row5373_M-H4O2+H[1+];row5509_M-H2O+H[1+];row6013_M-HCOOH+H[1+];row6045_M-H2O+H[1+];row6188_M+K[1+];row7103_M-H2O+H[1+];row7535_M-C3H4O2+H[1+]	C05472	Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one
+E640	row123;row2272;row2888;row6292;row7225;row7744	row123_M-NH3+H[1+];row2272_M+H[1+];row2888_M-CO+H[1+];row6292_M-H2O+H[1+];row7225_M-CO2+H[1+];row7744_M-CO+H[1+]	C00212;C00330	Adenosine$Deoxyguanosine
+E642	row4177;row4501	row4177_M+H[1+];row4501_M+H[1+]	C00212;C00330	Adenosine$Deoxyguanosine
+E644	row123;row1309;row1669;row2839;row3255;row6131;row7319	row123_M-H2O+H[1+];row1309_M-CO2+H[1+];row1669_M-C3H4O2+H[1+];row2839_M-CO+H[1+];row3255_M+H[1+];row6131_M-HCOOH+H[1+];row7319_M-C3H4O2+H[1+]	C00294	Inosine
+E648	row3831	row3831_M+H[1+]	C00294	Inosine
+E649	row6796	row6796_M-H2O+H[1+]	C00294	Inosine
+E650	row1465;row376;row6062	row1465_M+H[1+];row376_M+H2O+H[1+];row6062_M-NH3+H[1+]	C05545	Histone N6,N6-dimethyl-L-lysine
+E658	row7256	row7256_M+Na[1+]	C06212	N-Methylserotonin
+E659	row1653;row2405;row363;row6620;row6945	row1653_M+H2O+H[1+];row2405_M+H2O+H[1+];row363_M-NH3+H[1+];row6620_M+Na[1+];row6945_M-CO+H[1+]	C06212	N-Methylserotonin
+E661	row124;row2912;row5649;row5754;row7386	row124_M+HCOONa[1+];row2912_M(C13)+H[1+];row5649_M+H[1+];row5754_M+NaCl[1+];row7386_M+H2O+H[1+]	C06212	N-Methylserotonin
+E664	row1238;row1653;row1729;row1837;row2278;row2405;row3055;row4126;row4337;row4962;row5908;row6203;row6243;row6734;row7261;row7379;row757;row981	row1238_M+H2O+H[1+];row1653_M-CO+H[1+];row1729_M-CO+H[1+];row1837_M+H2O+H[1+];row2278_M+H[1+];row2405_M-CO+H[1+];row3055_M-CO+H[1+];row4126_M+H2O+H[1+];row4337_M+H[1+];row4962_M-CO+H[1+];row5908_M+H2O+H[1+];row6203_M+H2O+H[1+];row6243_M-CO+H[1+];row6734_M-H2O+H[1+];row7261_M+H[1+];row7379_M+H2O+H[1+];row757_M-CO+H[1+];row981_M+H2O+H[1+]	CE5860	
+E665	row3756;row3783;row3784;row3902	row3756_M-H2O+H[1+];row3783_M-NH3+H[1+];row3784_M-NH3+H[1+];row3902_M-H2O+H[1+]	CE5860	
+E666	row124;row2268;row2459;row310;row3822;row4805;row5591;row5649;row5771;row6091;row6351;row6668;row6978;row7386;row7391	row124_M+Na[1+];row2268_M+H[1+];row2459_M+HCOONa[1+];row310_M+HCOOK[1+];row3822_M-NH3+H[1+];row4805_M-NH3+H[1+];row5591_M+H[1+];row5649_M-HCOOH+H[1+];row5771_M-NH3+H[1+];row6091_M+H2O+H[1+];row6351_M-H2O+H[1+];row6668_M+H[1+];row6978_M-C3H4O2+H[1+];row7386_M-CO+H[1+];row7391_M-H2O+H[1+]	CE5860	
+E671	row1107;row127;row235;row4059;row5290;row6625	row1107_M-H2O+H[1+];row127_M-H2O+H[1+];row235_M-H2O+H[1+];row4059_M-H4O2+H[1+];row5290_M-H4O2+H[1+];row6625_M+Na[1+]	C01007	Reduced riboflavin
+E672	row6444;row7181	row6444_M-HCOOH+H[1+];row7181_M-H2O+H[1+]	C01007	Reduced riboflavin
+E677	row3658	row3658_M+Na[1+]	CE6415;CE6502	$
+E684	row132;row136;row1549;row4261;row478;row4953;row506;row5209;row589;row676	row132_M+H2O+H[1+];row136_M+H[1+];row1549_M+H2O+H[1+];row4261_M+H[1+];row478_M+HCOONa[1+];row4953_M+H[1+];row506_M+H[1+];row5209_M+HCOONa[1+];row589_M+H[1+];row676_M+H2O+H[1+]	CE4888;C05578	dopaminochrome$5,6-Dihydroxyindole; DHI
+E685	row3322	row3322_M+H[1+]	CE4888;C05578	dopaminochrome$5,6-Dihydroxyindole; DHI
+E688	row1266;row132;row134;row136;row1549;row3054;row352;row3566;row3641;row3889;row4058;row4261;row4953;row506;row5219;row589;row5899;row676;row7790;row7916	row1266_M-NH3+H[1+];row132_M+H[1+];row134_M+H2O+H[1+];row136_M-H2O+H[1+];row1549_M+H[1+];row3054_M+H2O+H[1+];row352_M[1+];row3566_M[1+];row3641_M-NH3+H[1+];row3889_M-NH3+H[1+];row4058_M[1+];row4261_M-H2O+H[1+];row4953_M-H2O+H[1+];row506_M-H2O+H[1+];row5219_M-NH3+H[1+];row589_M-H2O+H[1+];row5899_M[1+];row676_M+H[1+];row7790_M+H2O+H[1+];row7916_M-NH3+H[1+]	C00250	Pyridoxal
+E689	row3322;row7439	row3322_M-H2O+H[1+];row7439_M[1+]	C00250	Pyridoxal
+E692	row6286;row7815	row6286_M+H2O+H[1+];row7815_M+H[1+]	C00250	Pyridoxal
+E693	row134;row2406;row2638;row2888;row3054;row3062;row3351;row3411;row3705;row4046;row4950;row4958;row5112;row5146;row7744;row7790	row134_M-H4O2+H[1+];row2406_M-HCOOH+H[1+];row2638_M+Na[1+];row2888_M+H2O+H[1+];row3054_M-H4O2+H[1+];row3062_M-H2O+H[1+];row3351_M(C13)+H[1+];row3411_M(C13)+H[1+];row3705_M-CO+H[1+];row4046_M[1+];row4950_M-C3H4O2+H[1+];row4958_M-H2O+H[1+];row5112_M-H2O+H[1+];row5146_M-H2O+H[1+];row7744_M+H2O+H[1+];row7790_M-H4O2+H[1+]	C01074;C00645;C00140	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc$N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose$N-Acetyl-D-glucosamine
+E694	row5329	row5329_M-H2O+H[1+]	C01074;C00645;C00140	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc$N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose$N-Acetyl-D-glucosamine
+E695	row7448	row7448_M-H2O+H[1+]	C01074;C00645;C00140	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc$N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose$N-Acetyl-D-glucosamine
+E696	row4076;row6660	row4076_M-H4O2+H[1+];row6660_M-H2O+H[1+]	C01074;C00645;C00140	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc$N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose$N-Acetyl-D-glucosamine
+E697	row4850;row6193;row6286	row4850_M-H2O+H[1+];row6193_M+H[1+];row6286_M-H4O2+H[1+]	C01074;C00645;C00140	N-Acetylgalactosamine; N-Acetylchondrosamine; 2-Acetamido-2-deoxygalactose; GalNAc$N-Acetyl-D-mannosamine; 2-Acetamido-2-deoxy-D-mannose$N-Acetyl-D-glucosamine
+E702	row7109	row7109_M+Na[1+]	C16608	Demethylcitalopram
+E706	row1144;row7553	row1144_M-H2O+H[1+];row7553_M-NH3+H[1+]	C05118;C05119	S-(2-Methylbutanoyl)-dihydrolipoamide$S-(3-Methylbutanoyl)-dihydrolipoamide
+E724	row2444;row2555;row4592;row4671;row4765;row4936;row5727;row5736;row6616;row6695	row2444_M-H2O+H[1+];row2555_M-CO2+H[1+];row4592_M+HCOONa[1+];row4671_M+HCOONa[1+];row4765_M+HCOONa[1+];row4936_M-H2O+H[1+];row5727_M+Na[1+];row5736_M-C3H4O2+H[1+];row6616_M+Na[1+];row6695_M-H2O+H[1+]	andrstrnglc;C11135;C11136;5adtststeroneglc;ahandrostanglc	androsterone glucuronide$androsterone glucuronide$Etiocholan-3alpha-ol-17-one 3-glucuronide$5alpha-Dihydrotestosterone glucuronide$Etiocholan-3alpha-ol-17-one 3-glucuronide
+E725	row139;row165;row214	row139_M+Na[1+];row165_M-H4O2+H[1+];row214_M-H2O+H[1+]	andrstrnglc;C11135;C11136;5adtststeroneglc;ahandrostanglc	androsterone glucuronide$androsterone glucuronide$Etiocholan-3alpha-ol-17-one 3-glucuronide$5alpha-Dihydrotestosterone glucuronide$Etiocholan-3alpha-ol-17-one 3-glucuronide
+E740	row144;row306;row4884;row495;row5637;row6048;row7267;row7771;row827	row144_M-C3H4O2+H[1+];row306_M-C3H4O2+H[1+];row4884_M-HCOOH+H[1+];row495_M-CO2+H[1+];row5637_M-H2O+H[1+];row6048_M-NH3+H[1+];row7267_M+H[1+];row7771_M-C3H4O2+H[1+];row827_M-CO2+H[1+]	C13690	Dopamine 3-O-sulfate
+E750	row1333;row150;row155;row1945;row6520;row7054;row7893;row838	row1333_M-CO+H[1+];row150_M-H2O+H[1+];row155_M-H4O2+H[1+];row1945_M-H4O2+H[1+];row6520_M-H4O2+H[1+];row7054_M+H[1+];row7893_M-H4O2+H[1+];row838_M-H2O+H[1+]	C03577	20-Hydroxyleukotriene E4; 20-OH-LTE4; 20-OH-Leukotriene E4
+E751	row1697;row3942;row4622	row1697_M(C13)+2H[2+];row3942_M-H2O+H[1+];row4622_M-H4O2+H[1+]	C03577	20-Hydroxyleukotriene E4; 20-OH-LTE4; 20-OH-Leukotriene E4
+E752	row1615;row2927;row3616	row1615_M-H2O+H[1+];row2927_M(C13)+2H[2+];row3616_M-HCOOH+H[1+]	C03577	20-Hydroxyleukotriene E4; 20-OH-LTE4; 20-OH-Leukotriene E4
+E760	row3929	row3929_M+Na[1+]	leuktrE4	leukotriene E4
+E764	row1290;row156;row6746;row6747;row702	row1290_M-H2O+H[1+];row156_M-H2O+H[1+];row6746_M[1+];row6747_M+H[1+];row702_M-H4O2+H[1+]	C04042;C01953;C03681	20alpha-Hydroxy-4-pregnen-3-one; 20alpha-Hydroxypregn-4-en-3-one; 20alpha-Hydroxyprogesterone$Pregnenolone; 5-Pregnen-3beta-ol-20-one; 3beta-Hydroxypregn-5-en-20-one$5alpha-Pregnane-3,20-dione
+E765	row3532;row3726;row6506	row3532_M-H2O+H[1+];row3726_M+H2O+H[1+];row6506_M-HCOOH+H[1+]	C04042;C01953;C03681	20alpha-Hydroxy-4-pregnen-3-one; 20alpha-Hydroxypregn-4-en-3-one; 20alpha-Hydroxyprogesterone$Pregnenolone; 5-Pregnen-3beta-ol-20-one; 3beta-Hydroxypregn-5-en-20-one$5alpha-Pregnane-3,20-dione
+E768	row1290;row6747	row1290_M-H4O2+H[1+];row6747_M-H2O+H[1+]	CE5072	21-hydroxyallopregnanolone
+E769	row3532;row3726	row3532_M-H4O2+H[1+];row3726_M+H[1+]	CE5072	21-hydroxyallopregnanolone
+E775	row1491;row1495;row1564;row160;row3453;row4164;row4229;row4265;row4405;row4639;row4894;row5710;row5796;row7226;row7595;row810	row1491_M-H2O+H[1+];row1495_M-H4O2+H[1+];row1564_M+H[1+];row160_M+Na[1+];row3453_M+H[1+];row4164_M-H4O2+H[1+];row4229_M-H4O2+H[1+];row4265_M-H2O+H[1+];row4405_M+H[1+];row4639_M-H2O+H[1+];row4894_M-H4O2+H[1+];row5710_M+H[1+];row5796_M-H2O+H[1+];row7226_M+H[1+];row7595_M-H4O2+H[1+];row810_M-H4O2+H[1+]	C01921	glycocholate
+E776	row3745;row6053	row3745_M-H4O2+H[1+];row6053_M-H2O+H[1+]	C01921	glycocholate
+E784	row4090;row819	row4090_M-C3H4O2+H[1+];row819_M+Na[1+]	C05504	16-Glucuronide-estriol; 16alpha,17beta-Estriol 16-(beta-D-glucuronide)
+E785	row161	row161_M+Na[1+]	C05504	16-Glucuronide-estriol; 16alpha,17beta-Estriol 16-(beta-D-glucuronide)
+E786	row6498	row6498_M+H[1+]	C05504	16-Glucuronide-estriol; 16alpha,17beta-Estriol 16-(beta-D-glucuronide)
+E801	row165	row165_M+Na[1+]	CE5730	
+E802	row5233	row5233_M+Na[1+]	C11061	retinoyl glucuronide
+E807	row6913	row6913_M+H[1+]	C11061	retinoyl glucuronide
+E814	row1258;row168;row2852;row3653;row4771;row7101;row7447	row1258_M-NH3+H[1+];row168_M-NH3+H[1+];row2852_M-CO+H[1+];row3653_M-H2O+H[1+];row4771_M+H[1+];row7101_M+HCOOK[1+];row7447_M-NH3+H[1+]	alpam	S-aminomethyldihydrolipoamide
+E815	row1994;row2505;row4046;row437;row7651	row1994_M-CO+H[1+];row2505_M+H2O+H[1+];row4046_M-NH3+H[1+];row437_M+H[1+];row7651_M-H2O+H[1+]	alpam	S-aminomethyldihydrolipoamide
+E816	row1010;row6363	row1010_M+H[1+];row6363_M-H2O+H[1+]	alpam	S-aminomethyldihydrolipoamide
+E817	row7571	row7571_M-H2O+H[1+]	alpam	S-aminomethyldihydrolipoamide
+E821	row1258;row1550;row168;row1949;row357;row3948;row4971;row534;row5961;row6179;row7447;row7526;row7662;row7779	row1258_M+H[1+];row1550_M-CO+H[1+];row168_M+H[1+];row1949_M-CO2+H[1+];row357_M-HCOOH+H[1+];row3948_M-CO+H[1+];row4971_M-CO+H[1+];row534_M-H2O+H[1+];row5961_M-CO2+H[1+];row6179_M-CO2+H[1+];row7447_M+H[1+];row7526_M-HCOOH+H[1+];row7662_M-CO+H[1+];row7779_M+H2O+H[1+]	C00643	5-Hydroxy-L-tryptophan
+E822	row4046;row6031;row7496	row4046_M+H[1+];row6031_M-H4O2+H[1+];row7496_M-CO2+H[1+]	C00643	5-Hydroxy-L-tryptophan
+E824	row1072;row1399;row1520;row1771;row2081	row1072_M-H2O+H[1+];row1399_M+H[1+];row1520_M+H[1+];row1771_M-H2O+H[1+];row2081_M-HCOOH+H[1+]	C00643	5-Hydroxy-L-tryptophan
+E826	row2892	row2892_M-H2O+H[1+]	C00643	5-Hydroxy-L-tryptophan
+E828	row1258;row1292;row1335;row1550;row168;row1895;row2988;row3948;row4046;row4294;row4429;row4971;row534;row6342;row7447;row7468;row7662;row7744;row7779;row902	row1258_M-H2O+H[1+];row1292_M+H2O+H[1+];row1335_M-NH3+H[1+];row1550_M-HCOOH+H[1+];row168_M-H2O+H[1+];row1895_M-CO+H[1+];row2988_M-CO+H[1+];row3948_M-HCOOH+H[1+];row4046_M-H2O+H[1+];row4294_M-C3H4O2+H[1+];row4429_M-CO+H[1+];row4971_M-HCOOH+H[1+];row534_M-H4O2+H[1+];row6342_M-CO2+H[1+];row7447_M-H2O+H[1+];row7468_M-CO+H[1+];row7662_M-HCOOH+H[1+];row7744_M(C13)+H[1+];row7779_M+H[1+];row902_M[1+]	C07501	Felbamate
+E831	row1072;row1399;row1520;row1771;row1850;row3746;row4211;row4256;row5566;row6593;row6927	row1072_M-H4O2+H[1+];row1399_M-H2O+H[1+];row1520_M-H2O+H[1+];row1771_M-H4O2+H[1+];row1850_M-C3H4O2+H[1+];row3746_M-CO+H[1+];row4211_M-HCOOH+H[1+];row4256_M-NH3+H[1+];row5566_M-NH3+H[1+];row6593_M-CO2+H[1+];row6927_M-NH3+H[1+]	C07501	Felbamate
+E834	row4171	row4171_M-H2O+H[1+]	C03640	sphingosylphosphorylcholine 
+E839	row7540	row7540_M-H2O+H[1+]	C05849	Vitamin K1 epoxide; (2,3-Epoxyphytyl)menaquinone; 2,3-Epoxy-2,3-dihydro-2-methyl-3-phytyl-1,4-naphthoquinone; 2,3-Epoxyphylloquinone; 1a,7a-Dihydro-1a-methyl-7a-(3,7,11,15-tetramethyl-2-hexadecenyl)-naphth[2,3-b]oxirene-2,7-dione; Phylloquinone oxide; Phylloquinone epoxide; Phylloquinone-2,3-epoxide; Vitamin K1 2,3-epoxide; Vitamin K1 oxide
+E841	row1629;row2494;row4747;row5556	row1629_M-H2O+H[1+];row2494_M-H4O2+H[1+];row4747_M+H[1+];row5556_M-H4O2+H[1+]	C00255	Riboflavin
+E842	row1498;row2486;row3655;row4125	row1498_M-H2O+H[1+];row2486_M+H[1+];row3655_M+Na[1+];row4125_M+Na[1+]	C00255	Riboflavin
+E843	row175;row2181;row4182;row4975;row5992;row6444	row175_M+H2O+H[1+];row2181_M-H2O+H[1+];row4182_M-H2O+H[1+];row4975_M-H2O+H[1+];row5992_M+Na[1+];row6444_M-CO2+H[1+]	C00255	Riboflavin
+E845	row2178;row3041	row2178_M+Na[1+];row3041_M-CO+H[1+]	C00255	Riboflavin
+E846	row2839;row603	row2839_M-CO2+H[1+];row603_M+H[1+]	C01762	Xanthosine
+E850	row1003;row1859	row1003_M+H[1+];row1859_M+H[1+]	C01762	Xanthosine
+E852	row2370	row2370_M-H2O+H[1+]	C01762	Xanthosine
+E853	row2230	row2230_M-H2O+H[1+]	C01762	Xanthosine
+E862	row1196;row183	row1196_M+H[1+];row183_M+H2O+H[1+]	CE3087	beta-carboline
+E863	row5250	row5250_M+Na[1+]	CE3087	beta-carboline
+E866	row937	row937_M+H[1+]	CE3087	beta-carboline
+E867	row1949;row2456;row6179;row7900	row1949_M-CO+H[1+];row2456_M(C13)+H[1+];row6179_M-CO+H[1+];row7900_M+Na[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E868	row1178;row1196;row183;row2400;row375;row553;row5711;row5961;row640;row682;row7123;row7496;row7608	row1178_M+K[1+];row1196_M-H4O2+H[1+];row183_M-H2O+H[1+];row2400_M+Na[1+];row375_M+H2O+H[1+];row553_M-NH3+H[1+];row5711_M-HCOOH+H[1+];row5961_M-CO+H[1+];row640_M+H[1+];row682_M-HCOOH+H[1+];row7123_M-NH3+H[1+];row7496_M-CO+H[1+];row7608_M(C13)+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E869	row3779;row3998;row6528;row993	row3779_M+H[1+];row3998_M-NH3+H[1+];row6528_M-NH3+H[1+];row993_M-CO2+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E870	row4130;row579	row4130_M-CO2+H[1+];row579_M+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E871	row1103;row3508;row5107	row1103_M-HCOOH+H[1+];row3508_M-H2O+H[1+];row5107_M+H2O+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E872	row1545;row6989	row1545_M+H2O+H[1+];row6989_M+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E873	row5664	row5664_M+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E874	row2682;row2915;row6207	row2682_M-NH3+H[1+];row2915_M+H[1+];row6207_M-NH3+H[1+]	C00078;C00525	L-Tryptophan$D-Tryptophan
+E882	row1235;row1870;row3649;row7738	row1235_M-NH3+H[1+];row1870_M-NH3+H[1+];row3649_M-C3H4O2+H[1+];row7738_M+Na[1+]	dmnoncrn	4,8 dimethylnonanoyl carnitine
+E903	row1378;row902	row1378_M-CO2+H[1+];row902_M-H2O+H[1+]	C04874	Dihydroneopterin
+E910	row902	row902_M-H2O+H[1+]	C03150	N-Ribosylnicotinamide
+E916	row1509	row1509_M+Na[1+]	C03917;C05293;C00523;C04373;C04295	5alpha-Dihydrotestosterone$5beta-Dihydrotestosterone$Androsterone$3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one$Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol
+E917	row2781;row7664	row2781_M+Na[1+];row7664_M-H2O+H[1+]	C03917;C05293;C00523;C04373;C04295	5alpha-Dihydrotestosterone$5beta-Dihydrotestosterone$Androsterone$3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one$Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol
+E919	row207;row244;row291;row4012	row207_M-H4O2+H[1+];row244_M-H2O+H[1+];row291_M+H[1+];row4012_M+Na[1+]	C03917;C05293;C00523;C04373;C04295	5alpha-Dihydrotestosterone$5beta-Dihydrotestosterone$Androsterone$3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one$Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol
+E920	row6640	row6640_M-H2O+H[1+]	C03917;C05293;C00523;C04373;C04295	5alpha-Dihydrotestosterone$5beta-Dihydrotestosterone$Androsterone$3alpha-Hydroxy-5beta-androstan-17-one; Etiocholan-3alpha-ol-17-one; 3alpha-Hydroxyetiocholan-17-one$Androst-5-ene-3beta,17beta-diol; 3beta,17beta-Dihydroxyandrost-5-ene; 3beta,17beta-Dihydroxy-5-androstene; Androstenediol
+E923	row1068;row2013;row2067;row207;row2260;row244;row2622;row4666;row4904;row4997;row5224;row5937;row7084;row7148;row7492;row7664;row7711;row781	row1068_M-CO2+H[1+];row2013_M-HCOOH+H[1+];row2067_M+H2O+H[1+];row207_M-HCOOH+H[1+];row2260_M-C3H4O2+H[1+];row244_M-CO+H[1+];row2622_M+2H[2+];row4666_M+H[1+];row4904_M+HCOOK[1+];row4997_M+2H[2+];row5224_M+H2O+H[1+];row5937_M+2H[2+];row7084_M+H[1+];row7148_M+H[1+];row7492_M+Na[1+];row7664_M-CO+H[1+];row7711_M+Na[1+];row781_M+H2O+H[1+]	C00777;C15493	Retinoate$9-cis-Retinoic acid
+E924	row208;row6308;row6640;row7299	row208_M-CO2+H[1+];row6308_M+H2O+H[1+];row6640_M-CO+H[1+];row7299_M+H[1+]	C00777;C15493	Retinoate$9-cis-Retinoic acid
+E927	row1431	row1431_M+Na[1+]	C02110;C00376;C16681	11-cis-Retinal; 11-cis-Vitamin A aldehyde; 11-cis-Retinene$Retinal$cis-9-retinal
+E935	row3194	row3194_M+Na[1+]	CE2209	5alpha-androstane-3alpha,17beta-diol
+E936	row2907	row2907_M+Na[1+]	CE2209	5alpha-androstane-3alpha,17beta-diol
+E947	row6117	row6117_M+H[1+]	C06868	Carbamazepine
+E948	row2950	row2950_M+H[1+]	C06868	Carbamazepine
+E950	row6695	row6695_M+Na[1+]	CE4980	Prostaglandin PGE2 glyceryl ester
+E951	row2444;row5060	row2444_M+Na[1+];row5060_M[1+]	CE4980	Prostaglandin PGE2 glyceryl ester
+E952	row214	row214_M+Na[1+]	CE4980	Prostaglandin PGE2 glyceryl ester
+E953	row215;row2371;row2753;row5597	row215_M+HCOOK[1+];row2371_M[1+];row2753_M-H4O2+H[1+];row5597_M-H2O+H[1+]	C06486;C00386	(6R)-6-(L-erythro-1,2-Dihydroxypropyl)-5,6,7,8-tetrahydro-4a-$Carnosine; Nalpha-(beta-alanyl)-L-histidine
+E955	row1190;row6555	row1190_M-H2O+H[1+];row6555_M-H4O2+H[1+]	C06486;C00386	(6R)-6-(L-erythro-1,2-Dihydroxypropyl)-5,6,7,8-tetrahydro-4a-$Carnosine; Nalpha-(beta-alanyl)-L-histidine
+E958	row1311;row1327;row5562;row6022;row6723	row1311_M-H2O+H[1+];row1327_M[1+];row5562_M-H4O2+H[1+];row6022_M[1+];row6723_M[1+]	C06486;C00386	(6R)-6-(L-erythro-1,2-Dihydroxypropyl)-5,6,7,8-tetrahydro-4a-$Carnosine; Nalpha-(beta-alanyl)-L-histidine
+E959	row5223;row5397	row5223_M-H4O2+H[1+];row5397_M+Na[1+]	C06486;C00386	(6R)-6-(L-erythro-1,2-Dihydroxypropyl)-5,6,7,8-tetrahydro-4a-$Carnosine; Nalpha-(beta-alanyl)-L-histidine
+E960	row1601;row5395	row1601_M+Na[1+];row5395_M+Na[1+]	C06486;C00386	(6R)-6-(L-erythro-1,2-Dihydroxypropyl)-5,6,7,8-tetrahydro-4a-$Carnosine; Nalpha-(beta-alanyl)-L-histidine
+E963	row6759	row6759_M+H[1+]	C04677	5-Amino-1-(5-Phospho-D-ribosyl)imidazole-4-carboxamide
+E966	row222;row3634;row922	row222_M+HCOONa[1+];row3634_M+H[1+];row922_M+H[1+]	CE2577	
+E968	row2972;row5367	row2972_M+H[1+];row5367_M-C3H4O2+H[1+]	C00670	sn-Glycero-3-phosphocholine
+E970	row1143;row3325;row5133;row6384;row6535;row6666	row1143_M-H4O2+H[1+];row3325_M-C3H4O2+H[1+];row5133_M-C3H4O2+H[1+];row6384_M-H2O+H[1+];row6535_M-C3H4O2+H[1+];row6666_M-HCOOH+H[1+]	C00670	sn-Glycero-3-phosphocholine
+E971	row5455;row5691;row6816	row5455_M+Na[1+];row5691_M-H2O+H[1+];row6816_M+H[1+]	C00670	sn-Glycero-3-phosphocholine
+E972	row222;row2895;row2981;row3112;row3116;row333;row4088;row4323;row4435;row4792;row4995;row5083;row5516;row5884;row6054;row6130;row6405;row7015;row7422;row743;row7531;row982	row222_M-H4O2+H[1+];row2895_M-HCOOH+H[1+];row2981_M-H4O2+H[1+];row3112_M-H4O2+H[1+];row3116_M-C3H4O2+H[1+];row333_M+Na[1+];row4088_M+Na[1+];row4323_M-H4O2+H[1+];row4435_M-H2O+H[1+];row4792_M-H4O2+H[1+];row4995_M-CO+H[1+];row5083_M-CO2+H[1+];row5516_M-HCOOH+H[1+];row5884_M+HCOONa[1+];row6054_M-H4O2+H[1+];row6130_M-CO2+H[1+];row6405_M-H2O+H[1+];row7015_M-HCOOH+H[1+];row7422_M-H2O+H[1+];row743_M+HCOONa[1+];row7531_M-HCOOH+H[1+];row982_M-H4O2+H[1+]	C00670	sn-Glycero-3-phosphocholine
+E976	row1231;row1955;row609	row1231_M+Na[1+];row1955_M-H2O+H[1+];row609_M+HCOOK[1+]	CE1925	3'-carboxy-alpha-chromanol
+E977	row2828;row3003;row3314;row3811	row2828_M[1+];row3003_M[1+];row3314_M[1+];row3811_M+H[1+]	CE1925	3'-carboxy-alpha-chromanol
+E979	row1855;row2557	row1855_M+H[1+];row2557_M[1+]	CE1925	3'-carboxy-alpha-chromanol
+E989	row2412;row3539;row4443;row7368	row2412_M+Na[1+];row3539_M-H4O2+H[1+];row4443_M-CO+H[1+];row7368_M-HCOOH+H[1+]	C04555	3beta-Hydroxyandrost-5-en-17-one 3-sulfate; Dehydroepiandrosterone sulfate
+E992	row1686;row232;row2737;row2795;row3215;row4016;row4395;row4466;row4538;row4701;row4793;row5554;row5579;row5836;row6189;row7304	row1686_M-H4O2+H[1+];row232_M-H4O2+H[1+];row2737_M-CO+H[1+];row2795_M-H2O+H[1+];row3215_M-HCOOH+H[1+];row4016_M-HCOOH+H[1+];row4395_M-HCOOH+H[1+];row4466_M+2H[2+];row4538_M-C3H4O2+H[1+];row4701_M-CO2+H[1+];row4793_M-CO2+H[1+];row5554_M-C3H4O2+H[1+];row5579_M-HCOOH+H[1+];row5836_M-CO2+H[1+];row6189_M-HCOOH+H[1+];row7304_M-H4O2+H[1+]	C00445	5,10-Methenyltetrahydrofolate
+E994	row3440;row5624	row3440_M+Na[1+];row5624_M+Na[1+]	C05301;hestratriol;C05141;CE2179	2-Hydroxyestradiol-17beta; 2-OH-Estradiol$4,17 dihydroxy estradiol$Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol$4-hydroxy-17beta-estradiol
+E995	row791	row791_M+Na[1+]	C05301;hestratriol;C05141;CE2179	2-Hydroxyestradiol-17beta; 2-OH-Estradiol$4,17 dihydroxy estradiol$Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol$4-hydroxy-17beta-estradiol
+E996	row973	row973_M+Na[1+]	C05301;hestratriol;C05141;CE2179	2-Hydroxyestradiol-17beta; 2-OH-Estradiol$4,17 dihydroxy estradiol$Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol$4-hydroxy-17beta-estradiol
+E997	row1975;row234;row2835	row1975_M+K[1+];row234_M+Na[1+];row2835_M-C3H4O2+H[1+]	C05301;hestratriol;C05141;CE2179	2-Hydroxyestradiol-17beta; 2-OH-Estradiol$4,17 dihydroxy estradiol$Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol$4-hydroxy-17beta-estradiol
+E998	row5592;row5971;row830	row5592_M-C3H4O2+H[1+];row5971_M+Na[1+];row830_M-CO+H[1+]	C05301;hestratriol;C05141;CE2179	2-Hydroxyestradiol-17beta; 2-OH-Estradiol$4,17 dihydroxy estradiol$Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol$4-hydroxy-17beta-estradiol
+E1002	row2861;row3049;row3122;row5863;row6907	row2861_M+HCOOK[1+];row3049_M+Na[1+];row3122_M+HCOONa[1+];row5863_M+HCOONa[1+];row6907_M+Na[1+]	C05839	cis-beta-D-Glucosyl-2-hydroxycinnamate; beta-D-Glucosyl-2-coumarinate
+E1003	row1181;row1194;row2169;row3752;row3937;row4088;row5455;row5878;row5884;row6011;row6090;row6976;row7278;row743;row7529;row846	row1181_M+HCOONa[1+];row1194_M+HCOONa[1+];row2169_M-CO+H[1+];row3752_M-CO2+H[1+];row3937_M-H4O2+H[1+];row4088_M-HCOOH+H[1+];row5455_M-HCOOH+H[1+];row5878_M+HCOONa[1+];row5884_M+H[1+];row6011_M-CO2+H[1+];row6090_M(C13)+H[1+];row6976_M(C13)+H[1+];row7278_M-H4O2+H[1+];row743_M+H[1+];row7529_M-CO2+H[1+];row846_M+Na[1+]	C05839	cis-beta-D-Glucosyl-2-hydroxycinnamate; beta-D-Glucosyl-2-coumarinate
+E1004	row237	row237_M+Na[1+]	C05839	cis-beta-D-Glucosyl-2-hydroxycinnamate; beta-D-Glucosyl-2-coumarinate
+E1008	row6609;row6676;row846	row6609_M+H[1+];row6676_M+H[1+];row846_M+NaCl[1+]	C03406	N-(L-Arginino)succinate; 2-(Nomega-L-Arginino)succinate; L-Argininosuccinate; L-Argininosuccinic acid; L-Arginosuccinic acid
+E1016	row1479	row1479_M+Na[1+]	C16679;C16677;C16680	all-trans-18-Hydroxyretinoic acid$all-trans-4-Hydroxyretinoic acid$all-trans-5,6-Epoxyretinoic acid; all-trans-5,6-Epoxy-5,6-dihydroretinoic acid
+E1019	row1972;row2130;row244;row3908;row417;row5063;row6640	row1972_M-H2O+H[1+];row2130_M-H2O+H[1+];row244_M-CO2+H[1+];row3908_M+H2O+H[1+];row417_M-HCOOH+H[1+];row5063_M+H[1+];row6640_M-CO2+H[1+]	C16679;C16677;C16680	all-trans-18-Hydroxyretinoic acid$all-trans-4-Hydroxyretinoic acid$all-trans-5,6-Epoxyretinoic acid; all-trans-5,6-Epoxy-5,6-dihydroretinoic acid
+E1022	row2304	row2304_M+Na[1+]	C00909	Leukotriene A4
+E1023	row1351;row2067;row2680;row7201;row7664	row1351_M+Na[1+];row2067_M+H[1+];row2680_M+HCOOK[1+];row7201_M+Na[1+];row7664_M-HCOOH+H[1+]	C00909	Leukotriene A4
+E1024	row5067;row5224;row7084;row781	row5067_M(C13)+H[1+];row5224_M+H[1+];row7084_M-H2O+H[1+];row781_M+H[1+]	C00909	Leukotriene A4
+E1025	row244;row291;row4666;row7148	row244_M-HCOOH+H[1+];row291_M-CO+H[1+];row4666_M-H2O+H[1+];row7148_M-H2O+H[1+]	C00909	Leukotriene A4
+E1026	row6308;row6640;row7299	row6308_M+H[1+];row6640_M-HCOOH+H[1+];row7299_M-H2O+H[1+]	C00909	Leukotriene A4
+E1029	row245;row488;row5702	row245_M+H[1+];row488_M+Na[1+];row5702_M+Na[1+]	CE5797	neuromedin N
+E1032	row2047;row2819;row7206;row887	row2047_M-C3H4O2+H[1+];row2819_M-H2O+H[1+];row7206_M-C3H4O2+H[1+];row887_M-HCOOH+H[1+]	C01137	S-Adenosylmethioninamine
+E1045	row2631;row4916	row2631_M-H2O+H[1+];row4916_M-H2O+H[1+]	CE3140	
+E1046	row4912	row4912_M-H2O+H[1+]	CE3140	
+E1047	row2778;row4568;row7027	row2778_M-CO+H[1+];row4568_M-CO+H[1+];row7027_M+Na[1+]	CE3140	
+E1048	row252;row3082;row5262	row252_M-H4O2+H[1+];row3082_M-CO+H[1+];row5262_M+H[1+]	CE3140	
+E1049	row4287;row5534;row5843;row7831;row942	row4287_M-NH3+H[1+];row5534_M+Na[1+];row5843_M+Na[1+];row7831_M-H4O2+H[1+];row942_M-H2O+H[1+]	CE3140	
+E1050	row1189;row6932	row1189_M-CO+H[1+];row6932_M+Na[1+]	CE3140	
+E1052	row2271;row3026;row4273	row2271_M+HCOONa[1+];row3026_M+HCOOK[1+];row4273_M-H2O+H[1+]	CE5310;CE5322	4(R)-hydroxy-dodec-6Z-enoate$4(S)-hydroxy-dodec-6Z-enoate
+E1054	row5048;row7877	row5048_M+HCOONa[1+];row7877_M-H2O+H[1+]	CE5310;CE5322	4(R)-hydroxy-dodec-6Z-enoate$4(S)-hydroxy-dodec-6Z-enoate
+E1056	row1632	row1632_M+Na[1+]	CE5310;CE5322	4(R)-hydroxy-dodec-6Z-enoate$4(S)-hydroxy-dodec-6Z-enoate
+E1057	row4169	row4169_M+H[1+]	CE5310;CE5322	4(R)-hydroxy-dodec-6Z-enoate$4(S)-hydroxy-dodec-6Z-enoate
+E1067	row4065;row4390	row4065_M+Na[1+];row4390_M+Na[1+]	CE5920	
+E1068	row6027;row7813	row6027_M+Na[1+];row7813_M+Na[1+]	CE5920	
+E1077	row2067;row265	row2067_M-H2O+H[1+];row265_M+NaCl[1+]	C05356;C00959;C04685;C04686;C05966;C05965;C14813;C02165;C04849;C14781	5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate$Prostaglandin B1$(13E)-(15S)-15-Hydroxy-9-oxoprosta-10,13-dienoate; Prostaglandin A1; PGA1$(13E)-(15S)-15-Hydroxy-9-oxoprosta-11,13-dienoate; Prostaglandin C1$15(S)-HPETE; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoic acid; 15-Hydroperoxyeicosatetraenoate; 15-Hydroperoxyicosatetraenoate; 15-Hydroperoxyeicosatetraenoic acid; 15-Hydroperoxyicosatetraenoic acid; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoate$12(S)-HPETE; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoic acid; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoate; 12-Hydroperoxyeicosatetraenoate; 12-Hydroperoxyicosatetraenoate; 12-Hydroperoxyeicosatetraenoic acid; 12-Hydroperoxyicosatetraenoic acid$11H-14,15-EETA; 11-Hydroxy-14,15-EETA; 11-Hydroxy-14,15-epoxyeicosatrienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyicosa-5,8,12-trienoic acid$Leukotriene B4$(5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoic acid; (5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoate; Hepoxilin A3$15H-11,12-EETA; 15-Hydroxy-11,12-epoxyeicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyeicosa-5,8,13-trienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyicosa-5,8,13-trienoic acid
+E1078	row5224;row7084;row781	row5224_M-H2O+H[1+];row7084_M-H4O2+H[1+];row781_M-H2O+H[1+]	C05356;C00959;C04685;C04686;C05966;C05965;C14813;C02165;C04849;C14781	5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate$Prostaglandin B1$(13E)-(15S)-15-Hydroxy-9-oxoprosta-10,13-dienoate; Prostaglandin A1; PGA1$(13E)-(15S)-15-Hydroxy-9-oxoprosta-11,13-dienoate; Prostaglandin C1$15(S)-HPETE; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoic acid; 15-Hydroperoxyeicosatetraenoate; 15-Hydroperoxyicosatetraenoate; 15-Hydroperoxyeicosatetraenoic acid; 15-Hydroperoxyicosatetraenoic acid; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoate$12(S)-HPETE; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoic acid; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoate; 12-Hydroperoxyeicosatetraenoate; 12-Hydroperoxyicosatetraenoate; 12-Hydroperoxyeicosatetraenoic acid; 12-Hydroperoxyicosatetraenoic acid$11H-14,15-EETA; 11-Hydroxy-14,15-EETA; 11-Hydroxy-14,15-epoxyeicosatrienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyicosa-5,8,12-trienoic acid$Leukotriene B4$(5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoic acid; (5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoate; Hepoxilin A3$15H-11,12-EETA; 15-Hydroxy-11,12-epoxyeicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyeicosa-5,8,13-trienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyicosa-5,8,13-trienoic acid
+E1080	row6308;row7299	row6308_M-H2O+H[1+];row7299_M-H4O2+H[1+]	C05356;C00959;C04685;C04686;C05966;C05965;C14813;C02165;C04849;C14781	5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate$Prostaglandin B1$(13E)-(15S)-15-Hydroxy-9-oxoprosta-10,13-dienoate; Prostaglandin A1; PGA1$(13E)-(15S)-15-Hydroxy-9-oxoprosta-11,13-dienoate; Prostaglandin C1$15(S)-HPETE; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoic acid; 15-Hydroperoxyeicosatetraenoate; 15-Hydroperoxyicosatetraenoate; 15-Hydroperoxyeicosatetraenoic acid; 15-Hydroperoxyicosatetraenoic acid; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoate$12(S)-HPETE; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoic acid; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoate; 12-Hydroperoxyeicosatetraenoate; 12-Hydroperoxyicosatetraenoate; 12-Hydroperoxyeicosatetraenoic acid; 12-Hydroperoxyicosatetraenoic acid$11H-14,15-EETA; 11-Hydroxy-14,15-EETA; 11-Hydroxy-14,15-epoxyeicosatrienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyicosa-5,8,12-trienoic acid$Leukotriene B4$(5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoic acid; (5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoate; Hepoxilin A3$15H-11,12-EETA; 15-Hydroxy-11,12-epoxyeicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyeicosa-5,8,13-trienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyicosa-5,8,13-trienoic acid
+E1086	row6415;row7287	row6415_M+Na[1+];row7287_M+HCOONa[1+]	C07535	Benzpyrene; Benzo[a]pyrene
+E1090	row279	row279_M+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1091	row1129;row1324	row1129_M+H[1+];row1324_M+H2O+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1092	row1439;row1444;row2061	row1439_M+H[1+];row1444_M+H[1+];row2061_M+H2O+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1093	row280;row3293;row4014;row7486	row280_M+H[1+];row3293_M+H[1+];row4014_M+H2O+H[1+];row7486_M+H2O+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1094	row2319	row2319_M+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1095	row5960;row6647	row5960_M+H2O+H[1+];row6647_M+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1096	row2772;row6248;row6870;row7822;row7915	row2772_M+H[1+];row6248_M+H2O+H[1+];row6870_M+H[1+];row7822_M+H2O+H[1+];row7915_M+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1097	row4779	row4779_M+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1098	row5343;row762	row5343_M+H[1+];row762_M+H[1+]	C05838;C00811;C02763;C00166	cis-2-Hydroxycinnamate; 2-Coumarinate$4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate$enol-Phenylpyruvate$Phenylpyruvate
+E1099	row279	row279_M-H2O+H[1+]	C05583;C05582	3-Methoxy-4-hydroxyphenylglycolaldehyde$Homovanillate; Homovanillic acid
+E1100	row1129;row1324;row1439;row1444;row2061;row4442;row6905	row1129_M-H2O+H[1+];row1324_M+H[1+];row1439_M-H2O+H[1+];row1444_M-H2O+H[1+];row2061_M+H[1+];row4442_M-CO+H[1+];row6905_M+H2O+H[1+]	C05583;C05582	3-Methoxy-4-hydroxyphenylglycolaldehyde$Homovanillate; Homovanillic acid
+E1101	row280;row3293;row4014;row6744;row742;row7486	row280_M-H2O+H[1+];row3293_M-H2O+H[1+];row4014_M+H[1+];row6744_M-CO+H[1+];row742_M-CO+H[1+];row7486_M+H[1+]	C05583;C05582	3-Methoxy-4-hydroxyphenylglycolaldehyde$Homovanillate; Homovanillic acid
+E1102	row1220;row2319;row6452	row1220_M-CO+H[1+];row2319_M-H2O+H[1+];row6452_M-CO+H[1+]	C05583;C05582	3-Methoxy-4-hydroxyphenylglycolaldehyde$Homovanillate; Homovanillic acid
+E1103	row2772;row396;row4779;row5220;row5960;row6248;row6647;row6824;row6870;row7822;row7915;row957	row2772_M-H2O+H[1+];row396_M-CO+H[1+];row4779_M-H2O+H[1+];row5220_M-CO+H[1+];row5960_M+H[1+];row6248_M+H[1+];row6647_M-H2O+H[1+];row6824_M-CO+H[1+];row6870_M-H2O+H[1+];row7822_M+H[1+];row7915_M-H2O+H[1+];row957_M-CO+H[1+]	C05583;C05582	3-Methoxy-4-hydroxyphenylglycolaldehyde$Homovanillate; Homovanillic acid
+E1104	row5343;row762	row5343_M-H2O+H[1+];row762_M-H2O+H[1+]	C05583;C05582	3-Methoxy-4-hydroxyphenylglycolaldehyde$Homovanillate; Homovanillic acid
+E1105	row1004;row1129;row1439;row1444;row2134;row2446;row2619;row279;row280;row3228;row3293;row3445;row3466;row3768;row4744;row4767;row520;row5264;row5305;row5463;row5886;row5974;row6164;row6264;row6278;row6330;row7541;row772;row7749	row1004_M+H[1+];row1129_M-NH3+H[1+];row1439_M-NH3+H[1+];row1444_M-NH3+H[1+];row2134_M+H2O+H[1+];row2446_M[1+];row2619_M+H2O+H[1+];row279_M-NH3+H[1+];row280_M-NH3+H[1+];row3228_M-H2O+H[1+];row3293_M-NH3+H[1+];row3445_M[1+];row3466_M+H[1+];row3768_M+H2O+H[1+];row4744_M[1+];row4767_M+H2O+H[1+];row520_M+H[1+];row5264_M+H2O+H[1+];row5305_M-CO+H[1+];row5463_M+H2O+H[1+];row5886_M-CO+H[1+];row5974_M+H[1+];row6164_M+H2O+H[1+];row6264_M-H2O+H[1+];row6278_M[1+];row6330_M+H2O+H[1+];row7541_M[1+];row772_M+H[1+];row7749_M-CO+H[1+]	C00082;CE2174	L-Tyrosine$
+E1106	row2192;row2319;row290;row3522;row3523;row5746;row6647	row2192_M+H[1+];row2319_M-NH3+H[1+];row290_M+H[1+];row3522_M+H[1+];row3523_M-H2O+H[1+];row5746_M+Na[1+];row6647_M-NH3+H[1+]	C00082;CE2174	L-Tyrosine$
+E1107	row2772;row3444;row4675;row498;row5010;row6341;row6870;row7915	row2772_M-NH3+H[1+];row3444_M-H2O+H[1+];row4675_M+H[1+];row498_M+H2O+H[1+];row5010_M-CO+H[1+];row6341_M-H2O+H[1+];row6870_M-NH3+H[1+];row7915_M-NH3+H[1+]	C00082;CE2174	L-Tyrosine$
+E1108	row2379;row4779;row7611	row2379_M+H[1+];row4779_M-NH3+H[1+];row7611_M-H2O+H[1+]	C00082;CE2174	L-Tyrosine$
+E1109	row5343;row6652;row6663;row762	row5343_M-NH3+H[1+];row6652_M+H[1+];row6663_M-H2O+H[1+];row762_M-NH3+H[1+]	C00082;CE2174	L-Tyrosine$
+E1119	row4168	row4168_M+Na[1+]	C06124	Sphingosine 1-phosphate
+E1128	row5704	row5704_M+H[1+]	CE5928;CE5925;C05953;C05957;C05954;C05955;CE5535;CE5537	$$Prostaglandin A2; PGA2; Medullin$Prostaglandin J2; PGJ2$Prostaglandin B2; PGB2$Prostaglandin C2; PGC2$$
+E1129	row4110	row4110_M+Na[1+]	CE5928;CE5925;C05953;C05957;C05954;C05955;CE5535;CE5537	$$Prostaglandin A2; PGA2; Medullin$Prostaglandin J2; PGJ2$Prostaglandin B2; PGB2$Prostaglandin C2; PGC2$$
+E1131	row1972;row291;row5063;row533	row1972_M-H4O2+H[1+];row291_M-CO2+H[1+];row5063_M-H2O+H[1+];row533_M-C3H4O2+H[1+]	CE5928;CE5925;C05953;C05957;C05954;C05955;CE5535;CE5537	$$Prostaglandin A2; PGA2; Medullin$Prostaglandin J2; PGJ2$Prostaglandin B2; PGB2$Prostaglandin C2; PGC2$$
+E1132	row2130;row3908;row4108	row2130_M-H4O2+H[1+];row3908_M+H[1+];row4108_M+H2O+H[1+]	CE5928;CE5925;C05953;C05957;C05954;C05955;CE5535;CE5537	$$Prostaglandin A2; PGA2; Medullin$Prostaglandin J2; PGJ2$Prostaglandin B2; PGB2$Prostaglandin C2; PGC2$$
+E1133	row2210	row2210_M+H[1+]	C06350	
+E1134	row1838;row298	row1838_M+H[1+];row298_M-C3H4O2+H[1+]	C06350	
+E1140	row3457;row4052	row3457_M-H2O+H[1+];row4052_M-H2O+H[1+]	C03642	Taurolithocholate sulfate; 3alpha-Sulfatolithocholyltaurine; Taurolithocholic acid 3-sulfate
+E1146	row1475;row2023;row2280;row311;row5280;row5631;row5870;row590	row1475_M-H2O+H[1+];row2023_M-H2O+H[1+];row2280_M+H[1+];row311_M-H2O+H[1+];row5280_M-H2O+H[1+];row5631_M-NH3+H[1+];row5870_M+H[1+];row590_M-NH3+H[1+]	C00437	N2-Acetyl-L-ornithine
+E1149	row1352	row1352_M-H2O+H[1+]	CE5272	
+E1150	row2499	row2499_M-H2O+H[1+]	CE5272	
+E1152	row3706;row934	row3706_M+Na[1+];row934_M+H+Na[2+]	C01194	Phosphatidylinositol
+E1161	row2287;row390;row4972;row5120;row5158;row5959;row5997;row6436	row2287_M(C13)+H[1+];row390_M+Na[1+];row4972_M+Na[1+];row5120_M+Na[1+];row5158_M+K[1+];row5959_M(C13)+H[1+];row5997_M+HCOOK[1+];row6436_M+K[1+]	C06526	Quinine
+E1169	row2482;row3338;row3844;row5081;row5149;row5223;row5476;row619;row6915;row880	row2482_M+H[1+];row3338_M-CO+H[1+];row3844_M-CO+H[1+];row5081_M+H2O+H[1+];row5149_M+H[1+];row5223_M(C13)+H[1+];row5476_M+H[1+];row619_M-CO+H[1+];row6915_M-H2O+H[1+];row880_M+H2O+H[1+]	CE2122	methyl indole-3-acetate
+E1171	row4053	row4053_M+H[1+]	CE2122	methyl indole-3-acetate
+E1179	row3083	row3083_M+Na[1+]	CE2186;CE2183;C05302;C05284;C05290;C05140	4-methoxy-17beta-estradiol$2-hydroxy-3-methoxy-17beta-estradiol$2-Methoxyestradiol-17beta$11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione$19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione$16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione
+E1180	row3312;row7457	row3312_M+Na[1+];row7457_M+Na[1+]	CE2186;CE2183;C05302;C05284;C05290;C05140	4-methoxy-17beta-estradiol$2-hydroxy-3-methoxy-17beta-estradiol$2-Methoxyestradiol-17beta$11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione$19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione$16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione
+E1181	row326;row3358;row4529;row627	row326_M-H2O+H[1+];row3358_M+Na[1+];row4529_M+K[1+];row627_M+H[1+]	CE2186;CE2183;C05302;C05284;C05290;C05140	4-methoxy-17beta-estradiol$2-hydroxy-3-methoxy-17beta-estradiol$2-Methoxyestradiol-17beta$11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione$19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione$16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione
+E1182	row2318;row3502;row382;row4447;row4636;row4761;row5268;row6494;row7799	row2318_M+HCOOK[1+];row3502_M+H[1+];row382_M(C13)+H[1+];row4447_M+H2O+H[1+];row4636_M-H2O+H[1+];row4761_M-HCOOH+H[1+];row5268_M+HCOOK[1+];row6494_M+H2O+H[1+];row7799_M+HCOOK[1+]	CE2186;CE2183;C05302;C05284;C05290;C05140	4-methoxy-17beta-estradiol$2-hydroxy-3-methoxy-17beta-estradiol$2-Methoxyestradiol-17beta$11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione$19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione$16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione
+E1187	row2214;row6036	row2214_M+H[1+];row6036_M[1+]	C05581	3-Methoxy-4-hydroxyphenylacetaldehyde
+E1188	row2033;row7136	row2033_M+H2O+H[1+];row7136_M+H[1+]	C05581	3-Methoxy-4-hydroxyphenylacetaldehyde
+E1190	row953	row953_M+H[1+]	C05581	3-Methoxy-4-hydroxyphenylacetaldehyde
+E1192	row332;row4179	row332_M-NH3+H[1+];row4179_M-H2O+H[1+]	C03227;C05651	3-Hydroxy-L-kynurenine$5-Hydroxykynurenine; 5-Hydroxy-L-kynurenine
+E1193	row3505;row6326;row6327;row6370	row3505_M-NH3+H[1+];row6326_M-NH3+H[1+];row6327_M-NH3+H[1+];row6370_M+H[1+]	C03227;C05651	3-Hydroxy-L-kynurenine$5-Hydroxykynurenine; 5-Hydroxy-L-kynurenine
+E1197	row2400;row2446;row332;row3445;row3695;row4559;row4599;row4744;row5663;row6278;row6895	row2400_M+H2O+H[1+];row2446_M-CO+H[1+];row332_M[1+];row3445_M-CO+H[1+];row3695_M-HCOOH+H[1+];row4559_M+H[1+];row4599_M-CO2+H[1+];row4744_M-CO+H[1+];row5663_M+H[1+];row6278_M-CO+H[1+];row6895_M(S34)+H[1+]	C02147	Dihydrolipoate; Dihydrolipoic acid; Dihydrothioctic acid
+E1200	row3418	row3418_M+Na[1+]	C02076	sedoheptulose
+E1202	row803	row803_M-H2O+H[1+]	C02076	sedoheptulose
+E1203	row4253;row4599;row5180	row4253_M+H[1+];row4599_M-HCOOH+H[1+];row5180_M+H[1+]	C02076	sedoheptulose
+E1205	row2466;row341;row3499;row4947;row626;row6991;row7506	row2466_M(C13)+H[1+];row341_M-H2O+H[1+];row3499_M[1+];row4947_M-HCOOH+H[1+];row626_M-HCOOH+H[1+];row6991_M(C13)+H[1+];row7506_M-C3H4O2+H[1+]	C05711;C00475	gamma-Glutamyl-beta-cyanoalanine$Cytidine
+E1207	row2755;row5338	row2755_M-H2O+H[1+];row5338_M+H[1+]	C05711;C00475	gamma-Glutamyl-beta-cyanoalanine$Cytidine
+E1208	row1087;row1584;row343;row374;row5266;row5774	row1087_M+H2O+H[1+];row1584_M+H2O+H[1+];row343_M-H2O+H[1+];row374_M+H2O+H[1+];row5266_M[1+];row5774_M+H[1+]	C05638	5-Hydroxykynurenamine
+E1212	row3001;row6341	row3001_M+H[1+];row6341_M-NH3+H[1+]	C05638	5-Hydroxykynurenamine
+E1221	row6256	row6256_M-H2O+H[1+]	CE3554	20-trihydroxy-leukotriene-B4
+E1222	row4434;row4476	row4434_M-H2O+H[1+];row4476_M-H2O+H[1+]	CE3554	20-trihydroxy-leukotriene-B4
+E1223	row5481;row6639;row739	row5481_M-H2O+H[1+];row6639_M-H4O2+H[1+];row739_M-H2O+H[1+]	CE3554	20-trihydroxy-leukotriene-B4
+E1224	row2131;row3669	row2131_M-H2O+H[1+];row3669_M-H2O+H[1+]	CE3554	20-trihydroxy-leukotriene-B4
+E1225	row349;row5825;row719	row349_M+NaCl[1+];row5825_M+NaCl[1+];row719_M-H2O+H[1+]	CE3554	20-trihydroxy-leukotriene-B4
+E1242	row352;row4058;row606;row7395;row790	row352_M+H[1+];row4058_M+H[1+];row606_M(C13)+H[1+];row7395_M+H2O+H[1+];row790_M[1+]	CE5542;C16353	noradrenochrome o-semiquinone$
+E1244	row5899	row5899_M+H[1+]	CE5542;C16353;C05411	noradrenochrome o-semiquinone$$
+E1245	row3566	row3566_M+H[1+]	CE5542;C16353;C05411	noradrenochrome o-semiquinone$$
+E1246	row2383;row7439	row2383_M[1+];row7439_M+H[1+]	CE5542;C16353	noradrenochrome o-semiquinone$
+E1249	row7074	row7074_M+H[1+]	C00818	D-Glucarate
+E1253	row352;row4058;row7395	row352_M+H[1+];row4058_M+H[1+];row7395_M+H2O+H[1+]	C05411	
+E1254	row7439	row7439_M+H[1+]	C05411	
+E1255	row352;row4058	row352_M+Na[1+];row4058_M+Na[1+]	CE4969	isobutyrylglycine
+E1257	row5899	row5899_M+Na[1+]	CE4969	isobutyrylglycine
+E1258	row3566	row3566_M+Na[1+]	CE4969	isobutyrylglycine
+E1259	row7439	row7439_M+Na[1+]	CE4969	isobutyrylglycine
+E1260	row1550;row1669;row357;row3948;row4971;row7319;row7526	row1550_M+H2O+H[1+];row1669_M+Na[1+];row357_M+H[1+];row3948_M+H2O+H[1+];row4971_M+H2O+H[1+];row7319_M+Na[1+];row7526_M+H[1+]	C02693	Indole-3-acetamide
+E1261	row4329;row7662	row4329_M+Na[1+];row7662_M+H2O+H[1+]	C02693	Indole-3-acetamide
+E1263	row1136;row2081;row883	row1136_M-H2O+H[1+];row2081_M+H[1+];row883_M-H2O+H[1+]	C02693	Indole-3-acetamide
+E1265	row3798;row4211	row3798_M+H[1+];row4211_M+H2O+H[1+]	C02693	Indole-3-acetamide
+E1266	row1391;row4617	row1391_M+Na[1+];row4617_M+Na[1+]	C16015	(+)-(1R,2R)-1,2-Diphenylethane-1,2-diol
+E1267	row3470	row3470_M+Na[1+]	C16015	(+)-(1R,2R)-1,2-Diphenylethane-1,2-diol
+E1268	row4035	row4035_M-H2O+H[1+]	C16015	(+)-(1R,2R)-1,2-Diphenylethane-1,2-diol
+E1272	row358;row648	row358_M+H2O+H[1+];row648_M+H[1+]	C16015	(+)-(1R,2R)-1,2-Diphenylethane-1,2-diol
+E1275	row2374;row2460;row363;row3880;row5409	row2374_M+H[1+];row2460_M-CO+H[1+];row363_M-H2O+H[1+];row3880_M+H2O+H[1+];row5409_M-CO+H[1+]	CE6205	5-methoxytryptophol
+E1282	row4688;row7812	row4688_M+H[1+];row7812_M-NH3+H[1+]	CE6205	5-methoxytryptophol
+E1283	row5062;row508;row727	row5062_M-NH3+H[1+];row508_M+H[1+];row727_M+HCOONa[1+]	CE6205	5-methoxytryptophol
+E1285	row2259;row2685;row3323;row365;row4008;row513;row5529;row5659;row595;row7271;row7871	row2259_M-H4O2+H[1+];row2685_M-H2O+H[1+];row3323_M-H2O+H[1+];row365_M-H2O+H[1+];row4008_M-NH3+H[1+];row513_M+H2O+H[1+];row5529_M-CO+H[1+];row5659_M-HCOOH+H[1+];row595_M-HCOOH+H[1+];row7271_M-H2O+H[1+];row7871_M+H2O+H[1+]	C05588	L-Metanephrine
+E1287	row1018;row1285;row1456;row2661;row2964;row3189;row3260;row4428	row1018_M-CO2+H[1+];row1285_M-H4O2+H[1+];row1456_M-CO2+H[1+];row2661_M-CO2+H[1+];row2964_M-NH3+H[1+];row3189_M+H[1+];row3260_M-NH3+H[1+];row4428_M-NH3+H[1+]	C05588	L-Metanephrine
+E1289	row2110;row3639;row3844;row4002;row4007;row4264;row5358;row5514;row5518;row6178;row619;row7321;row7544	row2110_M+HCOONa[1+];row3639_M-H2O+H[1+];row3844_M-H4O2+H[1+];row4002_M-CO+H[1+];row4007_M+HCOONa[1+];row4264_M-NH3+H[1+];row5358_M-NH3+H[1+];row5514_M-NH3+H[1+];row5518_M-H4O2+H[1+];row6178_M-NH3+H[1+];row619_M-H4O2+H[1+];row7321_M-NH3+H[1+];row7544_M-H2O+H[1+]	C05588	L-Metanephrine
+E1290	row2116;row2665;row6546	row2116_M-H2O+H[1+];row2665_M-NH3+H[1+];row6546_M-H2O+H[1+]	C05588	L-Metanephrine
+E1291	row1965;row2333;row3002;row5186;row7772	row1965_M-NH3+H[1+];row2333_M-H2O+H[1+];row3002_M-H2O+H[1+];row5186_M-H2O+H[1+];row7772_M-NH3+H[1+]	C05588	L-Metanephrine
+E1293	row3247	row3247_M-H2O+H[1+]	C05588	L-Metanephrine
+E1294	row2685;row7271	row2685_M+H[1+];row7271_M+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1295	row2259;row3323;row365;row5302;row5659;row595	row2259_M-H2O+H[1+];row3323_M+H[1+];row365_M+H[1+];row5302_M-NH3+H[1+];row5659_M-CO+H[1+];row595_M-CO+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1297	row1285;row1506;row3189	row1285_M-H2O+H[1+];row1506_M-NH3+H[1+];row3189_M+H2O+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1298	row2626;row2821;row2945;row3338;row3639;row3844;row619;row7442;row7445;row7544	row2626_M-NH3+H[1+];row2821_M-NH3+H[1+];row2945_M-NH3+H[1+];row3338_M-H2O+H[1+];row3639_M+H[1+];row3844_M-H2O+H[1+];row619_M-H2O+H[1+];row7442_M-NH3+H[1+];row7445_M-NH3+H[1+];row7544_M+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1299	row5518;row7021	row5518_M-H2O+H[1+];row7021_M-NH3+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1300	row1036;row1326;row1755;row2116;row2333;row3002;row3138;row3808;row4371;row5186;row5291;row6546	row1036_M-NH3+H[1+];row1326_M-NH3+H[1+];row1755_M-NH3+H[1+];row2116_M+H[1+];row2333_M+H[1+];row3002_M+H[1+];row3138_M-NH3+H[1+];row3808_M-NH3+H[1+];row4371_M-NH3+H[1+];row5186_M+H[1+];row5291_M-NH3+H[1+];row6546_M+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1301	row3247	row3247_M+H[1+]	C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol
+E1305	row3015	row3015_M+Na[1+]	CE6316	N,N-dimethyldopaminequinone
+E1306	row1601;row3486;row3639;row5395;row5397;row7544	row1601_M+HCOONa[1+];row3486_M+Na[1+];row3639_M[1+];row5395_M+HCOONa[1+];row5397_M+HCOONa[1+];row7544_M[1+]	CE6316	N,N-dimethyldopaminequinone
+E1313	row3082;row5262	row3082_M-HCOOH+H[1+];row5262_M-H2O+H[1+]	mn;C00611	beta-1,4-mannose-N-acetylglucosamine$N-Acetyllactosamine; beta-D-Galactosyl-1,4-N-acetyl-D-glucosamine; beta-D-Galactosyl-1,4-N-acetyl-beta-D-glucosamine
+E1315	row3204;row6910	row3204_M+Na[1+];row6910_M+K[1+]	mn;C00611	beta-1,4-mannose-N-acetylglucosamine$N-Acetyllactosamine; beta-D-Galactosyl-1,4-N-acetyl-D-glucosamine; beta-D-Galactosyl-1,4-N-acetyl-beta-D-glucosamine
+E1320	row1087;row1584;row2506;row374;row4179;row7259;row860	row1087_M-CO2+H[1+];row1584_M-CO2+H[1+];row2506_M-C3H4O2+H[1+];row374_M-CO2+H[1+];row4179_M-H4O2+H[1+];row7259_M-CO+H[1+];row860_M+H[1+]	C00214	Thymidine
+E1322	row6370	row6370_M-H2O+H[1+]	C00214	Thymidine
+E1325	row1304;row1861;row2775;row2888;row3006;row3010;row375;row5585;row5729;row6003;row6342;row7744;row7873	row1304_M-C3H4O2+H[1+];row1861_M-CO+H[1+];row2775_M+H[1+];row2888_M[1+];row3006_M-CO2+H[1+];row3010_M-CO+H[1+];row375_M-H2O+H[1+];row5585_M-CO+H[1+];row5729_M-CO+H[1+];row6003_M+H2O+H[1+];row6342_M-HCOOH+H[1+];row7744_M[1+];row7873_M-CO+H[1+]	CE2705;CE5236	quinonoid dihydrobiopterin$O2'-4a-cyclic-tetrahydrobiopterin
+E1327	row1116;row1177;row1898;row2320;row3701;row3779;row4152;row4332;row4333;row5107;row579;row6622;row7102;row7770	row1116_M-CO2+H[1+];row1177_M-CO2+H[1+];row1898_M-CO2+H[1+];row2320_M-CO2+H[1+];row3701_M-CO2+H[1+];row3779_M-H4O2+H[1+];row4152_M-HCOOH+H[1+];row4332_M-CO+H[1+];row4333_M-CO2+H[1+];row5107_M-H2O+H[1+];row579_M-H4O2+H[1+];row6622_M-NH3+H[1+];row7102_M-CO2+H[1+];row7770_M+H[1+]	CE2705;CE5236	quinonoid dihydrobiopterin$O2'-4a-cyclic-tetrahydrobiopterin
+E1328	row1545;row3276;row4133;row5664;row6593;row6989;row7896	row1545_M-H2O+H[1+];row3276_M-CO2+H[1+];row4133_M-CO2+H[1+];row5664_M-H4O2+H[1+];row6593_M-HCOOH+H[1+];row6989_M-H4O2+H[1+];row7896_M-NH3+H[1+]	CE2705;CE5236	quinonoid dihydrobiopterin$O2'-4a-cyclic-tetrahydrobiopterin
+E1330	row2060;row3830;row531;row6074;row6406;row6473;row6483;row7453;row7600	row2060_M-CO+H[1+];row3830_M[1+];row531_M-CO2+H[1+];row6074_M-H2O+H[1+];row6406_M+HCOONa[1+];row6473_M+H[1+];row6483_M+K[1+];row7453_M-H4O2+H[1+];row7600_M+H[1+]	pcrn	propionyl-carnitine
+E1333	row6804	row6804_M+Na[1+]	pcrn	propionyl-carnitine
+E1334	row7797	row7797_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1335	row1380;row2500	row1380_M+H[1+];row2500_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1336	row3579	row3579_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1338	row633	row633_M+H[1+]	pcrn	propionyl-carnitine
+E1339	row2380;row6397;row6947;row7834	row2380_M+Na[1+];row6397_M-NH3+H[1+];row6947_M-NH3+H[1+];row7834_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1340	row1503;row378;row4021;row465	row1503_M-NH3+H[1+];row378_M+H[1+];row4021_M+Na[1+];row465_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1341	row859	row859_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1342	row1331;row4072	row1331_M-H4O2+H[1+];row4072_M-H2O+H[1+]	pcrn	propionyl-carnitine
+E1352	row6050;row6154	row6050_M+Na[1+];row6154_M+H[1+]	C01262	beta-Alanyl-N(pi)-methyl-L-histidine; Anserine
+E1355	row5128	row5128_M-H2O+H[1+]	C01262	beta-Alanyl-N(pi)-methyl-L-histidine; Anserine
+E1364	row1560;row2323;row4810;row7330;row7791	row1560_M+H[1+];row2323_M+H2O+H[1+];row4810_M+H[1+];row7330_M-H2O+H[1+];row7791_M+HCOONa[1+]	C11134;tststeroneglc	Testosterone glucuronide; Testosterone 17beta-(beta-D-glucuronide)$testosterone glucuronide
+E1365	row7899	row7899_M+H[1+]	C11134;tststeroneglc	Testosterone glucuronide; Testosterone 17beta-(beta-D-glucuronide)$testosterone glucuronide
+E1372	row1220;row2833;row5497;row6452	row1220_M-CO2+H[1+];row2833_M+H[1+];row5497_M-H4O2+H[1+];row6452_M-CO2+H[1+]	C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid
+E1375	row5970;row6722;row6824	row5970_M-H2O+H[1+];row6722_M+H[1+];row6824_M-CO2+H[1+]	C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid
+E1385	row1468;row1663;row2675	row1468_M+H[1+];row1663_M+Na[1+];row2675_M+H2O+H[1+]	C00135	L-Histidine
+E1393	row400;row5871	row400_M+H[1+];row5871_M+H+Na[2+]	C16543	NPC
+E1394	row2005;row3292	row2005_M+H[1+];row3292_M+H2O+H[1+]	C16543	NPC
+E1398	row6256	row6256_M+Na[1+]	CE6504	
+E1399	row4434;row4476	row4434_M+Na[1+];row4476_M+Na[1+]	CE6504	
+E1400	row2131;row3669;row4349;row5481;row7001;row739	row2131_M+Na[1+];row3669_M+Na[1+];row4349_M+K[1+];row5481_M+Na[1+];row7001_M+K[1+];row739_M+Na[1+]	CE6504	
+E1401	row719	row719_M+Na[1+]	CE6504	
+E1407	row5823	row5823_M+Na[1+]	dhea;C03772;C01227;C00674;C00535	Dehydroepiandrosterone$5beta-Androstane-3,17-dione$3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA$5alpha-Androstane-3,17-dione; Androstanedione$Testosterone
+E1408	row2645;row4110;row4801;row7698	row2645_M-H2O+H[1+];row4110_M+HCOONa[1+];row4801_M-H2O+H[1+];row7698_M-H2O+H[1+]	dhea;C03772;C01227;C00674;C00535	Dehydroepiandrosterone$5beta-Androstane-3,17-dione$3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA$5alpha-Androstane-3,17-dione; Androstanedione$Testosterone
+E1409	row417;row4453;row7281	row417_M-H2O+H[1+];row4453_M+Na[1+];row7281_M+Na[1+]	dhea;C03772;C01227;C00674;C00535	Dehydroepiandrosterone$5beta-Androstane-3,17-dione$3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA$5alpha-Androstane-3,17-dione; Androstanedione$Testosterone
+E1410	row5052	row5052_M-H2O+H[1+]	C01246	Dolichyl beta-D-glucosyl phosphate
+E1414	row2401;row4601;row5760	row2401_M(C13)+H[1+];row4601_M-H2O+H[1+];row5760_M-H2O+H[1+]	C01246	Dolichyl beta-D-glucosyl phosphate
+E1418	row2272;row2456;row3062;row5112;row5146;row6292	row2272_M+H2O+H[1+];row2456_M-CO2+H[1+];row3062_M-HCOOH+H[1+];row5112_M-HCOOH+H[1+];row5146_M-HCOOH+H[1+];row6292_M+H[1+]	C01136;C16255	S-Acetyldihydrolipoamide; 6-S-Acetyldihydrolipoamide$[Dihydrolipoyllysine-residue acetyltransferase] S-acetyldihydrolipoyllysine; S-Acetyldihydrolipoamide-E
+E1431	row3263;row4041	row3263_M-H2O+H[1+];row4041_M-H4O2+H[1+]	CE4872;C01301	3alpha,7alpha,12alpha-trihydroxy-5beta-cholestan-27-al$3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestan-26-al
+E1434	row3230;row3826;row7825	row3230_M+Na[1+];row3826_M+Na[1+];row7825_M+Na[1+]	dmhptcrn	2,6 dimethylheptanoyl carnitine
+E1436	row4029;row5683;row6750	row4029_M-NH3+H[1+];row5683_M+Na[1+];row6750_M+H[1+]	C01029;C00612	$N1-Acetylspermidine
+E1438	row1869;row2504;row2922;row2941;row3945;row447;row461;row4677;row4883;row5317;row5659;row595;row6241;row7099;row7503;row765;row878	row1869_M-CO+H[1+];row2504_M-CO2+H[1+];row2922_M+H[1+];row2941_M+H[1+];row3945_M+H2O+H[1+];row447_M-H4O2+H[1+];row461_M-NH3+H[1+];row4677_M+H[1+];row4883_M-H4O2+H[1+];row5317_M+H2O+H[1+];row5659_M-CO2+H[1+];row595_M-CO2+H[1+];row6241_M-CO+H[1+];row7099_M+H[1+];row7503_M+H2O+H[1+];row765_M-CO+H[1+];row878_M-H2O+H[1+]	C16586;CE2173	2-Phenyl-1,3-propanediol monocarbamate$
+E1441	row1758;row2222	row1758_M+H[1+];row2222_M-H4O2+H[1+]	C16586;CE2173	2-Phenyl-1,3-propanediol monocarbamate$
+E1448	row2922;row4883	row2922_M+H2O+H[1+];row4883_M-H2O+H[1+]	CE1918;CE5629	5-hydroxytryptophol$1,2-dehydrosalsolinol
+E1450	row3142;row447;row4677;row5356;row7099;row878	row3142_M+HCOONa[1+];row447_M-H2O+H[1+];row4677_M+H2O+H[1+];row5356_M(C13)+H[1+];row7099_M+H2O+H[1+];row878_M+H[1+]	CE1918;CE5629	5-hydroxytryptophol$1,2-dehydrosalsolinol
+E1451	row4760	row4760_M-H2O+H[1+]	CE1918;CE5629	5-hydroxytryptophol$1,2-dehydrosalsolinol
+E1452	row1708;row1758;row2147;row2222;row2896	row1708_M+HCOOK[1+];row1758_M+H2O+H[1+];row2147_M-NH3+H[1+];row2222_M-H2O+H[1+];row2896_M-NH3+H[1+]	CE1918;CE5629	5-hydroxytryptophol$1,2-dehydrosalsolinol
+E1453	row5222	row5222_M-H2O+H[1+]	CE1918;CE5629	5-hydroxytryptophol$1,2-dehydrosalsolinol
+E1459	row2954;row4256;row5566;row5952;row6756	row2954_M-H2O+H[1+];row4256_M+H2O+H[1+];row5566_M+H2O+H[1+];row5952_M-CO+H[1+];row6756_M-HCOOH+H[1+]	C00331	Indolepyruvate; Indolepyruvic acid; (Indol-3-yl)pyruvate; Indole-3-pyruvate; 3-(Indol-3-yl)pyruvate
+E1464	row4883	row4883_M+H[1+]	C00637	Indole-3-acetaldehyde
+E1465	row447;row878	row447_M+H[1+];row878_M+H2O+H[1+]	C00637	Indole-3-acetaldehyde
+E1466	row4760	row4760_M+H[1+]	C00637	Indole-3-acetaldehyde
+E1467	row2222	row2222_M+H[1+]	C00637	Indole-3-acetaldehyde
+E1469	row5222	row5222_M+H[1+]	C00637	Indole-3-acetaldehyde
+E1471	row2259;row7123	row2259_M-CO2+H[1+];row7123_M-H2O+H[1+]	C05660	5-Methoxyindoleacetate
+E1472	row1804;row447;row4785;row519;row553;row878	row1804_M+H2O+H[1+];row447_M-HCOOH+H[1+];row4785_M+H[1+];row519_M-H4O2+H[1+];row553_M-H2O+H[1+];row878_M-CO+H[1+]	C05660	5-Methoxyindoleacetate
+E1473	row1285;row3998;row6528	row1285_M-CO2+H[1+];row3998_M-H2O+H[1+];row6528_M-H2O+H[1+]	C05660	5-Methoxyindoleacetate
+E1474	row4760;row5957;row6502;row6622	row4760_M-HCOOH+H[1+];row5957_M+H[1+];row6502_M-H4O2+H[1+];row6622_M+H2O+H[1+]	C05660	5-Methoxyindoleacetate
+E1476	row1030;row1156;row2009;row2222;row2540;row2682;row3390;row3844;row4815;row5518;row619;row6207	row1030_M+Na[1+];row1156_M-H4O2+H[1+];row2009_M-H4O2+H[1+];row2222_M-HCOOH+H[1+];row2540_M+H[1+];row2682_M-H2O+H[1+];row3390_M+H[1+];row3844_M-CO2+H[1+];row4815_M+H[1+];row5518_M-CO2+H[1+];row619_M-CO2+H[1+];row6207_M-H2O+H[1+]	C05660	5-Methoxyindoleacetate
+E1477	row1645;row4244;row5222;row7268	row1645_M-H4O2+H[1+];row4244_M-H4O2+H[1+];row5222_M-HCOOH+H[1+];row7268_M-H2O+H[1+]	C05660	5-Methoxyindoleacetate
+E1479	row1846;row1977;row2312;row2443;row3679;row4020;row4718;row754	row1846_M-C3H4O2+H[1+];row1977_M-CO+H[1+];row2312_M+Na[1+];row2443_M(C13)+2H[2+];row3679_M-C3H4O2+H[1+];row4020_M(C13)+2H[2+];row4718_M-C3H4O2+H[1+];row754_M-C3H4O2+H[1+]	C02592	Taurolithocholate; Taurolithocholic acid
+E1481	row7491	row7491_M+H[1+]	C02592	Taurolithocholate; Taurolithocholic acid
+E1498	row459;row5590;row6541;row6718;row7712;row7850	row459_M+H[1+];row5590_M-HCOOH+H[1+];row6541_M-C3H4O2+H[1+];row6718_M-CO+H[1+];row7712_M-NH3+H[1+];row7850_M+H[1+]	CE5274	
+E1500	row1978;row2232;row2361;row3135	row1978_M-HCOOH+H[1+];row2232_M+Na[1+];row2361_M+H[1+];row3135_M+H[1+]	CE5274	
+E1507	row5892	row5892_M+Na[1+]	CE5795	neuromedin B (1-3)
+E1511	row2071;row3485;row461;row5979	row2071_M-H2O+H[1+];row3485_M-H2O+H[1+];row461_M[1+];row5979_M-NH3+H[1+]	C07585	N-Acetylisoniazid; (N)1-Acetylisoniazid
+E1515	row3090;row3159;row3392;row4141;row4378;row463;row495;row5619;row827;row864	row3090_M-H2O+H[1+];row3159_M-NH3+H[1+];row3392_M+H[1+];row4141_M+H[1+];row4378_M+H[1+];row463_M+H[1+];row495_M-CO+H[1+];row5619_M-HCOOH+H[1+];row827_M-CO+H[1+];row864_M+H2O+H[1+]	tymsf	Tyramine O-sulfate
+E1516	row1453;row2944;row3809;row4473;row5527;row580;row6074;row6137	row1453_M-HCOOH+H[1+];row2944_M+H2O+H[1+];row3809_M-CO+H[1+];row4473_M+HCOONa[1+];row5527_M+H2O+H[1+];row580_M+H2O+H[1+];row6074_M-C3H4O2+H[1+];row6137_M-H2O+H[1+]	C04692	Peptide 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine; 2-[3-Carboxy-3-(methylammonio)propyl]-L-histidine; EF-2 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine; Elongation factor 2 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine
+E1517	row2829;row3023;row3599;row3921;row3989;row7444	row2829_M-CO+H[1+];row3023_M-CO+H[1+];row3599_M+H2O+H[1+];row3921_M-H4O2+H[1+];row3989_M-H2O+H[1+];row7444_M+H2O+H[1+]	C04692	Peptide 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine; 2-[3-Carboxy-3-(methylammonio)propyl]-L-histidine; EF-2 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine; Elongation factor 2 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine
+E1523	row1688;row1798;row2093;row2519;row3574;row3680;row3952;row4072;row4392;row465;row5115;row5246;row5946;row6858;row7078;row7190;row7244;row7848;row859	row1688_M+H[1+];row1798_M-H2O+H[1+];row2093_M-NH3+H[1+];row2519_M-H2O+H[1+];row3574_M+Na[1+];row3680_M-HCOOH+H[1+];row3952_M-H4O2+H[1+];row4072_M-C3H4O2+H[1+];row4392_M+H[1+];row465_M-C3H4O2+H[1+];row5115_M-CO2+H[1+];row5246_M-H4O2+H[1+];row5946_M+H[1+];row6858_M+H2O+H[1+];row7078_M-H2O+H[1+];row7190_M-H4O2+H[1+];row7244_M+Na[1+];row7848_M+H[1+];row859_M-C3H4O2+H[1+]	C04692	Peptide 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine; 2-[3-Carboxy-3-(methylammonio)propyl]-L-histidine; EF-2 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine; Elongation factor 2 2-[3-carboxy-3-(methylammonio)propyl]-L-histidine
+E1545	row2335;row3288;row3478;row3635;row3765;row7259	row2335_M-CO2+H[1+];row3288_M-HCOOH+H[1+];row3478_M+H[1+];row3635_M-NH3+H[1+];row3765_M+Na[1+];row7259_M-H2O+H[1+]	C03415	N2-Succinyl-L-ornithine; (2S)-5-Amino-2-(3-carboxypropanoylamino)pentanoic acid
+E1548	row2551;row2775;row3594;row4918;row6003;row7685	row2551_M-NH3+H[1+];row2775_M-H4O2+H[1+];row3594_M-HCOOH+H[1+];row4918_M-CO2+H[1+];row6003_M-H2O+H[1+];row7685_M-HCOOH+H[1+]	C00449	N6-(L-1,3-Dicarboxypropyl)-L-lysine; Saccharopine; L-Saccharopine; N-[(S)-5-Amino-5-carboxypentyl]-L-glutamic acid
+E1558	row2020;row5266;row5699	row2020_M-H2O+H[1+];row5266_M+H[1+];row5699_M-H2O+H[1+]	C00329	D-Glucosamine
+E1560	row4496;row4961;row5209	row4496_M+H[1+];row4961_M-NH3+H[1+];row5209_M+K[1+]	C00329	D-Glucosamine
+E1565	row1372;row1845	row1372_M+H[1+];row1845_M+H[1+]	C00954;C05634	Indole-3-acetate$5-Hydroxyindoleacetaldehyde
+E1566	row1000	row1000_M+H[1+]	C00954;C05634	Indole-3-acetate$5-Hydroxyindoleacetaldehyde
+E1568	row480;row5952;row6756;row7625	row480_M+H2O+H[1+];row5952_M+H[1+];row6756_M-H2O+H[1+];row7625_M-NH3+H[1+]	C00954;C05634	Indole-3-acetate$5-Hydroxyindoleacetaldehyde
+E1569	row5968	row5968_M+H[1+]	C00954;C05634	Indole-3-acetate$5-Hydroxyindoleacetaldehyde
+E1570	row2676	row2676_M+H[1+]	C00954;C05634	Indole-3-acetate$5-Hydroxyindoleacetaldehyde
+E1584	row1373;row2456;row2470;row3635;row5021;row5266;row7225	row1373_M+HCOONa[1+];row2456_M-HCOOH+H[1+];row2470_M-H2O+H[1+];row3635_M-H4O2+H[1+];row5021_M+Na[1+];row5266_M-C3H4O2+H[1+];row7225_M-CO+H[1+]	C00559;C05198	Deoxyadenosine$5'-Deoxyadenosine
+E1590	row1240;row2280;row2920;row3360;row3986;row501;row5870;row7870	row1240_M-HCOOH+H[1+];row2280_M-CO2+H[1+];row2920_M-HCOOH+H[1+];row3360_M-H2O+H[1+];row3986_M-H2O+H[1+];row501_M-H4O2+H[1+];row5870_M-CO2+H[1+];row7870_M-H4O2+H[1+]	C03740	5-L-Glutamyl-L-alanine
+E1606	row1026;row1473;row1971;row3684;row4528;row512;row5688;row6145;row6220;row6356;row6897	row1026_M+H[1+];row1473_M+H[1+];row1971_M+HCOONa[1+];row3684_M+Na[1+];row4528_M-CO+H[1+];row512_M+Na[1+];row5688_M+Na[1+];row6145_M+Na[1+];row6220_M-HCOOH+H[1+];row6356_M+H[1+];row6897_M+NaCl[1+]	C02838	L-Octanoylcarnitine
+E1611	row5862	row5862_M+H[1+]	C00500	Biliverdin; Biliverdin IXalpha
+E1622	row6105	row6105_M+H[1+]	C16643;C16578	Morphine-3-glucuronide$Morphine-6-glucuronide
+E1626	row1474;row2275;row2906;row3758;row534	row1474_M+H2O+H[1+];row2275_M+H2O+H[1+];row2906_M-NH3+H[1+];row3758_M+H[1+];row534_M-CO2+H[1+]	C11736;C12739	5-Fluorodeoxyuridine; Floxuridine$5'-Deoxy-5-fluorouridine; Doxifluridine
+E1630	row3656;row6039	row3656_M(C13)+H[1+];row6039_M+H[1+]	C14849;C14851	Benzo[a]pyrene-9,10-oxide; Benzo[a]pyrene-9,10-epoxide$Benzo[a]pyrene-4,5-oxide; Benzo[a]pyrene-4,5-epoxide
+E1631	row538;row6877	row538_M-H2O+H[1+];row6877_M+H2O+H[1+]	C14849;C14851	Benzo[a]pyrene-9,10-oxide; Benzo[a]pyrene-9,10-epoxide$Benzo[a]pyrene-4,5-oxide; Benzo[a]pyrene-4,5-epoxide
+E1633	row6425	row6425_M+Na[1+]	C14849;C14851	Benzo[a]pyrene-9,10-oxide; Benzo[a]pyrene-9,10-epoxide$Benzo[a]pyrene-4,5-oxide; Benzo[a]pyrene-4,5-epoxide
+E1634	row2112	row2112_M+Na[1+]	C14849;C14851	Benzo[a]pyrene-9,10-oxide; Benzo[a]pyrene-9,10-epoxide$Benzo[a]pyrene-4,5-oxide; Benzo[a]pyrene-4,5-epoxide
+E1641	row1952;row2622;row3683;row4472;row4997;row5049;row5161;row542;row7196;row7416;row869	row1952_M+H[1+];row2622_M(C13)+3H[3+];row3683_M-H4O2+H[1+];row4472_M-H2O+H[1+];row4997_M(C13)+3H[3+];row5049_M-H2O+H[1+];row5161_M(C13)+3H[3+];row542_M-H2O+H[1+];row7196_M-H4O2+H[1+];row7416_M-H2O+H[1+];row869_M(C13)+3H[3+]	C05462;C05466	Chenodeoxyglycocholate$
+E1642	row2213;row3800;row4502;row4702;row5937;row7043;row7639;row7641	row2213_M+H[1+];row3800_M+H[1+];row4502_M-H4O2+H[1+];row4702_M-H2O+H[1+];row5937_M(C13)+3H[3+];row7043_M+Na[1+];row7639_M-H2O+H[1+];row7641_M-H4O2+H[1+]	C05462;C05466	Chenodeoxyglycocholate$
+E1643	row6450;row6650	row6450_M+H[1+];row6650_M-H2O+H[1+]	C05462;C05466	Chenodeoxyglycocholate$
+E1644	row1656;row3026;row4205;row4281;row6741	row1656_M-CO2+H[1+];row3026_M-CO+H[1+];row4205_M-CO2+H[1+];row4281_M-CO2+H[1+];row6741_M+H[1+]	C03410	N-Glycoloyl-neuraminate; N-Glycolylneuraminate; NeuNGc
+E1646	row6297	row6297_M+H[1+]	C03410	N-Glycoloyl-neuraminate; N-Glycolylneuraminate; NeuNGc
+E1652	row4289	row4289_M+Na[1+]	C00621	Dolichol diphosphate
+E1655	row3723;row5361;row547;row7753	row3723_M+HCOOK[1+];row5361_M-HCOOH+H[1+];row547_M+Na[1+];row7753_M+K[1+]	CE2102	lipoyllysine
+E1656	row2045;row4146	row2045_M+Na[1+];row4146_M-NH3+H[1+]	CE2102	lipoyllysine
+E1664	row1052;row1974;row2391;row3876	row1052_M-HCOOH+H[1+];row1974_M+K[1+];row2391_M+K[1+];row3876_M+Na[1+]	C03958	Thyrotropin releasing hormone; TRH; Protirelin; Thyroliberin
+E1665	row2003	row2003_M-H2O+H[1+]	C03958;CE5525	Thyrotropin releasing hormone; TRH; Protirelin; Thyroliberin$12-oxo-20-carboxy-leukotriene B4
+E1668	row551	row551_M+Na[1+]	strdnc	stearidonic acid C18:4, n-3
+E1671	row2475;row3337;row3944;row4670;row5454;row6432	row2475_M+HCOONa[1+];row3337_M+NaCl[1+];row3944_M+HCOONa[1+];row4670_M+HCOONa[1+];row5454_M+NaCl[1+];row6432_M+H[1+]	C16560	3-Hydroxylidocaine
+E1675	row6275;row6532	row6275_M+H[1+];row6532_M[1+]	C07108	Tamoxifen
+E1678	row1533;row2212;row2486;row6168;row7907	row1533_M+Na[1+];row2212_M+Na[1+];row2486_M+NaCl[1+];row6168_M+HCOOK[1+];row7907_M[1+]	C00399	Ubiquinone
+E1682	row5390	row5390_M+H[1+]	C00399	Ubiquinone
+E1683	row1773;row1929;row5716;row6059	row1773_M-C3H4O2+H[1+];row1929_M+H[1+];row5716_M-H2O+H[1+];row6059_M-CO2+H[1+]	C00399	Ubiquinone
+E1685	row3250;row4537;row5033;row5412;row6083	row3250_M-H2O+H[1+];row4537_M(C13)+H[1+];row5033_M-CO+H[1+];row5412_M-H2O+H[1+];row6083_M-H2O+H[1+]	CE2846	fructoselysine 3-phosphate
+E1686	row7027	row7027_M+H[1+]	CE2846	fructoselysine 3-phosphate
+E1687	row5653	row5653_M-H2O+H[1+]	CE2846	fructoselysine 3-phosphate
+E1690	row3204;row3737;row4533;row5534;row565;row5843;row6158;row6400;row6809	row3204_M+H2O+H[1+];row3737_M-NH3+H[1+];row4533_M-CO2+H[1+];row5534_M+H[1+];row565_M-H4O2+H[1+];row5843_M+H[1+];row6158_M-CO+H[1+];row6400_M-NH3+H[1+];row6809_M-H4O2+H[1+]	CE2846	fructoselysine 3-phosphate
+E1691	row651;row6932	row651_M-CO2+H[1+];row6932_M+H[1+]	CE2846	fructoselysine 3-phosphate
+E1694	row568	row568_M+Na[1+]	C05202	3'-Hydroxy-N-methyl-(S)-coclaurine; (S)-3'-Hydroxy-N-methylcoclaurine
+E1701	row1598;row4426;row6075	row1598_M-H2O+H[1+];row4426_M+H2O+H[1+];row6075_M+H2O+H[1+]	C01045;C01042	N-Formyl-L-glutamate$N-Acetyl-L-aspartate
+E1704	row4050;row642;row6475	row4050_M-NH3+H[1+];row642_M-H2O+H[1+];row6475_M+H2O+H[1+]	C01045;C01042	N-Formyl-L-glutamate$N-Acetyl-L-aspartate
+E1720	row4438;row575;row673	row4438_M[1+];row575_M+HCOONa[1+];row673_M+Na[1+]	CE1556	N-acetyl-L-asparagine
+E1733	row2456;row578;row6368;row6827;row7835	row2456_M-C3H4O2+H[1+];row578_M-NH3+H[1+];row6368_M+Na[1+];row6827_M+H[1+];row7835_M+Na[1+]	C01449	Queuine; Base Q
+E1734	row2551;row4132;row4145;row4855	row2551_M-H2O+H[1+];row4132_M+H2O+H[1+];row4145_M+HCOONa[1+];row4855_M-HCOOH+H[1+]	C01449	Queuine; Base Q
+E1740	row7811;row7855	row7811_M+H[1+];row7855_M[1+]	C01449	Queuine; Base Q
+E1747	row588;row6271;row6349;row6575	row588_M[1+];row6271_M+HCOONa[1+];row6349_M+HCOONa[1+];row6575_M+H[1+]	CE5627	salsoline-1-carboxylate
+E1750	row5631;row7541;row7900	row5631_M[1+];row7541_M+Na[1+];row7900_M+HCOONa[1+]	CE4970;CE4968	2-methylbutyrylglycine$isovalerylglycine
+E1751	row590;row6278	row590_M[1+];row6278_M+Na[1+]	CE4970;CE4968	2-methylbutyrylglycine$isovalerylglycine
+E1752	row2288;row4744;row6619	row2288_M[1+];row4744_M+Na[1+];row6619_M[1+]	CE4970;CE4968	2-methylbutyrylglycine$isovalerylglycine
+E1753	row2446;row3445	row2446_M+Na[1+];row3445_M+Na[1+]	CE4970;CE4968	2-methylbutyrylglycine$isovalerylglycine
+E1755	row2675	row2675_M+Na[1+]	C02442;C03711	N-Methyltyramine$N-Methylphenylethanolamine
+E1756	row5529;row5659;row595;row6305;row7166	row5529_M+H2O+H[1+];row5659_M+H[1+];row595_M+H[1+];row6305_M[1+];row7166_M+K[1+]	C02442;C03711	N-Methyltyramine$N-Methylphenylethanolamine
+E1757	row2504	row2504_M+H[1+]	C02442;C03711	N-Methyltyramine$N-Methylphenylethanolamine
+E1766	row3263;row3857;row4041	row3263_M+H[1+];row3857_M-H4O2+H[1+];row4041_M-H2O+H[1+]	C05457;C01673;CE2201;C17336;C17331;C17333;C17332	7alpha,12alpha-Dihydroxycholest-4-en-3-one$Calcitriol$23S,25-dihydroxyvitamin D3$7alpha,26-Dihydroxy-4-cholesten-3-one$$$7alpha,25-Dihydroxy-4-cholesten-3-one
+E1768	row1641	row1641_M+Na[1+]	C00951	Estradiol-17beta; beta-Estradiol; Estradiol
+E1769	row5674	row5674_M+Na[1+]	C00951	Estradiol-17beta; beta-Estradiol; Estradiol
+E1770	row5451	row5451_M+Na[1+]	C00951	Estradiol-17beta; beta-Estradiol; Estradiol
+E1771	row4714	row4714_M+Na[1+]	C00951	Estradiol-17beta; beta-Estradiol; Estradiol
+E1772	row1633;row3935	row1633_M+Na[1+];row3935_M+Na[1+]	C00951	Estradiol-17beta; beta-Estradiol; Estradiol
+E1788	row3210	row3210_M-H2O+H[1+]	C02670;C00072;glac	D-glucurono-6,3-lactone$L-Ascorbate$D-glucurono-6,3-lactone
+E1789	row7392	row7392_M+H[1+]	C02670;C00072;glac	D-glucurono-6,3-lactone$L-Ascorbate$D-glucurono-6,3-lactone
+E1790	row4050;row7160	row4050_M-H2O+H[1+];row7160_M(C13)+H[1+]	C02670;C00072;glac	D-glucurono-6,3-lactone$L-Ascorbate$D-glucurono-6,3-lactone
+E1791	row2712	row2712_M-H2O+H[1+]	C02670;C00072;glac	D-glucurono-6,3-lactone$L-Ascorbate$D-glucurono-6,3-lactone
+E1792	row607	row607_M-H2O+H[1+]	C02670;C00072;glac	D-glucurono-6,3-lactone$L-Ascorbate$D-glucurono-6,3-lactone
+E1793	row3210	row3210_M+Na[1+]	C00262	Hypoxanthine
+E1794	row4050	row4050_M+Na[1+]	C00262	Hypoxanthine
+E1795	row2712	row2712_M+Na[1+]	C00262	Hypoxanthine
+E1796	row607	row607_M+Na[1+]	C00262	Hypoxanthine
+E1797	row7884	row7884_M-H2O+H[1+]	C05580	3,4-Dihydroxymandelate
+E1798	row2800;row3037;row3274	row2800_M+H2O+H[1+];row3037_M+H[1+];row3274_M-CO+H[1+]	C05580	3,4-Dihydroxymandelate
+E1799	row5093;row5394;row7195;row934	row5093_M-H2O+H[1+];row5394_M+H[1+];row7195_M-H2O+H[1+];row934_M+Na[1+]	C05580	3,4-Dihydroxymandelate
+E1800	row7632	row7632_M+Na[1+]	C05580	3,4-Dihydroxymandelate
+E1801	row1575;row608;row774;row999	row1575_M-CO+H[1+];row608_M+H[1+];row774_M-CO+H[1+];row999_M+H2O+H[1+]	C05580	3,4-Dihydroxymandelate
+E1808	row1178;row610	row1178_M-C3H4O2+H[1+];row610_M-H2O+H[1+]	C00341	Geranyl diphosphate
+E1811	row1557;row2554	row1557_M-H2O+H[1+];row2554_M+H[1+]	C00341	Geranyl diphosphate
+E1812	row2200;row5418	row2200_M+Na[1+];row5418_M+HCOOK[1+]	C11924	Perillic acid
+E1814	row3046	row3046_M+Na[1+]	C11924	Perillic acid
+E1815	row7343	row7343_M+Na[1+]	C11924	Perillic acid
+E1816	row1386;row2871	row1386_M+H2O+H[1+];row2871_M+H[1+]	C11924	Perillic acid
+E1817	row3279;row7620	row3279_M+H[1+];row7620_M+H2O+H[1+]	C11924	Perillic acid
+E1818	row1382;row2188;row2592;row3272;row5459;row6055;row6104;row615;row6438;row6504;row7124;row7559;row7582;row7874	row1382_M+H2O+H[1+];row2188_M+H[1+];row2592_M+H[1+];row3272_M+H[1+];row5459_M+H[1+];row6055_M+H[1+];row6104_M+H[1+];row615_M+H2O+H[1+];row6438_M+H2O+H[1+];row6504_M+H2O+H[1+];row7124_M+H2O+H[1+];row7559_M+H2O+H[1+];row7582_M+H[1+];row7874_M+H2O+H[1+]	C11924	Perillic acid
+E1820	row1583;row3993;row669	row1583_M+H2O+H[1+];row3993_M+H[1+];row669_M+H[1+]	C03033	beta-D-Glucuronoside; Acceptor beta-D-glucuronoside; Glucuronide; beta-D-Glucuronide
+E1822	row1748;row2598;row3852;row4480;row5345	row1748_M-H2O+H[1+];row2598_M-H4O2+H[1+];row3852_M+Na[1+];row4480_M+H[1+];row5345_M+H[1+]	C03033	beta-D-Glucuronoside; Acceptor beta-D-glucuronoside; Glucuronide; beta-D-Glucuronide
+E1824	row5857	row5857_M+H[1+]	C03033	beta-D-Glucuronoside; Acceptor beta-D-glucuronoside; Glucuronide; beta-D-Glucuronide
+E1826	row1079;row7610;row7800	row1079_M+H[1+];row7610_M+H[1+];row7800_M+Na[1+]	C03033	beta-D-Glucuronoside; Acceptor beta-D-glucuronoside; Glucuronide; beta-D-Glucuronide
+E1833	row1181;row1194;row5878;row706;row7229	row1181_M-CO+H[1+];row1194_M-CO+H[1+];row5878_M-CO+H[1+];row706_M-CO2+H[1+];row7229_M-H2O+H[1+]	C05396	Lactose 6-phosphate
+E1845	row4009	row4009_M-H2O+H[1+]	C04409	2-Amino-3-carboxymuconate semialdehyde
+E1849	row1598	row1598_M+H[1+]	C02220	2-Aminomuconate
+E1850	row642	row642_M+H[1+]	C02220	2-Aminomuconate
+E1853	row1598	row1598_M+Na[1+]	C00147	Adenine
+E1855	row642	row642_M+Na[1+]	C00147	Adenine
+E1856	row1530;row2103;row5320	row1530_M-H2O+H[1+];row2103_M+Na[1+];row5320_M-H2O+H[1+]	C00439	N-Formimidoyl-L-glutamate
+E1876	row1474;row3248;row7846	row1474_M+HCOONa[1+];row3248_M+HCOOK[1+];row7846_M+Na[1+]	C16014	cis-Stilbene oxide
+E1877	row4035	row4035_M+H[1+]	C16014	cis-Stilbene oxide
+E1886	row1392;row5693;row5866;row655;row6717	row1392_M+K[1+];row5693_M-H2O+H[1+];row5866_M-H4O2+H[1+];row655_M-C3H4O2+H[1+];row6717_M-H4O2+H[1+]	CE5869	lysyl-proline
+E1888	row4614;row5603;row5696	row4614_M-H2O+H[1+];row5603_M-H4O2+H[1+];row5696_M-HCOOH+H[1+]	CE5869	lysyl-proline
+E1889	row4192	row4192_M+Na[1+]	CE5869	lysyl-proline
+E1891	row656	row656_M-H2O+H[1+]	C18045;C14497;C18075;C05294;C05139	$6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one$$19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one$16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one
+E1892	row2468;row2736;row4206;row4382;row5919;row6266;row6693	row2468_M-H2O+H[1+];row2736_M-H4O2+H[1+];row4206_M-CO+H[1+];row4382_M-CO+H[1+];row5919_M-H2O+H[1+];row6266_M+H[1+];row6693_M+H[1+]	C18045;C14497;C18075;C05294;C05139	$6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one$$19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one$16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one
+E1893	row2722;row5634	row2722_M+H[1+];row5634_M-CO+H[1+]	C18045;C14497;C18075;C05294;C05139	$6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one$$19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one$16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one
+E1896	row1063;row1351;row2468;row2609;row2781;row2907;row3285;row3515;row4485;row5082;row5166;row5373;row5919;row656;row7201;row7748	row1063_M+H+Na[2+];row1351_M-H2O+H[1+];row2468_M-C3H4O2+H[1+];row2609_M-CO+H[1+];row2781_M-HCOOH+H[1+];row2907_M-CO2+H[1+];row3285_M+H+Na[2+];row3515_M+H+Na[2+];row4485_M-CO+H[1+];row5082_M+H+Na[2+];row5166_M+H+Na[2+];row5373_M-CO+H[1+];row5919_M-C3H4O2+H[1+];row656_M-C3H4O2+H[1+];row7201_M-H2O+H[1+];row7748_M+H+Na[2+]	CE6429;CE6423;CE6420;CE6426;CE6438;CE6432;CE6435	$$$$$$
+E1898	row3862	row3862_M+Na[1+]	andrstndn;C00280	Androstenedione$Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione
+E1899	row656	row656_M+H[1+]	andrstndn;C00280	Androstenedione$Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione
+E1900	row6589	row6589_M+Na[1+]	andrstndn;C00280	Androstenedione$Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione
+E1901	row2468;row2736;row5919;row6266	row2468_M+H[1+];row2736_M-H2O+H[1+];row5919_M+H[1+];row6266_M+H2O+H[1+]	andrstndn;C00280	Androstenedione$Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione
+E1907	row4892;row6810	row4892_M[1+];row6810_M+Na[1+]	CE5256;CE5251;CE5252;CE5255	estrone-2,3-semiquinone$estrone-3,4-quinone$estrone-2,3-quinone$estrone-3,4-semiquinone
+E1908	row2282;row659	row2282_M+H[1+];row659_M-H2O+H[1+]	CE5256;CE5251;CE5252;CE5255	estrone-2,3-semiquinone$estrone-3,4-quinone$estrone-2,3-quinone$estrone-3,4-semiquinone
+E1914	row6711;row747	row6711_M+Na[1+];row747_M+Na[1+]	C05963	
+E1916	row5221;row6643	row5221_M[1+];row6643_M+H[1+]	C05963	
+E1918	row5763	row5763_M+Na[1+]	C05963	
+E1920	row3908;row4108	row3908_M-H4O2+H[1+];row4108_M-H2O+H[1+]	C05963	
+E1921	row2528;row6523;row680	row2528_M+NaCl[1+];row6523_M+H[1+];row680_M[1+]	C15646	1-(1-Alkenyl)-sn-glycero-3-phosphate
+E1922	row4267;row4968	row4267_M+K[1+];row4968_M+H[1+]	C15646	1-(1-Alkenyl)-sn-glycero-3-phosphate
+E1935	row1309;row2454;row2775;row7225	row1309_M-NH3+H[1+];row2454_M+HCOOK[1+];row2775_M[1+];row7225_M-H2O+H[1+]	C00272	Tetrahydrobiopterin
+E1942	row2067;row3825;row4506;row5349;row7820	row2067_M+Na[1+];row3825_M+HCOONa[1+];row4506_M+HCOONa[1+];row5349_M+K[1+];row7820_M+HCOONa[1+]	C14762;C14826;C14825	13(S)-HODE; (13S)-Hydroxyoctadecadienoic acid; (9Z, 11E)-(13S)-13-Hydroxyoctadeca-9,11-dienoic acid$12(13)-EpOME; (12R,13S)-(9Z)-12,13-Epoxyoctadecenoic acid$9(10)-EpOME; (9R,10S)-(12Z)-9,10-Epoxyoctadecenoic acid
+E1943	row5224;row6097;row781	row5224_M+Na[1+];row6097_M+K[1+];row781_M+Na[1+]	C14762;C14826;C14825	13(S)-HODE; (13S)-Hydroxyoctadecadienoic acid; (9Z, 11E)-(13S)-13-Hydroxyoctadeca-9,11-dienoic acid$12(13)-EpOME; (12R,13S)-(9Z)-12,13-Epoxyoctadecenoic acid$9(10)-EpOME; (9R,10S)-(12Z)-9,10-Epoxyoctadecenoic acid
+E1944	row1235;row1870;row2870;row3346;row3903;row6308;row7461	row1235_M+H2O+H[1+];row1870_M+H2O+H[1+];row2870_M+K[1+];row3346_M-H2O+H[1+];row3903_M+H[1+];row6308_M+Na[1+];row7461_M-H2O+H[1+]	C14762;C14826;C14825	13(S)-HODE; (13S)-Hydroxyoctadecadienoic acid; (9Z, 11E)-(13S)-13-Hydroxyoctadeca-9,11-dienoic acid$12(13)-EpOME; (12R,13S)-(9Z)-12,13-Epoxyoctadecenoic acid$9(10)-EpOME; (9R,10S)-(12Z)-9,10-Epoxyoctadecenoic acid
+E1948	row4722;row5668;row942	row4722_M+H[1+];row5668_M+Na[1+];row942_M-NH3+H[1+]	C02999	N-Acetylmuramoyl-Ala; N-Acetyl-D-muramoyl-L-alanine
+E1953	row2627;row6813	row2627_M+H[1+];row6813_M+H2O+H[1+]	C05122;C15516	taurocholic acid$Taurohyocholate; N-(3alpha,6alpha,7alpha-Trihydroxy-5beta-cholan-24-oyl)taurine
+E1954	row4369;row5278;row714	row4369_M+H[1+];row5278_M-C3H4O2+H[1+];row714_M(C13)+2H[2+]	C05122;C15516	taurocholic acid$Taurohyocholate; N-(3alpha,6alpha,7alpha-Trihydroxy-5beta-cholan-24-oyl)taurine
+E1955	row2037;row3158;row3378;row4151;row6033;row6851;row799	row2037_M-H4O2+H[1+];row3158_M(S34)+H[1+];row3378_M(C13)+H[1+];row4151_M-H4O2+H[1+];row6033_M-C3H4O2+H[1+];row6851_M-H2O+H[1+];row799_M(S34)+H[1+]	C05122;C15516	taurocholic acid$Taurohyocholate; N-(3alpha,6alpha,7alpha-Trihydroxy-5beta-cholan-24-oyl)taurine
+E1958	row6256	row6256_M+H[1+]	CE5139	12-oxo-20-dihydroxy-leukotriene B4
+E1960	row4434;row4476;row7568	row4434_M+H[1+];row4476_M+H[1+];row7568_M-CO2+H[1+]	CE5139	12-oxo-20-dihydroxy-leukotriene B4
+E1961	row1186;row2131;row3490;row3660;row3669;row4193;row5481;row6639;row739	row1186_M+NaCl[1+];row2131_M+H[1+];row3490_M+K[1+];row3660_M+K[1+];row3669_M+H[1+];row4193_M+K[1+];row5481_M+H[1+];row6639_M-H2O+H[1+];row739_M+H[1+]	CE5139	12-oxo-20-dihydroxy-leukotriene B4
+E1963	row5284;row719	row5284_M+NaCl[1+];row719_M+H[1+]	CE5139	12-oxo-20-dihydroxy-leukotriene B4
+E1987	row2650;row5297	row2650_M-H2O+H[1+];row5297_M[1+]	CE5314;CE5326	8(R)-hydroxy-hexadeca-2E,4E,6E,10Z-tetraenoate$8(S)-hydroxy-hexadeca-2E,4E,6E,10Z-tetraenoate
+E1989	row1938;row3275;row4358;row7456	row1938_M+Na[1+];row3275_M+HCOOK[1+];row4358_M+NaCl[1+];row7456_M-CO+H[1+]	CE6444;CE6445;CE6446;CE6448;CE6451;CE6450;CE6447;CE6449	$$$$$$$
+E1991	row6784	row6784_M+H[1+]	CE6444;CE6445;CE6446;CE6448;CE6451;CE6450;CE6447;CE6449	$$$$$$$
+E1992	row1428;row2902;row6423;row7739;row7796	row1428_M-H2O+H[1+];row2902_M-HCOOH+H[1+];row6423_M-H2O+H[1+];row7739_M+H[1+];row7796_M+H[1+]	nrpphrsf	Sulfate derivative of norepinephrine
+E1993	row3865;row750	row3865_M-H2O+H[1+];row750_M+H[1+]	nrpphrsf	Sulfate derivative of norepinephrine
+E1995	row1508;row1753;row4901;row5058	row1508_M-CO2+H[1+];row1753_M-CO2+H[1+];row4901_M-H2O+H[1+];row5058_M-H2O+H[1+]	nrpphrsf	Sulfate derivative of norepinephrine
+E2004	row1869;row6241;row765	row1869_M+H[1+];row6241_M+H[1+];row765_M+H[1+]	C05587;C07453	3-Methoxytyramine$Epinine; Deoxyepinephrine
+E2007	row1261;row2359	row1261_M+H[1+];row2359_M+H2O+H[1+]	C05587;C07453	3-Methoxytyramine$Epinine; Deoxyepinephrine
+E2008	row1740;row2761;row4899;row5273	row1740_M+H2O+H[1+];row2761_M-NH3+H[1+];row4899_M+H[1+];row5273_M+H2O+H[1+]	C05587;C07453	3-Methoxytyramine$Epinine; Deoxyepinephrine
+E2010	row5576;row6369	row5576_M-NH3+H[1+];row6369_M+H[1+]	C05587;C07453	3-Methoxytyramine$Epinine; Deoxyepinephrine
+E2012	row1320	row1320_M+H[1+]	CE5929;CE5931;CE5924;CE6234;CE5828;CE4989;C08012	$$$prostaglandin H1$$20-OH-10,11-dihydro-leukotriene B4$Levomethadyl acetate; LAAM
+E2021	row6779;row7884	row6779_M-H2O+H[1+];row7884_M+2H[2+]	C06196	2'-Deoxyinosine 5'-phosphate; dIMP
+E2033	row2332	row2332_M+Na[1+]	C01036;C01061	4-Maleylacetoacetate$4-Fumarylacetoacetate
+E2038	row1611;row4734	row1611_M-H2O+H[1+];row4734_M-H2O+H[1+]	C01250	N-Acetyl-L-glutamate 5-semialdehyde; 2-Acetamido-5-oxopentanoate
+E2039	row3274;row4649;row5833;row7114	row3274_M-NH3+H[1+];row4649_M-H2O+H[1+];row5833_M+Na[1+];row7114_M+H2O+H[1+]	C01250	N-Acetyl-L-glutamate 5-semialdehyde; 2-Acetamido-5-oxopentanoate
+E2043	row2800;row3274	row2800_M+HCOONa[1+];row3274_M+Na[1+]	C05649	Dihydropteridine; 6,7-Dihydropteridine
+E2044	row1575;row774;row999	row1575_M+Na[1+];row774_M+Na[1+];row999_M+HCOONa[1+]	C05649	Dihydropteridine; 6,7-Dihydropteridine
+E2045	row1858;row2244;row5266	row1858_M-H2O+H[1+];row2244_M(S34)+H[1+];row5266_M-CO+H[1+]	C00579	Dihydrolipoamide; Dihydrothioctamide
+E2053	row3715;row3996;row5232;row5704	row3715_M+HCOOK[1+];row3996_M+H[1+];row5232_M+K[1+];row5704_M-CO+H[1+]	C01124;C05469;C00735;C05473	18-Hydroxycorticosterone$17alpha,21-Dihydroxy-5beta-pregnane-3,11,20-trione; 5beta-Pregnane-17alpha,21-diol-3,11,20-trione; 4,5beta-Dihydrocortisone$Cortisol; Hydrocortisone; 11beta,17alpha,21-Trihydroxy-4-pregnene-3,20-dione; Kendall's compound F; Reichstein's substance M$11beta,21-Dihydroxy-3,20-oxo-5beta-pregnan-18-al
+E2054	row2067;row5577;row5826;row7255	row2067_M-CO2+H[1+];row5577_M-H2O+H[1+];row5826_M+H[1+];row7255_M+H[1+]	C01124;C05469;C00735;C05473	18-Hydroxycorticosterone$17alpha,21-Dihydroxy-5beta-pregnane-3,11,20-trione; 5beta-Pregnane-17alpha,21-diol-3,11,20-trione; 4,5beta-Dihydrocortisone$Cortisol; Hydrocortisone; 11beta,17alpha,21-Trihydroxy-4-pregnene-3,20-dione; Kendall's compound F; Reichstein's substance M$11beta,21-Dihydroxy-3,20-oxo-5beta-pregnan-18-al
+E2066	row2170;row4607;row7713	row2170_M+H2O+H[1+];row4607_M-H2O+H[1+];row7713_M-H2O+H[1+]	C02325	Sinapyl alcohol; Sinapoyl alcohol
+E2068	row1171;row1806;row2017;row2188;row2254;row2414;row2430;row2512;row2592;row2809;row2871;row3272;row3279;row3621;row3712;row3750;row3878;row3970;row4278;row4417;row4547;row4799;row4979;row5062;row5459;row6055;row6104;row6177;row6205;row6291;row7574;row7582;row7635;row7812;row785;row926;row960	row1171_M-HCOOH+H[1+];row1806_M-HCOOH+H[1+];row2017_M-CO+H[1+];row2188_M-CO2+H[1+];row2254_M-HCOOH+H[1+];row2414_M-H2O+H[1+];row2430_M+Na[1+];row2512_M-HCOOH+H[1+];row2592_M-CO2+H[1+];row2809_M-HCOOH+H[1+];row2871_M-CO2+H[1+];row3272_M-CO2+H[1+];row3279_M-CO2+H[1+];row3621_M+H[1+];row3712_M-HCOOH+H[1+];row3750_M-CO+H[1+];row3878_M-H2O+H[1+];row3970_M-CO+H[1+];row4278_M-CO+H[1+];row4417_M-CO+H[1+];row4547_M-HCOOH+H[1+];row4799_M-CO+H[1+];row4979_M-H2O+H[1+];row5062_M-H4O2+H[1+];row5459_M-CO2+H[1+];row6055_M-CO2+H[1+];row6104_M-CO2+H[1+];row6177_M+H2O+H[1+];row6205_M-CO+H[1+];row6291_M-CO+H[1+];row7574_M+H[1+];row7582_M-CO2+H[1+];row7635_M-H2O+H[1+];row7812_M-H4O2+H[1+];row785_M+H[1+];row926_M-HCOOH+H[1+];row960_M-HCOOH+H[1+]	C02325	Sinapyl alcohol; Sinapoyl alcohol
+E2077	row2701	row2701_M+H[1+]	C16604	2-Hydroxyiminostilbene
+E2090	row2339;row790	row2339_M+H2O+H[1+];row790_M+H[1+]	CE5538;C05653	noradrenochrome$N-Formylanthranilate
+E2091	row7396;row7761	row7396_M+H2O+H[1+];row7761_M+H[1+]	CE5538;C05653	noradrenochrome$N-Formylanthranilate
+E2092	row2383;row2891	row2383_M+H[1+];row2891_M+H2O+H[1+]	CE5538;C05653	noradrenochrome$N-Formylanthranilate
+E2093	row1605	row1605_M+H[1+]	CE5538;C05653	noradrenochrome$N-Formylanthranilate
+E2094	row1611;row2339;row3949;row4734;row790	row1611_M-CO+H[1+];row2339_M+H[1+];row3949_M[1+];row4734_M-CO+H[1+];row790_M-H2O+H[1+]	C00847	4-Pyridoxate; 4-Pyridoxic acid
+E2095	row4649;row7396;row7761;row7884	row4649_M-CO+H[1+];row7396_M+H[1+];row7761_M-H2O+H[1+];row7884_M-NH3+H[1+]	C00847	4-Pyridoxate; 4-Pyridoxic acid
+E2096	row2383;row2891	row2383_M-H2O+H[1+];row2891_M+H[1+]	C00847	4-Pyridoxate; 4-Pyridoxic acid
+E2098	row1605	row1605_M-H2O+H[1+]	C00847	4-Pyridoxate; 4-Pyridoxic acid
+E2106	row4960;row5541	row4960_M[1+];row5541_M+H[1+]	CE2061	
+E2107	row1658;row1909;row2999;row4945	row1658_M-H2O+H[1+];row1909_M+H[1+];row2999_M-H2O+H[1+];row4945_M+NaCl[1+]	CE2061	
+E2108	row6042	row6042_M+H[1+]	CE2061	
+E2109	row1887;row2546;row4869;row5161;row809;row869;row935;row952	row1887_M+H[1+];row2546_M+H2O+H[1+];row4869_M+H[1+];row5161_M-H2O+H[1+];row809_M+H2O+H[1+];row869_M-H2O+H[1+];row935_M+H[1+];row952_M+H2O+H[1+]	CE2061	
+E2110	row2622;row4997	row2622_M-H2O+H[1+];row4997_M-H2O+H[1+]	CE2061	
+E2111	row5937	row5937_M-H2O+H[1+]	CE2061	
+E2112	row3551	row3551_M+Na[1+]	C00418	(R)-Mevalonate
+E2113	row812	row812_M+Na[1+]	C00418	(R)-Mevalonate
+E2118	row7041	row7041_M+Na[1+]	C05552	N6-D-Biotinyl-L-lysine; Biocytin; epsilon-N-Biotinyl-L-lysine
+E2119	row1744;row817	row1744_M+HCOOK[1+];row817_M+Na[1+]	C00468	Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one
+E2120	row3863;row5174	row3863_M-C3H4O2+H[1+];row5174_M+Na[1+]	C00468	Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one
+E2122	row1616;row2421;row5750	row1616_M+H2O+H[1+];row2421_M-H2O+H[1+];row5750_M+H[1+]	C00055	CMP
+E2124	row1002;row6508;row829	row1002_M+Na[1+];row6508_M+Na[1+];row829_M+HCOONa[1+]	CE2153	
+E2147	row3329;row5231	row3329_M+Na[1+];row5231_M+Na[1+]	CE2211;C05480	allopregnanolone$3alpha-Hydroxy-5beta-pregnane-20-one
+E2148	row7188;row857	row7188_M+Na[1+];row857_M-H2O+H[1+]	CE2211;C05480	allopregnanolone$3alpha-Hydroxy-5beta-pregnane-20-one
+E2159	row3346;row3903;row4666;row5548;row5937;row7084;row7148;row7299;row7461;row7769	row3346_M+H[1+];row3903_M+H2O+H[1+];row4666_M+Na[1+];row5548_M+HCOONa[1+];row5937_M+H+Na[2+];row7084_M+Na[1+];row7148_M+Na[1+];row7299_M+Na[1+];row7461_M+H[1+];row7769_M+Na[1+]	C06426;C06427	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid$(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate
+E2160	row1240;row2920	row1240_M+Na[1+];row2920_M+Na[1+]	C02576	Perillyl aldehyde; Perillaldehyde
+E2161	row3553	row3553_M+Na[1+]	C02576	Perillyl aldehyde; Perillaldehyde
+E2163	row1658;row1909;row2999;row6042;row7634	row1658_M+H[1+];row1909_M+H2O+H[1+];row2999_M+H[1+];row6042_M+H2O+H[1+];row7634_M+HCOONa[1+]	C02576	Perillyl aldehyde; Perillaldehyde
+E2164	row1887;row4869;row5161;row869;row935	row1887_M+H2O+H[1+];row4869_M+H2O+H[1+];row5161_M+H[1+];row869_M+H[1+];row935_M+H2O+H[1+]	C02576	Perillyl aldehyde; Perillaldehyde
+E2165	row2622;row4997	row2622_M+H[1+];row4997_M+H[1+]	C02576	Perillyl aldehyde; Perillaldehyde
+E2166	row5937	row5937_M+H[1+]	C02576	Perillyl aldehyde; Perillaldehyde
+E2167	row4586;row4872;row5886	row4586_M+Na[1+];row4872_M+H2O+H[1+];row5886_M+H[1+]	C03758	Dopamine
+E2168	row2194;row2654;row7749	row2194_M+H2O+H[1+];row2654_M+H2O+H[1+];row7749_M+H[1+]	C03758	Dopamine
+E2169	row2362;row5305;row6658	row2362_M+H2O+H[1+];row5305_M+H[1+];row6658_M+H2O+H[1+]	C03758	Dopamine
+E2171	row1005;row5010	row1005_M+H2O+H[1+];row5010_M+H[1+]	C03758	Dopamine
+E2172	row1292;row2335;row3997;row4872;row7900	row1292_M+HCOONa[1+];row2335_M+H[1+];row3997_M-H2O+H[1+];row4872_M-NH3+H[1+];row7900_M+K[1+]	C02727	N6-Acetyl-L-lysine
+E2173	row2194;row2400;row2654;row4302;row7709	row2194_M-NH3+H[1+];row2400_M+K[1+];row2654_M-NH3+H[1+];row4302_M-H2O+H[1+];row7709_M-H2O+H[1+]	C02727	N6-Acetyl-L-lysine
+E2174	row2362;row4461;row6658	row2362_M-NH3+H[1+];row4461_M-H2O+H[1+];row6658_M-NH3+H[1+]	C02727	N6-Acetyl-L-lysine
+E2177	row6305;row6905	row6305_M-CO+H[1+];row6905_M+Na[1+]	CE6317	
+E2183	row1084;row4163	row1084_M-H2O+H[1+];row4163_M-CO2+H[1+]	C14803;C14806;C14804;C14805	1-Nitro-7-hydroxy-8-glutathionyl-7,8-dihydronaphthalene$1-Nitro-5-glutathionyl-6-hydroxy-5,6-dihydronaphthalene$1-Nitro-7-glutathionyl-8-hydroxy-7,8-dihydronaphthalene$1-Nitro-5-hydroxy-6-glutathionyl-5,6-dihydronaphthalene
+E2188	row1090;row5475	row1090_M+H+Na[2+];row5475_M+H[1+]	C01079	Protoporphyrinogen IX
+E2200	row4031	row4031_M+H[1+]	C00234;C03479	10-Formyltetrahydrofolate$5-Formyltetrahydrofolate
+E2202	row3795;row6598	row3795_M+H[1+];row6598_M+H2O+H[1+]	C00234;C03479	10-Formyltetrahydrofolate$5-Formyltetrahydrofolate
+E2203	row4558	row4558_M+H[1+]	C00234;C03479	10-Formyltetrahydrofolate$5-Formyltetrahydrofolate
+E2204	row2104;row3705;row5639;row7114;row7721;row902	row2104_M-C3H4O2+H[1+];row3705_M-CO2+H[1+];row5639_M-C3H4O2+H[1+];row7114_M-HCOOH+H[1+];row7721_M-C3H4O2+H[1+];row902_M+H[1+]	CE2847	fructoseglycine
+E2207	row1391;row2104;row3705;row4617;row5639;row7114;row7721;row902	row1391_M[1+];row2104_M-C3H4O2+H[1+];row3705_M-CO2+H[1+];row4617_M[1+];row5639_M-C3H4O2+H[1+];row7114_M-HCOOH+H[1+];row7721_M-C3H4O2+H[1+];row902_M+H[1+]	C03684;C00835	6-Pyruvoyl-5,6,7,8-tetrahydropterin$Sepiapterin
+E2215	row4295;row948	row4295_M-NH3+H[1+];row948_M-H2O+H[1+]	CE4890;C09640	N-methylsalsolinol$(-)-Salsoline
+E2223	row3496	row3496_M+H[1+]	C06199	Hordenine; 4-[2-(Dimethylamino)ethyl]phenol
+E2224	row1920;row907	row1920_M+H[1+];row907_M+H[1+]	C06199	Hordenine; 4-[2-(Dimethylamino)ethyl]phenol
+E2226	row3588	row3588_M+Na[1+]	C07572	Citalopram
+E2230	row3352	row3352_M-H2O+H[1+]	C07572	Citalopram
+E2244	row3940;row4228	row3940_M+2H[2+];row4228_M+Na[1+]	CE5025	5-S-glutathionyl-dopamine
+E2245	row2095;row6140;row927	row2095_M-H2O+H[1+];row6140_M+Na[1+];row927_M-HCOOH+H[1+]	CE5025	5-S-glutathionyl-dopamine
+E2255	row2334	row2334_M+H[1+]	CE1787	1-deoxy-1-(N6-lysino)-D-fructose
+E2259	row3602;row6224	row3602_M-NH3+H[1+];row6224_M+Na[1+]	CE1787	1-deoxy-1-(N6-lysino)-D-fructose
+E2260	row943	row943_M-H2O+H[1+]	C00570	CDPethanolamine
+E2262	row1218;row4988	row1218_M+H[1+];row4988_M+H[1+]	C00588;C05594	Choline phosphate$3-Methoxy-4-hydroxyphenylethyleneglycol
+E2263	row2214	row2214_M-H2O+H[1+]	C00588;C05594	Choline phosphate$3-Methoxy-4-hydroxyphenylethyleneglycol
+E2264	row2033;row7136	row2033_M+H[1+];row7136_M-H2O+H[1+]	C00588;C05594	Choline phosphate$3-Methoxy-4-hydroxyphenylethyleneglycol
+E2268	row953	row953_M-H2O+H[1+]	C00588;C05594	Choline phosphate$3-Methoxy-4-hydroxyphenylethyleneglycol
+E2273	row1088;row3226;row3253;row3303;row4001;row6548;row961	row1088_M-H4O2+H[1+];row3226_M-H4O2+H[1+];row3253_M-H4O2+H[1+];row3303_M-H2O+H[1+];row4001_M+H[1+];row6548_M-H2O+H[1+];row961_M+HCOONa[1+]	C00695	Cholate
+E2274	row5245;row6554;row6726	row5245_M-H4O2+H[1+];row6554_M+Na[1+];row6726_M-H2O+H[1+]	C00695	Cholate
+E2275	row3018;row5024;row6472	row3018_M+H2O+H[1+];row5024_M-H2O+H[1+];row6472_M-CO+H[1+]	C00695	Cholate
+E2278	row4062	row4062_M-H2O+H[1+]	C00035	GDP
+E2279	row3738;row966	row3738_M-H2O+H[1+];row966_M-H2O+H[1+]	C00035	GDP
+E2300	row993	row993_M+H[1+]	C00398	Tryptamine
+E2301	row4130;row5086	row4130_M+H[1+];row5086_M+H2O+H[1+]	C00398	Tryptamine
+E2303	row1200;row1219;row2227;row2384;row2867;row2976;row3785;row4159;row994	row1200_M-HCOOH+H[1+];row1219_M-H4O2+H[1+];row2227_M-H4O2+H[1+];row2384_M+H[1+];row2867_M-HCOOH+H[1+];row2976_M-H2O+H[1+];row3785_M+H[1+];row4159_M+Na[1+];row994_M+H[1+]	C00864	(R)-Pantothenate
+E2309	row2123;row2240;row3571;row3608	row2123_M-H4O2+H[1+];row2240_M-H4O2+H[1+];row3571_M-H4O2+H[1+];row3608_M-H2O+H[1+]	C00864	(R)-Pantothenate
+E2315	row7541;row7841	row7541_M+H[1+];row7841_M+H2O+H[1+]	CE5541	adrenochrome o-semiquinone
+E2316	row3695;row5813;row6278	row3695_M-H2O+H[1+];row5813_M[1+];row6278_M+H[1+]	CE5541;C13747;C07480	adrenochrome o-semiquinone$1,7-Dimethylxanthine; Paraxanthine$
+E2317	row2800;row4744;row6132;row6328	row2800_M+Na[1+];row4744_M+H[1+];row6132_M[1+];row6328_M[1+]	CE5541;C13747;C07480	adrenochrome o-semiquinone$1,7-Dimethylxanthine; Paraxanthine$
+E2319	row2161;row2446;row3445	row2161_M-H2O+H[1+];row2446_M+H[1+];row3445_M+H[1+]	CE5541;C13747;C07480	adrenochrome o-semiquinone$1,7-Dimethylxanthine; Paraxanthine$
+E2323	row999	row999_M+Na[1+]	CE5541;C13747;C07480	adrenochrome o-semiquinone$1,7-Dimethylxanthine; Paraxanthine$
+E2324	row1157;row1854;row7541;row7841	row1157_M+Na[1+];row1854_M+K[1+];row7541_M+H[1+];row7841_M+H2O+H[1+]	C13747;C07480;C00031;C00221;C02336;C00267;C00962;C00795;C00137;C00984;C00159	1,7-Dimethylxanthine; Paraxanthine$$D-Glucose$beta-D-Glucose$beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose$alpha-D-Glucose$beta-D-Galactose$D-Tagatose; lyxo-Hexulose$myo-Inositol$alpha-D-Galactose$D-Mannose
+E2326	row2261	row2261_M+Na[1+]	CE6185	omega-carboxy-trinor-leukotriene B4
+E2328	row2342;row3547;row5306;row5923;row6280	row2342_M-C3H4O2+H[1+];row3547_M[1+];row5306_M+H[1+];row5923_M+2H[2+];row6280_M+2H[2+]	CE6185	omega-carboxy-trinor-leukotriene B4
+E2341	row1023;row1817;row2278;row3754	row1023_M+H[1+];row1817_M-C3H4O2+H[1+];row2278_M-CO+H[1+];row3754_M+H2O+H[1+]	C04148;C05642	alpha-N-Phenylacetyl-L-glutamine$Formyl-N-acetyl-5-methoxykynurenamine
+E2343	row1962;row2309;row2534;row2771;row2924;row3707;row3709;row3756;row3886;row3888;row3902;row4005;row4018;row4064;row4082;row6732	row1962_M+Na[1+];row2309_M+NaCl[1+];row2534_M+H[1+];row2771_M+K[1+];row2924_M+Na[1+];row3707_M-H2O+H[1+];row3709_M-H2O+H[1+];row3756_M-HCOOH+H[1+];row3886_M+H[1+];row3888_M+H[1+];row3902_M-HCOOH+H[1+];row4005_M-NH3+H[1+];row4018_M+K[1+];row4064_M+H[1+];row4082_M-NH3+H[1+];row6732_M+H2O+H[1+]	C04148;C05642	alpha-N-Phenylacetyl-L-glutamine$Formyl-N-acetyl-5-methoxykynurenamine
+E2344	row5591;row5703;row6002;row6351;row7391	row5591_M-CO+H[1+];row5703_M+Na[1+];row6002_M-NH3+H[1+];row6351_M-HCOOH+H[1+];row7391_M-HCOOH+H[1+]	C04148;C05642	alpha-N-Phenylacetyl-L-glutamine$Formyl-N-acetyl-5-methoxykynurenamine
+E2345	row1392;row2268;row2642;row3008;row3340;row3905;row4211;row5089;row6668;row7092	row1392_M+H2O+H[1+];row2268_M-CO+H[1+];row2642_M-NH3+H[1+];row3008_M-CO2+H[1+];row3340_M+H[1+];row3905_M-H4O2+H[1+];row4211_M-C3H4O2+H[1+];row5089_M-H2O+H[1+];row6668_M-CO+H[1+];row7092_M-H2O+H[1+]	C04148;C05642	alpha-N-Phenylacetyl-L-glutamine$Formyl-N-acetyl-5-methoxykynurenamine
+E2347	row1278;row2179	row1278_M+H[1+];row2179_M-CO+H[1+]	C00061	FMN
+E2350	row1155	row1155_M+H[1+]	C01847	Reduced FMN; FMNH2
+E2354	row4926;row5302	row4926_M+Na[1+];row5302_M+H2O+H[1+]	C11713;C11714;C14787	beta-Naphthol; 2-Naphthol$$(1S,2R)-Naphthalene 1,2-oxide; (1S,2R)-Naphthalene epoxide
+E2361	row5475	row5475_M-H2O+H[1+]	C03428	Presqualene diphosphate
+E2364	row1045;row3910;row4560;row6540	row1045_M+H[1+];row3910_M+H2O+H[1+];row4560_M+H2O+H[1+];row6540_M+H[1+]	C00632	3-Hydroxyanthranilate
+E2365	row1555	row1555_M+H[1+]	C00632	3-Hydroxyanthranilate
+E2366	row1045;row1858;row2020;row3910;row4560;row5699;row6540	row1045_M-H4O2+H[1+];row1858_M+H[1+];row2020_M-CO+H[1+];row3910_M-H2O+H[1+];row4560_M-H2O+H[1+];row5699_M-CO+H[1+];row6540_M-H4O2+H[1+]	C00624	N-Acetyl-L-glutamate; N-Acetyl-L-glutamic acid
+E2368	row1648	row1648_M+H[1+]	C03413	N1,N12-Diacetylspermine
+E2373	row2026;row2907	row2026_M+H2O+H[1+];row2907_M-H2O+H[1+]	C18038;C05138;C04518;C05485	$17alpha-Hydroxypregnenolone$17alpha,20alpha-Dihydroxypregn-4-en-3-one$21-Hydroxypregnenolone
+E2375	row1085;row3224	row1085_M+NaCl[1+];row3224_M+H[1+]	C00750	Spermine
+E2386	row1200;row1243	row1200_M[1+];row1243_M+H[1+]	C00062;C00792	L-Arginine$D-Arginine; D-2-Amino-5-guanidinovaleric acid
+E2395	row1112;row3658;row4694;row5221;row5574	row1112_M[1+];row3658_M-H2O+H[1+];row4694_M+HCOOK[1+];row5221_M+H2O+H[1+];row5574_M+HCOOK[1+]	CE6248;CE6247;CE2569;CE2568;CE5662	20-OH-hepoxilin A3$5,12,20-TriHETE$15-epi-lipoxin B4$15-epi-lipoxin A4$13,14-dihydro-15-oxo-lipoxin A4
+E2416	row6236	row6236_M-H2O+H[1+]	CE5926;CE5930;CE2056;CE5534;CE5533;CE1447	$$20-dihydroxyleukotriene B4$$$11-dehydrothromboxane B2
+E2419	row3695;row6278	row3695_M-H2O+H[1+];row6278_M+H[1+]	C00031;C00221;C02336;C00267;C00962;C00795;C00137;C00984;C00159	D-Glucose$beta-D-Glucose$beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose$alpha-D-Glucose$beta-D-Galactose$D-Tagatose; lyxo-Hexulose$myo-Inositol$alpha-D-Galactose$D-Mannose
+E2420	row4744;row4961	row4744_M+H[1+];row4961_M-H2O+H[1+]	C00031;C00221;C02336;C00267;C00962;C00795;C00137;C00984;C00159	D-Glucose$beta-D-Glucose$beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose$alpha-D-Glucose$beta-D-Galactose$D-Tagatose; lyxo-Hexulose$myo-Inositol$alpha-D-Galactose$D-Mannose
+E2421	row2446;row3445	row2446_M+H[1+];row3445_M+H[1+]	C00031;C00221;C02336;C00267;C00962;C00795;C00137;C00984;C00159	D-Glucose$beta-D-Glucose$beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose$alpha-D-Glucose$beta-D-Galactose$D-Tagatose; lyxo-Hexulose$myo-Inositol$alpha-D-Galactose$D-Mannose
+E2425	row1161;row2580;row2751;row3311;row4498	row1161_M+2H[2+];row2580_M+H[1+];row2751_M+Na[1+];row3311_M+H2O+H[1+];row4498_M+H[1+]	CE2306;CE2305;CE2304;CE2303	12-O-D-glucuronoside-13-hydroxyoctadec-9Z-enoate$12-hydroxy-13-O-D-glucuronoside-octadec-9Z-enoate$10-hydroxy-octadec-12Z-enoate-9-beta-D-glucuronide$9-hydroxy-10-O-D-glucuronoside-12Z-octadecenoate
+E2426	row1566;row1912	row1566_M+H2O+H[1+];row1912_M+Na[1+]	CE2306;CE2305;CE2304;CE2303	12-O-D-glucuronoside-13-hydroxyoctadec-9Z-enoate$12-hydroxy-13-O-D-glucuronoside-octadec-9Z-enoate$10-hydroxy-octadec-12Z-enoate-9-beta-D-glucuronide$9-hydroxy-10-O-D-glucuronoside-12Z-octadecenoate
+E2431	row1210	row1210_M+Na[1+]	CE5700	12-hydroperoxyeicosatetraenoate glyceryl ester
+E2433	row3375	row3375_M+Na[1+]	CE5982	
+E2439	row5335	row5335_M-H2O+H[1+]	C02538	Estrone 3-sulfate
+E2440	row1176;row5744	row1176_M-H2O+H[1+];row5744_M-H2O+H[1+]	C02538	Estrone 3-sulfate
+E2446	row3317;row5597;row6575	row3317_M[1+];row5597_M-HCOOH+H[1+];row6575_M-H2O+H[1+]	C05401	3-beta-D-Galactosyl-sn-glycerol; Galactosylglycerol
+E2455	row1193;row3695	row1193_M+H[1+];row3695_M-CO2+H[1+]	C00725;C04593	Lipoate; Lipoic acid; alpha-Lipoic acid; Thioctic acid$(2S,3R)-3-Hydroxybutane-1,2,3-tricarboxylate; Methylisocitrate; Methylisocitric acid
+E2458	row3812;row5438;row6685	row3812_M+H2O+H[1+];row5438_M+H2O+H[1+];row6685_M+H[1+]	C00725;C04593	Lipoate; Lipoic acid; alpha-Lipoic acid; Thioctic acid$(2S,3R)-3-Hydroxybutane-1,2,3-tricarboxylate; Methylisocitrate; Methylisocitric acid
+E2459	row6272;row6688	row6272_M+H2O+H[1+];row6688_M+H[1+]	C00725;C04593	Lipoate; Lipoic acid; alpha-Lipoic acid; Thioctic acid$(2S,3R)-3-Hydroxybutane-1,2,3-tricarboxylate; Methylisocitrate; Methylisocitric acid
+E2476	row5872;row6213	row5872_M+Na[1+];row6213_M+Na[1+]	CE2020	N-arachidonoylglycine
+E2489	row1237;row1298;row2531;row3449;row4504;row5004;row6471;row7390	row1237_M+H2O+H[1+];row1298_M+H2O+H[1+];row2531_M-H2O+H[1+];row3449_M-CO2+H[1+];row4504_M+H2O+H[1+];row5004_M-CO2+H[1+];row6471_M+H2O+H[1+];row7390_M-CO2+H[1+]	C00360	dAMP
+E2492	row2897;row3250;row5412;row6083;row6437	row2897_M-H2O+H[1+];row3250_M-NH3+H[1+];row5412_M-NH3+H[1+];row6083_M-NH3+H[1+];row6437_M-HCOOH+H[1+]	CE2095	3-hydroxykynurenine-O-beta-D-glucoside
+E2496	row1244;row5999	row1244_M-H2O+H[1+];row5999_M-H2O+H[1+]	CE2095	3-hydroxykynurenine-O-beta-D-glucoside
+E2501	row1245;row1342;row1576;row1691;row4632;row4878	row1245_M(C13)+2H[2+];row1342_M+H[1+];row1576_M-HCOOH+H[1+];row1691_M(C13)+2H[2+];row4632_M(C13)+2H[2+];row4878_M(C13)+2H[2+]	CE1352	17alpha-hydroxypregnenolone sulfate
+E2504	row3514	row3514_M-H2O+H[1+]	C00051	Reduced glutathione
+E2511	row1929;row5716	row1929_M+H2O+H[1+];row5716_M+H[1+]	CE2184;CE2189;C05285;C05299	2-hydroxy-3-methoxyestrone$4-methoxyestrone$Adrenosterone$2-Methoxyestrone
+E2517	row5219	row5219_M-H2O+H[1+]	C05577;C00544;C01161	3,4-Dihydroxymandelaldehyde$Homogentisate$3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate
+E2518	row1266;row3641;row3889;row4209;row4394;row6279;row7916	row1266_M-H2O+H[1+];row3641_M-H2O+H[1+];row3889_M-H2O+H[1+];row4209_M+H[1+];row4394_M+H[1+];row6279_M+H[1+];row7916_M-H2O+H[1+]	C05577;C00544;C01161	3,4-Dihydroxymandelaldehyde$Homogentisate$3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate
+E2519	row3013	row3013_M-H2O+H[1+]	C05577;C00544;C01161	3,4-Dihydroxymandelaldehyde$Homogentisate$3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate
+E2523	row1274;row1801;row2144	row1274_M+H[1+];row1801_M+NaCl[1+];row2144_M+NaCl[1+]	CE2202;C17335	23S,25,26-trihydroxyvitamin D3$
+E2525	row1274	row1274_M-H2O+H[1+]	C04722	3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestanoate
+E2526	row5226;row7361	row5226_M-H2O+H[1+];row7361_M-H2O+H[1+]	dlnlcgcrn	dihomo-gamma-linolenyl carnitine
+E2527	row5855;row7077;row7493	row5855_M-H2O+H[1+];row7077_M-H2O+H[1+];row7493_M-H4O2+H[1+]	dlnlcgcrn	dihomo-gamma-linolenyl carnitine
+E2533	row1292;row1378;row2839;row2888;row6741;row7744	row1292_M[1+];row1378_M-HCOOH+H[1+];row2839_M-NH3+H[1+];row2888_M-H2O+H[1+];row6741_M+HCOONa[1+];row7744_M-H2O+H[1+]	C15522;thbpt4acam	Tetrahydrobiopterin-4a-carbinolamine$Tetrahydrobiopterin-4a-carbinolamine
+E2540	row2042;row4150;row4606	row2042_M+Na[1+];row4150_M+HCOOK[1+];row4606_M+HCOOK[1+]	CE2446;CE6240;CE6251;CE2445;CE7172;CE5179;CE5815;CE5343;CE7096;CE5944	6E-12-epi-LTB4$9-deoxy-delta12-PGD2$12,20-DiHETE$6-trans-leukotriene B4$14,15-DiHETE$6,7-dihydro-5-oxo-leukotriene B4$20-hydroxy-5S-HETE$6,7-dihydro-5-oxo-12-epi-LTB4$5,15-DiHETE$10,11-dihydro-12-oxo-LTB4
+E2555	row1329;row2156	row1329_M+H[1+];row2156_M+K[1+]	CE5922	
+E2557	row6236	row6236_M+Na[1+]	CE5922	
+E2563	row1342;row1576	row1342_M+HCOONa[1+];row1576_M+Na[1+]	C16548	N,N-Didesmethyltamoxifen
+E2567	row3346;row7461	row3346_M+Na[1+];row7461_M+Na[1+]	C00249	Hexadecanoate (n-C16:0)
+E2574	row3462	row3462_M+H[1+]	CE2863	neurotensin 11-13
+E2577	row1378;row1646;row2888;row3062;row3705;row3895;row4981;row5112;row5146;row6131;row6151;row7744;row7779	row1378_M-CO+H[1+];row1646_M[1+];row2888_M+H[1+];row3062_M-H4O2+H[1+];row3705_M-HCOOH+H[1+];row3895_M+Na[1+];row4981_M[1+];row5112_M-H4O2+H[1+];row5146_M-H4O2+H[1+];row6131_M-NH3+H[1+];row6151_M+HCOOK[1+];row7744_M+H[1+];row7779_M[1+]	C00268;C02953;C04244	6,7-Dihydrobiopterin$7,8-Dihydrobiopterin$6-Lactoyl-5,6,7,8-tetrahydropterin
+E2582	row4850;row6193	row4850_M-H4O2+H[1+];row6193_M-H2O+H[1+]	C00268;C02953;C04244	6,7-Dihydrobiopterin$7,8-Dihydrobiopterin$6-Lactoyl-5,6,7,8-tetrahydropterin
+E2583	row2290	row2290_M+H[1+]	CE5853	alpha-CEHC-glucuronide
+E2586	row1393;row2063;row6856;row7533	row1393_M[1+];row2063_M+H[1+];row6856_M(C13)+H[1+];row7533_M[1+]	CE5853	alpha-CEHC-glucuronide
+E2597	row3736;row4065;row4390	row3736_M-H4O2+H[1+];row4065_M-H2O+H[1+];row4390_M-H2O+H[1+]	CE1926	gama-carboxyethyl-hydroxychroman
+E2599	row1409;row2090;row3356;row6027;row7813	row1409_M-HCOOH+H[1+];row2090_M+HCOONa[1+];row3356_M-HCOOH+H[1+];row6027_M-H2O+H[1+];row7813_M-H2O+H[1+]	CE1926	gama-carboxyethyl-hydroxychroman
+E2602	row1679;row1963	row1679_M+H[1+];row1963_M-CO+H[1+]	C14871	S-(Formylmethyl)glutathione
+E2613	row1468;row1530;row2675;row5320	row1468_M-H2O+H[1+];row1530_M-NH3+H[1+];row2675_M+H[1+];row5320_M-NH3+H[1+]	C03771	5-Guanidino-2-oxopentanoate; 5-Guanidino-2-oxo-pentanoate; 2-Oxo-5-guanidinopentanoate; 2-Oxo-5-guanidino-pentanoate
+E2617	row6648	row6648_M+Na[1+]	17ahprgstrn;C03205;C05498;C01176	17alpha-Hydroxyprogesterone$11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC$11beta-Hydroxyprogesterone$17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone
+E2618	row2609;row2781;row4401;row4485;row5509;row7103	row2609_M+H[1+];row2781_M-H2O+H[1+];row4401_M+H2O+H[1+];row4485_M+H[1+];row5509_M+H2O+H[1+];row7103_M+H2O+H[1+]	17ahprgstrn;C03205;C05498;C01176	17alpha-Hydroxyprogesterone$11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC$11beta-Hydroxyprogesterone$17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone
+E2619	row4493;row5373;row6045	row4493_M+H2O+H[1+];row5373_M+H[1+];row6045_M+H2O+H[1+]	17ahprgstrn;C03205;C05498;C01176	17alpha-Hydroxyprogesterone$11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC$11beta-Hydroxyprogesterone$17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone
+E2632	row2384;row2839;row3785;row4337;row6734;row7261;row7326	row2384_M(C13)+H[1+];row2839_M+Na[1+];row3785_M(C13)+H[1+];row4337_M+H2O+H[1+];row6734_M+H[1+];row7261_M+H2O+H[1+];row7326_M-CO2+H[1+]	C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine
+E2635	row1962;row2771;row2924;row3756;row3902;row4018	row1962_M+HCOONa[1+];row2771_M+HCOOK[1+];row2924_M+HCOONa[1+];row3756_M+H[1+];row3902_M+H[1+];row4018_M+HCOOK[1+]	C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine
+E2636	row5145;row5591;row5649;row5703;row6351;row7391	row5145_M-CO2+H[1+];row5591_M+H2O+H[1+];row5649_M-CO+H[1+];row5703_M+HCOONa[1+];row6351_M+H[1+];row7391_M+H[1+]	C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine
+E2638	row1497	row1497_M-H2O+H[1+]	C00978	N-Acetylserotonin; N-Acetyl-5-hydroxytryptamine
+E2644	row1499;row2624;row3899;row4952	row1499_M-H4O2+H[1+];row2624_M-H2O+H[1+];row3899_M+K[1+];row4952_M+K[1+]	CE1059	
+E2645	row7095;row7125	row7095_M-H4O2+H[1+];row7125_M-H2O+H[1+]	CE1059	
+E2646	row3198;row5942;row6704	row3198_M-H2O+H[1+];row5942_M-H4O2+H[1+];row6704_M+NaCl[1+]	CE1059	
+E2650	row1507;row1508;row1753	row1507_M+H[1+];row1508_M-NH3+H[1+];row1753_M-NH3+H[1+]	C02291;C00542	L-Cystathionine$Cystathionine
+E2654	row5320	row5320_M+H[1+]	C03680	4-Imidazolone-5-propanoate
+E2655	row1530	row1530_M+H[1+]	C03680	4-Imidazolone-5-propanoate
+E2669	row7063	row7063_M+H[1+]	CE5309;CE5321	3-oxo-8(R)-hydroxy-hexadeca-6E,10Z-dienoate$3-oxo-8(S)-hydroxy-hexadeca-6E,10Z-dienoate
+E2670	row6601	row6601_M+H[1+]	CE5309;CE5321	3-oxo-8(R)-hydroxy-hexadeca-6E,10Z-dienoate$3-oxo-8(S)-hydroxy-hexadeca-6E,10Z-dienoate
+E2673	row3658;row5221;row6643	row3658_M-H4O2+H[1+];row5221_M+H[1+];row6643_M(C13)+H[1+]	CE0955;CE6232;CE5945	$prostaglandin G1$10,11-dihydro-20-dihydroxy-LTB4
+E2677	row6784	row6784_M+Na[1+]	CE0955;CE6232;CE5945	$prostaglandin G1$10,11-dihydro-20-dihydroxy-LTB4
+E2684	row5498	row5498_M-H2O+H[1+]	C05952	Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate
+E2685	row3748	row3748_M-H2O+H[1+]	C05952	Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate
+E2687	row5272	row5272_M-H2O+H[1+]	C05952	Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate
+E2688	row1554;row1867;row2948;row3008;row6852	row1554_M-H4O2+H[1+];row1867_M-H2O+H[1+];row2948_M+H2O+H[1+];row3008_M(C13)+2H[2+];row6852_M-H2O+H[1+]	C05952	Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate
+E2689	row2977	row2977_M+Na[1+]	C05952	Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate
+E2690	row3725	row3725_M-H2O+H[1+]	C05952	Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate
+E2696	row1562;row2419;row2887;row3245	row1562_M-HCOOH+H[1+];row2419_M+H[1+];row2887_M-H2O+H[1+];row3245_M-H4O2+H[1+]	4nphsf	4-Nitrophenyl sulfate
+E2701	row3600;row6472;row7569	row3600_M+H[1+];row6472_M-NH3+H[1+];row7569_M-CO2+H[1+]	hdd2crn;hdcecrn	trans-Hexadec-2-enoyl carnitine$Hexadecenoyl carnitine
+E2707	row1573	row1573_M+H[1+]	lneldccrn;lnlccrn	Linoelaidyl carnitine$Linoleyl carnitine
+E2710	row1580	row1580_M+Na[1+]	C01595	linoleic acid (all cis C18:2) n-6
+E2711	row1904	row1904_M+Na[1+]	C01595	linoleic acid (all cis C18:2) n-6
+E2721	row4155;row4966;row6350;row7243;row7827	row4155_M-H2O+H[1+];row4966_M+H[1+];row6350_M(C13)+H[1+];row7243_M(C13)+H[1+];row7827_M-CO+H[1+]	CE5956	trans,trans,cis-geranyl-geranyl-PP
+E2724	row1611;row4734;row7577	row1611_M[1+];row4734_M[1+];row7577_M+H[1+]	CE2026	3-methylcrotonoylglycine
+E2732	row3811	row3811_M+Na[1+]	CE5308;CE5320	3-oxo-6(R)-hydroxy-tetradec-8-cis-enoate$3-oxo-6(S)-hydroxy-tetradec-8Z-enoate
+E2733	row1885	row1885_M+Na[1+]	CE5308;CE5320	3-oxo-6(R)-hydroxy-tetradec-8-cis-enoate$3-oxo-6(S)-hydroxy-tetradec-8Z-enoate
+E2734	row1612;row1855;row2267	row1612_M[1+];row1855_M+Na[1+];row2267_M[1+]	CE5308;CE5320	3-oxo-6(R)-hydroxy-tetradec-8-cis-enoate$3-oxo-6(S)-hydroxy-tetradec-8Z-enoate
+E2736	row5313;row6463	row5313_M+H2O+H[1+];row6463_M+H[1+]	C04043;C00642;C05852	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde$4-Hydroxyphenylacetate$2-Hydroxyphenylacetate
+E2737	row5131;row6051	row5131_M+H[1+];row6051_M+H2O+H[1+]	C04043;C00642;C05852	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde$4-Hydroxyphenylacetate$2-Hydroxyphenylacetate
+E2738	row1639	row1639_M+H[1+]	C04043;C00642;C05852	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde$4-Hydroxyphenylacetate$2-Hydroxyphenylacetate
+E2739	row5171;row5419;row5608	row5171_M+H[1+];row5419_M+H[1+];row5608_M+H[1+]	C04043;C00642;C05852	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde$4-Hydroxyphenylacetate$2-Hydroxyphenylacetate
+E2740	row6413	row6413_M+H[1+]	C04043;C00642;C05852	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde$4-Hydroxyphenylacetate$2-Hydroxyphenylacetate
+E2741	row5016	row5016_M+H[1+]	C04043;C00642;C05852	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde$4-Hydroxyphenylacetate$2-Hydroxyphenylacetate
+E2743	row3315;row5313;row6463	row3315_M[1+];row5313_M+H[1+];row6463_M-H2O+H[1+]	C05576	3,4-Dihydroxyphenylethyleneglycol
+E2744	row5131;row5259;row6051	row5131_M-H2O+H[1+];row5259_M+H2O+H[1+];row6051_M+H[1+]	C05576	3,4-Dihydroxyphenylethyleneglycol
+E2745	row1639	row1639_M-H2O+H[1+]	C05576	3,4-Dihydroxyphenylethyleneglycol
+E2746	row5171;row5419;row5608	row5171_M-H2O+H[1+];row5419_M-H2O+H[1+];row5608_M-H2O+H[1+]	C05576	3,4-Dihydroxyphenylethyleneglycol
+E2747	row6413	row6413_M-H2O+H[1+]	C05576	3,4-Dihydroxyphenylethyleneglycol
+E2748	row5016	row5016_M-H2O+H[1+]	C05576	3,4-Dihydroxyphenylethyleneglycol
+E2750	row2517;row5131	row2517_M-H2O+H[1+];row5131_M-CO+H[1+]	C05350;C01197;C01179	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate$Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate$3-(4-Hydroxyphenyl)pyruvate
+E2752	row2833;row5497	row2833_M+H2O+H[1+];row5497_M-H2O+H[1+]	C05350;C01197;C01179	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate$Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate$3-(4-Hydroxyphenyl)pyruvate
+E2753	row5171;row5316;row5419;row5608	row5171_M-CO+H[1+];row5316_M-H2O+H[1+];row5419_M-CO+H[1+];row5608_M-CO+H[1+]	C05350;C01197;C01179	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate$Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate$3-(4-Hydroxyphenyl)pyruvate
+E2754	row5970;row6722	row5970_M+H[1+];row6722_M+H2O+H[1+]	C05350;C01197;C01179	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate$Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate$3-(4-Hydroxyphenyl)pyruvate
+E2759	row3671;row4137;row5612	row3671_M-HCOOH+H[1+];row4137_M+Na[1+];row5612_M-CO2+H[1+]	CE5798	neuromedin N (1-4)
+E2760	row5396;row6769	row5396_M+Na[1+];row6769_M+Na[1+]	CE5798	neuromedin N (1-4)
+E2761	row7050	row7050_M+Na[1+]	CE5798	neuromedin N (1-4)
+E2762	row1640;row7219	row1640_M+3H[3+];row7219_M+Na[1+]	CE5798	neuromedin N (1-4)
+E2767	row3978;row5467;row7614	row3978_M+H[1+];row5467_M+H[1+];row7614_M-H4O2+H[1+]	C16577	Codeine-6-glucuronide
+E2768	row5939	row5939_M+H[1+]	C16577	Codeine-6-glucuronide
+E2769	row5240	row5240_M+H[1+]	C16577	Codeine-6-glucuronide
+E2770	row1662;row2386;row3174;row3360;row3986	row1662_M+H[1+];row2386_M-H4O2+H[1+];row3174_M+Na[1+];row3360_M-CO2+H[1+];row3986_M-CO2+H[1+]	C00299	Uridine
+E2773	row1674;row1829;row2472	row1674_M+H[1+];row1829_M-NH3+H[1+];row2472_M+Na[1+]	ttdcrn	tetradecanoyl carnitine
+E2797	row6506	row6506_M-H2O+H[1+]	C15492	all-trans-13,14-Dihydroretinol; 13,14-Dihydroretinol
+E2806	row3361;row5635	row3361_M+Na[1+];row5635_M+K[1+]	CE7122	
+E2809	row5596	row5596_M+Na[1+]	C05463;C05465	Taurodeoxycholate$Taurochenodeoxycholate; Chenodeoxycholoyltaurine
+E2811	row1968;row2953;row5168;row7016;row7420	row1968_M(S34)+H[1+];row2953_M-C3H4O2+H[1+];row5168_M+Na[1+];row7016_M(S34)+H[1+];row7420_M(S34)+H[1+]	C05463;C05465	Taurodeoxycholate$Taurochenodeoxycholate; Chenodeoxycholoyltaurine
+E2813	row1876	row1876_M-H2O+H[1+]	C05463;C05465	Taurodeoxycholate$Taurochenodeoxycholate; Chenodeoxycholoyltaurine
+E2816	row6507	row6507_M+H[1+]	CE5820	histidyl-prolinamide
+E2820	row5326	row5326_M+H[1+]	CE5820	histidyl-prolinamide
+E2823	row2102;row2840;row3952;row4282;row4759;row5164;row7190	row2102_M+H2O+H[1+];row2840_M+H2O+H[1+];row3952_M-NH3+H[1+];row4282_M+H2O+H[1+];row4759_M+H2O+H[1+];row5164_M+H[1+];row7190_M-NH3+H[1+]	CE5820	histidyl-prolinamide
+E2828	row1919;row2236;row4094;row6963	row1919_M-CO+H[1+];row2236_M-H2O+H[1+];row4094_M-H4O2+H[1+];row6963_M+H[1+]	C08261	
+E2833	row1923;row3143;row3213;row4206;row4382;row7535	row1923_M+Na[1+];row3143_M+Na[1+];row3213_M+Na[1+];row4206_M+H[1+];row4382_M+H[1+];row7535_M+H2O+H[1+]	C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid
+E2834	row1972;row2130;row2662;row5634	row1972_M+Na[1+];row2130_M+Na[1+];row2662_M+H2O+H[1+];row5634_M+H[1+]	C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid
+E2836	row1974;row2391;row2414;row3876;row3878;row4037;row4861;row4979;row7251;row7635	row1974_M+K[1+];row2391_M+K[1+];row2414_M+H+Na[2+];row3876_M+Na[1+];row3878_M+H+Na[2+];row4037_M+K[1+];row4861_M+H2O+H[1+];row4979_M+H+Na[2+];row7251_M+H2O+H[1+];row7635_M+H+Na[2+]	CE5525	12-oxo-20-carboxy-leukotriene B4
+E2841	row4713	row4713_M+H[1+]	C06174;C05176	Codeine; (5alpha,6alpha)-7,8-Didehydro-4,5-epoxy-3-methoxy-17-methylmorphinan-6-ol$(S)-N-Methylcoclaurine; (S)-1,2,3,4-Tetrahydro-1-[(4-hydroxyphenyl)methyl]-6-methoxy-2-methyl-7-isoquinolinol
+E2843	row2866	row2866_M+Na[1+]	CE5868	N-acetyl-seryl-aspartate
+E2846	row6085	row6085_M-H2O+H[1+]	C05200	3-Hexaprenyl-4,5-dihydroxybenzoate
+E2861	row2841;row6169;row6915;row7696	row2841_M-H2O+H[1+];row6169_M-CO+H[1+];row6915_M(C13)+2H[2+];row7696_M-CO2+H[1+]	C15658	6-(alpha-D-Glucosaminyl)-1D-myo-inositol
+E2867	row4933;row7132	row4933_M+H[1+];row7132_M+HCOONa[1+]	C05844	5-L-Glutamyl-taurine
+E2868	row2001;row5882;row6006	row2001_M-HCOOH+H[1+];row5882_M+H[1+];row6006_M(S34)+H[1+]	C05844	5-L-Glutamyl-taurine
+E2870	row4922	row4922_M+H[1+]	C05844	5-L-Glutamyl-taurine
+E2871	row2020;row5266;row5699;row6023	row2020_M+H[1+];row5266_M+H2O+H[1+];row5699_M+H[1+];row6023_M+Na[1+]	C00956	L-2-Aminoadipate; L-alpha-Aminoadipate; L-alpha-Aminoadipic acid; L-2-Aminoadipic acid; L-2-Aminohexanedioate
+E2874	row2021	row2021_M-H2O+H[1+]	CE7087	leukotriene D5
+E2875	row2026;row2907	row2026_M+H[1+];row2907_M-H4O2+H[1+]	C05476	Tetrahydrocorticosterone
+E2878	row6725	row6725_M+Na[1+]	lnlncgcrn;lnlncacrn	gamma-linolenyl carnitine$alpha-linolenyl carnitine
+E2889	row2056;row3911	row2056_M+Na[1+];row3911_M+HCOOK[1+]	CE5079	1alpha-hydroxy-23-carboxy-24,25,26,27-tetranorvitamin D3
+E2896	row2072;row3487;row4817;row5862;row7059	row2072_M+2H[2+];row3487_M+H[1+];row4817_M+2H[2+];row5862_M-C3H4O2+H[1+];row7059_M+H[1+]	C05769;C05770	$
+E2900	row2085	row2085_M-H2O+H[1+]	C00721;C00492;strch2;C05404;C01835	Dextrin$Raffinose$starch, structure 2 (1,6-{2[1,4-Glc], [1,4-Glc]})$D-Gal alpha 1->6D-Gal alpha 1->6D-Glucose; D-Gal-alpha1->6D-Gal-alpha1->6D-Glucose; Manninotriose$Maltotriose; Amylotriose
+E2901	row2089	row2089_M+Na[1+]	C00295	Orotate
+E2913	row2151;row2515;row2522;row3870;row4009	row2151_M-NH3+H[1+];row2515_M+H[1+];row2522_M+H[1+];row3870_M+H[1+];row4009_M[1+]	C00366	Urate
+E2926	row2228	row2228_M+Na[1+]	C00300	Creatine; alpha-Methylguanidino acetic acid; Methylglycocyamine
+E2930	row4958;row5788	row4958_M-NH3+H[1+];row5788_M+H[1+]	C01239	N-Acetyl-beta-D-glucosaminylamine
+E2936	row6530;row6900	row6530_M+H[1+];row6900_M-CO2+H[1+]	C04734	5-Formamido-1-(5-phospho-D-ribosyl)imidazole-4-carboxamide
+E2937	row3151;row6759	row3151_M+H[1+];row6759_M-CO+H[1+]	C04734	5-Formamido-1-(5-phospho-D-ribosyl)imidazole-4-carboxamide
+E2939	row4171	row4171_M+H[1+]	eicostetcrn;arachdcrn	Eicosatetranoyl carnitine$C20:4 carnitine
+E2940	row3555;row5859	row3555_M-H2O+H[1+];row5859_M-H2O+H[1+]	eicostetcrn;arachdcrn	Eicosatetranoyl carnitine$C20:4 carnitine
+E2941	row7435	row7435_M-H2O+H[1+]	eicostetcrn;arachdcrn	Eicosatetranoyl carnitine$C20:4 carnitine
+E2945	row3949;row5638	row3949_M+H[1+];row5638_M[1+]	C16359;C16355	$
+E2950	row2332	row2332_M-H2O+H[1+]	C00491	L-Cystine; L-Dicysteine; L-alpha-Diamino-beta-dithiolactic acid
+E2953	row5407	row5407_M+H[1+]	C00628	2,5-Dihydroxybenzoate; Gentisic acid; Hydroquinonecarboxylic acid; Gentisate
+E2965	row5406	row5406_M-H2O+H[1+]	C16609	Didemethylcitalopram
+E2973	row7326	row7326_M+H[1+]	C06213	N-Methyltryptamine; N-Methylindoleethylamine; 1-Methyl-2-(3-indolyl)ethylamine
+E2975	row5145	row5145_M+H[1+]	C06213	N-Methyltryptamine; N-Methylindoleethylamine; 1-Methyl-2-(3-indolyl)ethylamine
+E2981	row6303	row6303_M+Na[1+]	C05560	L-2-Aminoadipate adenylate; 5-Adenylyl-2-aminoadipate; alpha-Aminoadipoyl-C6-AMP
+E2994	row5467;row7614	row5467_M+H2O+H[1+];row7614_M-H2O+H[1+]	C00143	5,10-Methylenetetrahydrofolate
+E2997	row2466;row3367;row6257;row6991	row2466_M+H[1+];row3367_M(S34)+H[1+];row6257_M+H2O+H[1+];row6991_M+H[1+]	C00120	Biotin; D-Biotin; Vitamin H; Coenzyme R
+E3000	row6608;row6938	row6608_M-H2O+H[1+];row6938_M+H[1+]	C00120	Biotin; D-Biotin; Vitamin H; Coenzyme R
+E3008	row2506;row5911;row7735	row2506_M+H2O+H[1+];row5911_M+H[1+];row7735_M+H[1+]	C05842;C05843	N1-Methyl-2-pyridone-5-carboxamide; N'-Methyl-2-pyridone-5-carboxamide; 1-Methyl-5-carboxylamide-2-pyridone$N1-Methyl-4-pyridone-5-carboxamide; N'-Methyl-4-pyridone-5-carboxamide; 1-Methyl-4-pyridone-3-carboximide
+E3009	row6560	row6560_M-H2O+H[1+]	CE5787	kinetensin 1-3
+E3013	row6394;row6545	row6394_M+H[1+];row6545_M+Na[1+]	C03626	Nomega,Nomega'-Dimethyl-L-arginine; NG,NG-Dimethyl-L-arginine
+E3027	row6010	row6010_M+Na[1+]	C02744	Psychosine sulfate
+E3028	row2514;row3130;row3538;row3884;row4402;row4673;row5772;row6753;row6758	row2514_M-NH3+H[1+];row3130_M-NH3+H[1+];row3538_M+H2O+H[1+];row3884_M+H[1+];row4402_M+H2O+H[1+];row4673_M+H2O+H[1+];row5772_M-NH3+H[1+];row6753_M-NH3+H[1+];row6758_M+H2O+H[1+]	C02744	Psychosine sulfate
+E3031	row5485;row5822;row6288;row6402	row5485_M+Na[1+];row5822_M(C13)+H[1+];row6288_M+H[1+];row6402_M-H2O+H[1+]	C03340	L-2,3-Dihydrodipicolinate; Dihydrodipicolinic acid; Dihydrodipicolinate; 2,3-Dihydrodipicolinate
+E3032	row5003	row5003_M+H[1+]	C03340	L-2,3-Dihydrodipicolinate; Dihydrodipicolinic acid; Dihydrodipicolinate; 2,3-Dihydrodipicolinate
+E3036	row2532;row5183;row6980	row2532_M+HCOONa[1+];row5183_M+Na[1+];row6980_M+HCOONa[1+]	CE6466;CE6467;CE6465;CE6462;CE6463;CE6460;CE6461;CE6459;CE6458;CE6457;CE6455;CE6454;CE6453;CE6452;CE6456;CE6464	$$$$$$$$$$$$$$$
+E3043	row2590	row2590_M+Na[1+]	CE5014	anhydroretinol
+E3044	row2847	row2847_M+Na[1+]	CE5014	anhydroretinol
+E3045	row2744;row6321;row7562;row7801	row2744_M+H[1+];row6321_M+H[1+];row7562_M+H2O+H[1+];row7801_M+H2O+H[1+]	CE5014	anhydroretinol
+E3053	row3663;row4564;row6972	row3663_M+HCOOK[1+];row4564_M+HCOOK[1+];row6972_M+Na[1+]	CE5526;CE5527;C14765	$$13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid
+E3056	row4432;row7255	row4432_M+H[1+];row7255_M+HCOONa[1+]	CE5526;CE5527;C14765	$$13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid
+E3057	row3847;row4206;row4382;row7535	row3847_M+H2O+H[1+];row4206_M-H2O+H[1+];row4382_M-H2O+H[1+];row7535_M+H[1+]	CE5526;CE5527;C14765	$$13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid
+E3058	row5063	row5063_M+Na[1+]	CE5526;CE5527;C14765	$$13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid
+E3059	row2662;row5634	row2662_M+H[1+];row5634_M-H2O+H[1+]	CE5526;CE5527;C14765	$$13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid
+E3060	row2688	row2688_M+H[1+]	C00327	L-Citrulline; 2-Amino-5-ureidovaleric acid; Citrulline
+E3063	row2744;row4640;row6321;row7562;row7801	row2744_M-H2O+H[1+];row4640_M+H2O+H[1+];row6321_M-H2O+H[1+];row7562_M+H[1+];row7801_M+H[1+]	C00899;C00473	cis-11-retinol$Retinol
+E3065	row4787	row4787_M-H2O+H[1+]	C00410	Progesterone; 4-Pregnene-3,20-dione
+E3066	row2907	row2907_M+H[1+]	C00410	Progesterone; 4-Pregnene-3,20-dione
+E3069	row4438;row6492	row4438_M+Na[1+];row6492_M+H[1+]	C02646	4-Coumaryl alcohol; 4-Hydroxycinnamyl alcohol; p-Coumaryl alcohol
+E3071	row4990;row5675	row4990_M+H[1+];row5675_M+H[1+]	C02646	4-Coumaryl alcohol; 4-Hydroxycinnamyl alcohol; p-Coumaryl alcohol
+E3072	row2761	row2761_M+H[1+]	C02646	4-Coumaryl alcohol; 4-Hydroxycinnamyl alcohol; p-Coumaryl alcohol
+E3073	row5923;row6280;row6855	row5923_M+H2O+H[1+];row6280_M+H2O+H[1+];row6855_M+H[1+]	C02646	4-Coumaryl alcohol; 4-Hydroxycinnamyl alcohol; p-Coumaryl alcohol
+E3074	row5576	row5576_M+H[1+]	C02646	4-Coumaryl alcohol; 4-Hydroxycinnamyl alcohol; p-Coumaryl alcohol
+E3079	row2795;row7614	row2795_M[1+];row7614_M+H[1+]	CE5854	gama-CEHC-glucuronide
+E3087	row2955;row4552	row2955_M+Na[1+];row4552_M+Na[1+]	CE2152	
+E3094	row2848;row7666	row2848_M-HCOOH+H[1+];row7666_M+H[1+]	C00448	Farnesyl diphosphate
+E3095	row5665	row5665_M-H2O+H[1+]	C00448	Farnesyl diphosphate
+E3103	row4171	row4171_M+Na[1+]	elaidcrn;vacccrn;odecrn	Elaidic carnitine$Vaccenyl carnitine$octadecenoyl carnitine
+E3109	row2979;row5990;row5991;row6421	row2979_M-CO+H[1+];row5990_M+H[1+];row5991_M+H[1+];row6421_M+H[1+]	stcrn	stearoylcarnitine
+E3132	row4438	row4438_M-H2O+H[1+]	C05829	
+E3133	row5458;row6252;row7065;row7849	row5458_M+H[1+];row6252_M+K[1+];row7065_M+K[1+];row7849_M-H2O+H[1+]	C11173	SN-38
+E3137	row3204;row4895	row3204_M(C13)+H[1+];row4895_M-H2O+H[1+]	CE2616	2-hydroxyamino-MeIQx-N2-(beta-1-glucosiduronyl)-2-hydroxyamino-3,8-dimethylimidazo[4,5-f]quinoxaline
+E3166	row6817	row6817_M+Na[1+]	C07644	4-Ketocyclophosphamide
+E3167	row5782	row5782_M+H[1+]	C03087	5-Acetamidopentanoate
+E3168	row3371;row7755	row3371_M+H[1+];row7755_M+H[1+]	C03087	5-Acetamidopentanoate
+E3169	row4507	row4507_M+H[1+]	C03087	5-Acetamidopentanoate
+E3170	row4345	row4345_M+H[1+]	C03087	5-Acetamidopentanoate
+E3176	row4599	row4599_M+H[1+]	C01019	6-Deoxy-L-galactose; L-Fucose
+E3178	row3479;row3821;row4009;row6402	row3479_M+H[1+];row3821_M+H2O+H[1+];row4009_M-CO+H[1+];row6402_M-CO2+H[1+]	CE1957	
+E3180	row7348	row7348_M-H2O+H[1+]	C02985	L-Fucose 1-phosphate; 6-Deoxy-L-galactose 1-phosphate; beta-L-Fucose 1-phosphate
+E3187	row4042	row4042_M+Na[1+]	C07486	Nordazepam; Desmethyldiazepam; 7-Chloro-1,3-dihydro-5-phenyl-(2H)-1,4-benzodiazepin-2-one
+E3189	row3533	row3533_M+Na[1+]	C07486	Nordazepam; Desmethyldiazepam; 7-Chloro-1,3-dihydro-5-phenyl-(2H)-1,4-benzodiazepin-2-one
+E3202	row3666	row3666_M+Na[1+]	C14868	S-(1,2-Dichlorovinyl)glutathione; DCVG
+E3205	row5881	row5881_M-H2O+H[1+]	C05455;C01561	7alpha-Hydroxycholest-4-en-3-one$Calcidiol; 25-Hydroxyvitamin D3; Calcifediol; Calcifediol anhydrous
+E3215	row4139;row5911;row6214;row7519;row7735	row4139_M+H[1+];row5911_M-NH3+H[1+];row6214_M+H[1+];row7519_M+Na[1+];row7735_M-NH3+H[1+]	C01152	N(pi)-Methyl-L-histidine; 1-Methylhistidine; N-pros-Methyl-L-histidine
+E3222	row3895;row6741;row7200	row3895_M-HCOOH+H[1+];row6741_M+H2O+H[1+];row7200_M+Na[1+]	C01169	S-Succinyldihydrolipoamide
+E3223	row4026;row5646	row4026_M(S34)+H[1+];row5646_M+Na[1+]	C01169	S-Succinyldihydrolipoamide
+E3242	row3968	row3968_M+Na[1+]	C01507;C00794;C01697	L-Iditol$D-Sorbitol$Galactitol
+E3243	row4599	row4599_M-H2O+H[1+]	C01507;C00794;C01697	L-Iditol$D-Sorbitol$Galactitol
+E3244	row3968;row7257	row3968_M+HCOONa[1+];row7257_M+Na[1+]	C05650	Tetrahydropteridine; 5,6,7,8-Tetrahydropteridine
+E3246	row4009	row4009_M+H[1+]	CE6252;C03722	$Quinolinate
+E3252	row4085	row4085_M-H2O+H[1+]	C00068	Thiamine diphosphate
+E3257	row4142;row5374;row7700	row4142_M+K[1+];row5374_M+Na[1+];row7700_M-H2O+H[1+]	C00158;C04575;C00311	Citrate$$Isocitrate
+E3265	row5565;row6236;row7464	row5565_M+HCOOK[1+];row6236_M+H[1+];row7464_M+K[1+]	CE7114;CE2053;CE5138;CE5661;CE7115;CE7113;CE7112;CE7088	$20-oxo-leukotriene B4$12-oxo-20-hydroxy-leukotriene B4$15-oxo-lipoxin A4$20-hydroxy-leukotriene B5$15-epi-lipoxin B5$15-epi-lipoxin A5$PGH3
+E3273	row6146	row6146_M-H2O+H[1+]	C05841	Nicotinate D-ribonucleoside
+E3276	row4299;row7188;row7562;row7801	row4299_M+H[1+];row7188_M-H2O+H[1+];row7562_M-C3H4O2+H[1+];row7801_M-C3H4O2+H[1+]	CE6027	24,25,26,27-tetranor-23-oxo-hydroxyvitamin D3
+E3293	row4828	row4828_M+H[1+]	C00447	Sedoheptulose 1,7-bisphosphate
+E3303	row5020	row5020_M+Na[1+]	dcsptn1crn;clpndcrn	docosa-4,7,10,13,16-pentaenoyl carnitine$clupanodonyl carnitine
+E3332	row6352	row6352_M+Na[1+]	ptdcacrn	pendtadenoyl carnitine
+E3333	row6689	row6689_M+Na[1+]	ptdcacrn	pendtadenoyl carnitine
+E3335	row6738	row6738_M+Na[1+]	ptdcacrn	pendtadenoyl carnitine
+E3350	row5881	row5881_M+H[1+]	C05107;CE2321	7-Dehydrodesmosterol$cholesta-5,7,24-trien-3beta-ol
+E3356	row6020	row6020_M+H[1+]	C04352	N-((R)-4-Phosphopantothenoyl)-L-cysteine
+E3359	row6066	row6066_M+Na[1+]	C03239;C02946;C04076	6-Amino-2-oxohexanoate; 2-Oxo-6-aminocaproate$4-Acetamidobutanoate$L-2-Aminoadipate 6-semialdehyde; 2-Aminoadipate 6-semialdehyde
+E3366	row7700	row7700_M+Na[1+]	C00385	Xanthine
+E3392	row7137	row7137_M+Na[1+]	C06948	Diazepam
+E3404	row7601	row7601_M+Na[1+]	C11376	SN38 glucuronide; SN-38G
+E3408	row7700	row7700_M+H[1+]	C00425;C00417	Dehydroascorbate$cis-Aconitate; cis-Aconitic acid
+E3409	row7781	row7781_M+Na[1+]	1mncam;C02918	1-Methylnicotinamide$1-Methylnicotinamide

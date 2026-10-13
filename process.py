@@ -272,19 +272,25 @@ def vip_scores(pls):
     return np.sqrt(p * (wn @ s).ravel() / total)
 
 
+def plsda_cv_predictions(Z, y, ncomp=2, seed=SEED):
+    """Предсказания PLS-DA из одной стратифицированной 5-fold CV (Pareto внутри фолда)."""
+    skf = StratifiedKFold(5, shuffle=True, random_state=seed)
+    pred = np.zeros(len(y))
+    for tr, te in skf.split(Z, y):
+        Ztr = Z[tr]
+        mu, sd = Ztr.mean(0), np.sqrt(Ztr.std(0, ddof=1))
+        sd[sd == 0] = 1
+        m = PLSRegression(ncomp, scale=False).fit((Ztr - mu) / sd, y[tr])
+        pred[te] = m.predict((Z[te] - mu) / sd).ravel()
+    return pred
+
+
 def plsda_cv(Z, y, ncomp=2, n_rep=5, seed=SEED):
     """Повторная стратифицированная 5-fold CV, возвращает средний AUC и Q2."""
     rng = np.random.RandomState(seed)
     aucs, q2s = [], []
     for r in range(n_rep):
-        skf = StratifiedKFold(5, shuffle=True, random_state=rng.randint(1e6))
-        pred = np.zeros(len(y))
-        for tr, te in skf.split(Z, y):
-            Ztr = Z[tr]
-            mu, sd = Ztr.mean(0), np.sqrt(Ztr.std(0, ddof=1))
-            sd[sd == 0] = 1
-            m = PLSRegression(ncomp, scale=False).fit((Ztr - mu) / sd, y[tr])
-            pred[te] = m.predict((Z[te] - mu) / sd).ravel()
+        pred = plsda_cv_predictions(Z, y, ncomp, seed=rng.randint(1e6))
         aucs.append(roc_auc_score(y, pred))
         q2s.append(1 - ((y - pred) ** 2).sum() / ((y - y.mean()) ** 2).sum())
     return float(np.mean(aucs)), float(np.mean(q2s))
@@ -485,6 +491,7 @@ def main():
         "BC_vs_Control": (smp[cls == "BC"], ctrl),
         "PC_vs_Control": (smp[cls == "PC"], ctrl),
         "PC_vs_maleControl": (smp[cls == "PC"], ctrl[sex_s[ctrl] == "м"]),
+        "BC_vs_PC": (smp[cls == "BC"], smp[cls == "PC"]),
         "Cancer_vs_Control_males": (smp[(meta.loc[smp, "Group"] == "Cancer") & (sex_s == "м")],
                                     ctrl[sex_s[ctrl] == "м"]),
     }
@@ -509,7 +516,7 @@ def main():
     # --- PLS-DA: Cancer vs Control (и BC, PC)
     pls_rows = []
     rng = np.random.RandomState(SEED)
-    for name in ["Cancer_vs_Control", "BC_vs_Control", "PC_vs_Control"]:
+    for name in ["Cancer_vs_Control", "BC_vs_Control", "PC_vs_Control", "BC_vs_PC"]:
         a, b = comps[name]
         idx = list(a) + list(b)
         y = np.r_[np.ones(len(a)), np.zeros(len(b))]
@@ -528,7 +535,7 @@ def main():
         sc = pd.DataFrame(pls.x_scores_, index=idx)
         for c, col in [(1, "#d7301f"), (0, "#2b7bba")]:
             ax[0].scatter(sc[y == c][0], sc[y == c][1], c=col, s=25, edgecolor="k", lw=0.3,
-                          label=name.split("_vs_")[0] if c else "Control")
+                          label=name.split("_vs_")[c == 0])
         ax[0].set_xlabel("t1")
         ax[0].set_ylabel("t2")
         ax[0].legend()
