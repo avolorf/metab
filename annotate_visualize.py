@@ -86,6 +86,7 @@ def match_feature(info, rt, mz):
 def check_curation(path, info, uni):
     from mummichog.compound_dicts import hmdb_dict, kegg_dict
     cur = pd.read_csv(path)
+    cur["name_en"] = cur["name_en"].fillna("")
     rows = []
     for _, r in cur.iterrows():
         f = match_feature(info, r.rt_min, r.mz)
@@ -144,22 +145,37 @@ def hmdb_mass_candidates(mzs, ppm=PPM):
 
 
 # ----------------------------------------------------------------------------- mummichog
-def run_mummichog(uni, comp, cutoff, outdir):
-    d = uni[uni.comparison == comp]
-    tab = pd.DataFrame({"m/z": d.mz, "retention_time": d.rt_min * 60, "p-value": d.p_MW,
-                        "t-score": np.sign(d.log2FC_mean) * -np.log10(d.p_MW), "custom_id": d.index})
+def peak_table(uni, comp, exclude):
+    """m/z, RT, p, знаковая статистика. p и знак – из модели с поправкой на пол (если она есть).
+    Знаковая статистика = sign(log2FC) * -log10(p): mummichog использует её только для отчёта,
+    GSEA в MetaboAnalyst – для ранжирования."""
+    d = uni[(uni.comparison == comp) & ~uni.index.isin(exclude)]
+    adj = d.p_sex_adj.notna().all()
+    p = d.p_sex_adj if adj else d.p_MW
+    fc = d.log2FC_sex_adj if adj else d.log2FC_mean
+    return pd.DataFrame({"mz": d.mz, "rt_sec": d.rt_min * 60, "p": p, "t": np.sign(fc) * -np.log10(p),
+                         "id": d.index}), ("линейная модель с поправкой на пол" if adj else "Манн-Уитни")
+
+
+def run_mummichog(uni, comp, outdir, exclude, top_frac=0.10, n_perm=500):
+    """mummichog 2: значимыми считаются top_frac признаков с наименьшим p (как top 10 % в MetaboAnalyst)."""
+    tab, ptype = peak_table(uni, comp, exclude)
+    cutoff = float(np.quantile(tab.p, top_frac))
     outdir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         tab.to_csv(Path(tmp) / "input.txt", sep="\t", index=False)
         subprocess.run(["mummichog", "-f", "input.txt", "-o", comp, "-m", "positive", "-u", str(PPM),
-                        "-c", str(cutoff), "-p", "100"], cwd=tmp, check=True, capture_output=True)
+                        "-c", f"{cutoff:.3g}", "-p", str(n_perm)], cwd=tmp, check=True, capture_output=True)
         res = next(p for p in Path(tmp).iterdir() if p.is_dir())
         shutil.rmtree(outdir)
         # только таблицы и PDF-графики (HTML-отчёт тянет ~10 МБ plotly)
         for sub in ["tables", "figures"]:
             shutil.copytree(res / sub, outdir / sub)
     pw = pd.read_csv(outdir / "tables" / f"mcg_pathwayanalysis_{comp}.tsv", sep="\t")
-    return pw
+    settings = dict(comparison=comp, p_source=ptype, n_features=len(tab), n_significant=int((tab.p < cutoff).sum()),
+                    p_cutoff=cutoff, excluded_contaminants=len(exclude), permutations=n_perm, ppm=PPM,
+                    mode="positive", model="human MFN (mummichog 2.7)")
+    return pw, settings
 
 
 def plot_pathways(pw, path, title, top=15):
@@ -308,11 +324,23 @@ def contaminant_plot(L, meta, cur, path):
 
 
 # ----------------------------------------------------------------------------- экспорт
-def export_external(L, info, uni, meta, cur, out):
+SRC_LATIN = {"ДР": "DR", "Вместо": "DR", "ОД": "OD", "МНН": "MNN", "РМП": "RMP", "КГ": "KG", "RR": "RR",
+             "num": "num", "QC": "QC"}
+
+
+def export_external(L, info, uni, meta, cur, out, n_iqr=5000):
     out.mkdir(parents=True, exist_ok=True)
-    names = (info.mz.round(4).astype(str) + "/" + info.rt_min.round(3).astype(str))
+    for f in out.iterdir():
+        f.unlink()
+    names = (info.mz.round(4).astype(str) + "__" + info.rt_min.round(3).astype(str))
     X = 2 ** L  # PQN-нормализованные, импутированные (без log)
     X.columns = names[X.columns]
+    smp_all = meta.index[meta["class"] != "QC"]
+    # неконтролируемый фильтр по IQR (как в MetaboAnalyst) — не использует метки групп
+    iqr = L.loc[smp_all].quantile(0.75) - L.loc[smp_all].quantile(0.25)
+    top_iqr = names[iqr.sort_values(ascending=False).index[:n_iqr]]
+
+    # 1. Statistical Analysis [one factor] и Biomarker Analysis
     sets = {"BC_vs_Control": ["BC", "Control"], "PC_vs_Control": ["PC", "Control"],
             "BC_PC_Control": ["BC", "PC", "Control"]}
     for n, groups in sets.items():
@@ -320,24 +348,41 @@ def export_external(L, info, uni, meta, cur, out):
         t = X.loc[smp].copy()
         t.insert(0, "Label", meta.loc[smp, "class"])
         t.index.name = "Sample"
-        t.to_csv(out / f"metaboanalyst_stats_{n}.csv", float_format="%.5g")
+        t.to_csv(out / f"1_stats_{n}_all{X.shape[1]}.csv", float_format="%.5g")
+        t[["Label"] + list(top_iqr)].to_csv(out / f"1_stats_{n}_IQRtop{n_iqr}.csv", float_format="%.5g")
+
+    # 2. Statistical Analysis [metadata table] — поправка на пол (2 образца без пола исключены)
+    smp = meta.index[meta["class"].isin(["BC", "PC", "Control"]) & meta["sex"].notna()]
+    d = X.loc[smp, top_iqr].copy()
+    d.index.name = "Sample"
+    d.to_csv(out / f"2_metadata_module_data_IQRtop{n_iqr}.csv", float_format="%.5g")
+    md = pd.DataFrame({"Class": meta.loc[smp, "class"],
+                       "Sex": meta.loc[smp, "sex"].map({"м": "M", "ж": "F"}),
+                       "Source": meta.loc[smp, "source"].map(SRC_LATIN)}, index=smp)
+    md.index.name = "Sample"
+    md.to_csv(out / "2_metadata_module_metadata.csv")
+
+    # 3. Functional Analysis (MS peaks to pathways): m.z, p.value, t.score, r.t
+    contam = set(cur.loc[cur.category.str.startswith("контаминант"), "feature"])
     for comp in ["BC_vs_Control", "PC_vs_Control", "BC_vs_PC"]:
-        d = uni[uni.comparison == comp]
-        pd.DataFrame({"m.z": d.mz, "p.value": d.p_MW, "t.score": np.sign(d.log2FC_mean) * -np.log10(d.p_MW),
-                      "r.t": d.rt_min * 60}).to_csv(out / f"metaboanalyst_peaks_{comp}.txt", sep="\t", index=False)
+        tab, _ = peak_table(uni, comp, contam)
+        tab.rename(columns={"mz": "m.z", "p": "p.value", "t": "t.score", "rt_sec": "r.t"})[
+            ["m.z", "p.value", "t.score", "r.t"]].to_csv(out / f"3_peaks_{comp}.txt", sep="\t", index=False)
+
+    # 4–5. Enrichment Analysis / Pathway Analysis — списки соединений, по одному типу ID на файл
     good = cur[~cur.category.str.startswith(("неоднозн", "контаминант"))]
     for focus in ["BC", "PC"]:
         g = good[good.focus == focus]
-        (out / f"metaboanalyst_msea_{focus}.txt").write_text(
-            "\n".join(g.hmdb.where(g.hmdb != "", g["name"]).drop_duplicates()), encoding="utf-8")
+        (out / f"4_compounds_{focus}_HMDB.txt").write_text("\n".join(g.hmdb[g.hmdb != ""].drop_duplicates()))
+        (out / f"4_compounds_{focus}_names.txt").write_text("\n".join(g.name_en[g.name_en != ""].drop_duplicates()))
         k = g[g.kegg != ""]
         col = np.where(k[f"{focus}_vs_Control_log2FC"] > 0, "red", "blue")
-        (out / f"kegg_mapper_{focus}.txt").write_text(
-            "\n".join(f"{a} {c}" for a, c in zip(k.kegg, col)), encoding="utf-8")
+        (out / f"6_kegg_mapper_{focus}.txt").write_text("\n".join(f"{a} {c}" for a, c in zip(k.kegg, col)))
+    # 7. METLIN / HMDB LC-MS search
     sig = uni[(uni.q_MW < 0.05) & uni.comparison.isin(["BC_vs_Control", "PC_vs_Control"])]
-    sig = sig[~sig.index.duplicated()]
-    (out / "metlin_hmdb_batch_mz.txt").write_text("\n".join(f"{m:.5f}" for m in sig.mz.sort_values()))
-    sig[["mz", "rt_min", "annotation"]].sort_values("mz").to_csv(out / "metlin_hmdb_batch_mz_rt.csv")
+    sig = sig[~sig.index.duplicated() & ~sig.index.isin(contam)]
+    (out / "7_metlin_hmdb_mz.txt").write_text("\n".join(f"{m:.5f}" for m in sig.mz.sort_values()))
+    sig[["mz", "rt_min", "annotation"]].sort_values("mz").to_csv(out / "7_metlin_hmdb_mz_rt.csv")
 
 
 # ----------------------------------------------------------------------------- main
@@ -367,13 +412,16 @@ def main():
         sig_tabs[comp] = u
 
     # mummichog
-    pws = {}
+    pws, mcg_settings = {}, []
+    contam = set(cur.loc[cur.category.str.startswith("контаминант"), "feature"])
     if not a.no_mummichog:
-        for comp, cut in [("BC_vs_Control", 0.01), ("PC_vs_Control", 0.05), ("BC_vs_PC", 0.05)]:
-            pw = run_mummichog(uni, comp, cut, res / "mummichog" / comp)
+        for comp in ["BC_vs_Control", "PC_vs_Control", "BC_vs_PC"]:
+            pw, st = run_mummichog(uni, comp, res / "mummichog" / comp, contam)
             pws[comp] = pw
-            plot_pathways(pw, fig / f"10_pathways_{comp}.png", f"mummichog: {comp} (p<{cut})")
-            print(f"mummichog {comp}: путей с p<0.05 — {(pw['p-value'] < 0.05).sum()}")
+            mcg_settings.append(st)
+            plot_pathways(pw, fig / f"10_pathways_{comp}.png",
+                          f"mummichog: {comp} (топ-10 %: p<{st['p_cutoff']:.2g}, {st['n_significant']} пиков)")
+            print(f"mummichog {comp}: {st}; путей с p<0.05 — {(pw['p-value'] < 0.05).sum()}")
 
     # тепловые карты
     for comp, case, ctrl in [("BC_vs_Control", ["BC"], ["Control"]), ("PC_vs_Control", ["PC"], ["Control"]),
@@ -401,13 +449,15 @@ def main():
     export_external(L, info, uni, meta, cur, res / "external")
 
     with pd.ExcelWriter(res / "compounds_BC_PC.xlsx") as w:
-        cols = ["focus", "category", "name", "formula", "ion", "rt_min", "mz", "theo_mz", "ppm", "hmdb", "kegg",
+        cols = ["focus", "category", "name", "name_en", "formula", "ion", "rt_min", "mz", "theo_mz", "ppm", "hmdb", "kegg",
                 "BC_vs_Control_log2FC", "BC_vs_Control_AUC", "BC_vs_Control_q", "BC_vs_Control_q_sexadj",
                 "PC_vs_Control_log2FC", "PC_vs_Control_AUC", "PC_vs_Control_q", "PC_vs_Control_q_sexadj",
                 "PC_vs_maleControl_q", "BC_vs_PC_log2FC", "BC_vs_PC_q", "comment", "feature"]
         cur[cols].to_excel(w, sheet_name="curated_candidates", index=False)
         for comp, u in sig_tabs.items():
             u.drop(columns=["comparison"]).to_excel(w, sheet_name=f"sig_{comp}"[:31])
+        if mcg_settings:
+            pd.DataFrame(mcg_settings).to_excel(w, sheet_name="mummichog_settings", index=False)
         for comp, pw in pws.items():
             pw.to_excel(w, sheet_name=f"pathways_{comp}"[:31], index=False)
         cont.to_excel(w, sheet_name="contaminant_index")
