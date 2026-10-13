@@ -1,306 +1,219 @@
 CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
-C00082	L-Tyrosine	2.4913446226154754	row720	E257
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.5202179484028346	row702	E521
-C00267	alpha-D-Glucose	-2.122197546138344	row986	E238
-C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-2.828685034589074	row496	E1192
-CE5627	salsoline-1-carboxylate	-3.4950010230509565	row222	E739
-C00082	L-Tyrosine	-2.779153423261336	row526	E257
-C02763	enol-Phenylpyruvate	-2.020480337376924	row1100	E1110
-C05589	L-Normetanephrine	-2.585497261710057	row657	E139
-C05577	3,4-Dihydroxymandelaldehyde	-2.828685034589074	row496	E1192
-CE2174		-2.0858789136772558	row1038	E258
-C05649	Dihydropteridine; 6,7-Dihydropteridine	-3.050853134456142	row387	E1079
-C00267	alpha-D-Glucose	-3.2767694984805993	row295	E238
-C02953	7,8-Dihydrobiopterin	2.7300693090858017	row560	E1473
-C02442	N-Methyltyramine	-2.929092560289699	row442	E1227
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.175786057107311	row939	E519
-C16608	Demethylcitalopram	2.353448598839123	row813	E1890
-C01194	Phosphatidylinositol	3.625648546579071	row194	E681
-C00221	beta-D-Glucose	-2.122197546138344	row986	E238
-C04742	(15S)-15-Hydroxy-5,8,11-cis-13-trans-eicosatetraenoate; (15S)-15-Hydroxy-5,8,11-cis-13-trans-icosatetraenoate; (5Z,8Z,11Z,13E)-(15S)-15-Hydroxyicosa-5,8,11,13-tetraenoic acid; 15(S)-HETE	-3.72048070309888	row165	E628
-C02744	Psychosine sulfate	4.60958839564024	row44	E113
-C05638	5-Hydroxykynurenamine	-3.739598546303093	row161	E590
-C00221	beta-D-Glucose	-3.2767694984805993	row295	E238
-CE2705	quinonoid dihydrobiopterin	-2.617277351549004	row641	E521
-C14769	8,9-EET; (5Z,11Z,14Z)-8,9-Epoxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Epoxyicosa-5,11,14-trienoic acid	-3.72048070309888	row165	E628
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-3.8748380948931263	row135	E519
-C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-3.1681697391335546	row337	E139
-C06199	Hordenine; 4-[2-(Dimethylamino)ethyl]phenol	-3.135454973641148	row349	E1007
-C07480		-4.295443212081767	row71	E249
-C14748	20-Hydroxyeicosatetraenoic acid	-3.72048070309888	row165	E628
-C00055	CMP	2.5696814901383944	row667	E351
-C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-3.2961393988870666	row282	E136
-C06124	Sphingosine 1-phosphate	2.7209128049496316	row564	E1483
-CE2174		-2.3383731796927774	row826	E257
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.460355785124199	row745	E528
-C00544	Homogentisate	-2.96296052848124	row434	E1192
-C02763	enol-Phenylpyruvate	-2.5696814901383944	row666	E1108
-CE2172		-3.2961393988870666	row282	E860
-C05587	3-Methoxytyramine	-3.933556397249814	row119	E434
-C00079	L-Phenylalanine	-3.11783836961788	row362	E860
-C04244	6-Lactoyl-5,6,7,8-tetrahydropterin	2.7300693090858017	row560	E1473
-C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-3.1681697391335546	row337	E965
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	2.606846493003314	row642	E519
-C00082	L-Tyrosine	-3.7305111510259232	row164	E257
-C00249	Hexadecanoate (n-C16:0)	-2.553946681400747	row679	E1437
-CE2173		-2.3685732367201764	row804	E528
-C00267	alpha-D-Glucose	-2.3383731796927774	row826	E239
-tymsf	Tyramine O-sulfate	-4.053406268872633	row100	E353
-C00962	beta-D-Galactose	-3.2767694984805993	row295	E238
-CE5541	adrenochrome o-semiquinone	-3.2767694984805993	row295	E250
-C00331	Indolepyruvate; Indolepyruvic acid; (Indol-3-yl)pyruvate; Indole-3-pyruvate; 3-(Indol-3-yl)pyruvate	-2.309354687781971	row836	E468
-C05589	L-Normetanephrine	-4.7820689609188545	row34	E138
-C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.937379818564269	row441	E1207
-C00811	4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate	-2.020480337376924	row1100	E1110
-C07480		-3.2767694984805993	row295	E250
-C07480		-3.050853134456142	row387	E250
-C05582	Homovanillate; Homovanillic acid	-2.997028107197213	row410	E1118
-CE2705	quinonoid dihydrobiopterin	2.175786057107311	row936	E522
-C00221	beta-D-Glucose	-2.3383731796927774	row826	E239
-C05580	3,4-Dihydroxymandelate	-3.050853134456142	row387	E667
-C00055	CMP	4.092366488458951	row95	E351
-C02763	enol-Phenylpyruvate	-2.0858789136772558	row1038	E1110
-C00836	Sphinganine	2.795614215806866	row519	E653
-CE2174		-2.033121424378827	row1090	E257
-C05589	L-Normetanephrine	-2.4838840350412372	row726	E139
-C00221	beta-D-Glucose	-4.295443212081767	row71	E237
-CE2173		-3.083846624923314	row373	E528
-CE5627	salsoline-1-carboxylate	-2.861954943443473	row475	E739
-C05839	cis-beta-D-Glucosyl-2-hydroxycinnamate; beta-D-Glucosyl-2-coumarinate	-3.2026890580054546	row320	E929
-C00082	L-Tyrosine	-2.997028107197213	row410	E259
-C00079	L-Phenylalanine	-2.697594947008443	row579	E864
-C03758	Dopamine	-2.278563279446787	row859	E610
-CE1918	5-hydroxytryptophol	-2.804212350897281	row516	E1048
-CE2176	3-O-methyldopa	-2.2791177879125297	row857	E452
-C13690	Dopamine 3-O-sulfate	-2.1181338991772525	row991	E708
-C01179	3-(4-Hydroxyphenyl)pyruvate	2.3685732367201764	row799	E1518
-C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-2.122197546138344	row986	E238
-C00811	4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate	-2.997028107197213	row410	E1111
-CE5629	1,2-dehydrosalsolinol	-2.649255625460126	row610	E1048
-C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-3.72048070309888	row167	E317
-CE2174		-3.2767694984805993	row295	E257
-C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-3.2767694984805993	row295	E238
-C02744	Psychosine sulfate	4.546080203069202	row47	E113
-C06350		-3.1541969249282746	row339	E984
-C15646	1-(1-Alkenyl)-sn-glycero-3-phosphate	4.152756610999658	row88	E318
-CE2176	3-O-methyldopa	-3.8303854757939773	row141	E452
-C05589	L-Normetanephrine	-2.697594947008443	row579	E139
-C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid	-2.6820968142500297	row582	E1501
-C05582	Homovanillate; Homovanillic acid	-2.5696814901383944	row666	E1116
-C00219	arachidonic acid	2.1038431017643577	row1011	E2088
-C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-2.020480337376924	row1100	E1118
-C16591	3-Carbamoyl-2-phenylpropionic acid	-2.033121424378827	row1090	E185
-C02744	Psychosine sulfate	3.6823964654526975	row182	E113
-C06199	Hordenine; 4-[2-(Dimethylamino)ethyl]phenol	-2.829390152005701	row490	E1007
-CE5536	adrenochrome	-2.6820968142500297	row582	E1508
-C00166	Phenylpyruvate	-2.0858789136772558	row1038	E1110
-C00962	beta-D-Galactose	-2.3383731796927774	row826	E239
-C00079	L-Phenylalanine	-2.979869757686493	row425	E864
-C12144	Phytosphingosine; 4-D-Hydroxysphinganine	2.308369915682518	row841	E1921
-CE5536	adrenochrome	2.4913446226154754	row721	E1510
-C00355	3,4-Dihydroxy-L-phenylalanine	-3.7305111510259232	row164	E613
-CE2705	quinonoid dihydrobiopterin	-2.147770273868168	row963	E519
-C00962	beta-D-Galactose	-4.295443212081767	row71	E237
-CE5541	adrenochrome o-semiquinone	-4.295443212081767	row71	E249
-C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-2.7300693090858017	row561	E317
-C05582	Homovanillate; Homovanillic acid	-2.0858789136772558	row1038	E1118
-C00831	Pantetheine; (R)-Pantetheine	-2.828685034589074	row495	E14
-C05350	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate	2.3685732367201764	row799	E1518
-C13747	1,7-Dimethylxanthine; Paraxanthine	-3.2767694984805993	row295	E250
-CE2705	quinonoid dihydrobiopterin	2.078409491926307	row1044	E521
-C16591	3-Carbamoyl-2-phenylpropionic acid	-2.6423864258926733	row616	E187
-CE2176	3-O-methyldopa	-3.2961393988870666	row282	E448
-C00547	Norepinephrine	2.4913446226154754	row721	E1773
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.804212350897281	row516	E528
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.204905830437598	row912	E521
-CE2174		2.4913446226154754	row720	E257
-CE2174		-2.779153423261336	row526	E257
-C05588	L-Metanephrine	-2.845295094425542	row485	E722
-C00588	Choline phosphate	2.7463809870337887	row548	E1432
-C05587	3-Methoxytyramine	-3.8303854757939773	row141	E433
-C07453	Epinine; Deoxyepinephrine	-3.8303854757939773	row141	E433
-C15646	1-(1-Alkenyl)-sn-glycero-3-phosphate	-2.7139419678072896	row567	E319
-C00835	Sepiapterin	2.7300693090858017	row560	E1482
-CE2705	quinonoid dihydrobiopterin	-2.665319126669672	row598	E519
-CE2176	3-O-methyldopa	-2.697594947008443	row579	E452
-C00822	Dopaquinone	2.4913446226154754	row721	E1785
-CE2176	3-O-methyldopa	-2.4838840350412372	row726	E452
-C05587	3-Methoxytyramine	-2.3685732367201764	row804	E430
-C07453	Epinine; Deoxyepinephrine	-2.3685732367201764	row804	E430
-C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-2.3383731796927774	row826	E239
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.452669518154386	row748	E528
-C00962	beta-D-Galactose	-2.122197546138344	row986	E238
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.649255625460126	row610	E528
-C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-4.295443212081767	row71	E237
-CE2172		-3.11783836961788	row362	E860
-C05582	Homovanillate; Homovanillic acid	-2.020480337376924	row1100	E1118
-CE5626	salsolinol 1-carboxylate	-2.284689882620272	row855	E462
-CE5541	adrenochrome o-semiquinone	-3.050853134456142	row387	E250
-C05838	cis-2-Hydroxycinnamate; 2-Coumarinate	-2.020480337376924	row1100	E1110
-C00544	Homogentisate	-2.828685034589074	row496	E1192
-C03684	6-Pyruvoyl-5,6,7,8-tetrahydropterin	2.7300693090858017	row560	E1482
-C00137	myo-Inositol	-2.122197546138344	row986	E238
-C00831	Pantetheine; (R)-Pantetheine	-3.7876626987334188	row149	E15
-C05580	3,4-Dihydroxymandelate	3.625648546579071	row194	E668
-CE1918	5-hydroxytryptophol	-3.083846624923314	row373	E1046
-C05350	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate	-2.6820968142500297	row582	E1516
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.929092560289699	row442	E528
-C00137	myo-Inositol	-3.2767694984805993	row295	E238
-C03758	Dopamine	2.293442029508503	row852	E608
-C16587	3-Carbamoyl-2-phenylpropionaldehyde	-3.1681697391335546	row337	E965
-CE2176	3-O-methyldopa	-2.1707424005926903	row945	E448
-C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.585497261710057	row657	E139
-C00835	Sepiapterin	2.460355785124199	row742	E1482
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.617277351549004	row641	E521
-CE2176	3-O-methyldopa	-2.979869757686493	row425	E452
-C05588	L-Metanephrine	-2.81212474729785	row506	E722
-C13747	1,7-Dimethylxanthine; Paraxanthine	-4.295443212081767	row71	E249
-C00795	D-Tagatose; lyxo-Hexulose	-4.295443212081767	row71	E237
-CE2172		-2.697594947008443	row579	E864
-CE2172		-2.4838840350412372	row726	E864
-C01197	Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate	2.3685732367201764	row799	E1518
-C05838	cis-2-Hydroxycinnamate; 2-Coumarinate	-2.997028107197213	row410	E1111
-CE2173		-2.460355785124199	row745	E528
-C14778	16(R)-HETE; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyeicosa-5,8,11,14-tetraenoic acid; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyicosa-5,8,11,14-tetraenoic acid	-3.72048070309888	row165	E628
-C03684	6-Pyruvoyl-5,6,7,8-tetrahydropterin	2.460355785124199	row742	E1482
-C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-2.997028107197213	row410	E1118
-CE2174		-3.7305111510259232	row164	E257
-C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-2.7463809870337887	row550	E317
-CE5538	noradrenochrome	-2.398970249779374	row779	E1839
-C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.929092560289699	row442	E1204
-C05588	L-Metanephrine	-2.937379818564269	row441	E722
-C00079	L-Phenylalanine	-3.1681697391335546	row337	E864
-CE2176	3-O-methyldopa	-2.3685732367201764	row804	E448
-CE1918	5-hydroxytryptophol	-2.649255625460126	row610	E1048
-C01586	Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid	-2.6820968142500297	row582	E1508
-C00811	4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate	-2.5696814901383944	row666	E1108
-C05838	cis-2-Hydroxycinnamate; 2-Coumarinate	-2.5696814901383944	row666	E1108
-CE2705	quinonoid dihydrobiopterin	-2.5202179484028346	row702	E521
-C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-2.7300693090858017	row561	E317
-C01586	Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid	2.4913446226154754	row721	E1510
-C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid	2.3685732367201764	row799	E1504
-C00795	D-Tagatose; lyxo-Hexulose	-2.122197546138344	row986	E238
-C00079	L-Phenylalanine	-3.2961393988870666	row282	E860
-C14771	14,15-EET; (5Z,8Z,11Z)-14,15-Epoxyeicosa-5.8.11-trienoic acid; (5Z,8Z,11Z)-14,15-Epoxyicosa-5.8.11-trienoic acid	-3.72048070309888	row165	E628
-CE2172		-2.979869757686493	row425	E864
-C05581	3-Methoxy-4-hydroxyphenylacetaldehyde	2.7463809870337887	row548	E1424
-C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-2.5696814901383944	row666	E1116
-C05589	L-Normetanephrine	-3.1681697391335546	row337	E139
-CE5541	adrenochrome o-semiquinone	-2.3383731796927774	row826	E252
-CE2705	quinonoid dihydrobiopterin	-2.175786057107311	row939	E519
-C00795	D-Tagatose; lyxo-Hexulose	-3.2767694984805993	row295	E238
-C00864	(R)-Pantothenate	-2.4838840350412372	row726	E304
-C07480		-2.3383731796927774	row826	E252
-C13747	1,7-Dimethylxanthine; Paraxanthine	-3.050853134456142	row387	E250
-C00984	alpha-D-Galactose	-3.2767694984805993	row295	E238
-C00137	myo-Inositol	-2.3383731796927774	row826	E239
-C00831	Pantetheine; (R)-Pantetheine	5.203962870857199	row20	E14
-C00159	D-Mannose	-4.295443212081767	row71	E237
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	2.175786057107311	row936	E522
-C00984	alpha-D-Galactose	-2.122197546138344	row986	E238
-C00082	L-Tyrosine	-2.0858789136772558	row1038	E258
-C01179	3-(4-Hydroxyphenyl)pyruvate	-2.6820968142500297	row582	E1516
-C00137	myo-Inositol	-4.295443212081767	row71	E237
-C05588	L-Metanephrine	-2.929092560289699	row442	E718
-CE2174		-4.295443212081767	row71	E257
-C05589	L-Normetanephrine	-3.2961393988870666	row282	E136
-C05594	3-Methoxy-4-hydroxyphenylethyleneglycol	2.7463809870337887	row548	E1432
-C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-4.7820689609188545	row34	E138
-C00031	D-Glucose	-2.122197546138344	row986	E238
-C00811	4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate	-2.0858789136772558	row1038	E1110
-C02744	Psychosine sulfate	4.274907061725355	row72	E113
-CE2705	quinonoid dihydrobiopterin	-3.8748380948931263	row135	E519
-C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	2.878664598170963	row465	E1204
-C00031	D-Glucose	-3.2767694984805993	row295	E238
-C00864	(R)-Pantothenate	-2.697594947008443	row579	E304
-C05638	5-Hydroxykynurenamine	2.8140873035429683	row503	E590
-C05653	N-Formylanthranilate	-2.398970249779374	row779	E1839
-C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-2.0858789136772558	row1038	E1118
-C14749	19(S)-HETE; (19S)-Hydroxyeicosatetraenoic acid; (19S)-Hydroxyicosatetraenoic acid; (19S)-Hydroxy arachidonic acid	-3.72048070309888	row165	E628
-C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-2.96296052848124	row434	E1192
-C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.4838840350412372	row726	E139
-C05587	3-Methoxytyramine	-2.2791177879125297	row857	E434
-C07453	Epinine; Deoxyepinephrine	-2.2791177879125297	row857	E434
-C00329	D-Glucosamine	-2.122197546138344	row986	E2058
-C14770	11,12-EET	-3.72048070309888	row165	E628
-C00159	D-Mannose	-2.122197546138344	row986	E238
-C16591	3-Carbamoyl-2-phenylpropionic acid	-3.1681697391335546	row337	E188
-CE6316	N,N-dimethyldopaminequinone	-2.845295094425542	row485	E1287
-C16591	3-Carbamoyl-2-phenylpropionic acid	-4.630938714156547	row42	E188
-C14768	5,6-EET; (8Z,11Z,14Z)-5,6-Epoxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Epoxyicosa-8,11,14-trienoic acid	-3.72048070309888	row165	E628
-C00159	D-Mannose	-3.2767694984805993	row295	E238
-C02744	Psychosine sulfate	5.046288929588704	row26	E113
-CE2705	quinonoid dihydrobiopterin	2.606846493003314	row642	E519
-C00082	L-Tyrosine	-2.3383731796927774	row826	E257
-CE2176	3-O-methyldopa	-3.1681697391335546	row337	E452
-C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-2.553946681400747	row679	E317
-C00355	3,4-Dihydroxy-L-phenylalanine	-2.507221455474861	row706	E613
-C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-3.72048070309888	row167	E317
-C00864	(R)-Pantothenate	-3.2961393988870666	row282	E298
-C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.697594947008443	row579	E139
-C15658	6-(alpha-D-Glucosaminyl)-1D-myo-inositol	-3.031295422394777	row398	E1096
-C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.845295094425542	row485	E1207
-C00831	Pantetheine; (R)-Pantetheine	7.131176436617414	row3	E15
-CE5025	5-S-glutathionyl-dopamine	2.414272228952749	row769	E1821
-CE2173		-2.804212350897281	row516	E528
-CE5016	13,14-dihydroxy-retinol	-3.72048070309888	row165	E628
-C00795	D-Tagatose; lyxo-Hexulose	-2.3383731796927774	row826	E239
-C00984	alpha-D-Galactose	-2.3383731796927774	row826	E239
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.147770273868168	row963	E519
-C03711	N-Methylphenylethanolamine	-2.929092560289699	row442	E1227
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.3685732367201764	row804	E528
-C13747	1,7-Dimethylxanthine; Paraxanthine	-2.3383731796927774	row826	E252
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	2.078409491926307	row1044	E521
-C00984	alpha-D-Galactose	-4.295443212081767	row71	E237
-C05588	L-Metanephrine	2.878664598170963	row465	E718
-C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	2.4913446226154754	row721	E1785
-C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-2.7463809870337887	row550	E317
-C00670	sn-Glycero-3-phosphocholine	2.828685034589074	row497	E1340
-C05839	cis-beta-D-Glucosyl-2-hydroxycinnamate; beta-D-Glucosyl-2-coumarinate	-2.413738645777542	row771	E928
-C03758	Dopamine	-3.3357218704942135	row269	E610
-C00031	D-Glucose	-2.3383731796927774	row826	E239
-CE2173		-2.452669518154386	row748	E528
-CE2176	3-O-methyldopa	3.9139330285058773	row122	E448
-C02763	enol-Phenylpyruvate	-2.997028107197213	row410	E1111
-C00831	Pantetheine; (R)-Pantetheine	4.213603373580745	row82	E15
-C02744	Psychosine sulfate	4.0125561509429275	row104	E113
-CE2173		-2.649255625460126	row610	E528
-C00031	D-Glucose	-4.295443212081767	row71	E237
-CE5236	O2'-4a-cyclic-tetrahydrobiopterin	-2.665319126669672	row598	E519
-C00082	L-Tyrosine	-2.033121424378827	row1090	E257
-C00166	Phenylpyruvate	-2.020480337376924	row1100	E1110
-CE2172		-3.1681697391335546	row337	E864
-C16586	2-Phenyl-1,3-propanediol monocarbamate	-3.083846624923314	row373	E528
-C05588	L-Metanephrine	-3.5192169869393926	row218	E720
-C00670	sn-Glycero-3-phosphocholine	-2.828685034589074	row498	E1339
-C05588	L-Metanephrine	-2.507221455474861	row705	E722
-CE2173		-2.929092560289699	row442	E528
-C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.81212474729785	row506	E1208
-C00355	3,4-Dihydroxy-L-phenylalanine	2.4913446226154754	row721	E615
-C00159	D-Mannose	-2.3383731796927774	row826	E239
-C00082	L-Tyrosine	-3.2767694984805993	row295	E257
-C07453	Epinine; Deoxyepinephrine	-3.933556397249814	row119	E434
-CE5629	1,2-dehydrosalsolinol	-3.083846624923314	row373	E1046
-CE2174		-2.997028107197213	row410	E259
-C00314	Pyridoxine	2.4913446226154754	row721	E1773
-C01197	Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate	-2.6820968142500297	row582	E1516
-C00166	Phenylpyruvate	-2.997028107197213	row410	E1111
-C05638	5-Hydroxykynurenamine	-3.7014133468861345	row172	E590
-C00836	Sphinganine	3.6823964654526975	row178	E653
-CE5629	1,2-dehydrosalsolinol	-2.804212350897281	row516	E1048
-C00267	alpha-D-Glucose	-4.295443212081767	row71	E237
-C05838	cis-2-Hydroxycinnamate; 2-Coumarinate	-2.0858789136772558	row1038	E1110
-C00268	6,7-Dihydrobiopterin	2.7300693090858017	row560	E1473
-CE2705	quinonoid dihydrobiopterin	-2.204905830437598	row912	E521
-C00249	Hexadecanoate (n-C16:0)	-2.7463809870337887	row550	E1437
-C00079	L-Phenylalanine	-2.4838840350412372	row726	E864
-CE5277	aminochrome o-semiquinone	2.033121424378827	row1093	E2193
-C04805	5-Hydroxyeicosatetraenoate	-3.72048070309888	row165	E628
-C05577	3,4-Dihydroxymandelaldehyde	-2.96296052848124	row434	E1192
-C00166	Phenylpyruvate	-2.5696814901383944	row666	E1108
-C16609	Didemethylcitalopram	3.532077015611791	row214	E700
-C07572	Citalopram	2.861954943443473	row476	E1302
-C05639	4,6-Dihydroxyquinoline; Quinoline-4,6-diol	-2.122197546138344	row986	E2042
-C03758	Dopamine	-3.7305111510259232	row164	E610
-C00082	L-Tyrosine	-4.295443212081767	row71	E257
-C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-2.553946681400747	row679	E317
+C05588	L-Metanephrine	-2.8017291845858265	row441	E721
+C00031	D-Glucose	-2.4470318995869595	row1247	E236
+CE5538	noradrenochrome	-2.8160525796077343	row1328	E1839
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-3.820536242094246	row337	E139
+C00831	Pantetheine; (R)-Pantetheine	-2.23000955089569	row149	E15
+C00984	alpha-D-Galactose	-3.458901785676272	row71	E236
+C00214	Thymidine	-3.7068240353106683	row161	E598
+C02763	enol-Phenylpyruvate	-2.6921683679948405	row666	E1107
+CE6316	N,N-dimethyldopaminequinone	-2.4698999057121953	row1517	E1286
+C05653	N-Formylanthranilate	-3.058168111944484	row779	E1838
+CE2174		-2.2585748001793595	row295	E256
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.4698999057121953	row1517	E1206
+CE5538	noradrenochrome	-3.058168111944484	row779	E1838
+C13690	Dopamine 3-O-sulfate	-2.296128993753129	row991	E707
+C15522	Tetrahydrobiopterin-4a-carbinolamine	2.4004776952044242	row1693	E2642
+C05588	L-Metanephrine	-2.5012368559816993	row442	E717
+C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-4.903367162341519	row167	E316
+C00831	Pantetheine; (R)-Pantetheine	7.09791405961475	row3	E15
+CE2176	3-O-methyldopa	-2.258615572441034	row282	E447
+C05589	L-Normetanephrine	-3.820536242094246	row337	E139
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.5012368559816993	row442	E527
+C00362	dGMP	3.3594547401829193	row1159	E2274
+C07480		-2.2585748001793595	row295	E249
+C00020	AMP	3.3594547401829193	row1159	E2274
+CE2174		-2.298020868166888	row526	E256
+C07453	Epinine; Deoxyepinephrine	-3.4257320740903405	row141	E432
+C02442	N-Methyltyramine	-2.5012368559816993	row442	E1226
+C00214	Thymidine	3.370073456914474	row503	E598
+C16591	3-Carbamoyl-2-phenylpropionic acid	-5.341588205824239	row42	E187
+C00822	Dopaquinone	-2.8153077637492028	row3051	E1782
+C00526	Deoxyuridine	-2.9572260879749637	row157	E582
+CE5541	adrenochrome o-semiquinone	-2.4470318995869595	row1247	E248
+C00031	D-Glucose	-3.458901785676272	row71	E236
+C00166	Phenylpyruvate	-2.6921683679948405	row666	E1107
+tymsf	Tyramine O-sulfate	-4.157840252266044	row100	E352
+CE6316	N,N-dimethyldopaminequinone	-2.9879627074571844	row485	E1286
+C05587	3-Methoxytyramine	-3.4257320740903405	row141	E432
+C00399	Ubiquinone	2.5513373655499483	row1552	E2510
+C14770	11,12-EET	-3.254417651348851	row165	E627
+C16591	3-Carbamoyl-2-phenylpropionic acid	2.2429417225158295	row2418	E187
+C04742	(15S)-15-Hydroxy-5,8,11-cis-13-trans-eicosatetraenoate; (15S)-15-Hydroxy-5,8,11-cis-13-trans-icosatetraenoate; (5Z,8Z,11Z,13E)-(15S)-15-Hydroxyicosa-5,8,11,13-tetraenoic acid; 15(S)-HETE	-3.254417651348851	row165	E627
+C00221	beta-D-Glucose	-2.2585748001793595	row295	E237
+CE1918	5-hydroxytryptophol	-2.619544743860169	row373	E1045
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-3.820536242094246	row337	E964
+CE2176	3-O-methyldopa	3.733659459278748	row122	E447
+C05594	3-Methoxy-4-hydroxyphenylethyleneglycol	2.8753608078008352	row548	E1431
+C00475	Cytidine	2.570584728072347	row697	E1716
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.5012368559816993	row442	E1203
+C00055	CMP	2.454589892703277	row667	E350
+C00219	arachidonic acid	2.9631347983400564	row1011	E2087
+C00962	beta-D-Galactose	-3.458901785676272	row71	E236
+C01586	Hippurate; Hippuric acid; N-Benzoylglycine; Benzoylaminoacetic acid	-2.8153077637492028	row3051	E1507
+C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid	-2.8910047146919315	row356	E51
+C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-3.208332912973787	row561	E316
+CE2176	3-O-methyldopa	-3.4257320740903405	row141	E451
+C05350	2-Hydroxy-3-(4-hydroxyphenyl)propenoate; 4-Hydroxy-enol-phenylpyruvate	2.6635033054204547	row799	E1517
+C01179	3-(4-Hydroxyphenyl)pyruvate	2.6635033054204547	row799	E1517
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-3.458901785676272	row71	E236
+C05638	5-Hydroxykynurenamine	-3.6921318426180325	row172	E589
+C05638	5-Hydroxykynurenamine	3.370073456914474	row503	E589
+C00831	Pantetheine; (R)-Pantetheine	4.332245639457341	row20	E14
+C01194	Phosphatidylinositol	2.536073652084519	row194	E680
+C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid	-3.900691156879559	row300	E51
+C00642	4-Hydroxyphenylacetate	2.267634715064308	row1710	E2433
+C13747	1,7-Dimethylxanthine; Paraxanthine	-3.458901785676272	row71	E248
+C05653	N-Formylanthranilate	-2.8160525796077343	row1328	E1839
+C00526	Deoxyuridine	-2.347684935466596	row558	E581
+C06199	Hordenine; 4-[2-(Dimethylamino)ethyl]phenol	-2.8048141858562077	row490	E1006
+C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-4.903367162341519	row167	E316
+C00221	beta-D-Glucose	-2.4470318995869595	row1247	E236
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.7857424568266484	row745	E527
+C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-3.5670383858136328	row550	E316
+CE5538	noradrenochrome	-2.701983988520036	row1304	E1838
+C04043	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde	2.267634715064308	row1710	E2433
+C07453	Epinine; Deoxyepinephrine	-2.5025181142309885	row119	E433
+C00864	(R)-Pantothenate	-2.258615572441034	row282	E297
+C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid	-3.122019805795489	row344	E51
+C15658	6-(alpha-D-Glucosaminyl)-1D-myo-inositol	-2.764347887019299	row398	E1095
+C05588	L-Metanephrine	-2.714635542240432	row218	E719
+C03711	N-Methylphenylethanolamine	-2.5012368559816993	row442	E1226
+C02744	Psychosine sulfate	3.021559717913164	row47	E113
+C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-2.47471901141654	row496	E1191
+CE5626	salsolinol 1-carboxylate	-2.9657903180824405	row855	E461
+C14749	19(S)-HETE; (19S)-Hydroxyeicosatetraenoic acid; (19S)-Hydroxyicosatetraenoic acid; (19S)-Hydroxy arachidonic acid	-3.254417651348851	row165	E627
+C00221	beta-D-Glucose	-3.458901785676272	row71	E236
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.9879627074571844	row485	E1206
+C05587	3-Methoxytyramine	-2.5025181142309885	row119	E433
+C02744	Psychosine sulfate	3.9289874683421595	row72	E113
+C00079	L-Phenylalanine	2.2429417225158295	row2418	E864
+C02744	Psychosine sulfate	4.013694563072792	row44	E113
+C05638	5-Hydroxykynurenamine	-3.7068240353106683	row161	E589
+C01161	3,4-Dihydroxyphenylacetate; 3,4-Dihydroxyphenylacetic acid; 3,4-Dihydroxyphenyl acetate; 3,4-Dihydroxyphenyl acetic acid; Homoprotocatechuate	-2.430071280708862	row434	E1191
+C00137	myo-Inositol	-2.2585748001793595	row295	E237
+C06124	Sphingosine 1-phosphate	2.419242891693075	row564	E1482
+C15646	1-(1-Alkenyl)-sn-glycero-3-phosphate	3.335698919339142	row88	E317
+CE5541	adrenochrome o-semiquinone	-3.458901785676272	row71	E248
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	-2.6921683679948405	row666	E1115
+C13690	Dopamine 3-O-sulfate	2.394463083479132	row2180	E707
+CE2176	3-O-methyldopa	-3.1203511264747474	row425	E451
+C01197	Caffeate; Caffeic acid; 3,4-Dihydroxy-trans-cinnamate; trans-Caffeate	2.6635033054204547	row799	E1517
+C05588	L-Metanephrine	-2.4698999057121953	row1517	E721
+C14748	20-Hydroxyeicosatetraenoic acid	-3.254417651348851	row165	E627
+C16586	2-Phenyl-1,3-propanediol monocarbamate	-2.619544743860169	row373	E527
+C00355	3,4-Dihydroxy-L-phenylalanine	-2.7287936735850753	row706	E612
+C02744	Psychosine sulfate	3.274170323505102	row182	E113
+C13747	1,7-Dimethylxanthine; Paraxanthine	-2.2585748001793595	row295	E249
+C16608	Demethylcitalopram	2.726435382389611	row813	E1889
+CE2173		-2.5012368559816993	row442	E527
+C00159	D-Mannose	-2.2585748001793595	row295	E237
+C00984	alpha-D-Galactose	-2.2585748001793595	row295	E237
+C07480		-2.4470318995869595	row1247	E248
+C05583	3-Methoxy-4-hydroxyphenylglycolaldehyde	2.2887498513534554	row1626	E1117
+C05588	L-Metanephrine	-2.9879627074571844	row485	E721
+C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-3.5670383858136328	row550	E316
+C00137	myo-Inositol	-2.4470318995869595	row1247	E236
+CE5627	salsoline-1-carboxylate	-3.7037454289003047	row222	E738
+C16591	3-Carbamoyl-2-phenylpropionic acid	-3.820536242094246	row337	E187
+C05582	Homovanillate; Homovanillic acid	-2.6921683679948405	row666	E1115
+C05576	3,4-Dihydroxyphenylethyleneglycol	2.267634715064308	row1710	E2440
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.258615572441034	row282	E136
+C00267	alpha-D-Glucose	-2.2585748001793595	row295	E237
+C05653	N-Formylanthranilate	-2.701983988520036	row1304	E1838
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-2.8017291845858265	row441	E1206
+C07480		-3.458901785676272	row71	E248
+C05838	cis-2-Hydroxycinnamate; 2-Coumarinate	-2.6921683679948405	row666	E1107
+C00544	Homogentisate	-2.47471901141654	row496	E1191
+C00079	L-Phenylalanine	-3.820536242094246	row337	E863
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	2.2429417225158295	row2418	E140
+C12144	Phytosphingosine; 4-D-Hydroxysphinganine	2.3685752275204996	row841	E1920
+C00031	D-Glucose	-2.2585748001793595	row295	E237
+C05588	L-Metanephrine	2.787695653214061	row1355	E721
+CE2176	3-O-methyldopa	-3.820536242094246	row337	E451
+C02744	Psychosine sulfate	3.9050284327442335	row104	E113
+C06350		-2.383565859953532	row339	E983
+C00159	D-Mannose	-2.4470318995869595	row1247	E236
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-3.820536242094246	row337	E964
+CE5541	adrenochrome o-semiquinone	-2.2585748001793595	row295	E249
+C00795	D-Tagatose; lyxo-Hexulose	-2.2585748001793595	row295	E237
+C00249	Hexadecanoate (n-C16:0)	-3.5670383858136328	row550	E1436
+C05580	3,4-Dihydroxymandelate	2.536073652084519	row194	E667
+C00137	myo-Inositol	-3.458901785676272	row71	E236
+C05582	Homovanillate; Homovanillic acid	2.2887498513534554	row1626	E1117
+CE2172		2.2429417225158295	row2418	E864
+C00355	3,4-Dihydroxy-L-phenylalanine	-2.8153077637492028	row3051	E612
+CE2172		-3.1203511264747474	row425	E863
+C00079	L-Phenylalanine	-3.1203511264747474	row425	E863
+C16609	Didemethylcitalopram	3.5430876468261148	row214	E699
+C00962	beta-D-Galactose	-2.2585748001793595	row295	E237
+CE5627	salsoline-1-carboxylate	-3.1392266375692204	row475	E738
+C00267	alpha-D-Glucose	-2.4470318995869595	row1247	E236
+CE2172		-2.258615572441034	row282	E859
+C05577	3,4-Dihydroxymandelaldehyde	-2.47471901141654	row496	E1191
+C00079	L-Phenylalanine	-2.258615572441034	row282	E859
+C14771	14,15-EET; (5Z,8Z,11Z)-14,15-Epoxyeicosa-5.8.11-trienoic acid; (5Z,8Z,11Z)-14,15-Epoxyicosa-5.8.11-trienoic acid	-3.254417651348851	row165	E627
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-2.2585748001793595	row295	E237
+CE2173		-2.7857424568266484	row745	E527
+C14769	8,9-EET; (5Z,11Z,14Z)-8,9-Epoxyeicosa-5,11,14-trienoic acid; (5Z,11Z,14Z)-8,9-Epoxyicosa-5,11,14-trienoic acid	-3.254417651348851	row165	E627
+C05577	3,4-Dihydroxymandelaldehyde	-2.430071280708862	row434	E1191
+C00811	4-Coumarate; p-Coumaric acid; trans-4-Hydroxycinnamate; trans-p-Hydroxycinnamate; 4-Hydroxycinnamic acid; 4-Hydroxycinnamate	-2.6921683679948405	row666	E1107
+C00159	D-Mannose	-3.458901785676272	row71	E236
+C14778	16(R)-HETE; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyeicosa-5,8,11,14-tetraenoic acid; (5Z,8Z,11Z,14Z)-(16R)-16-Hydroxyicosa-5,8,11,14-tetraenoic acid	-3.254417651348851	row165	E627
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	2.2429417225158295	row2418	E964
+C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid	2.135243709456394	row280	E51
+C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid	2.2887498513534554	row1626	E1503
+C00526	Deoxyuridine	-3.3744776072073916	row209	E581
+CE2174		-3.458901785676272	row71	E256
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-4.592176479340414	row34	E138
+CE2176	3-O-methyldopa	-2.197408755248714	row945	E447
+C00795	D-Tagatose; lyxo-Hexulose	-2.4470318995869595	row1247	E236
+C00670	sn-Glycero-3-phosphocholine	2.956807080587271	row1485	E1339
+C00836	Sphinganine	2.910840384754291	row519	E652
+C05588	L-Metanephrine	3.530884420089735	row1388	E723
+C00547	Norepinephrine	-2.8153077637492028	row3051	E1770
+C00836	Sphinganine	3.9138619753455344	row178	E652
+C02744	Psychosine sulfate	4.275666161872622	row26	E113
+thbpt4acam	Tetrahydrobiopterin-4a-carbinolamine	2.4004776952044242	row1693	E2642
+C05604	2-Carboxy-2,3-dihydro-5,6-dihydroxyindole; Leucodopachrome	-2.8153077637492028	row3051	E1782
+C00267	alpha-D-Glucose	-3.458901785676272	row71	E236
+C06426	(6Z,9Z,12Z)-Octadecatrienoic acid; 6,9,12-Octadecatrienoic acid; gamma-Linolenic acid; Gamolenic acid	-2.4452314380703006	row679	E316
+C05589	L-Normetanephrine	-4.592176479340414	row34	E138
+C14768	5,6-EET; (8Z,11Z,14Z)-5,6-Epoxyeicosa-8,11,14-trienoic acid; (8Z,11Z,14Z)-5,6-Epoxyicosa-8,11,14-trienoic acid	-3.254417651348851	row165	E627
+C00831	Pantetheine; (R)-Pantetheine	-2.9102185128714666	row495	E14
+C00962	beta-D-Galactose	-2.4470318995869595	row1247	E236
+C00588	Choline phosphate	2.8753608078008352	row548	E1431
+C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-2.4452314380703006	row679	E316
+CE2172		-3.820536242094246	row337	E863
+CE5629	1,2-dehydrosalsolinol	-2.619544743860169	row373	E1045
+C02336	beta-D-Fructose; beta-Fruit sugar; beta-D-arabino-Hexulose; beta-Levulose; Fructose	-2.4470318995869595	row1247	E236
+C09642	(-)-Salsolinol; 6,7-Isoquinolinediol, 1,2,3,4-tetrahydro-1-methyl-, (S)-; Salsolinol	-3.0510074573335255	row506	E1207
+C05852	2-Hydroxyphenylacetate	2.267634715064308	row1710	E2433
+C05588	L-Metanephrine	-2.329084895350211	row705	E721
+CE2173		-2.619544743860169	row373	E527
+C00831	Pantetheine; (R)-Pantetheine	2.4088005822611205	row82	E15
+CE5016	13,14-dihydroxy-retinol	-3.254417651348851	row165	E627
+C05589	L-Normetanephrine	-2.258615572441034	row282	E136
+C00082	L-Tyrosine	-2.2585748001793595	row295	E256
+C00795	D-Tagatose; lyxo-Hexulose	-3.458901785676272	row71	E236
+C00082	L-Tyrosine	-3.458901785676272	row71	E256
+C00544	Homogentisate	-2.430071280708862	row434	E1191
+C05581	3-Methoxy-4-hydroxyphenylacetaldehyde	2.8753608078008352	row548	E1423
+C00055	CMP	3.979507742532798	row95	E350
+C04805	5-Hydroxyeicosatetraenoate	-3.254417651348851	row165	E627
+C00984	alpha-D-Galactose	-2.4470318995869595	row1247	E236
+C05589	L-Normetanephrine	2.2429417225158295	row2418	E140
+C00670	sn-Glycero-3-phosphocholine	3.532876109625269	row497	E1339
+C00082	L-Tyrosine	-2.298020868166888	row526	E256
+C00249	Hexadecanoate (n-C16:0)	-2.4452314380703006	row679	E1436
+C13747	1,7-Dimethylxanthine; Paraxanthine	-2.4470318995869595	row1247	E248
+C00314	Pyridoxine	-2.8153077637492028	row3051	E1770
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	2.2429417225158295	row2418	E964
+C06199	Hordenine; 4-[2-(Dimethylamino)ethyl]phenol	-3.2941709253654787	row349	E1006
+C05584	3-Methoxy-4-hydroxymandelate; Vanillylmandelic acid	2.6635033054204547	row799	E1503
+C05711	gamma-Glutamyl-beta-cyanoalanine	2.570584728072347	row697	E1716
+C00712	(9Z)-Octadecenoic acid; (Z)-Octadec-9-enoic acid; Oleate; Oleic acid	2.9631347983400564	row1011	E2093
+CE5536	adrenochrome	-2.8153077637492028	row3051	E1507
+C06427	(9Z,12Z,15Z)-Octadecatrienoic acid; alpha-Linolenic acid; 9,12,15-Octadecatrienoic acid; Linolenate; alpha-Linolenate	-3.208332912973787	row561	E316
+C16300	Stearidonic acid; 6,9,12,15-Octadecatetraenoic acid; (6Z,9Z,12Z,15Z)-Octadecatetraenoic acid	-5.439552899464773	row7	E51
+C05588	L-Metanephrine	-3.0510074573335255	row506	E721

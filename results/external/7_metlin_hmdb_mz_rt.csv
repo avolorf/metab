@@ -268,7 +268,6 @@
 1.691_262.07468_low score: Oxolinic acid,262.07468,1.691,Oxolinic acid
 6.608_262.11118_low score: skimmianine,262.11118,6.608,skimmianine
 8.638_262.1481_low score: Imazethapyr,262.1481,8.638,Imazethapyr
-"10.584_262.23807_low score: 2-(Dipentylamino)-2-(hydroxymethyl)-1,3-propanediol",262.23807,10.584,"2-(Dipentylamino)-2-(hydroxymethyl)-1,3-propanediol"
 1.254_263.09012_low score: methyl 2-((4-methyl-2-oxo-2H-chromen-7-yl)oxy)propanoate,263.09012,1.254,methyl 2-((4-methyl-2-oxo-2H-chromen-7-yl)oxy)propanoate
 0.591_263.11188_low score: NCGC00380330-01!2-(6-methyl-7-oxooctyl)-2H-furan-5-one [IIN-based on: CCMSLIB00000848756],263.11188,0.591,NCGC00380330-01!2-(6-methyl-7-oxooctyl)-2H-furan-5-one [IIN-based on: CCMSLIB00000848756]
 "10.14_263.13931_low score: 1-(3,3-Dimethyl-2-oxobutyl)-1H-indole-2,3-dione",263.13931,10.14,"1-(3,3-Dimethyl-2-oxobutyl)-1H-indole-2,3-dione"
@@ -285,8 +284,8 @@
 4.173_269.11346_low score: ellipticine,269.11346,4.173,ellipticine
 11.054_269.19012_7.beta.-Hydroxydehydroepiandrosterone,269.19012,11.054,7.beta.-Hydroxydehydroepiandrosterone
 12.59_269.21136_low score: Aleuritic acid,269.21136,12.59,Aleuritic acid
-10.505_271.16544_low score: Sophoridine,271.16544,10.505,Sophoridine
 10.128_271.16544_low score: Sophoridine,271.16544,10.128,Sophoridine
+10.505_271.16544_low score: Sophoridine,271.16544,10.505,Sophoridine
 "10.333_271.20581_low score: 5-Androstene-3.beta.,16.beta.,17.alpha.-triol",271.20581,10.333,"5-Androstene-3.beta.,16.beta.,17.alpha.-triol"
 "10.786_271.20593_low score: 5.beta.-Pregnan-3.alpha.,17,20.beta.,21-tetrol-11-one",271.20593,10.786,"5.beta.-Pregnan-3.alpha.,17,20.beta.,21-tetrol-11-one"
 11.858_272.16821_low score: Arg-Val,272.16821,11.858,Arg-Val
@@ -296,7 +295,6 @@
 10.459_273.18103_low score: Galaxolidone,273.18103,10.459,Galaxolidone
 10.704_273.22174_low score: 5.alpha.-Androsterone,273.22174,10.704,5.alpha.-Androsterone
 4.139_274.12875_low score: L-Glutarylcarnitine,274.12875,4.139,L-Glutarylcarnitine
-13.646_274.27405_Lauryldiethanolamine,274.27405,13.646,Lauryldiethanolamine
 4.395_275.11304_low score: Gigantol,275.11304,4.395,Gigantol
 8.545_276.12686_low score: NCGC00380372-01!N-[1-(4-methoxy-6-oxopyran-2-yl)-2-methylbutyl]acetamide [IIN-based on: CCMSLIB00000848409],276.12686,8.545,NCGC00380372-01!N-[1-(4-methoxy-6-oxopyran-2-yl)-2-methylbutyl]acetamide [IIN-based on: CCMSLIB00000848409]
 1.143_276.14417_L-Glutarylcarnitine,276.14417,1.143,L-Glutarylcarnitine
@@ -350,7 +348,6 @@
 "9.91_289.16479_low score: (E)-3,10-Dihydroxy-4,9-dimethyldodec-6-enedioic acid",289.16479,9.91,"(E)-3,10-Dihydroxy-4,9-dimethyldodec-6-enedioic acid"
 "2.929_290.06964_low score: 8-Chlorodibenz[b,f][1,4]oxazepine-10(11H)-carboxy-(2-acetyl)hydrazide",290.06964,2.929,"8-Chlorodibenz[b,f][1,4]oxazepine-10(11H)-carboxy-(2-acetyl)hydrazide"
 9.887_290.17883_low score: atropine,290.17883,9.887,atropine
-12.284_290.2692_Unknown,290.2692,12.284,Unknown
 7.842_291.08664_low score: (-)Catechin,291.08664,7.842,(-)Catechin
 9.133_291.09784_low score: Malonyltryptophan,291.09784,9.133,Malonyltryptophan
 1.608_292.08505_low score: Crufomate,292.08505,1.608,Crufomate
@@ -368,8 +365,8 @@
 9.474_297.09097_low score: Flunixine,297.09097,9.474,Flunixine
 "8.876_297.14465_low score: 4-(2,5-Diethoxy-4-nitrophenyl)morpholine",297.14465,8.876,"4-(2,5-Diethoxy-4-nitrophenyl)morpholine"
 "1.463_297.14481_low score: 4-(2,5-Diethoxy-4-nitrophenyl)morpholine",297.14481,1.463,"4-(2,5-Diethoxy-4-nitrophenyl)morpholine"
-"8.216_297.14505_low score: 4-(2,5-Diethoxy-4-nitrophenyl)morpholine",297.14505,8.216,"4-(2,5-Diethoxy-4-nitrophenyl)morpholine"
 "10.089_297.14505_low score: 4-(2,5-Diethoxy-4-nitrophenyl)morpholine",297.14505,10.089,"4-(2,5-Diethoxy-4-nitrophenyl)morpholine"
+"8.216_297.14505_low score: 4-(2,5-Diethoxy-4-nitrophenyl)morpholine",297.14505,8.216,"4-(2,5-Diethoxy-4-nitrophenyl)morpholine"
 10.201_297.22168_low score: 21-Hydroxypregnenolone,297.22168,10.201,21-Hydroxypregnenolone
 13.466_297.24271_low score: NCGC00381425-01!8-hydroxy-8-(3-octyloxiran-2-yl)octanoic acid [IIN-based on: CCMSLIB00000846585],297.24271,13.466,NCGC00381425-01!8-hydroxy-8-(3-octyloxiran-2-yl)octanoic acid [IIN-based on: CCMSLIB00000846585]
 "1.405_297.99963_low score: 3-(2,6-Dichlorophenyl)-5-(propan-2-yl)-1,2-oxazole-4-carboxylic acid",297.99963,1.405,"3-(2,6-Dichlorophenyl)-5-(propan-2-yl)-1,2-oxazole-4-carboxylic acid"
@@ -396,7 +393,6 @@
 13.325_302.19614_low score: heliocurassavicine n-oxyde,302.19614,13.325,heliocurassavicine n-oxyde
 9.678_302.19656_low score: heliocurassavicine n-oxyde,302.19656,9.678,heliocurassavicine n-oxyde
 "11.852_302.23227_low score: 2-Cyanoethyl N,N,N',N'-tetraisopropyldiamidophosphite",302.23227,11.852,"2-Cyanoethyl N,N,N',N'-tetraisopropyldiamidophosphite"
-"15.002_302.30563_2,2'-(Tetradecylimino)diethanol",302.30563,15.002,"2,2'-(Tetradecylimino)diethanol"
 1.141_303.07098_low score: Fenirofibrate,303.07098,1.141,Fenirofibrate
 "7.484_303.10129_low score: 2-(1,1'-Biphenyl-4-ylcarbonyl)benzoic acid",303.10129,7.484,"2-(1,1'-Biphenyl-4-ylcarbonyl)benzoic acid"
 "3.866_303.10797_low score: 2,5-Dimethoxy-5'-fluoro-2'-hydroxychalcone",303.10797,3.866,"2,5-Dimethoxy-5'-fluoro-2'-hydroxychalcone"
@@ -452,7 +448,6 @@
 7.726_318.19095_low score: 2-{2-[2-(Acryloyloxy)-1-methylethoxy]-1-methylethoxy}-1-methylethyl acrylate,318.19095,7.726,2-{2-[2-(Acryloyloxy)-1-methylethoxy]-1-methylethoxy}-1-methylethyl acrylate
 "5.223_318.20288_low score: Cyclohexanecarboxylic acid, 1-phenyl-, 2-(4-morpholinyl)ethyl ester",318.20288,5.223,"Cyclohexanecarboxylic acid, 1-phenyl-, 2-(4-morpholinyl)ethyl ester"
 "8.743_318.22803_low score: NCGC00380745-01!(5E)-2-heptyl-3,4,7-trihydroxy-2,3,4,7,8,9-hexahydrooxecin-10-one",318.22803,8.743,"NCGC00380745-01!(5E)-2-heptyl-3,4,7-trihydroxy-2,3,4,7,8,9-hexahydrooxecin-10-one"
-"13.729_318.3002_low score: Phytosphingosine (not validated, isomer of 1696)",318.3002,13.729,"Phytosphingosine (not validated, isomer of 1696)"
 1.266_319.06619_low score: 2-Oxohexanedioic acid,319.06619,1.266,2-Oxohexanedioic acid
 1.404_319.12933_low score: Cryptotanshinone,319.12933,1.404,Cryptotanshinone
 "7.651_320.16092_low score: Methanone, [1-(4-hydroxypentyl)-1H-indol-3-yl](4-methoxyphenyl)-",320.16092,7.651,"Methanone, [1-(4-hydroxypentyl)-1H-indol-3-yl](4-methoxyphenyl)-"
@@ -515,7 +510,6 @@
 10.34_346.22244_low score: 2-[4-[4-(4-Amidinophenyl)piperazino]piperidino]acetic acid,346.22244,10.34,2-[4-[4-(4-Amidinophenyl)piperazino]piperidino]acetic acid
 "8.324_346.22275_low score: Methanone, [1-(5-fluoropentyl)-6-hydroxy-1H-indol-3-yl](2,2,3,3-tetramethylcyclopropyl)-",346.22275,8.324,"Methanone, [1-(5-fluoropentyl)-6-hydroxy-1H-indol-3-yl](2,2,3,3-tetramethylcyclopropyl)-"
 10.337_346.25909_low score: Aspicilin,346.25909,10.337,Aspicilin
-"15.065_346.33188_low score: icos-19-ene-1,2,4-triol",346.33188,15.065,"icos-19-ene-1,2,4-triol"
 8.322_347.12424_low score: Bavachin,347.12424,8.322,Bavachin
 "8.867_347.13443_low score: N-(3,4-dimethoxyphenethyl)-1H-indole-3-carboxamide",347.13443,8.867,"N-(3,4-dimethoxyphenethyl)-1H-indole-3-carboxamide"
 9.38_347.18561_low score: Rubescensin A,347.18561,9.38,Rubescensin A
@@ -523,8 +517,8 @@
 "10.482_347.22183_5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione",347.22183,10.482,"5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione"
 "11.061_347.22205_5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione",347.22205,11.061,"5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione"
 "8.319_348.10733_low score: 2-Hydroxy-5-[(3,4,5-trimethoxybenzoyl)amino]benzoic acid",348.10733,8.319,"2-Hydroxy-5-[(3,4,5-trimethoxybenzoyl)amino]benzoic acid"
-1.159_348.12918_low score: NCGC00017361-03!KINETIN RIBOSIDE,348.12918,1.159,NCGC00017361-03!KINETIN RIBOSIDE
 "0.865_348.12918_low score: 4,5-Didemethylsimmondsin",348.12918,0.865,"4,5-Didemethylsimmondsin"
+1.159_348.12918_low score: NCGC00017361-03!KINETIN RIBOSIDE,348.12918,1.159,NCGC00017361-03!KINETIN RIBOSIDE
 8.225_348.13562_low score: Desmethylofloxacin,348.13562,8.225,Desmethylofloxacin
 9.495_348.14822_low score: Monocrotaline,348.14822,9.495,Monocrotaline
 "4.122_348.20218_low score: 1H-Indole-3-carboxamide, N-[(1S)-1-(aminocarbonyl)-2-methylpropyl]-1-(5-fluoropentyl)-",348.20218,4.122,"1H-Indole-3-carboxamide, N-[(1S)-1-(aminocarbonyl)-2-methylpropyl]-1-(5-fluoropentyl)-"
@@ -563,7 +557,6 @@
 2.119_362.15634_low score: N-Acetylnorfloxacin,362.15634,2.119,N-Acetylnorfloxacin
 "11.244_362.18118_low score: Heptanediamide, N1-(2-aminophenyl)-N7-(4-methylphenyl)-",362.18118,11.244,"Heptanediamide, N1-(2-aminophenyl)-N7-(4-methylphenyl)-"
 8.154_362.21741_low score: Disopyramide,362.21741,8.154,Disopyramide
-13.807_362.32672_Unknown,362.32672,13.807,Unknown
 "9.291_363.16513_low score: 8-benzoyl-1,5,5-trimethyl-6,15-dioxatetracyclo[9.3.1.0?,??.0?,??]pentadeca-7(12),8,10-trien-9-ol",363.16513,9.291,"8-benzoyl-1,5,5-trimethyl-6,15-dioxatetracyclo[9.3.1.0?,??.0?,??]pentadeca-7(12),8,10-trien-9-ol"
 "10.039_364.19678_low score: [(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl] (2E,6E)-8-hydroxy-2,6-dimethylocta-2,6-dienoate",364.19678,10.039,"[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl] (2E,6E)-8-hydroxy-2,6-dimethylocta-2,6-dienoate"
 "12.54_365.19601_low score: NCGC00169827-03!(2E,4E)-12-hydroxy-13-(hydroxymethyl)-3,5,7-trimethyltetradeca-2,4-dienedioic acid [IIN-based on: CCMSLIB00000847643]",365.19601,12.54,"NCGC00169827-03!(2E,4E)-12-hydroxy-13-(hydroxymethyl)-3,5,7-trimethyltetradeca-2,4-dienedioic acid [IIN-based on: CCMSLIB00000847643]"
@@ -588,8 +581,6 @@
 15.634_372.31088_Tetradecanoyl-L-Carnitine,372.31088,15.634,Tetradecanoyl-L-Carnitine
 13.508_373.27399_CHOLATE,373.27399,13.508,CHOLATE
 11.509_374.29037_low score: Lagochilin,374.29037,11.509,Lagochilin
-"16.36_374.36331_low score: 21-Amino-3,20-dihydroxydocosan-2-yl hexopyranoside",374.36331,16.36,"21-Amino-3,20-dihydroxydocosan-2-yl hexopyranoside"
-"16.281_374.36337_low score: 21-Amino-3,20-dihydroxydocosan-2-yl hexopyranoside",374.36337,16.281,"21-Amino-3,20-dihydroxydocosan-2-yl hexopyranoside"
 1.508_375.22406_low score: Ile-Asp-Lys,375.22406,1.508,Ile-Asp-Lys
 "1.83_376.17175_low score: n-[2-(4-sec-butyl-phenoxy)-4,5-dihydroxy-6-hydroxymethyl-tetrahydro-pyran-3-yl]-acetamide",376.17175,1.83,"n-[2-(4-sec-butyl-phenoxy)-4,5-dihydroxy-6-hydroxymethyl-tetrahydro-pyran-3-yl]-acetamide"
 9.72_376.26984_Unknown,376.26984,9.72,Unknown
@@ -629,8 +620,8 @@
 9.57_390.24866_low score: Ser-Lys-Arg,390.24866,9.57,Ser-Lys-Arg
 10.282_390.28506_Unknown,390.28506,10.282,Unknown
 8.698_391.10001_low score: 3-O-Caffeoylquinic acid methyl ester,391.10001,8.698,3-O-Caffeoylquinic acid methyl ester
-14.266_392.27994_low score: N-Stearoyltaurine,392.27994,14.266,N-Stearoyltaurine
 14.427_392.27994_low score: N-Stearoyltaurine,392.27994,14.427,N-Stearoyltaurine
+14.266_392.27994_low score: N-Stearoyltaurine,392.27994,14.266,N-Stearoyltaurine
 8.866_393.14099_low score: Riboflavol,393.14099,8.866,Riboflavol
 4.024_393.22369_low score: 6-Ketoprostaglandin F1.alpha.,393.22369,4.024,6-Ketoprostaglandin F1.alpha.
 "9.425_394.17099_low score: (2E)-3-(3,4-Dimethoxyphenyl)-N-[2-(3,4-dimethoxyphenyl)ethyl]prop-2-enamide",394.17099,9.425,"(2E)-3-(3,4-Dimethoxyphenyl)-N-[2-(3,4-dimethoxyphenyl)ethyl]prop-2-enamide"
@@ -638,8 +629,8 @@
 8.966_395.15689_low score: Arctigenin,395.15689,8.966,Arctigenin
 "10.154_395.25473_low score: ""(R)-4-((8S,9S,10R,13R,14S,17R)-10,13-dimethyl-3-oxo-2,3,6,7,8,9,10,11,12,13,14,15,16,17-tetradecahydro-1H-cyclopenta[a]phenanthren-17-yl)pentanoic acid""",395.25473,10.154,"""(R)-4-((8S,9S,10R,13R,14S,17R)-10,13-dimethyl-3-oxo-2,3,6,7,8,9,10,11,12,13,14,15,16,17-tetradecahydro-1H-cyclopenta[a]phenanthren-17-yl)pentanoic acid"""
 "4.063_396.14062_low score: (Z)-2-(4-(methoxycarbonyl)benzylidene)-7-(morpholino-4-iummethyl)-3-oxo-2,3-dihydrobenzofuran-6-olate",396.14062,4.063,"(Z)-2-(4-(methoxycarbonyl)benzylidene)-7-(morpholino-4-iummethyl)-3-oxo-2,3-dihydrobenzofuran-6-olate"
-"9.79_396.18655_low score: N-isopropyl-2-(5-methoxy-4,8,8-trimethyl-2-oxo-2,8,9,10-tetrahydropyrano[2,3-f]chromen-3-yl)acetamide",396.18655,9.79,"N-isopropyl-2-(5-methoxy-4,8,8-trimethyl-2-oxo-2,8,9,10-tetrahydropyrano[2,3-f]chromen-3-yl)acetamide"
 "2.048_396.18655_low score: N-isopropyl-2-(5-methoxy-4,8,8-trimethyl-2-oxo-2,8,9,10-tetrahydropyrano[2,3-f]chromen-3-yl)acetamide",396.18655,2.048,"N-isopropyl-2-(5-methoxy-4,8,8-trimethyl-2-oxo-2,8,9,10-tetrahydropyrano[2,3-f]chromen-3-yl)acetamide"
+"9.79_396.18655_low score: N-isopropyl-2-(5-methoxy-4,8,8-trimethyl-2-oxo-2,8,9,10-tetrahydropyrano[2,3-f]chromen-3-yl)acetamide",396.18655,9.79,"N-isopropyl-2-(5-methoxy-4,8,8-trimethyl-2-oxo-2,8,9,10-tetrahydropyrano[2,3-f]chromen-3-yl)acetamide"
 "11.14_396.23846_low score: Phosphonic acid, P-[[4-[(1-oxotetradecyl)amino]phenyl]methyl]-",396.23846,11.14,"Phosphonic acid, P-[[4-[(1-oxotetradecyl)amino]phenyl]methyl]-"
 "15.27_396.3114_low score: 5-[1,2,4a-trimethyl-5-(propanoyloxymethyl)-2,3,4,7,8,8a-hexahydronaphthalen-1-yl]-3-methylpentanoic acid_46.9%",396.3114,15.27,"5-[1,2,4a-trimethyl-5-(propanoyloxymethyl)-2,3,4,7,8,8a-hexahydronaphthalen-1-yl]-3-methylpentanoic acid_46.9%"
 8.284_398.06595_low score: Bensulide,398.06595,8.284,Bensulide
@@ -657,11 +648,9 @@
 "11.974_401.21729_low score: 5-Heptenoic acid, 7-[(1R,2R,3S,5S)-2-[(1E,3R)-3-(2,3-dihydro-1H-inden-2-yl)-3-hydroxy-1-propen-1-yl]-3-fluoro-5-hydroxycyclopentyl]-, (5Z)-",401.21729,11.974,"5-Heptenoic acid, 7-[(1R,2R,3S,5S)-2-[(1E,3R)-3-(2,3-dihydro-1H-inden-2-yl)-3-hydroxy-1-propen-1-yl]-3-fluoro-5-hydroxycyclopentyl]-, (5Z)-"
 8.455_401.22864_low score: Dehydrocholic acid,401.22864,8.455,Dehydrocholic acid
 "7.774_402.23517_low score: (2R,3S,4aS,7R,8R,8aS)-2,3,4'-trihydroxy-4,4,7,8a-tetramethylspiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-7,8-dihydro-3H-furo[2,3-e]isoindole]-6'-one",402.23517,7.774,"(2R,3S,4aS,7R,8R,8aS)-2,3,4'-trihydroxy-4,4,7,8a-tetramethylspiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-7,8-dihydro-3H-furo[2,3-e]isoindole]-6'-one"
-17.06_402.39432_Unknown,402.39432,17.06,Unknown
 "8.333_403.11139_low score: 3-(3,4-dihydro-2H-benzo[b][1,4]dioxepin-7-yl)-2,8-dimethyl-4-oxo-4H-chromen-7-yl acetate",403.11139,8.333,"3-(3,4-dihydro-2H-benzo[b][1,4]dioxepin-7-yl)-2,8-dimethyl-4-oxo-4H-chromen-7-yl acetate"
 9.291_403.15759_low score: Icariside F2,403.15759,9.291,Icariside F2
 11.183_403.1604_low score: Icariside F2,403.1604,11.183,Icariside F2
-13.828_406.35327_Unknown,406.35327,13.828,Unknown
 10.051_407.19119_low score: Rhynchophylline,407.19119,10.051,Rhynchophylline
 "12.783_407.27954_low score: ""(4R)-4-((3R,5R,6S,7R,9S,10R,12S,13R,14S,17R)-3,6,7,12-tetrahydroxy-10,13-dimethylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)pentanoic acid""",407.27954,12.783,"""(4R)-4-((3R,5R,6S,7R,9S,10R,12S,13R,14S,17R)-3,6,7,12-tetrahydroxy-10,13-dimethylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)pentanoic acid"""
 11.469_408.22287_low score: ancistrocladine,408.22287,11.469,ancistrocladine
@@ -675,8 +664,6 @@
 10.12_414.24841_low score: PyroGlu-Arg-Lys,414.24841,10.12,PyroGlu-Arg-Lys
 10.437_414.24896_low score: PyroGlu-Lys-Arg,414.24896,10.437,PyroGlu-Lys-Arg
 11.184_415.19415_low score: Glabrol,415.19415,11.184,Glabrol
-"15.143_415.21213_low score: NCGC00347704-02_C24H32O7_2H-Oxireno[1,10a]phenanthro[3,2-b]furan-10(11bH)-one, 5,7-bis(acetyloxy)-3,3a,4,5,6,7,7a,7b,8,8a-decahydro-4,4,7a,11-tetramethyl-, (1aS,3aR,5S,7S,7aR,7bS,8aR,11bR)-",415.21213,15.143,"NCGC00347704-02_C24H32O7_2H-Oxireno[1,10a]phenanthro[3,2-b]furan-10(11bH)-one, 5,7-bis(acetyloxy)-3,3a,4,5,6,7,7a,7b,8,8a-decahydro-4,4,7a,11-tetramethyl-, (1aS,3aR,5S,7S,7aR,7bS,8aR,11bR)-"
-"14.183_415.21213_low score: NCGC00180384-03_C22H32O6_(1S,2R,4aR,8aR)-1-Acetoxy-7-isopropylidene-1,4a-dimethyl-6-oxodecahydro-2-naphthalenyl 2,3-dimethyl-2-oxiranecarboxylate",415.21213,14.183,"NCGC00180384-03_C22H32O6_(1S,2R,4aR,8aR)-1-Acetoxy-7-isopropylidene-1,4a-dimethyl-6-oxodecahydro-2-naphthalenyl 2,3-dimethyl-2-oxiranecarboxylate"
 "10.259_416.13013_low score: NCGC00381007-01_C21H23NO8_(5S,8S,9R)-8-Benzoyl-2-[(1S,2S,3Z)-1,2-dihydroxy-3-hexen-1-yl]-8,9-dihydroxy-3-methyl-1-oxa-7-azaspiro[4.4]non-2-ene-4,6-dione",416.13013,10.259,"NCGC00381007-01_C21H23NO8_(5S,8S,9R)-8-Benzoyl-2-[(1S,2S,3Z)-1,2-dihydroxy-3-hexen-1-yl]-8,9-dihydroxy-3-methyl-1-oxa-7-azaspiro[4.4]non-2-ene-4,6-dione"
 10.493_416.26401_low score: Gln-Leu-Arg,416.26401,10.493,Gln-Leu-Arg
 10.581_416.26431_low score: Gln-Leu-Arg,416.26431,10.581,Gln-Leu-Arg
@@ -706,7 +693,6 @@
 "12.594_436.25406_low score: 4-(3,4'-Dihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl)butanoic acid",436.25406,12.594,"4-(3,4'-Dihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl)butanoic acid"
 12.369_436.25421_low score: paxilline,436.25421,12.369,paxilline
 "12.931_436.25436_low score: 4-(3,4'-Dihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl)butanoic acid",436.25436,12.931,"4-(3,4'-Dihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl)butanoic acid"
-"15.155_437.194_low score: NCGC00381156-01_C24H30O6_Methyl 3-[(1E,3E)-3,5-dimethyl-1,3-heptadien-1-yl]-8-hydroxy-6a,8-dimethyl-6-oxo-6a,8,9,9a-tetrahydro-6H-furo[2,3-h]isochromene-9-carboxylate",437.194,15.155,"NCGC00381156-01_C24H30O6_Methyl 3-[(1E,3E)-3,5-dimethyl-1,3-heptadien-1-yl]-8-hydroxy-6a,8-dimethyl-6-oxo-6a,8,9,9a-tetrahydro-6H-furo[2,3-h]isochromene-9-carboxylate"
 11.977_437.23862_low score: MLS001148136-01!,437.23862,11.977,MLS001148136-01!
 0.791_438.10776_low score: Cylindrospermopsin,438.10776,0.791,Cylindrospermopsin
 "12.057_438.23318_low score: 14,15-Leukotriene E4",438.23318,12.057,"14,15-Leukotriene E4"
@@ -814,8 +800,8 @@
 8.032_522.29022_low score: Taurochenodeoxycholic acid,522.29022,8.032,Taurochenodeoxycholic acid
 16.965_522.35565_1-Oleoyl-sn-glycero-3-phosphocholine,522.35565,16.965,1-Oleoyl-sn-glycero-3-phosphocholine
 "10.764_523.25378_low score: NCGC00381066-01_C26H38O8_1H-Naphtho[1,2-c]pyran-7-propanoic acid, dodecahydro-8-(1-hydroxy-1-methylethyl)-3-(methoxycarbonyl)-3,4a,7,10a-tetramethyl-5-methylene-1,4-dioxo-",523.25378,10.764,"NCGC00381066-01_C26H38O8_1H-Naphtho[1,2-c]pyran-7-propanoic acid, dodecahydro-8-(1-hydroxy-1-methylethyl)-3-(methoxycarbonyl)-3,4a,7,10a-tetramethyl-5-methylene-1,4-dioxo-"
-11.915_524.30707_Unknown,524.30707,11.915,Unknown
 11.61_524.30707_Unknown,524.30707,11.61,Unknown
+11.915_524.30707_Unknown,524.30707,11.915,Unknown
 "8.126_525.19458_low score: 10'-(3-methoxy-4-((1-methyl-1H-imidazol-2-yl)methoxy)phenyl)-9',10'-dihydro-3'H-spiro[cyclohexane-1,2'-pyrano[2,3-f]chromene]-4',8'-dione",525.19458,8.126,"10'-(3-methoxy-4-((1-methyl-1H-imidazol-2-yl)methoxy)phenyl)-9',10'-dihydro-3'H-spiro[cyclohexane-1,2'-pyrano[2,3-f]chromene]-4',8'-dione"
 10.969_525.26947_low score: Bacillopeptin C,525.26947,10.969,Bacillopeptin C
 10.426_525.26996_low score: Bacillopeptin C,525.26996,10.426,Bacillopeptin C
