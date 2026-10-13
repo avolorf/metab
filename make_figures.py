@@ -495,12 +495,91 @@ CAPTIONS = """# Figure captions (draft)
 
 **Figure 6.** Top bladder-cancer findings across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
 
+**Figure 7.** Stage-1 bladder-cancer markers (Frolova et al., Anal Bioanal Chem 2026, Table 5) in the independent cohort. Features were matched by m/z (±{ppm:.0f} ppm) and retention time (±{rttol} min). Points, unadjusted log2 fold change (BC vs Control) of quantified features; coloured, same direction and Mann–Whitney p < 0.05; text gives AUC, unadjusted p and FDR-adjusted q of the adjusted model (sex, age, contamination index). Markers not detected or removed by the detection/QC filters are labelled.
+
 **Figure S1.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
 
 **Figure S2.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
 
 **Figure S3.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exposure-related features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
 """
+
+
+def replication_outputs(out, res_dir, feat, stats_, info_all):
+    """Table 3 и Figure 7: маркеры первого этапа (ABC, Table 5) в независимой выборке s266."""
+    from pipeline import replication
+    tab, summ = replication.run(C.PRIOR_MARKERS, info_all, feat, stats_, lambda *_: None)
+    if tab is None:
+        return None
+    st_lab = {"not detected": "Not detected", "below detection filter": "Detected, < detection filter",
+              "failed QC RSD filter": "Detected, QC RSD > 30%", "quantified": "Quantified"}
+    t3 = pd.DataFrame({
+        "Marker (stage 1)": tab.marker, "Formula": tab.formula, "Ion": tab.ion,
+        "m/z (stage 1)": tab.mz, "RT, min (stage 1)": tab.rt_min,
+        "Candidate": [f"{int(c)}/{int(n)}" if n else "" for c, n in zip(tab.candidate, tab.n_candidates)],
+        "m/z (this study)": tab.get("mz_obs").round(4), "RT, min (this study)": tab.get("rt_obs").round(2),
+        "ΔRT, min": tab.get("delta_rt"), "Status (this study)": tab.status.map(st_lab),
+        "log2FC BC/Control": tab.get("log2FC").round(2), "AUC": tab.get("AUC").round(2),
+        "p (Mann–Whitney)": tab.get("p_MW").map(lambda x: f"{x:.2g}" if pd.notna(x) else ""),
+        "q (adjusted model)": tab.get("q_model").map(lambda x: f"{x:.2g}" if pd.notna(x) else ""),
+        "Same direction": tab.get("same_direction").map({True: "yes", False: "no"}),
+        "Note on stage-1 entry": tab.comment.str.extract(r";\s*(.*)$")[0].fillna(""),
+    })
+    t3.to_csv(out / "Table3_replication_stage1_markers.csv", index=False)
+    summ.to_csv(out / "Table3_replication_summary.csv", index=False)
+    with pd.ExcelWriter(out / "Table3_replication_stage1_markers.xlsx") as w:
+        t3.to_excel(w, sheet_name="Table3", index=False)
+        summ.to_excel(w, sheet_name="summary", index=False)
+        tab.to_excel(w, sheet_name="full", index=False)
+    # Figure 7
+    d = tab.reset_index(drop=True)
+    d["srank"] = d.status.map({"quantified": 0, "failed QC RSD filter": 1, "below detection filter": 2, "not detected": 3})
+    order = d.sort_values(["srank", "marker", "candidate"], ascending=[False, True, False]).index
+    fig, ax = plt.subplots(figsize=(FULL * 0.55, 0.42 * CM * len(d) + 2.4 * CM))
+    for y, i in enumerate(order):
+        r = d.loc[i]
+        cand = f" [{int(r.candidate)}/{int(r.n_candidates)}, {r.rt_obs:.2f} min]" if r.n_candidates > 1 else ""
+        lab = f"{r.marker[:30]} ({r.mz:.4f}, {r.rt_min:.2f}){cand}"
+        ax.text(-0.02, y, lab, transform=ax.get_yaxis_transform(), ha="right", va="center", fontsize=6)
+        if r.status == "quantified":
+            col = COL["BC"] if r.nominal else "#bdbcb8"
+            ax.scatter(r.log2FC, y, s=26, c=col, marker="o", edgecolor=INK2, lw=0.5, zorder=3)
+            ax.text(r.log2FC + 0.08, y + 0.18, f"AUC {r.AUC:.2f}, p {r.p_MW:.2g}, q {r.q_model:.2g}", fontsize=5.3, color=INK2)
+        else:
+            ax.text(0.02, y, st_lab[r.status], fontsize=5.8, color=INK2, va="center", style="italic",
+                    transform=ax.get_yaxis_transform())
+    ax.axvline(0, c=GRID, lw=0.8)
+    ax.set_yticks([])
+    ax.set_ylim(-0.7, len(d) - 0.3)
+    ax.set_xlabel("log$_2$ fold change BC/Control in the independent cohort (unadjusted)")
+    ax.spines["left"].set_visible(False)
+    q = summ.iloc[0]
+    ax.set_title(f"Stage-1 markers (n = {int(q.markers)}): quantified {int(q.quantified)} ({int(q.ambiguous_isomers)} with isomers),\n"
+                 f"p < 0.05 in the same direction {int(q.nominal_p05_any_candidate)}, q < {C.FDR} (adjusted) {int(q.replicated_q05_any_candidate)}",
+                 fontsize=6.5)
+    ax.legend(handles=[Line2D([], [], marker="o", ls="", mfc=COL["BC"], mec=INK2, label="same direction, p < 0.05"),
+                       Line2D([], [], marker="o", ls="", mfc="#bdbcb8", mec=INK2, label="not significant")],
+              loc="lower right", fontsize=6)
+    save(fig, out, "Figure7_replication_stage1_markers")
+    return summ
+
+
+def supplementary_tables(out, res_dir):
+    """Supplementary_Tables.xlsx: S1 классификация, S2 статистика по соединениям, S3 кандидаты, S4 «есть/нет»,
+    S5 сопоставление маркеров первого этапа (все кандидаты)."""
+    t = res_dir / "tables"
+    sheets = {"S1_classification": "multivariate_CV.csv", "S3_curated_candidates": "candidates_curated.csv",
+              "S3b_mass_mismatch": "candidates_mass_mismatch.csv", "S4_presence_absence": "presence_absence.csv"}
+    with pd.ExcelWriter(out / "Supplementary_Tables.xlsx") as w:
+        for sh, fn_ in sheets.items():
+            if (t / fn_).exists():
+                pd.read_csv(t / fn_).to_excel(w, sheet_name=sh, index=False)
+        for n in C.COMPARISONS:
+            if (t / f"stats_{n}.csv").exists():
+                pd.read_csv(t / f"stats_{n}.csv").to_excel(w, sheet_name=f"S2_{n}"[:31], index=False)
+        rep = out / "Table3_replication_stage1_markers.xlsx"
+        if rep.exists():
+            pd.read_excel(rep, sheet_name="full").to_excel(w, sheet_name="S5_stage1_markers_all", index=False)
 
 
 def main():
@@ -512,7 +591,7 @@ def main():
     out = res / "publication"
     out.mkdir(parents=True, exist_ok=True)
     meta, L, info, feat, stats_, mv, series, cur, pairs, demo, demo_t, pw = load(res)
-    X_all, _, _, _ = io.load_features(a.data)
+    X_all, _, info_all, _ = io.load_features(a.data)
     nm = names_en(feat, cur)
     fig1_quality(out, meta, L, feat, X_all)
     fig2_contamination(out, meta, series)
@@ -524,9 +603,11 @@ def main():
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
     tables(out, demo, demo_t, stats_, nm, cur, mv, feat)
+    replication_outputs(out, res, feat, stats_, info_all)
+    supplementary_tables(out, res)
     (out / "figure_captions.md").write_text(CAPTIONS.format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
-        cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM), encoding="utf-8")
+        cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL), encoding="utf-8")
     print(f"Публикационные рисунки и таблицы → {out}")
 
 

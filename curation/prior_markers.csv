@@ -1,0 +1,15 @@
+source,marker,comparison,direction,mz,rt_min,ion,formula,hmdb,comment
+ABC,Val-Leu,BC_vs_Control,up,231.1701,4.15,[M+H]+,C11H22N2O3,,ABC Table 5 (VIP 2.67; log2FC 4.5)
+ABC,Glu-Ile-Val,BC_vs_Control,up,360.2132,2.57,[M+H]+,C16H29N3O6,,ABC Table 5 (VIP 2.83; log2FC 3.68)
+ABC,Phe-Ile-Arg,BC_vs_Control,up,435.2716,8.11,[M+H]+,C21H34N6O4,,ABC Table 5 (VIP 2.79; log2FC 8.32)
+ABC,Leu-Leu-Arg,BC_vs_Control,up,401.2877,7.90,[M+H]+,C18H36N6O4,,ABC Table 5 (VIP 2.73; log2FC 10.12)
+ABC,Leu-Leu-Tyr (neurotensin 11-13),BC_vs_Control,up,408.2497,9.23,[M+H]+,C21H33N3O5,,ABC Table 5; формула в статье C22H29N7O не соответствует пептиду
+ABC,Glutaminylproline,BC_vs_Control,up,244.1295,2.58,[M+H]+,C10H17N3O4,,ABC Table 5 (VIP 3.37; log2FC 6.59)
+ABC,Leu-Thr-Ser,BC_vs_Control,up,320.1823,2.68,[M+H]+,C13H25N3O6,,ABC Table 5; формула в статье C18H27NO5 не соответствует пептиду
+ABC,N-Acetyltryptophan,BC_vs_Control,up,247.1077,6.34,[M+H]+,C13H14N2O3,,ABC Table 5 даёт m/z 249.0923; в тексте XIC 247.1065; использован теоретический [M+H]+
+ABC,LysoPE(20:4/0:0),BC_vs_Control,up,502.2934,15.81,[M+H]+,C25H44NO7P,,ABC Table 5 (VIP 3.27; log2FC 7.26)
+ABC,Inosine isomer,BC_vs_Control,up,269.0880,2.01,[M+H]+,C10H12N4O5,,ABC Table 5 (VIP 2.58; log2FC 6.2)
+ABC,5-Hydroxyomeprazole,BC_vs_Control,up,362.1248,8.79,[M+H]+,C17H19N3O4S,,ABC Table 5; m/z на +22 ppm от теоретического 362.1169
+ABC,2-Iminobiotin,BC_vs_Control,up,244.1115,5.74,[M+H]+,C10H17N3O2S,,ABC Table 5 (VIP 2.75; log2FC 6.05)
+ABC,(3S)-3-[(2S)-2-Amino-3-hydroxybutyl]pyrrolidin-2-one,BC_vs_Control,up,173.1286,7.41,[M+H]+,C8H16N2O2,,ABC Table 5 (VIP 2.58; log2FC 8.15)
+ABC,2-Amino-3-{[2-(pyridin-4-yl)ethyl]sulfanyl}propanoic acid,BC_vs_Control,up,249.0661,12.45,[M+Na]+,C10H14N2O2S,,ABC Table 5; m/z соответствует [M+Na]+

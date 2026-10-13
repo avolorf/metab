@@ -255,7 +255,7 @@ def main():
 
     # ------------------------------------------------------------ 6б. сверка с маркерами первого этапа / статьи ABC
     from pipeline import replication
-    rep_tab, rep_sum = replication.run(C.PRIOR_MARKERS, info, groups, res, log)
+    rep_tab, rep_sum = replication.run(C.PRIOR_MARKERS, info_all, feat_table, res, log)
     if rep_tab is not None:
         sheets["replication_markers"] = rep_tab
         sheets["replication_summary"] = rep_sum
