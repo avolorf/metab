@@ -30,6 +30,7 @@ from pipeline.features import ADDUCTS, formula_mass
 
 RT_SEARCH = 0.5      # мин; поиск апекса около ожидаемого RT
 RT_INT = 0.10        # мин; интегрирование апекс ± RT_INT
+MAX_GAP_MIN = 35     # мин; запуски ближе — соседние инъекции (градиент 23 мин + уравновешивание)
 BLANK_FRAC = 0.10    # доля медианы QC, начиная с которой соединение считается присутствующим в бланке
 TYPES = ["solvent_blank", "process_blank", "container_blank", "QC", "sample"]
 COL = {"solvent_blank": "#6f6e69", "process_blank": "#7a5af5", "container_blank": "#c2185b", "QC": "#2a78d6",
@@ -66,6 +67,15 @@ def read_ms1(path):
     return out
 
 
+def start_time(path):
+    """Время запуска инъекции (атрибут startTimeStamp элемента run в mzML; msconvert его сохраняет)."""
+    import re
+    with open(path, "rb") as f:
+        head = f.read(200000).decode("utf-8", "ignore")
+    m = re.search(r'<run[^>]*startTimeStamp="([^"]+)"', head)
+    return pd.to_datetime(m.group(1), utc=True) if m else pd.NaT
+
+
 def xic(spectra, mz, ppm):
     tol = mz * ppm * 1e-6
     rt = np.array([s[0] for s in spectra])
@@ -94,6 +104,9 @@ def main():
     d, out = Path(a.dir), Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     inj = pd.read_csv(a.list or d / "injections.csv", dtype={"file": str, "sample": str})
+    for c in ["batch", "order", "sample"]:
+        if c not in inj:
+            inj[c] = np.nan if c == "order" else ""
     inj["type"] = inj["type"].str.strip()
     bad = set(inj["type"]) - set(TYPES)
     if bad:
@@ -149,18 +162,27 @@ def main():
     summ["interpretation"] = flags
     summ.reset_index().to_csv(out / "blank_check_summary.csv", index=False)
 
-    # перенос: бланк сразу после пробы/QC (по order внутри батча)
+    # перенос: бланк сразу после пробы/QC. Порядок — столбец order (внутри батча), иначе время запуска из mzML;
+    # по времени пара считается соседней, если между запусками < MAX_GAP_MIN (иначе между ними были неконвертированные инъекции)
     co = []
     if "order" in inj and inj.order.notna().all():
         o = inj.sort_values(["batch", "order"]).reset_index(drop=True)
-        for i in range(1, len(o)):
-            if o.loc[i, "type"].endswith("blank") and o.loc[i - 1, "type"] in ("QC", "sample") and o.loc[i, "batch"] == o.loc[i - 1, "batch"]:
-                for lab in tg.label.unique():
-                    a_ = long[(long.file == o.loc[i, "file"]) & (long.label == lab)].area.sum()
-                    b_ = long[(long.file == o.loc[i - 1, "file"]) & (long.label == lab)].area.sum()
-                    co.append(dict(blank=o.loc[i, "file"], previous=o.loc[i - 1, "file"], label=lab,
-                                   carryover_pct=100 * a_ / b_ if b_ > 0 else np.nan))
-    pd.DataFrame(co).to_csv(out / "blank_check_carryover.csv", index=False)
+        o["adjacent"] = True
+    else:
+        o = inj.assign(t=inj.file.map(lambda f: start_time(d / f) if (d / f).exists() else pd.NaT)).dropna(subset=["t"])
+        o = o.sort_values(["batch", "t"]).reset_index(drop=True)
+        o["gap_min"] = o.groupby("batch").t.diff().dt.total_seconds() / 60
+        o["adjacent"] = o.gap_min < MAX_GAP_MIN
+        o.to_csv(out / "injection_order_from_timestamps.csv", index=False)
+    for i in range(1, len(o)):
+        if o.loc[i, "type"].endswith("blank") and o.loc[i - 1, "type"] in ("QC", "sample") \
+                and o.loc[i, "batch"] == o.loc[i - 1, "batch"] and bool(o.loc[i, "adjacent"]):
+            for lab in tg.label.unique():
+                a_ = long[(long.file == o.loc[i, "file"]) & (long.label == lab)].area.sum()
+                b_ = long[(long.file == o.loc[i - 1, "file"]) & (long.label == lab)].area.sum()
+                co.append(dict(blank=o.loc[i, "file"], previous=o.loc[i - 1, "file"], label=lab,
+                               carryover_pct=100 * a_ / b_ if b_ > 0 else np.nan))
+    pd.DataFrame(co, columns=["blank", "previous", "label", "carryover_pct"]).to_csv(out / "blank_check_carryover.csv", index=False)
 
     # рисунок: площади по типам инъекций (log10) + XIC главного члена ряда
     labs = list(tg.label.drop_duplicates())
