@@ -10,3 +10,5 @@ joblib==1.6.0
 mummichog==2.7.0
 adjustText==1.4.0
 pillow==12.3.0
+pyteomics==4.7.5
+lxml==6.1.3

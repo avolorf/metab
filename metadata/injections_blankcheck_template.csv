@@ -1,0 +1,7 @@
+file,type,batch,order,sample
+s266_blank_solvent_01.mzML,solvent_blank,s266,1,
+s266_QC1.mzML,QC,s266,2,QC1
+s266_007.mzML,sample,s266,9,7
+s266_blank_solvent_02.mzML,solvent_blank,s266,10,
+s266_procblank_01.mzML,process_blank,s266,30,
+s266_containerblank_01.mzML,container_blank,s266,31,
