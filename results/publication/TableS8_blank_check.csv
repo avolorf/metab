@@ -1,0 +1,14 @@
+Series member,m/z [M+H]+ (theoretical),RT (min),In contamination index,"Solvent blank, median area","QC, median area","Samples (2 lowest-, 3 highest-index), median area",Solvent blank / QC,Background in solvent blank (≥ 10% of QC)
+C12-DEA,274.2741,13.646,yes,1395900.0,8361200.0,18693000.0,0.167,yes
+C12-DEA+O,290.269,12.284,yes,0.0,168100.0,213800.0,0.0,no
+C14-DEA,302.3054,15.002,yes,857900.0,1865400.0,2322900.0,0.46,yes
+C14-DEA+(C2H4O)2+O,406.3527,13.828,yes,0.0,187300.0,317100.0,0.0,no
+C14-DEA+C2H4O2,362.3265,13.807,yes,0.0,746100.0,1253200.0,0.0,no
+C14-DEA+O,318.3003,13.729,yes,64900.0,3282800.0,5716200.0,0.02,no
+C16-DEA+O,346.3316,15.065,yes,8200.0,292800.0,389100.0,0.028,no
+C18-DEA+O (+1 unresolved isomer),374.3629,16.3205,yes,119500.0,328700.0,320900.0,0.364,yes
+C20-DEA+O,402.3942,17.06,yes,115700.0,189300.0,120100.0,0.611,yes
+C24H30O6,415.2115,14.183,no,0.0,85200.0,74000.0,0.0,no
+C24H30O6,415.2115,15.143,no,0.0,327500.0,443300.0,0.0,no
+C24H30O6 Na,437.1935,15.155,no,0.0,141800.0,199100.0,0.0,no
+alkylaminopropanediol,262.2377,10.584,no,0.0,207700.0,373800.0,0.0,no

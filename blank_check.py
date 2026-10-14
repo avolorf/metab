@@ -32,6 +32,9 @@ RT_SEARCH = 0.10     # мин; поиск апекса около ожидаем
 RT_INT = 0.10        # мин; интегрирование апекс ± RT_INT
 MAX_GAP_MIN = 35     # мин; запуски ближе — соседние инъекции (градиент 23 мин + уравновешивание)
 BLANK_FRAC = 0.10    # доля медианы QC, начиная с которой соединение считается присутствующим в бланке
+XIC_SAVE = ["C12-DEA", "C14-DEA+O"]
+MERGE_RT = 0.1       # мин
+ANCHOR_SEARCH = 0.3  # мин; поиск якоря (первый член ряда в contaminant_series.csv, C12-DEA) для сдвига RT инъекции
 TYPES = ["solvent_blank", "process_blank", "container_blank", "QC", "sample"]
 COL = {"solvent_blank": "#6f6e69", "process_blank": "#7a5af5", "container_blank": "#c2185b", "QC": "#2a78d6",
        "sample": "#eb6834"}
@@ -47,12 +50,25 @@ def targets(series_path):
     rows += [dict(label=l, formula=f, ion=i, rt=rt, in_index=0, kind="endogenous reference") for l, f, i, rt in REFERENCE]
     t = pd.DataFrame(rows)
     t["mz"] = [formula_mass(f) + ADDUCTS[i] for f, i in zip(t.formula, t.ion)]
-    win = []
-    for _, r in t.iterrows():
-        o = t[(abs(t.mz - r.mz) < 0.001) & (t.rt != r.rt)]
-        win.append(min(RT_SEARCH, (o.rt - r.rt).abs().min() / 2) if len(o) else RT_SEARCH)
-    t["win"] = win
-    return t
+    # изомеры с той же m/z ближе MERGE_RT мин в XIC не разделяются -> одна мишень (средний RT, окно на оба)
+    rows2, used = [], set()
+    for i, r in t.iterrows():
+        if i in used:
+            continue
+        o = t[(abs(t.mz - r.mz) < 0.001) & ((t.rt - r.rt).abs() < MERGE_RT) & (t.index != i)]
+        if len(o):
+            used |= set(o.index)
+            r = r.copy()
+            span = (pd.concat([o.rt, pd.Series([r.rt])]).max() - pd.concat([o.rt, pd.Series([r.rt])]).min())
+            r["label"] = f"{r.label} (+{len(o)} unresolved isomer{'s' if len(o) > 1 else ''})"
+            r["rt"] = (r.rt + o.rt.sum()) / (len(o) + 1)
+            r["win"] = RT_SEARCH + span / 2
+        else:
+            same = t[(abs(t.mz - r.mz) < 0.001) & (t.index != i)]
+            r = r.copy()
+            r["win"] = min(RT_SEARCH, (same.rt - r.rt).abs().min() / 2) if len(same) else RT_SEARCH
+        rows2.append(r)
+    return pd.DataFrame(rows2).reset_index(drop=True)
 
 
 def read_ms1(path):
@@ -135,17 +151,25 @@ def main():
                              sample=r.get("sample", ""), label=t.label, kind=t.kind, in_index=t.in_index,
                              mz=round(t.mz, 4), rt_expected=t.rt, win=t.win))
     long = pd.DataFrame(rows)
-    # сдвиг RT: медиана по QC для каждой мишени (по апексам без сдвига), затем повторный поиск со сдвигом
-    tmp = [peak(*traces[(f, l, rt0)], rt0, 0.0, w) for f, l, rt0, w in zip(long.file, long.label, long.rt_expected, long.win)]
-    long["rt_apex0"] = [x[0] for x in tmp]
-    qc = long[long["type"] == "QC"]
-    shift = (qc.rt_apex0 - qc.rt_expected).groupby([qc.label, qc.rt_expected]).median()
-    res = []
-    for _, x in long.iterrows():
-        sh = shift.get((x.label, x.rt_expected), 0.0)
-        res.append(peak(*traces[(x.file, x.label, x.rt_expected)], x.rt_expected, 0.0 if pd.isna(sh) else sh, x.win))
+    # XIC двух показательных членов ряда (с фоном и без фона) для рисунка в приложении
+    xr = []
+    for (f, lab, rt0), (rt, y) in traces.items():
+        if lab in XIC_SAVE:
+            m = np.abs(rt - rt0) <= 1.0
+            xr.append(pd.DataFrame({"file": f, "label": lab, "rt": rt[m].round(4), "intensity": y[m].round(0)}))
+    if xr:
+        pd.concat(xr).to_csv(out / "blank_check_xic.csv", index=False)
+    # сдвиг RT для каждой инъекции: по апексу самого интенсивного члена ряда (якорь, поиск ± ANCHOR_SEARCH);
+    # затем все мишени ищутся в узком окне около ожидаемого RT + сдвиг этой инъекции
+    anchor = tg[tg.kind == "series"].iloc[0]
+    fshift = {}
+    for f in long.file.unique():
+        rt_a, h_a, _ = peak(*traces[(f, anchor.label, anchor.rt)], anchor.rt, 0.0, ANCHOR_SEARCH)
+        fshift[f] = rt_a - anchor.rt if h_a > 0 else 0.0
+    long["rt_shift"] = long.file.map(fshift).round(3)
+    res = [peak(*traces[(x.file, x.label, x.rt_expected)], x.rt_expected, x.rt_shift, x.win) for _, x in long.iterrows()]
     long["rt_apex"], long["height"], long["area"] = zip(*res)
-    long = long.drop(columns=["rt_apex0", "win"])
+    long = long.drop(columns=["win"])
     long.to_csv(out / "blank_check_areas.csv", index=False)
 
     # сводка: медиана площади по типу инъекции и доля от медианы QC

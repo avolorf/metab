@@ -28,6 +28,8 @@
 
 **Figure S4.** Pathway enrichment (mummichog, positive mode, 5 ppm; exposure-related features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
 
+**Figure S5.** Alkyl diethanolamine series in solvent blanks, pooled QC and urine samples (batch 1; raw peak areas from extracted-ion chromatograms, ± 5 ppm). (a) Peak areas of each series member in methanol solvent blanks (n = 7, including two injected before the first sample), pooled QC (n = 6), the two controls with the lowest and the three PC samples with the highest contamination index; † members with solvent-blank area ≥ 10% of the QC median (system/solvent background); n.d., not detected. (b, c) Extracted-ion chromatograms of C12-DEA (present in blanks) and its oxygenated analogue C14-DEA+O (absent from blanks).
+
 **Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
 
 **Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, Q², permutation p).
@@ -39,3 +41,7 @@
 **Table S5.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
 
 **Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
+
+**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < 0.2, and with a contamination index built only from the series members that were absent from solvent blanks; overlap with the main analysis and cross-validated panel AUC.
+
+**Table S8.** Solvent-blank check of the alkyl diethanolamine series (batch 1): median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.

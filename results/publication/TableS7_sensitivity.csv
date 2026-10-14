@@ -1,0 +1,17 @@
+Comparison,Analysis,q < 0.05,Findings,Shared with main (q < 0.05),Shared findings,Panel AUC (CV),Note
+BC vs Control,"Main (PQN, all samples, 10-member index)",295,212,295,212,0.81,
+BC vs Control,MSTUS normalization,203,125,203,120,0.8,
+BC vs Control,Without samples with PQN factor < 0.2 (n = 26/44),490,371,277,190,0.8,
+BC vs Control,Contamination index from 5 members absent from solvent blanks,206,163,205,159,0.79,panel AUC: features adjusted for this index in-fold
+BC vs PC,"Main (PQN, all samples, 10-member index)",3,3,3,3,0.86,
+BC vs PC,MSTUS normalization,3,3,3,3,0.83,
+BC vs PC,Without samples with PQN factor < 0.2 (n = 26/17),10,10,3,3,0.81,
+BC vs PC,Contamination index from 5 members absent from solvent blanks,2,2,2,2,0.65,panel AUC: features adjusted for this index in-fold
+PC vs Control,"Main (PQN, all samples, 10-member index)",0,0,0,0,,
+PC vs Control,MSTUS normalization,0,0,0,0,,
+PC vs Control,Without samples with PQN factor < 0.2 (n = 17/44),2,1,0,0,0.64,
+PC vs Control,Contamination index from 5 members absent from solvent blanks,0,0,0,0,0.8,panel AUC: features adjusted for this index in-fold
+PC vs male Control,"Main (PQN, all samples, 10-member index)",0,0,0,0,,
+PC vs male Control,MSTUS normalization,0,0,0,0,,
+PC vs male Control,Without samples with PQN factor < 0.2 (n = 17/17),0,0,0,0,0.75,
+PC vs male Control,Contamination index from 5 members absent from solvent blanks,0,0,0,0,,

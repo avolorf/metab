@@ -528,6 +528,74 @@ def table1_note(meta, demo):
             f"contamination-matched pairs; missing values were not imputed.")
 
 
+def figS5_blanks(out, res, meta):
+    """Figure S5: ряд диэтаноламинов в бланках растворителя, QC и пробах с низким/высоким индексом (сырые площади)."""
+    d0 = res / "blank_check"
+    if not (d0 / "blank_check_areas.csv").exists():
+        return
+    a = pd.read_csv(d0 / "blank_check_areas.csv", dtype={"sample": str})
+    summ = pd.read_csv(d0 / "blank_check_summary.csv")
+    a = a[a.kind == "series"]
+    a["grp"] = [("Blank" if t.endswith("blank") else "QC" if t == "QC" else meta.group.get(str(sm), "sample"))
+                for t, sm in zip(a["type"], a["sample"])]
+    order = summ[summ.kind == "series"].drop_duplicates("label")
+    order = order[order.in_index == 1].sort_values("solvent_blank_frac_of_QC").label.tolist() + \
+        [l for l in summ[(summ.kind == "series") & (summ.in_index == 0)].label.drop_duplicates()]
+    frac = summ.drop_duplicates("label").set_index("label").solvent_blank_frac_of_QC
+    fig = plt.figure(figsize=(FULL, 9.5 * CM))
+    gs = fig.add_gridspec(2, 2, width_ratios=[1.35, 1], hspace=0.55, wspace=0.55)
+    ax = fig.add_subplot(gs[:, 0])
+    sty = {"Blank": dict(c="white", ec=INK, m="o"), "QC": dict(c=COL["QC"], ec="none", m=MRK["QC"]),
+           "Control": dict(c=COL["Control"], ec="none", m=MRK["Control"]), "PC": dict(c=COL["PC"], ec="none", m=MRK["PC"])}
+    offs = {"Blank": -0.27, "QC": -0.09, "Control": 0.09, "PC": 0.27}
+    for k, lab in enumerate(order):
+        for g, o in offs.items():
+            v = a[(a.label == lab) & (a.grp == g)].area
+            if len(v):
+                st_ = sty[g]
+                ax.scatter(np.log10(v.clip(lower=1e3)), np.full(len(v), k + o), s=9, c=st_["c"], edgecolors=st_["ec"],
+                           marker=st_["m"], lw=0.5, zorder=3)
+    labs = [f"{l}{'' if pd.isna(frac.get(l)) else ('' if frac[l] < 0.10 else ' †')}" for l in order]
+    def sub(l):    # нижние индексы в формулах (C12-DEA — длина цепи, без индекса)
+        head, *tail = l.split("+", 1)
+        f = lambda x: re.sub(r"([A-Za-z\)])(\d+)", r"\1$_{\2}$", x)
+        return (f(head) if not head.startswith("C1") and not head.startswith("C2") or head.startswith("C24") else head) + \
+            ("+" + f(tail[0]) if tail else "")
+    ax.set_yticks(range(len(order)), [sub(l) for l in labs], fontsize=6)
+    ax.invert_yaxis()
+    ax.axvline(3, c=GRID, lw=0.6)
+    ax.set_xlim(2.8, None)
+    ax.text(2.82, len(order) - 0.4, "n.d.", fontsize=5.5, color=INK2, va="bottom")
+    ax.set_xlabel("log$_{10}$ peak area (raw, XIC ± 5 ppm)")
+    ax.legend(handles=[Line2D([], [], marker=sty[g]["m"], ls="", mfc=sty[g]["c"], mec=INK if g == "Blank" else sty[g]["c"], ms=4,
+                              label={"Blank": "Solvent blank (methanol)", "QC": "Pooled QC", "Control": "Control, lowest index",
+                                     "PC": "PC, highest index"}[g]) for g in offs],
+              loc="upper center", bbox_to_anchor=(0.45, -0.1), ncol=2, fontsize=5.5)
+    panel(ax, "a", x=-0.62, y=1.01)
+    if (d0 / "blank_check_xic.csv").exists():
+        x = pd.read_csv(d0 / "blank_check_xic.csv", dtype={"file": str})
+        inj = a.drop_duplicates("file").set_index("file")
+        pick = {"Blank": inj.index[inj.grp == "Blank"][0], "QC": inj.index[inj.grp == "QC"][0]}
+        for g in ["Control", "PC"]:
+            ff = inj.index[inj.grp == g]
+            if len(ff):
+                pick[g] = ff[0]
+        for j, lab in enumerate(["C12-DEA", "C14-DEA+O"]):
+            ax2 = fig.add_subplot(gs[j, 1])
+            for g, f in pick.items():
+                q = x[(x.file == f) & (x.label == lab)]
+                nm = {"Blank": "Solvent blank", "QC": "QC"}.get(g, f"{g}, sample {inj.loc[f, 'sample']}")
+                ax2.plot(q.rt, q.intensity / 1e6, lw=0.8, c=INK if g == "Blank" else COL.get(g, INK2),
+                         ls="--" if g == "Blank" else "-", label=nm)
+            fr = frac.get(lab, np.nan)
+            ax2.set_title(f"{lab}: solvent blank = {fr:.0%} of QC", fontsize=6.5)
+            ax2.set(xlabel="Retention time (min)" if j == 1 else "", ylabel="Intensity (×10$^6$)")
+            if j == 0:
+                ax2.legend(fontsize=5.2, loc="upper right")
+            panel(ax2, "bc"[j], x=-0.3, y=1.06)
+    save(fig, out, "FigureS5_blank_check")
+
+
 def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None, meta=None):
     t1 = demo.rename(columns={"group": "Group"})
     t1["Group"] = t1.Group.map(LAB)
@@ -629,6 +697,8 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Figure S4.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exposure-related features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
 
+**Figure S5.** Alkyl diethanolamine series in solvent blanks, pooled QC and urine samples (batch 1; raw peak areas from extracted-ion chromatograms, ± 5 ppm). (a) Peak areas of each series member in methanol solvent blanks (n = 7, including two injected before the first sample), pooled QC (n = 6), the two controls with the lowest and the three PC samples with the highest contamination index; † members with solvent-blank area ≥ 10% of the QC median (system/solvent background); n.d., not detected. (b, c) Extracted-ion chromatograms of C12-DEA (present in blanks) and its oxygenated analogue C14-DEA+O (absent from blanks).
+
 **Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
 
 **Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, Q², permutation p).
@@ -640,6 +710,10 @@ CAPTIONS = """# Figure and table captions (draft)
 **Table S5.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
 
 **Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
+
+**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < 0.2, and with a contamination index built only from the series members that were absent from solvent blanks; overlap with the main analysis and cross-validated panel AUC.
+
+**Table S8.** Solvent-blank check of the alkyl diethanolamine series (batch 1): median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
 """
 
 
@@ -802,6 +876,66 @@ def supplementary_tables(out, res_dir, t2_full, ts_class, rep, feat, msi, has_ms
             if (t / f"stats_{n}.csv").exists():
                 s6_table(pd.read_csv(t / f"stats_{n}.csv")).to_excel(w, sheet_name=f"S6_{n}"[:31], index=False)
     s4.to_csv(out / "TableS4_curated_candidates.csv", index=False)
+    s7, s8 = sensitivity_table(t), blank_table(res_dir)
+    if s7 is not None or s8 is not None:
+        with pd.ExcelWriter(out / "Supplementary_Tables.xlsx", mode="a", engine="openpyxl") as w:
+            if s7 is not None:
+                s7.to_excel(w, sheet_name="S7_sensitivity", index=False)
+            if s8 is not None:
+                s8.to_excel(w, sheet_name="S8_blank_check", index=False)
+        for x, n in [(s7, "TableS7_sensitivity.csv"), (s8, "TableS8_blank_check.csv")]:
+            if x is not None:
+                x.to_csv(out / n, index=False)
+
+
+def sensitivity_table(t):
+    """Table S7: число значимых соединений и находок при альтернативной обработке (относительно основного анализа)."""
+    rows = []
+    if (t / "normalization_sensitivity.csv").exists():
+        for _, r in pd.read_csv(t / "normalization_sensitivity.csv").iterrows():
+            c = r.comparison.replace("_vs_", " vs ").replace("maleControl", "male Control")
+            rows.append({"Comparison": c, "Analysis": "Main (PQN, all samples, 10-member index)", "q < 0.05": r["q<FDR_PQN"],
+                         "Findings": r.findings_PQN, "Shared with main (q < 0.05)": r["q<FDR_PQN"], "Shared findings": r.findings_PQN,
+                         "Panel AUC (CV)": r.get("panel_AUC_PQN")})
+            rows.append({"Comparison": c, "Analysis": "MSTUS normalization", "q < 0.05": r["q<FDR_MSTUS"], "Findings": r.findings_MSTUS,
+                         "Shared with main (q < 0.05)": r.overlap, "Shared findings": r.findings_overlap,
+                         "Panel AUC (CV)": r.get("panel_AUC_MSTUS")})
+            rows.append({"Comparison": c, "Analysis": f"Without samples with PQN factor < {C.LOW_DILUTION_FACTOR} (n = {r.n_without_lowdilution})",
+                         "q < 0.05": r.q_without_lowdilution, "Findings": r.findings_without_lowdilution,
+                         "Shared with main (q < 0.05)": r.overlap_with_main, "Shared findings": r.findings_overlap_main,
+                         "Panel AUC (CV)": r.get("panel_AUC_without_lowdilution")})
+    if (t / "sensitivity_contam_index.csv").exists():
+        for _, r in pd.read_csv(t / "sensitivity_contam_index.csv").iterrows():
+            c = r.comparison.replace("_vs_", " vs ").replace("maleControl", "male Control")
+            rows.append({"Comparison": c, "Analysis": f"Contamination index from {int(r.members_clean_index)} members absent from solvent blanks",
+                         "q < 0.05": r.q05_clean, "Findings": r.findings_clean, "Shared with main (q < 0.05)": r.q05_overlap,
+                         "Shared findings": r.findings_overlap, "Panel AUC (CV)": r.get("AUC_panel_adj"),
+                         "Note": "panel AUC: features adjusted for this index in-fold" if pd.notna(r.get("AUC_panel_adj")) else ""})
+    if not rows:
+        return None
+    d = pd.DataFrame(rows)
+    d["Panel AUC (CV)"] = d["Panel AUC (CV)"].astype(float).round(2)
+    return d.sort_values("Comparison", kind="stable")
+
+
+def blank_table(res_dir):
+    """Table S8: проверка бланков — площади членов ряда в бланках растворителя, QC и пробах."""
+    p = res_dir / "blank_check" / "blank_check_summary.csv"
+    if not p.exists():
+        return None
+    d = pd.read_csv(p)
+    d = d[d.kind == "series"]
+    cols = {"label": "Series member", "mz": "m/z [M+H]+ (theoretical)", "rt_expected": "RT (min)",
+            "in_index": "In contamination index", "solvent_blank": "Solvent blank, median area", "QC": "QC, median area",
+            "sample": "Samples (2 lowest-, 3 highest-index), median area", "solvent_blank_frac_of_QC": "Solvent blank / QC"}
+    d = d[[c for c in cols if c in d]].rename(columns=cols)
+    d["In contamination index"] = d["In contamination index"].map({1: "yes", 0: "no"})
+    d["Solvent blank / QC"] = d["Solvent blank / QC"].round(3)
+    d["Background in solvent blank (≥ 10% of QC)"] = np.where(d["Solvent blank / QC"] >= 0.10, "yes", "no")
+    for c in d.columns:
+        if "median area" in c:
+            d[c] = d[c].round(-2)
+    return d
 
 
 def main():
@@ -829,6 +963,7 @@ def main():
     figS1_age(out, meta, pairs)
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
+    figS5_blanks(out, res, meta)
     t2_full, ts_class = tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2, meta)
     rep = replication_outputs(out, res, feat, stats_, info_all)
     supplementary_tables(out, res, t2_full, ts_class, rep, feat, msi, has_ms2)
