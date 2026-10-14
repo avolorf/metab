@@ -28,7 +28,7 @@ import pandas as pd
 
 from pipeline.features import ADDUCTS, formula_mass
 
-RT_SEARCH = 0.5      # мин; поиск апекса около ожидаемого RT
+RT_SEARCH = 0.10     # мин; поиск апекса около ожидаемого RT (у изомеров с той же m/z — не больше половины расстояния между ними)
 RT_INT = 0.10        # мин; интегрирование апекс ± RT_INT
 MAX_GAP_MIN = 35     # мин; запуски ближе — соседние инъекции (градиент 23 мин + уравновешивание)
 BLANK_FRAC = 0.10    # доля медианы QC, начиная с которой соединение считается присутствующим в бланке
@@ -47,6 +47,11 @@ def targets(series_path):
     rows += [dict(label=l, formula=f, ion=i, rt=rt, in_index=0, kind="endogenous reference") for l, f, i, rt in REFERENCE]
     t = pd.DataFrame(rows)
     t["mz"] = [formula_mass(f) + ADDUCTS[i] for f, i in zip(t.formula, t.ion)]
+    win = []
+    for _, r in t.iterrows():
+        o = t[(abs(t.mz - r.mz) < 0.001) & (t.rt != r.rt)]
+        win.append(min(RT_SEARCH, (o.rt - r.rt).abs().min() / 2) if len(o) else RT_SEARCH)
+    t["win"] = win
     return t
 
 
@@ -83,8 +88,8 @@ def xic(spectra, mz, ppm):
     return rt, y
 
 
-def peak(rt, y, rt0, shift=0.0):
-    m = np.abs(rt - (rt0 + shift)) <= RT_SEARCH
+def peak(rt, y, rt0, shift=0.0, win=RT_SEARCH):
+    m = np.abs(rt - (rt0 + shift)) <= win
     if not m.any() or y[m].max() <= 0:
         return np.nan, 0.0, 0.0
     i = np.where(m)[0][np.argmax(y[m])]
@@ -128,19 +133,19 @@ def main():
             traces[(r.file, t.label, t.rt)] = (rt, y)
             rows.append(dict(file=r.file, type=r["type"], batch=r.get("batch", ""), order=r.get("order", np.nan),
                              sample=r.get("sample", ""), label=t.label, kind=t.kind, in_index=t.in_index,
-                             mz=round(t.mz, 4), rt_expected=t.rt))
+                             mz=round(t.mz, 4), rt_expected=t.rt, win=t.win))
     long = pd.DataFrame(rows)
     # сдвиг RT: медиана по QC для каждой мишени (по апексам без сдвига), затем повторный поиск со сдвигом
-    tmp = [peak(*traces[(f, l, rt0)], rt0) for f, l, rt0 in zip(long.file, long.label, long.rt_expected)]
+    tmp = [peak(*traces[(f, l, rt0)], rt0, 0.0, w) for f, l, rt0, w in zip(long.file, long.label, long.rt_expected, long.win)]
     long["rt_apex0"] = [x[0] for x in tmp]
     qc = long[long["type"] == "QC"]
     shift = (qc.rt_apex0 - qc.rt_expected).groupby([qc.label, qc.rt_expected]).median()
     res = []
     for _, x in long.iterrows():
         sh = shift.get((x.label, x.rt_expected), 0.0)
-        res.append(peak(*traces[(x.file, x.label, x.rt_expected)], x.rt_expected, 0.0 if pd.isna(sh) else sh))
+        res.append(peak(*traces[(x.file, x.label, x.rt_expected)], x.rt_expected, 0.0 if pd.isna(sh) else sh, x.win))
     long["rt_apex"], long["height"], long["area"] = zip(*res)
-    long = long.drop(columns="rt_apex0")
+    long = long.drop(columns=["rt_apex0", "win"])
     long.to_csv(out / "blank_check_areas.csv", index=False)
 
     # сводка: медиана площади по типу инъекции и доля от медианы QC

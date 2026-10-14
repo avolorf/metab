@@ -1,0 +1,17 @@
+label,kind,in_index,mz,rt_expected,solvent_blank,process_blank,container_blank,QC,sample,solvent_blank_frac_of_QC,process_blank_frac_of_QC,container_blank_frac_of_QC,sample_frac_of_QC,interpretation
+C12-DEA,series,1,274.2741,13.646,1395858.0725124285,,,8361165.230309891,,0.16694539984120058,,,,in solvent blank: instrument/solvent background or carryover
+C12-DEA+O,series,1,290.269,12.284,0.0,,,168106.05974433426,,0.0,,,,not in blanks (< 10% of QC)
+C14-DEA,series,1,302.3054,15.002,857871.2524735011,,,1865393.734262879,,0.45988749544743907,,,,in solvent blank: instrument/solvent background or carryover
+C14-DEA+(C2H4O)2+O,series,1,406.3527,13.828,0.0,,,187295.93486692238,,0.0,,,,not in blanks (< 10% of QC)
+C14-DEA+C2H4O2,series,1,362.3265,13.807,0.0,,,746064.5427156473,,0.0,,,,not in blanks (< 10% of QC)
+C14-DEA+O,series,1,318.3003,13.729,64925.07544159354,,,3282810.342063983,,0.019777284910334952,,,,not in blanks (< 10% of QC)
+C16-DEA+O,series,1,346.3316,15.065,8240.788297366356,,,292846.5620140141,,0.02814029381356369,,,,not in blanks (< 10% of QC)
+C18-DEA+O,series,1,374.3629,16.281,112927.09021837632,,,313018.8806505017,,0.36076766354699225,,,,in solvent blank: instrument/solvent background or carryover
+C18-DEA+O isomer,series,1,374.3629,16.36,112927.09021837631,,,328745.9399052432,,0.3435086993041681,,,,in solvent blank: instrument/solvent background or carryover
+C20-DEA+O,series,1,402.3942,17.06,115666.19681305293,,,189328.30169610505,,0.6109292471165312,,,,in solvent blank: instrument/solvent background or carryover
+C24H30O6,series,0,415.2115,14.183,0.0,,,85228.25446683107,,0.0,,,,not in blanks (< 10% of QC)
+C24H30O6,series,0,415.2115,15.143,0.0,,,327483.71223933797,,0.0,,,,not in blanks (< 10% of QC)
+C24H30O6 Na,series,0,437.1935,15.155,0.0,,,141776.09783167916,,0.0,,,,not in blanks (< 10% of QC)
+alkylaminopropanediol,series,0,262.2377,10.584,0.0,,,207731.46367830934,,0.0,,,,not in blanks (< 10% of QC)
+ref: C19H28O3 steroid,endogenous reference,0,287.2006,11.056,0.0,,,1661919.1892676447,,0.0,,,,not in blanks (< 10% of QC)
+ref: tetrahydrocortisone,endogenous reference,0,347.2217,10.482,0.0,,,506373.27420142357,,0.0,,,,not in blanks (< 10% of QC)
