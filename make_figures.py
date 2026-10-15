@@ -51,11 +51,24 @@ plt.rcParams.update({
 })
 
 
+# вариант оформления: "full" (results/publication) | "v4" (publication_v4: без отдельного раздела о ряде,
+# «exogenous-signal index», рисунки 3–6 -> 2–5, ряд -> Figure S6, без панели 1d, на ROC только базовая линия «пол»)
+VARIANT = {"name": "full"}
+TERM = {"index": "Contamination index", "adj": "Contam.-adjusted", "series": "Diethanolamine series (index)",
+        "contaminant": "Contaminant", "prior": "Stage-1 markers"}
+RENAME = {}
+
+
+def v4():
+    return VARIANT["name"] == "v4"
+
+
 def panel(ax, letter, x=-0.16, y=1.04):
     ax.text(x, y, f"({letter})", transform=ax.transAxes, fontsize=8.5, fontweight="bold", va="bottom", ha="left")
 
 
 def save(fig, out, name):
+    name = RENAME.get(name, name)
     fig.savefig(out / f"{name}.pdf", bbox_inches="tight")
     fig.savefig(out / f"{name}.png", dpi=DPI, bbox_inches="tight")
     fig.savefig(out / f"{name}_tmp.png", dpi=DPI, bbox_inches="tight")
@@ -156,7 +169,11 @@ def excluded_annotations(feat):
 
 # ------------------------------------------------------------------ рисунки
 def fig1_quality(out, meta, L, feat, X_all):
-    fig, axs = plt.subplots(2, 2, figsize=(FULL, 12 * CM), gridspec_kw={"hspace": 0.45, "wspace": 0.3})
+    if v4():     # три панели в ряд, без окраски PCA по индексу
+        fig, a3 = plt.subplots(1, 3, figsize=(FULL, 6.2 * CM), gridspec_kw={"wspace": 0.38})
+        axs = np.array([[a3[0], a3[1]], [a3[2], None]], dtype=object)
+    else:
+        fig, axs = plt.subplots(2, 2, figsize=(FULL, 12 * CM), gridspec_kw={"hspace": 0.45, "wspace": 0.3})
     ana = meta.index[meta.study | (meta.kind == "QC")]
     grp = meta.loc[ana, "group"]
     tic = np.log10(X_all.loc[ana].sum(axis=1))
@@ -165,8 +182,11 @@ def fig1_quality(out, meta, L, feat, X_all):
     q = meta.index[meta.kind == "QC"]
     ax.plot(meta.loc[q, "inj_order"], tic[q], c=COL["QC"], lw=0.8, zorder=2)
     ax.set(xlabel="Injection order", ylabel="log$_{10}$ total ion intensity")
-    ax.legend(handles=[Line2D([], [], marker=MRK[g], ls="", mfc=COL[g], mec="white", ms=5, label=LAB[g])
-                       for g in ["QC", "Control", "BC", "PC"]], ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.0))
+    hl = [Line2D([], [], marker=MRK[g], ls="", mfc=COL[g], mec="white", ms=5, label=LAB[g]) for g in ["QC", "Control", "BC", "PC"]]
+    if v4():
+        fig.legend(handles=hl, ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.02))
+    else:
+        ax.legend(handles=hl, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.0))
     panel(ax, "a")
     ax = axs[0, 1]
     r = feat.loc[feat.pass_detection, "RSD_QC_raw"].clip(upper=1) * 100
@@ -183,11 +203,14 @@ def fig1_quality(out, meta, L, feat, X_all):
     scatter_groups(ax, S[0].to_numpy(), S[1].to_numpy(), grp.to_numpy(), legend=False)
     ax.set(xlabel=f"PC1 ({var[0]:.1%})", ylabel=f"PC2 ({var[1]:.1%})")
     panel(ax, "c")
+    if v4():
+        save(fig, out, "Figure1_data_quality")
+        return
     ax = axs[1, 1]
     s = meta.index[meta.study]
     sc = ax.scatter(S.loc[s, 0], S.loc[s, 1], c=meta.loc[s, "contam_index"], cmap="magma_r", s=10, edgecolor="white", lw=0.3)
     cb = fig.colorbar(sc, ax=ax, fraction=0.05, pad=0.02)
-    cb.set_label("Contamination index", fontsize=6.5)
+    cb.set_label(TERM["index"], fontsize=6.5)
     cb.outline.set_linewidth(0.4)
     ax.set(xlabel=f"PC1 ({var[0]:.1%})", ylabel=f"PC2 ({var[1]:.1%})")
     panel(ax, "d")
@@ -200,7 +223,7 @@ def fig2_contamination(out, meta, series):
     d = series[series.in_index == 1].sort_values("mz")
     o = series[series.in_index == 0]
     ax.scatter(d.mz, d.rt_min, s=22, c=EXPO_COL["contaminant"], edgecolor="white", lw=0.4, zorder=3,
-               label="Diethanolamine series (index)")
+               label=TERM["series"])
     ax.scatter(o.mz, o.rt_min, s=18, c="white", edgecolor=INK2, lw=0.7, marker="D", zorder=3, label="Co-varying, not in index")
     from adjustText import adjust_text
     seen, texts = set(), []
@@ -228,7 +251,7 @@ def fig2_contamination(out, meta, series):
         ax.scatter(np.random.RandomState(i).normal(i, 0.08, len(v)), v, s=9, c=COL[g], marker=MRK[g], edgecolor="white",
                    lw=0.3, zorder=3)
     ax.set_xticks(range(3), [f"{LAB[g]}\n(n = {(s.group == g).sum()})" for g in C.STUDY_GROUPS])
-    ax.set_ylabel("Contamination index (mean z-score)")
+    ax.set_ylabel(f"{TERM['index']} (mean z-score)")
     ymax = s.contam_index.max()
     for k, (a, b) in enumerate([("Control", "BC"), ("BC", "PC"), ("Control", "PC")]):
         p = stats.mannwhitneyu(s.contam_index[s.group == a], s.contam_index[s.group == b]).pvalue
@@ -256,7 +279,7 @@ def volcano_ax(ax, r, nm, title, numbered=None):
     for c, col in EXPO_COL.items():
         m = cat == c
         if m.any():
-            ax.scatter(x[m], y[m], s=9, c=col, marker="x", lw=0.6, label=c.capitalize(), zorder=3)
+            ax.scatter(x[m], y[m], s=9, c=col, marker="x", lw=0.6, label=TERM["contaminant"] if c == "contaminant" else c.capitalize(), zorder=3)
     f = r.finding.astype(bool)
     ax.scatter(x[f], y[f], s=14, facecolor=COL["BC"], edgecolor="white", lw=0.4, zorder=4, label="Finding (all criteria met)")
     title = f"{title} ({f.sum()} findings)"
@@ -314,7 +337,7 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
         "Group": meta.loc[smp, "group"].map(COL),
         "Sex": meta.loc[smp, "sex"].map({"M": "#3a3a38", "F": "#d2d1cc"}).fillna("#ffffff"),
         "Age": [to_hex(cmA(age_n(a))) if pd.notna(a) else "#ffffff" for a in meta.loc[smp, "age"]],
-        "Contamination": [to_hex(cmC(ci_n(v))) for v in meta.loc[smp, "contam_index"]],
+        ("Index" if v4() else "Contamination"): [to_hex(cmC(ci_n(v))) for v in meta.loc[smp, "contam_index"]],
     }, index=smp)
     order = meta.loc[smp].sort_values(["group", "contam_index"]).index
     g = sns.clustermap(Z[order], cmap="RdBu_r", center=0, vmin=-2.5, vmax=2.5, row_cluster=False, col_cluster=False,
@@ -330,7 +353,7 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
          Patch(facecolor="white", edgecolor=INK2, lw=0.4, label="Not available")]
     g.ax_heatmap.legend(handles=h, loc="lower left", bbox_to_anchor=(0, 1.13), ncol=5, fontsize=6)
     for i, (cm, lab, nr) in enumerate([(plt.get_cmap("RdBu_r"), "z-score", Normalize(-2.5, 2.5)),
-                                       (cmA, "Age (years)", age_n), (cmC, "Contamination index", ci_n)]):
+                                       (cmA, "Age (years)", age_n), (cmC, TERM["index"], ci_n)]):
         pos = g.ax_heatmap.get_position()
         cax = g.fig.add_axes([pos.x0 + i * pos.width / 3, pos.y0 - 0.035, pos.width / 3.6, 0.007])
         cb = plt.colorbar(plt.cm.ScalarMappable(norm=nr, cmap=cm), cax=cax, orientation="horizontal")
@@ -363,9 +386,11 @@ def fig5_roc(out, L, meta, feat, mv, pairs, zpairs=None):
         pr = pairs[pairs.comparison == c]
         zp = zpairs[zpairs.comparison == c] if zpairs is not None else pr.iloc[:0]
         runs = [("all", "panel", case, ref, "-", "All")]
-        runs.append(("all", "panel_adj", case, ref, "-.", "Contam.-adjusted"))
+        runs.append(("all", "panel_adj", case, ref, "-.", TERM["adj"]))
         notes = []
-        for sname, pp, ls, lab in [("matched", pr, "--", "Age-matched"), ("contam_matched", zp, (0, (3, 1, 1, 1, 1, 1)), "Contam.-matched")]:
+        msets = [("matched", pr, "--", "Age-matched")] + \
+            ([] if v4() else [("contam_matched", zp, (0, (3, 1, 1, 1, 1, 1)), "Contam.-matched")])
+        for sname, pp, ls, lab in msets:
             if len(pp) >= C.MIN_PAIRS_CV:
                 runs.append((sname, "panel", list(pp.case), list(pp.ref), ls, f"{lab} ({len(pp)} pairs)"))
             else:
@@ -384,7 +409,8 @@ def fig5_roc(out, L, meta, feat, mv, pairs, zpairs=None):
             ax.plot(multivariate.FPR, tprs.mean(0), c=col if method == "panel" else INK, ls=ls,
                     lw=1.4 if (method == "panel" and sname == "all") else 1.0, label=f"{lab}: {aucs.mean():.2f} ± {aucs.std():.2f}, {pfmt(p)}")
         # базовые модели — та же повторная CV (логистическая регрессия на одной ковариате), см. multivariate.evaluate
-        for cov, colr, nmc in [("contam_index", EXPO_COL["contaminant"], "Contamination index only"), ("sex", INK2, "Sex only")]:
+        bases = [("sex", INK2, "Sex only")] if v4() else [("contam_index", EXPO_COL["contaminant"], "Contamination index only"), ("sex", INK2, "Sex only")]
+        for cov, colr, nmc in bases:
             v = meta.loc[case + ref, cov]
             v = (v.map({"M": 1.0, "F": 0.0}) if cov == "sex" else v.astype(float)).to_numpy(float)
             y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
@@ -717,6 +743,56 @@ CAPTIONS = """# Figure and table captions (draft)
 """
 
 
+CAPTIONS_V4 = """# Figure and table captions — v4 ("Urinary Metabolomic Profiles of Bladder and Prostate Cancer by LC–HRMS: A Comparative Study")
+
+## Main text
+
+**Table 1.** Clinical and demographic characteristics of the study cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex). Footnote: see table_notes.md (Table 1 note).
+
+**Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound).
+
+**Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings that passed all robustness criteria; crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, background ions); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
+
+**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
+
+**Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
+
+**Figure 4.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} compounds selected by Mann–Whitney U inside each training fold, logistic regression). Exogenous compounds and compounds correlated with the exogenous-signal index (|ρ| ≥ {rho}) were excluded from the candidate pool before CV. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, compounds adjusted for the exogenous-signal index inside each training fold; dashed, 1:1 age- and sex-matched pairs (shown only with ≥ {minp} pairs); dotted, sex-only baseline evaluated with the same CV. AUC, mean ± SD over repeats; p, permutation test ({perm} permutations). In (c) the exogenous-signal index nearly separates PC from controls (Table S2), so the index-adjusted estimate extrapolates beyond the overlap of the two groups and is not interpreted as a PC-specific signal.
+
+**Figure 5** (optional; omit together with Section 3.6 if the comparison with the previous study is not included). Previously reported bladder-cancer markers in the present cohort. Features were matched by m/z (± {ppm:.0f} ppm of the reported or theoretical value) and retention time (± {rttol} min); all isomeric candidates are shown. Points, unadjusted log2 fold change (BC vs Control); coloured, same direction and Mann–Whitney p < 0.05; text gives AUC, unadjusted p and FDR-adjusted q of the adjusted model. Exact values in Table S3.
+
+## Supplementary Materials
+
+**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index.
+
+**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
+
+**Figure S3.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
+
+**Figure S4.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exogenous features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
+
+**Figure S5.** Members of the homologous exogenous series in methanol solvent blanks, pooled QC and urine samples (raw peak areas from extracted-ion chromatograms, ± 5 ppm). (a) Peak areas in solvent blanks (n = 7, including two injected before the first sample), pooled QC (n = 6), the two controls with the lowest and the three PC samples with the highest index; † members with solvent-blank area ≥ 10% of the QC median; n.d., not detected. (b, c) Extracted-ion chromatograms of a member present in the blanks (C12) and of one absent from the blanks (C14+O).
+
+**Figure S6.** Homologous exogenous series used for the exogenous-signal index. (a) Members ([M+H]+; mass increments C2H4, O and C2H4O) in the m/z–retention-time plane; open diamonds, co-varying ions not included in the index. (b) Exogenous-signal index (mean z-score of the ten members) by group (Mann–Whitney U test).
+
+**Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
+
+**Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, 5th–95th percentiles, Q², permutation p), including the single-covariate baselines (sex only; exogenous-signal index only).
+
+**Table S3.** Previously reported bladder-cancer markers: all candidate features within ± {ppm:.0f} ppm of the reported or theoretical m/z and ± {rttol} min of the reported retention time, detection/filter status and statistics in the present cohort.
+
+**Table S4.** Curated candidate annotations: formula, ion, mass error, HMDB/KEGG identifiers, MS-DIAL MS/MS library entry, isomers not excluded, MSI level (same rule as in Table 2), supporting ions, detection by group, and correlation with the exogenous-signal index and the dilution factor; annotations with mass error > {ppm:.0f} ppm are listed separately (S4b). No reference standards were analysed (no MSI level 1).
+
+**Table S5.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
+
+**Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
+
+**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < {low}, and with the exogenous-signal index built only from series members absent from solvent blanks; overlap with the main analysis and cross-validated panel AUC.
+
+**Table S8.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
+"""
+
+
 def replication_outputs(out, res_dir, feat, stats_, info_all):
     """Table 3 и Figure 7: маркеры первого этапа (ABC, Table 5) в независимой выборке s266."""
     from pipeline import replication
@@ -780,7 +856,7 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
     ax.set_xlabel("log$_2$ fold change BC/Control in the independent cohort (unadjusted)")
     ax.spines["left"].set_visible(False)
     q = summ.iloc[0]
-    ax.set_title(f"Stage-1 markers (n = {int(q.markers)}): quantified {int(q.quantified)} ({int(q.ambiguous_isomers)} with isomers),\n"
+    ax.set_title(f"{TERM['prior']} (n = {int(q.markers)}): quantified {int(q.quantified)} ({int(q.ambiguous_isomers)} with isomers),\n"
                  f"p < 0.05 in the same direction {int(q.nominal_p05_any_candidate)}, q < {C.FDR} (adjusted) {int(q.replicated_q05_any_candidate)}",
                  fontsize=6.5)
     ax.legend(handles=[Line2D([], [], marker="o", ls="", mfc=COL["BC"], mec=INK2, label="same direction, p < 0.05"),
@@ -938,13 +1014,75 @@ def blank_table(res_dir):
     return d
 
 
+V4_TABLE_TERMS = [   # замены в таблицах и сносках варианта v4 (порядок важен: длинные фразы раньше коротких)
+    ("features adjusted for contamination index in-fold", "features adjusted for exogenous-signal index in-fold"),
+    ("Contamination index only", "Exogenous-signal index only"),
+    ("contamination-matched pairs", "index-matched pairs"),
+    ("low-contamination controls", "low-index controls"),
+    ("Contamination index from", "Exogenous-signal index from"),
+    ("In contamination index", "In exogenous-signal index"),
+    ("ρ with contamination index", "ρ with exogenous-signal index"),
+    ("p (ρ contamination", "p (ρ index"),
+    ("10-member index", "10-member exogenous-signal index"),
+    ("contamination index", "exogenous-signal index"),
+    ("Contamination index", "Exogenous-signal index"),
+    ("age- and contamination-matched pairs", "age-matched pairs"),
+    ("Marker (stage 1)", "Marker (previous study)"),
+    ("(stage 1)", "(previous study)"),
+]
+V4_CELL_VALUES = {"contaminant": "background ion"}
+
+
+def v4_retitle(out):
+    """Вариант v4: замена терминов в CSV/XLSX/MD каталога out (заголовки и текстовые ячейки)."""
+    from openpyxl import load_workbook
+
+    def fix(x):
+        if not isinstance(x, str):
+            return x
+        if x in V4_CELL_VALUES:
+            return V4_CELL_VALUES[x]
+        for a_, b_ in V4_TABLE_TERMS:
+            x = x.replace(a_, b_)
+        return x
+    for f in out.glob("*.xlsx"):
+        wb = load_workbook(f)
+        for ws in wb.worksheets:
+            ws.title = ws.title.replace("S3_stage1_markers", "S3_previous_markers")
+            for row in ws.iter_rows():
+                for c in row:
+                    if isinstance(c.value, str):
+                        c.value = fix(c.value)
+        wb.save(f)
+    for f in out.glob("*.csv"):
+        d = pd.read_csv(f, dtype=str, keep_default_na=False)
+        d.columns = [fix(c) for c in d.columns]
+        d = d.map(fix)
+        d.to_csv(f, index=False)
+    for f in out.glob("table_notes.md"):
+        t = f.read_text(encoding="utf-8")
+        f.write_text(fix(t), encoding="utf-8")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--res", default=C.OUT)
     ap.add_argument("--data", default=C.DATA)
+    ap.add_argument("--variant", default="full", choices=["full", "v4"])
     a = ap.parse_args()
     res = Path(a.res)
-    out = res / "publication"
+    VARIANT["name"] = a.variant
+    if v4():
+        TERM.update({"index": "Exogenous-signal index", "adj": "Index-adjusted", "series": "Homologous series (index)",
+                     "contaminant": "Background ion", "prior": "Previously reported BC markers"})
+        RENAME.update({"Figure2_contamination_index": "FigureS6_exogenous_signal_series", "Figure3_volcano": "Figure2_volcano",
+                       "Figure4_top_findings_BC": "Figure3_annotated_findings_BC",
+                       "Figure5_ROC_cross_validated": "Figure4_ROC_cross_validated",
+                       "Figure6_replication_stage1_markers": "Figure5_previous_BC_markers",
+                       "FigureS5_blank_check": "FigureS5_solvent_blanks"})
+        out = Path("publication_v4") / "figures_tables"     # публикация v4; текст лежит рядом в publication_v4/text
+    else:
+        out = res / "publication"
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
@@ -967,10 +1105,14 @@ def main():
     t2_full, ts_class = tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2, meta)
     rep = replication_outputs(out, res, feat, stats_, info_all)
     supplementary_tables(out, res, t2_full, ts_class, rep, feat, msi, has_ms2)
-    (out / "figure_captions.md").write_text(CAPTIONS.format(
+    (out / "figure_captions.md").write_text((CAPTIONS_V4 if v4() else CAPTIONS).format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
         cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL,
         zcal=C.CONTAM_MATCH_CALIPER_SD), encoding="utf-8")
+    if v4():
+        v4_retitle(out)
+        for f in out.glob("TableS3_replication_*.csv"):
+            f.rename(out / f.name.replace("replication_stage1_markers", "previous_BC_markers").replace("replication_summary", "previous_BC_markers_summary"))
     print(f"Публикационные рисунки и таблицы → {out}")
 
 
