@@ -107,6 +107,10 @@ def load(res):
     mv = pd.read_csv(t / "multivariate_CV.csv")
     series = pd.read_csv(t / "contaminant_series.csv", index_col=0)
     cur = pd.read_csv(t / "candidates_curated.csv")
+    src = pd.read_csv(C.CURATION, dtype=str).fillna("")     # курированное совпадение MS/MS берётся из исходного файла курации
+    if "ms2_library" in src:
+        key = lambda d_: d_.rt_min.astype(float).round(3).astype(str) + "_" + d_.mz.astype(float).round(5).astype(str)
+        cur["ms2_library"] = key(cur).map(dict(zip(key(src), src.ms2_library))).fillna("")
     pairs = pd.read_csv(t / "age_matched_pairs.csv", dtype={"case": str, "ref": str})
     demo = pd.read_csv(t / "demographics.csv")
     demo_t = pd.read_csv(t / "demographics_tests.csv")
@@ -674,7 +678,9 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None,
     # Table 2 (основной текст): только аннотированные находки (MSI ≤ 3); полный список — Table S1
     t2_main = t2[t2["MSI level"] <= 3].copy()
     t2_main["Compound (annotation)"] = t2_main["Compound (annotation)"].str.replace(r" \((MSI \d|putative)\)$", "", regex=True)
-    t2_main.insert(1, "Library match (MS-DIAL)", feat.loc[t2_main.index, "annotation"].to_numpy())
+    lib = cn["ms2_library"] if "ms2_library" in cn else pd.Series(dtype=str)   # курированное совпадение (напр. по агликону)
+    t2_main.insert(1, "Library match (MS-DIAL)", [lib.get(i) if isinstance(lib.get(i), str) and lib.get(i) else feat.loc[i, "annotation"]
+                                                   for i in t2_main.index])
     t2_main = t2_main.drop(columns=["Putative library match (low score)"])
     iso = cn["isomers_note"].fillna("") if "isomers_note" in cn else pd.Series(dtype=str)
     t2_main.insert(t2_main.columns.get_loc("MSI level") + 1, "Isomers not excluded",
