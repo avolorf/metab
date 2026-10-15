@@ -3,7 +3,7 @@
 Отдельная папка, чтобы можно было сравнить с полной версией (`results/publication/`, `docs/Results_and_Discussion.md`).
 Расчёты те же (`results/`), меняются только оформление, терминология и состав рисунков.
 
-* `text/Results_and_Discussion_v4.md` — раздел Results and Discussion (v4).
+* `text/Methods_v4.md`, `text/Results_and_Discussion_v4.md` — разделы Methods и Results and Discussion (v4).
 * `figures_tables/` — рисунки (PDF, TIFF, PNG 600 dpi), `Tables_main.xlsx`, `Supplementary_Tables.xlsx`, CSV-копии,
   `figure_captions.md`, `table_notes.md`. Пересобрать: `python make_figures.py --variant v4` (папка `text/` не трогается).
 
