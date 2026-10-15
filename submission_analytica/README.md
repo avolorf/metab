@@ -24,3 +24,8 @@ Supplementary: Figure S1 тепловая карта; S2 возраст и па�
 - [ ] Introduction, Abstract, ключевые слова, Author Contributions, Funding, IRB/Informed Consent Statements, Data Availability, Conflicts of Interest — по шаблону MDPI.
 - [ ] Собрать рукопись в шаблоне MDPI (Word/LaTeX); таблицы 1–2 перенести в текст; Supplementary — один PDF с рисунками S1–S6 + `Supplementary_Tables.xlsx`.
 - [ ] Сверить требования к рисункам в Instructions for Authors журнала (формат, разрешение, ширина).
+
+## Обновление 15.10.2026
+Внесены уточнённые пол и возраст (№20 — М, 68 лет; №62 — М, 59; №94 — Ж, 18) и выполнен полный пересчёт.
+Актуальны только числа в `0_manuscript/` и в этой папке; тексты в `publication_v4/text/` и `docs/` относятся
+к расчёту до уточнения.

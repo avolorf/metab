@@ -17,7 +17,7 @@ Sample,Class,Sex,Age,ContamIndex,ContamLevel
 16,Control,F,32.0,0.043,high
 17,BC,F,72.0,-0.061,low
 19,PC,M,86.0,1.202,high
-20,Control,M,,-1.254,low
+20,Control,M,68.0,-1.254,low
 21,BC,M,41.0,0.312,high
 22,Control,F,59.0,-0.376,low
 23,PC,M,72.0,1.705,high
@@ -56,6 +56,7 @@ Sample,Class,Sex,Age,ContamIndex,ContamLevel
 59,PC,M,70.0,1.453,high
 60,Control,F,69.0,0.795,high
 61,Control,M,42.0,-0.96,low
+62,Control,M,59.0,-1.012,low
 63,Control,M,61.0,-1.293,low
 64,BC,M,72.0,1.005,high
 65,Control,F,59.0,1.041,high
@@ -86,6 +87,7 @@ Sample,Class,Sex,Age,ContamIndex,ContamLevel
 90,Control,F,42.0,0.991,high
 91,BC,M,60.0,0.573,high
 92,Control,M,25.0,0.618,high
+94,Control,F,18.0,0.115,high
 95,Control,M,66.0,-0.521,low
 96,Control,M,27.0,-1.295,low
 97,Control,M,59.0,-0.906,low

@@ -2,18 +2,18 @@ Comparison,Sample set,Model,n case,n reference,"AUC, mean","AUC, SD","AUC, 5th p
 BC vs Control,all samples,Top-5 panel + logistic regression (in-fold selection),29,45,0.808,0.03,0.768,0.861,0.269,0.001
 BC vs Control,all samples,"Top-5 panel, features adjusted for contamination index in-fold",29,45,0.776,0.046,0.714,0.838,0.194,0.002
 BC vs Control,all samples,"PLS-DA, 2 components (all non-exposure compounds)",29,45,0.83,0.023,0.797,0.862,0.337,0.001
-BC vs Control,all samples,"Sex only (baseline, same CV)",29,43,0.648,0.015,0.622,0.669,0.14,0.001
+BC vs Control,all samples,"Sex only (baseline, same CV)",29,45,0.649,0.016,0.615,0.672,0.138,0.002
 BC vs Control,all samples,"Contamination index only (baseline, same CV)",29,45,0.594,0.016,0.57,0.613,0.019,0.087
-BC vs Control,age-matched pairs,Top-5 panel + logistic regression (in-fold selection),18,18,0.712,0.051,0.601,0.773,-0.016,0.059
-BC vs Control,age-matched pairs,"Top-5 panel, features adjusted for contamination index in-fold",18,18,0.584,0.036,0.524,0.642,-0.257,0.237
-BC vs Control,age-matched pairs,"PLS-DA, 2 components (all non-exposure compounds)",18,18,0.69,0.049,0.611,0.75,0.102,0.055
-BC vs Control,age-matched pairs,"Sex only (baseline, same CV)",18,18,0.314,0.052,0.228,0.407,-0.067,0.859
-BC vs Control,age-matched pairs,"Contamination index only (baseline, same CV)",18,18,0.679,0.017,0.659,0.698,0.093,0.037
-BC vs Control,contamination-matched pairs,Top-5 panel + logistic regression (in-fold selection),15,15,0.712,0.073,0.593,0.824,-0.011,0.071
-BC vs Control,contamination-matched pairs,"Top-5 panel, features adjusted for contamination index in-fold",15,15,0.721,0.069,0.622,0.862,0.033,0.06
-BC vs Control,contamination-matched pairs,"PLS-DA, 2 components (all non-exposure compounds)",15,15,0.728,0.076,0.593,0.814,0.181,0.06
+BC vs Control,age-matched pairs,Top-5 panel + logistic regression (in-fold selection),20,20,0.689,0.058,0.615,0.788,-0.07,0.077
+BC vs Control,age-matched pairs,"Top-5 panel, features adjusted for contamination index in-fold",20,20,0.571,0.103,0.399,0.74,-0.286,0.28
+BC vs Control,age-matched pairs,"PLS-DA, 2 components (all non-exposure compounds)",20,20,0.672,0.057,0.603,0.766,0.066,0.075
+BC vs Control,age-matched pairs,"Sex only (baseline, same CV)",20,20,0.337,0.054,0.25,0.415,-0.062,0.848
+BC vs Control,age-matched pairs,"Contamination index only (baseline, same CV)",20,20,0.736,0.014,0.721,0.758,0.18,0.006
+BC vs Control,contamination-matched pairs,Top-5 panel + logistic regression (in-fold selection),15,15,0.691,0.072,0.573,0.787,-0.052,0.088
+BC vs Control,contamination-matched pairs,"Top-5 panel, features adjusted for contamination index in-fold",15,15,0.698,0.075,0.542,0.787,-0.024,0.094
+BC vs Control,contamination-matched pairs,"PLS-DA, 2 components (all non-exposure compounds)",15,15,0.736,0.071,0.598,0.822,0.183,0.045
 BC vs Control,contamination-matched pairs,"Sex only (baseline, same CV)",15,15,0.308,0.068,0.207,0.389,-0.083,0.861
-BC vs Control,contamination-matched pairs,"Contamination index only (baseline, same CV)",15,15,0.324,0.067,0.233,0.401,-0.078,0.86
+BC vs Control,contamination-matched pairs,"Contamination index only (baseline, same CV)",15,15,0.324,0.066,0.217,0.409,-0.078,0.863
 BC vs PC,all samples,Top-5 panel + logistic regression (in-fold selection),29,20,0.857,0.036,0.782,0.895,0.376,0.002
 BC vs PC,all samples,"Top-5 panel, features adjusted for contamination index in-fold",29,20,0.628,0.067,0.538,0.721,-0.089,0.122
 BC vs PC,all samples,"PLS-DA, 2 components (all non-exposure compounds)",29,20,0.719,0.034,0.671,0.764,0.121,0.011
@@ -30,9 +30,17 @@ BC vs PC,contamination-matched pairs,"Contamination index only (baseline, same C
 PC vs Control,all samples,Top-5 panel + logistic regression (in-fold selection),20,45,0.536,0.062,0.465,0.598,-0.353,0.355
 PC vs Control,all samples,"Top-5 panel, features adjusted for contamination index in-fold",20,45,0.731,0.065,0.594,0.816,0.13,0.014
 PC vs Control,all samples,"PLS-DA, 2 components (all non-exposure compounds)",20,45,0.78,0.036,0.71,0.824,0.226,0.004
-PC vs Control,all samples,"Sex only (baseline, same CV)",20,43,0.753,0.015,0.73,0.777,0.291,0.001
+PC vs Control,all samples,"Sex only (baseline, same CV)",20,45,0.754,0.015,0.73,0.78,0.282,0.001
 PC vs Control,all samples,"Contamination index only (baseline, same CV)",20,45,0.856,0.004,0.85,0.861,0.346,0.001
-PC vs male Control,all samples,Top-5 panel + logistic regression (in-fold selection),20,18,0.627,0.048,0.544,0.703,-0.182,0.129
-PC vs male Control,all samples,"Top-5 panel, features adjusted for contamination index in-fold",20,18,0.619,0.063,0.508,0.702,-0.037,0.149
-PC vs male Control,all samples,"PLS-DA, 2 components (all non-exposure compounds)",20,18,0.771,0.045,0.7,0.831,0.225,0.01
-PC vs male Control,all samples,"Contamination index only (baseline, same CV)",20,18,0.931,0.008,0.919,0.936,0.57,0.001
+PC vs Control,age-matched pairs,Top-5 panel + logistic regression (in-fold selection),11,11,0.718,0.123,0.553,0.888,0.068,0.083
+PC vs Control,age-matched pairs,"Top-5 panel, features adjusted for contamination index in-fold",11,11,0.757,0.099,0.553,0.878,0.18,0.054
+PC vs Control,age-matched pairs,"PLS-DA, 2 components (all non-exposure compounds)",11,11,0.65,0.066,0.584,0.787,0.07,0.163
+PC vs Control,age-matched pairs,"Contamination index only (baseline, same CV)",11,11,0.905,0.01,0.884,0.918,0.504,0.001
+PC vs male Control,all samples,Top-5 panel + logistic regression (in-fold selection),20,19,0.63,0.056,0.566,0.742,-0.19,0.143
+PC vs male Control,all samples,"Top-5 panel, features adjusted for contamination index in-fold",20,19,0.652,0.076,0.555,0.793,-0.006,0.109
+PC vs male Control,all samples,"PLS-DA, 2 components (all non-exposure compounds)",20,19,0.786,0.04,0.74,0.853,0.252,0.009
+PC vs male Control,all samples,"Contamination index only (baseline, same CV)",20,19,0.934,0.006,0.926,0.94,0.576,0.001
+PC vs male Control,age-matched pairs,Top-5 panel + logistic regression (in-fold selection),11,11,0.671,0.097,0.495,0.804,-0.056,0.145
+PC vs male Control,age-matched pairs,"Top-5 panel, features adjusted for contamination index in-fold",11,11,0.747,0.107,0.582,0.91,0.159,0.06
+PC vs male Control,age-matched pairs,"PLS-DA, 2 components (all non-exposure compounds)",11,11,0.637,0.044,0.579,0.705,0.063,0.186
+PC vs male Control,age-matched pairs,"Contamination index only (baseline, same CV)",11,11,0.911,0.011,0.892,0.926,0.513,0.001
