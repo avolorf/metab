@@ -1,0 +1,77 @@
+# 2. Materials and Methods / 3. Results and Discussion (v5.1, 15 October 2026)
+
+> Submission copy of v5.3 (files in `submission_analytica/`). Supplementary table numbers are already final (S1 findings, S2 classification, S3 curated annotations, S4 presence/absence, S5 compound statistics, S6 sensitivity analyses, S7 solvent-blank check). Figure 4c shows no index-adjusted curve; the value is in Table S2 with a note. Text in [square brackets] must be filled in by the authors.
+
+## 2. Materials and Methods
+
+### 2.1. Study cohort and urine collection
+
+Urine samples were collected at the Medical Research and Educational Center of Lomonosov Moscow State University between [month year] and [month year]. Patients with histologically confirmed bladder cancer (BC) or prostate cancer (PC) were sampled [before surgery / before any antitumour treatment], and controls were volunteers with no history of oncological or urological disease [confirm]. Exclusion criteria were [e.g., acute urinary tract infection, other malignancy]. First-morning [confirm] mid-stream urine was collected after overnight fasting into standard sterile urine containers, [centrifuged at … × g for … min], aliquoted and stored at −80 °C within [… h]. Each aliquot was thawed once. Medication use was not recorded.
+
+The study was approved by the Local Ethics Committee of the Medical Research and Educational Center of Lomonosov Moscow State University (protocol No. 06/25 of [20 or 25] October 2025), and all participants gave written informed consent. After exclusion of six samples [reasons], the dataset comprised 45 controls, 29 BC and 20 PC patients (n = 94; Table 1). Age was missing for four controls and sex for two.
+
+### 2.2. Sample preparation and LC–HRMS analysis
+
+Samples were prepared with the protocol previously optimised by a two-stage design of experiments [ABC]: [volume, solvent, ratio, centrifugation, dilution, reconstitution]. Equal aliquots of all samples were pooled to obtain a QC sample. Samples were injected in random order, with the pooled QC (n = 6) [at the start and after every … samples] and methanol solvent blanks (n = 7) throughout the sequence, two of them before the first study sample.
+
+Separation was performed on a [UHPLC system] with an Acquity UPLC BEH C18 column ([dimensions, particle size], [temperature] °C) using [mobile phases] at [flow rate] and a 23-min gradient [programme or reference to ABC]; the injection volume was [… µL]. Spectra were acquired on an Orbitrap Exploris 120 (Thermo Fisher Scientific) with heated electrospray ionisation in positive mode: full scan over m/z [… – …] at a resolution of [… at m/z 200] and data-dependent MS/MS of the [n] most intense ions (HCD, [collision energies]; resolution [ …]; dynamic exclusion [… s]). [Source parameters as in ABC.]
+
+### 2.3. Feature extraction and pre-processing
+
+Raw files were processed in MS-DIAL 5.5 [MS1 and MS2 tolerances, minimum peak height, alignment RT tolerance; state whether the blank filter and QC normalisation were used]. A feature was retained if it was detected in at least 80% of QC injections and in at least half of the samples of one group, and if its RSD in the pooled QC did not exceed 30%. Forty-one features detected in fewer than 50% of one group but at least 80% of another were compared separately with Fisher's exact test (Table S4).
+
+Intensities were normalised by probabilistic quotient normalisation (PQN) [2, reference spectrum: …], missing values (11.8% overall) were replaced with half of the feature minimum, and the data were log2-transformed. MSTUS normalisation was used as a sensitivity check. The pooled QC contained almost all compounds (0.3% of values imputed), whereas individual samples lacked up to 13%, and this difference displaces QC samples in multivariate space. PCA (Pareto scaling) was therefore based on the 1,366 compounds detected in all samples. Whether QC-based LOWESS drift correction was needed was assessed by a leave-one-QC-out test.
+
+### 2.4. Compound grouping and assessment of signal origin
+
+Ions eluting within 0.02 min of each other and correlated across samples (Spearman ρ ≥ 0.8) were grouped into compounds. Each compound was represented by its curated molecular ion ([M+H]+, [M+Na]+, [M+NH4]+ or [M+K]+) when one was present in the group, and otherwise by its most intense ion.
+
+The origin of each compound was assessed before statistical analysis. Compounds annotated as drugs or drug metabolites, food- or tobacco-related compounds [source of the lists], and background ions present in solvent blanks were flagged as exogenous. Homologous series were also searched for as ions differing by C2H4 (28.0313), O (15.9949) or C2H4O (44.0262) within 5 ppm and with retention time increasing with chain length. One series of non-endogenous compounds was found (Figure S6, Table S7), and its presence in the blanks was checked on extracted-ion chromatograms of the raw data (Figure S5). Flagged compounds were not considered as marker candidates. The mean z-score of ten members of the series served as an exogenous-signal index and was included as a covariate.
+
+### 2.5. Statistical analysis and classification
+
+For each compound, log2 intensity was modelled as a function of group, sex, age and the exogenous-signal index (complete cases, n = 88), and p-values were corrected by the Benjamini–Hochberg procedure. In addition, each patient was paired with the nearest-age participant of the same sex from the comparison group (caliper ±5 years, without replacement), which gave 18 BC–control and 18 BC–PC pairs; only nine PC–control pairs could be formed, too few for analysis. A compound was considered a finding when it reached q < 0.05 in the adjusted model and p < 0.05 both in the matched pairs ([test]) and against controls with an index below the median, with the same direction of change in all three, provided that controls with high and low index did not differ (p ≥ 0.05).
+
+Classification was evaluated by stratified five-fold cross-validation repeated 20 times. In each training fold the five compounds with the lowest Mann–Whitney p-values were selected and entered into a logistic regression model; PLS-DA ([n] components) was evaluated in the same folds. Exogenous compounds and compounds correlated with the index (|ρ| ≥ 0.5) were excluded from the candidate pool beforehand. Models were built on all samples, on features residualised on the index within each training fold, and on matched pairs when at least ten were available. A sex-only model served as a baseline. Significance was tested with 1,000 label permutations, and AUC is reported as mean ± SD over repeats.
+
+Spectra were annotated in MS-DIAL against NIST 23 HRMS and the MS-DIAL MSP library. Confidence levels followed the Metabolomics Standards Initiative [Sumner 2007]: level 2 required a precursor within 5 ppm of the curated formula and an MS/MS library match, level 3 a formula-consistent annotation without unique MS/MS support, and level 4 denoted unidentified compounds. Pathway enrichment was tested with mummichog ([version]; positive mode, 5 ppm). Calculations were performed in [software and versions].
+
+## 3. Results and Discussion
+
+### 3.1. Analytical performance and data processing
+
+Of the 14,693 aligned features, 8,867 passed the detection filter and 7,403 had a QC RSD of 30% or less, with a median of 8.6% (Figure 1b). The summed intensity of QC injections stayed constant over the sequence, while study samples spanned about an order of magnitude, as expected for urine of different dilution (Figure 1a). QC injections clustered tightly in the centre of the study samples in the PCA score plot (Figure 1c). Drift correction would have reduced the leave-one-out prediction error of QC samples only from 0.081 to 0.074 log2 units and was not applied. These values are within the usual acceptance limits for untargeted assays [Broadhurst 2018].
+
+Grouping combined the 7,403 features into 5,792 compounds, 718 of which were represented by two or more ions, mostly adducts, isotopes and in-source fragments. Counted separately, such ions would multiply the number of significant features. Exogenous compounds were spread over the whole range of fold changes (Figure 2, crosses), and without the origin check several of them would have entered marker selection.
+
+### 3.2. Cohort characteristics
+
+The groups were not balanced by age or sex (Table 1, Figure S2a). Controls (53.3 ± 13.9 years) were younger than BC patients (62.9 ± 9.7 years, p = 0.006) and PC patients (70.7 ± 6.6 years, p < 0.001); men made up 40% of controls, 83% of BC patients and all PC patients. Because age and sex influence urinary steroid and muscle-derived metabolites [refs], both were included in the models and the main comparisons were repeated in matched pairs (Figure S2b). The exogenous-signal index also differed between groups (Figure S6b) and correlated with the PQN dilution factor (ρ = −0.45).
+
+### 3.3. Bladder cancer versus controls
+
+In the adjusted model, 296 of the 5,792 compounds had q < 0.05, and 213 of them met all finding criteria, 117 being higher and 96 lower in BC (Figure 2a, Figure S1, Table S1). With MSTUS instead of PQN normalisation the fold changes kept the same order (ρ = 1.00), and 120 of the 125 MSTUS findings were also PQN findings (Figure S3, Table S6).
+
+Seven findings were annotated at MSI levels 2 and 3, and all of them were higher in BC, with AUC values of 0.69–0.81 (Table 2, Figure 3). Three are conjugated steroids. The strongest, a putative 11-oxoetiocholanolone glucuronide ([M+NH4]+ m/z 498.2697, C25H36O9, error < 0.1 ppm; log2FC 1.49, q = 0.006, AUC 0.81), was accompanied by in-source aglycone ions at m/z 287.2007 and 269; its 5α-isomer, 11-oxoandrosterone glucuronide, cannot be excluded. It co-eluted within 0.01 min with a tetrahydrocortisone glucuronide ([M+H]+ 541.2642), but after accounting for m/z 498.2697 the two signals were almost unrelated (partial ρ = 0.24) and were therefore treated as separate compounds. A second tetrahydrocortisone glucuronide eluted 0.30 min earlier, at 10.76 min, with its own set of adducts dominated by [M+NH4]+ (558.2914) and aglycone ions at m/z 365, 347 and 329. Both glucuronides (q = 0.019 and 0.029) were annotated through MS/MS matching of the aglycone. Changes in urinary androgen and corticosteroid metabolites have recently been described in BC [Saygın 2026; add refs], and the increase observed here persisted after adjustment for sex and age and in matched pairs. Higher glucocorticoid excretion is, however, also a general response to illness.
+
+Dodecanoylcarnitine (q = 0.020) adds to earlier reports of increased urinary acylcarnitines in BC, which have been linked to altered fatty-acid oxidation [Kim 2016; Wu 2024]. The remaining three annotated findings, LysoPC(16:0) (q = 0.044), Val-Leu (q = 0.048) and biliverdin (q = 0.043), are abundant in plasma or arise from heme and protein breakdown. Microscopic haematuria and proteinuria were not measured in this cohort, so blood or protein in urine may account for part of their increase. Of these, biliverdin was the least robust finding (see Section 3.6). No pathway was enriched at FDR < 0.05 (Figure S4), and pathway-level interpretation is not attempted.
+
+### 3.4. Classification of bladder cancer
+
+A five-compound panel distinguished BC from controls with a cross-validated AUC of 0.81 ± 0.03 (p < 0.001), and PLS-DA gave 0.83 ± 0.02 (Figure 4a, Table S2). When the features were residualised on the exogenous-signal index, the AUC was 0.78 ± 0.05 (p = 0.002), higher than that of sex alone (0.65 ± 0.02). In 18 age- and sex-matched pairs the panel reached 0.71 ± 0.05, which did not reach significance with this number of pairs (p = 0.059). The value obtained on all samples should therefore be read as an upper estimate. [Comparison with AUCs of published urinary panels, with refs.]
+
+### 3.5. Bladder versus prostate cancer, and prostate cancer versus controls
+
+Three unannotated compounds, all lower in BC, met the finding criteria for BC versus PC (Figure 2b). Each of them was detected in 80–100% of PC samples but only in 10–69% of BC samples, so the difference lies mainly in detection frequency. The panel separated the two cancers with an AUC of 0.86 ± 0.04 (p = 0.002) and of 0.78 ± 0.04 in 18 age-matched pairs (p = 0.021), but after adjustment for the exogenous-signal index the AUC fell to 0.63 ± 0.07 (p = 0.12; Figure 4b). A metabolic difference between the two cancers that does not depend on exogenous signals could therefore not be shown.
+
+No compound met the criteria for PC versus controls (Figure 2c), and the panel did not separate these groups (AUC 0.54 ± 0.06, p = 0.35). Sex alone gave 0.75 (Figure 4c), simply because all PC patients were men. Comparing PC patients with male controls only did not change this conclusion (AUC 0.62–0.63; Table S2). PC-specific endogenous compounds were not found in this cohort.
+
+### 3.6. Sensitivity analyses
+
+The main results were stable under alternative processing choices (Table S6). Excluding the seven most dilute samples (PQN factor < 0.2) kept 191 of the 213 findings and left the panel AUC at 0.80. An index built only from series members absent from the blanks gave 163 findings, 159 of them shared with the main analysis, retained five of the seven annotated compounds, with biliverdin (q = 0.057) and Val-Leu (q = 0.073) just above the threshold, and gave a panel AUC of 0.80. To check the influence of imputation, the model was rerun on the 1,366 compounds detected in all samples: all 84 findings in this subset, among them both tetrahydrocortisone glucuronides, the 11-oxoetiocholanolone glucuronide and LysoPC(16:0), remained significant. When imputed values were treated as missing instead, 200 findings were obtained, 135 of them shared with the main analysis, and six of the seven annotated compounds were retained; biliverdin, undetected in 12% of samples, reached q = 0.078. Findings lost in this analysis were compounds with frequent non-detection (median 19%), whose group difference is mainly one of detection frequency; detection rates are given for each finding in Table S1.
+
+The study has several limitations. All samples were analysed in one batch, and the unequal age and sex distribution limited matched analyses to 18 pairs for BC and made them impossible for PC. Microscopic haematuria, proteinuria, renal function, medication, smoking and diet were not recorded. No reference standards were analysed, so most findings remain unidentified and the level 2–3 annotations need confirmation. A larger cohort balanced by age and sex, with these clinical variables recorded, is the next step.
+
+## 4. Conclusions
+
+The sample preparation and LC–HRMS workflow optimised by design of experiments gave a median QC RSD of 8.6% when applied to urine from 94 participants. Grouping of ions into compounds, a check of signal origin, adjustment for age and sex, matched-pair comparisons and nested cross-validation with permutation tests together produced conservative estimates of group differences. Urinary differences between BC patients and controls remained after adjustment and included conjugated androgen and glucocorticoid metabolites, an acylcarnitine and blood- or protein-derived compounds. The BC panel (AUC 0.81, 0.71 in matched pairs) needs validation in a larger, demographically balanced cohort. No endogenous compounds specific to PC were found, and studies of PC will require groups balanced by age and sex.

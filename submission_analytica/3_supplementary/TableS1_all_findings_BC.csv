@@ -1,0 +1,214 @@
+Compound (annotation),m/z,RT (min),Putative library match (low score),Note,Ions in group,MS2 library match,MSI level,log2FC (adjusted),q (adjusted model),AUC (all),p (age-matched),p (low-index controls),"Detected, % Control/BC/PC"
+unknown,301.1186,9.94,Salidroside,,2,no,4,0.77,9.2e-04,0.87,0.000,0.000,100/100/100
+unknown,304.1182,10.13,N-(6-methoxypyridin-3-yl)-1-methyl-1H-indole-6-carboxamide,,1,no,4,0.81,1.6e-03,0.88,0.000,0.000,100/100/100
+unknown,257.1862,4.61,6-[(Cyclohexylcarbamoyl)amino]hexanoic acid,,1,no,4,0.52,1.8e-03,0.79,0.000,0.000,98/100/100
+unknown,287.1969,7.65,"4-Androstene-3,17-dione",,1,no,4,0.99,3.5e-03,0.84,0.000,0.000,100/100/100
+unknown,188.1647,2.95,10-Aminodecanoic acid,,1,no,4,-4.06,4.3e-03,0.22,0.000,0.000,76/31/75
+unknown,263.1119,0.59,NCGC00380330-01!2-(6-methyl-7-oxooctyl)-2H-furan-5-one [IIN-based on: CCMSLIB00000848756],,1,no,4,-2.58,5.6e-03,0.19,0.004,0.000,100/93/95
+unknown,452.2494,11.82,Cytochalasin E,,2,no,4,-3.09,5.6e-03,0.23,0.000,0.000,93/52/90
+unknown,202.1802,8.04,"4-Hydroxy-1-(2-hydroxyethyl)-2,2,6,6-tetramethylpiperidine",,1,no,4,-3.59,5.6e-03,0.26,0.001,0.001,71/41/65
+11-Oxoetiocholanolone glucuronide (putative) (MSI 3),498.2697,11.05,Phosphatidylethanolamine lyso 20:5,,3,no,3,1.49,5.6e-03,0.81,0.000,0.000,100/100/100
+unknown,544.3116,11.86,1-Heptadecanoyl-sn-glycero-3-phosphocholine,,1,no,4,1.5,5.6e-03,0.78,0.000,0.000,100/100/100
+unknown,201.033,2.54,4-Chloro-N-ethyl-2-nitroaniline,,3,no,4,0.43,5.6e-03,0.76,0.000,0.000,100/100/100
+unknown,307.1658,1.76,Bestatin,,1,no,4,0.35,5.8e-03,0.82,0.000,0.000,100/100/100
+unknown,576.3022,6.98,Aplaviroc,,1,no,4,3.03,6.3e-03,0.78,0.007,0.001,78/97/65
+unknown,560.3058,10.97,1-Oleoyl-sn-glycero-3-phosphocholine,,7,no,4,1.4,6.3e-03,0.81,0.000,0.000,100/100/100
+unknown,451.2114,8.35,Cediranib,,1,no,4,1.99,7.1e-03,0.81,0.028,0.000,98/100/100
+unknown,545.2889,10.43,MMV690028,,1,no,4,1.75,7.1e-03,0.83,0.000,0.000,98/100/100
+unknown,156.1019,5.26,"rac-(1R,3aR,6aS)-Octahydrocyclopenta[c]pyrrole-1-carboxylic acid",,1,no,4,-2.4,8.0e-03,0.2,0.003,0.000,100/90/100
+unknown,166.0863,7.2,L-(-)-Phenylalanine,,1,no,4,-2.73,8.7e-03,0.27,0.014,0.003,93/76/90
+unknown,531.273,11.06,"N-((7E,11Z)-6,13,14-Trihydroxy-3-(1H-indol-3-ylmethyl)-4,5,10,12-tetramethyl-1,17-dioxo-2,3,3a,6,6a,9,10,13,14,15,16,17-dodecahydro-1H-cyclotrideca[d]isoindol-15-yl)acetamide",,1,no,4,2.33,8.7e-03,0.84,0.008,0.000,91/100/70
+unknown,319.1293,1.4,Cryptotanshinone,,1,no,4,-3.01,9.4e-03,0.23,0.001,0.000,100/83/90
+unknown,560.3055,10.79,1-Oleoyl-sn-glycero-3-phosphocholine,,1,no,4,1.38,9.5e-03,0.79,0.001,0.000,96/97/95
+unknown,304.158,9.81,Cocaine,,2,no,4,1.33,9.5e-03,0.75,0.026,0.002,100/100/100
+unknown,525.1946,8.13,"10'-(3-methoxy-4-((1-methyl-1H-imidazol-2-yl)methoxy)phenyl)-9',10'-dihydro-3'H-spiro[cyclohexane-1,2'-pyrano[2,3-f]chromene]-4',8'-dione",,1,no,4,0.45,1.1e-02,0.78,0.001,0.000,100/100/100
+unknown,543.28,10.78,Precyasterone,,7,no,4,0.97,1.1e-02,0.79,0.000,0.000,100/100/100
+unknown,243.1455,0.72,Huperzine A,,1,no,4,-2.13,1.1e-02,0.26,0.004,0.001,100/86/95
+unknown,557.2883,11.72,Periplocymarin,,1,no,4,3.21,1.1e-02,0.81,0.018,0.000,67/93/55
+unknown,315.1556,2.33,Gibberellin A4,,1,no,4,0.81,1.1e-02,0.78,0.001,0.000,100/100/100
+unknown,297.091,9.47,Flunixine,,1,no,4,0.45,1.1e-02,0.72,0.001,0.017,100/100/100
+unknown,301.0855,8.09,"2-(1,1'-Biphenyl-4-ylcarbonyl)benzoic acid",,1,no,4,0.46,1.1e-02,0.79,0.000,0.000,100/100/100
+unknown,468.2597,8.76,TOBRAMYCIN,,1,no,4,4.25,1.1e-02,0.78,0.000,0.000,33/69/40
+unknown,560.3061,10.49,1-Oleoyl-sn-glycero-3-phosphocholine,,5,no,4,1.01,1.1e-02,0.78,0.001,0.000,100/100/100
+unknown,459.1298,8.24,(-)-Podophyllotoxin,,2,no,4,0.47,1.1e-02,0.76,0.001,0.000,100/100/100
+unknown,438.2346,8.77,Leukotriene E4,,2,no,4,0.93,1.3e-02,0.83,0.000,0.000,100/100/100
+unknown,290.1788,9.89,atropine,,2,no,4,2.49,1.3e-02,0.73,0.008,0.004,91/97/100
+unknown,187.133,9.29,4-Hydroxydecanoic acid,,1,no,4,-1.47,1.3e-02,0.27,0.011,0.005,100/90/95
+unknown,452.2492,11.6,"4-[(2R,3S,7R,8R,8aS)-2,3,4'-Trihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl]butanoic acid",,6,no,4,-1.75,1.3e-02,0.27,0.001,0.001,100/100/100
+unknown,202.1803,8.61,"4-Hydroxy-1-(2-hydroxyethyl)-2,2,6,6-tetramethylpiperidine",,1,no,4,-3.1,1.3e-02,0.26,0.006,0.000,64/24/60
+unknown,638.3545,12.08,Tunicamycin X,,1,no,4,2.62,1.3e-02,0.76,0.017,0.003,78/97/45
+unknown,394.2126,7.69,Tamoxifen,,1,no,4,3.09,1.3e-02,0.72,0.002,0.003,31/62/30
+unknown,559.2745,9.34,"4-((3S,5S,10R,13R,14S,17S)-3-(((2R,4S,5S,6R)-4,5-dihydroxy-6-methyltetrahydro-2H-pyran-2-yl)oxy)-5,14-dihydroxy-10-(hydroxymethyl)-13-methylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)furan-2(5H)-one",,1,no,4,1.09,1.3e-02,0.7,0.003,0.005,100/100/100
+unknown,479.2424,9.64,"Dehydrolucidenic acid A, 20(21)-",,1,no,4,2.05,1.3e-02,0.8,0.041,0.000,96/100/90
+unknown,511.2906,10.84,Apicidin,,1,no,4,1.54,1.3e-02,0.69,0.003,0.038,96/100/100
+unknown,682.3896,8.19,"NCGC00381224-01!4-[2-[[4-[[2-[(2-acetamido-3-methylbutanoyl)amino]-3-methylbutanoyl]amino]-3-hydroxy-6-methylheptanoyl]amino]propanoylamino]-3,7-dihydroxy-6-methylheptanoic acid [IIN-based on: CCMSLIB00000847991]",,1,no,4,0.83,1.3e-02,0.76,0.016,0.001,100/100/100
+unknown,371.0432,7.89,Salazinic acid,,1,no,4,-3.47,1.3e-02,0.23,0.002,0.001,96/72/95
+unknown,278.1061,9.46,(5-Chloro-1H-indol-2-yl)(4-methyl-1-piperazinyl)methanone,,1,no,4,0.69,1.4e-02,0.77,0.014,0.001,100/100/100
+unknown,414.2026,9.72,Echimidine N-oxide,,1,no,4,0.53,1.4e-02,0.75,0.000,0.001,100/100/100
+unknown,162.022,7.0,"L-Glutathione, reduced",,1,no,4,-3.81,1.4e-02,0.26,0.003,0.001,76/34/85
+unknown,819.442,9.09,"NCGC00385302-01_C42H68O14_(3beta,5xi,9xi)-3-{[2-O-(beta-D-Glucopyranosyl)-beta-D-glucopyranosyl]oxy}-23-hydroxyolean-12-en-28-oic acid",,2,no,4,2.87,1.4e-02,0.77,0.000,0.000,4/55/25
+unknown,277.2165,11.79,"9S-Hydroxy-10E,12Z,15Z-octadecatrienoic acid",,1,no,4,-2.29,1.5e-02,0.17,0.004,0.000,100/90/95
+unknown,306.1738,12.15,Convolvamine,,1,no,4,-2.07,1.5e-02,0.15,0.000,0.000,98/76/90
+unknown,260.0958,9.44,skimmianine,,1,no,4,0.61,1.5e-02,0.74,0.035,0.003,100/100/100
+unknown,386.2539,11.11,Buspirone,,1,no,4,1.26,1.6e-02,0.78,0.004,0.001,100/100/100
+unknown,480.2804,12.34,Taurocholic acid,,7,no,4,-1.76,1.6e-02,0.25,0.000,0.001,100/100/95
+unknown,207.0267,4.7,2-Methoxy-5-(trifluoromethoxy)phenol,,1,no,4,0.57,1.6e-02,0.76,0.016,0.001,100/100/100
+unknown,276.2172,11.46,Ametoctradin,,1,no,4,-1.71,1.6e-02,0.32,0.030,0.039,96/97/100
+unknown,224.0555,6.78,"(2E)-2-(1,3-Benzodioxol-5-ylmethylidene)hydrazinecarbothioamide",,1,no,4,-2.32,1.6e-02,0.22,0.002,0.001,100/100/95
+unknown,562.3226,10.64,1-O-Hexadecyl-2-O-acetyl-sn-glyceryl-3-phosphorylcholine,,1,no,4,1.07,1.6e-02,0.82,0.001,0.000,100/100/100
+unknown,342.0691,7.91,Propiconazole,,2,no,4,0.63,1.6e-02,0.77,0.017,0.000,100/100/100
+unknown,478.1923,9.6,Acetovanillone primeveroside,,2,no,4,1.0,1.7e-02,0.73,0.008,0.005,98/100/95
+unknown,508.3116,13.46,Syringolin C,,8,no,4,-2.56,1.7e-02,0.25,0.008,0.000,100/97/100
+unknown,477.2242,9.35,Loperamide,,1,no,4,2.64,1.9e-02,0.81,0.014,0.000,87/93/80
+unknown,347.1242,8.32,Bavachin,,2,no,4,0.46,1.9e-02,0.8,0.001,0.000,100/100/100
+unknown,326.146,1.01,6-(2-aminopyrimidin-4-yl)-4-butyl-7-hydroxy-8-methyl-2H-chromen-2-one,,2,no,4,0.39,1.9e-02,0.77,0.001,0.000,100/100/100
+unknown,468.2442,9.56,"Pyrazino[1',2':1,6]pyrido[3,4-b] indole-3-propanoic acid, 1,2,3,4,6,7,12,12a-octahydro-9-methoxy-6-(2-methylpropyl)- 1,4-dioxo-, 1,1-dimethylethyl ester, (3S,6S,12aS)-",,1,no,4,-3.18,1.9e-02,0.26,0.001,0.000,98/79/90
+unknown,223.1442,1.22,2-Isopropenyl-2-oxazoline,,1,no,4,-3.07,1.9e-02,0.3,0.002,0.003,56/21/35
+Tetrahydrocortisone glucuronide (putative) (MSI 3),541.2642,11.06,"NCGC00380230-01_C26H40O9_2,4a,6-Trihydroxy-8-isopropyl-1,1-dimethyl-2,3,4,4a,5,10,11,11a-octahydro-1H-dibenzo[a,d][7]annulen-7-yl beta-D-glucopyranoside",,7,no,3,1.14,1.9e-02,0.71,0.011,0.025,100/100/100
+unknown,480.2804,12.58,Taurocholic acid,,6,no,4,-2.18,2.0e-02,0.25,0.001,0.000,100/100/100
+unknown,358.2226,9.84,Bullatine G,,1,no,4,1.19,2.0e-02,0.75,0.006,0.001,100/100/95
+unknown,313.1764,8.87,triptophenolide,,1,no,4,1.08,2.0e-02,0.77,0.013,0.001,100/100/100
+unknown,303.1013,7.48,"2-(1,1'-Biphenyl-4-ylcarbonyl)benzoic acid",,2,no,4,0.62,2.0e-02,0.78,0.014,0.001,100/100/100
+unknown,928.4136,8.15,,,1,no,4,0.7,2.0e-02,0.75,0.002,0.005,100/100/100
+Dodecanoylcarnitine (MSI 2),344.2797,14.37,,,1,yes,2,0.93,2.0e-02,0.73,0.045,0.004,100/97/100
+unknown,199.1076,1.07,"NCGC00380778-01_C9H14N2O3_(3S,8aS)-3-[(1R)-1-Hydroxyethyl]hexahydropyrrolo[1,2-a]pyrazine-1,4-dione",,3,no,4,-1.01,2.0e-02,0.24,0.001,0.000,100/100/100
+unknown,401.2286,8.46,Dehydrocholic acid,,1,no,4,1.51,2.1e-02,0.76,0.038,0.003,100/100/95
+unknown,348.1482,9.49,Monocrotaline,,1,no,4,1.05,2.1e-02,0.77,0.016,0.001,100/100/100
+unknown,367.1498,1.16,"3-(benzo[d][1,3]dioxol-5-yl)-6-ethyl-7-isopropoxy-2-methyl-4H-chromen-4-one",,1,no,4,0.32,2.1e-02,0.76,0.003,0.000,100/100/100
+unknown,316.0965,1.23,Oxyphenisatin,,1,no,4,0.65,2.1e-02,0.78,0.002,0.000,100/100/100
+unknown,839.4352,8.92,"NCGC00380125-01![3-methyl-1-[3-methyl-1-[3-methyl-1-[3-methyl-1-oxo-1-(2,3,4,5,6-pentahydroxyhexoxy)pentan-2-yl]oxy-1-oxopentan-2-yl]oxy-1-oxopentan-2-yl]oxy-1-oxopentan-2-yl] 2-acetyloxy-3-methylpentanoate",,1,no,4,0.72,2.1e-02,0.71,0.007,0.008,100/100/100
+unknown,387.2018,9.55,"NCGC00169491-03_C19H30O8_2-Cyclohexen-1-one, 4-[(1E)-3-(beta-D-glucopyranosyloxy)-1-buten-1-yl]-4-hydroxy-3,5,5-trimethyl-, (4S)-",,1,no,4,-2.2,2.3e-02,0.23,0.020,0.000,100/83/90
+unknown,1073.9619,8.15,,,1,no,4,0.83,2.3e-02,0.76,0.004,0.001,100/100/100
+unknown,213.1234,1.75,Pro-Pro,,1,no,4,-1.42,2.3e-02,0.24,0.005,0.001,100/100/100
+unknown,544.3405,15.97,1-Oleoyl-sn-glycero-3-phosphocholine,,1,no,4,2.7,2.3e-02,0.73,0.018,0.002,18/62/30
+unknown,253.0929,9.12,7-methoxy-2-phenyl-4H-chromen-4-one,,1,no,4,0.89,2.3e-02,0.73,0.005,0.003,96/100/95
+unknown,226.1441,10.33,Terbutaline,,1,no,4,-3.5,2.3e-02,0.24,0.020,0.001,93/66/90
+unknown,454.265,12.21,Leukotriene E4 methyl ester,,1,no,4,-2.47,2.3e-02,0.26,0.001,0.000,93/66/75
+Ethyl 2-amino-5-methyl-3-thiophenecarboxylate (putative),158.027,1.42,,"library match judged implausible: synthetic building block, implausible in human urine; m/z 158.0271 corresponds to [M+H-C2H4]+ rather than [M+H]+ (186.0583)",1,yes,4,-1.19,2.3e-02,0.28,0.016,0.010,100/100/100
+unknown,438.2351,8.99,Leukotriene E4,,1,no,4,0.96,2.3e-02,0.85,0.000,0.000,100/100/100
+unknown,218.0481,1.05,4-{[2-(Methoxycarbonyl)phenyl]amino}-4-oxobutanoic acid,,1,no,4,-1.37,2.3e-02,0.23,0.003,0.000,96/90/90
+unknown,185.0921,0.81,"3'-Methoxy-[1,1'-biphenyl]-4-carbaldehyde",,1,no,4,-1.04,2.5e-02,0.25,0.002,0.001,100/100/100
+unknown,396.2385,11.14,"Phosphonic acid, P-[[4-[(1-oxotetradecyl)amino]phenyl]methyl]-",,1,no,4,1.25,2.5e-02,0.76,0.024,0.001,100/100/100
+unknown,524.3071,11.61,,,2,no,4,-2.3,2.5e-02,0.27,0.006,0.000,93/83/95
+unknown,227.1028,1.88,N-Methylcytisine,,1,no,4,-2.65,2.5e-02,0.31,0.005,0.002,64/31/70
+unknown,239.164,11.84,Dicyclohexyl(hydroxy)acetic acid,,1,no,4,-1.86,2.5e-02,0.22,0.010,0.000,100/86/100
+unknown,436.2542,12.37,paxilline,,4,no,4,-2.05,2.5e-02,0.18,0.001,0.000,100/90/95
+unknown,408.2229,11.47,ancistrocladine,,3,no,4,-3.3,2.5e-02,0.23,0.005,0.000,96/69/80
+unknown,425.1959,3.31,Kushenol F,,1,no,4,1.89,2.5e-02,0.77,0.028,0.002,98/100/95
+unknown,292.1216,3.41,Cyproconazole,,1,no,4,0.84,2.5e-02,0.74,0.045,0.001,98/100/95
+unknown,235.1193,7.22,Mepirizole,,1,no,4,-2.67,2.5e-02,0.19,0.002,0.000,100/76/100
+unknown,174.1126,5.29,Swainsonine,,1,no,4,-1.69,2.5e-02,0.24,0.011,0.003,100/97/90
+unknown,370.2226,13.72,Cilostazol,,1,no,4,-1.74,2.6e-02,0.24,0.027,0.000,100/59/75
+unknown,412.1424,10.84,2-Acetamido-2-deoxy-3-O-(.alpha.-L-fucopyranosyl)-D-glucopyranose,,1,no,4,-3.17,2.6e-02,0.26,0.006,0.000,78/38/60
+unknown,301.1397,4.08,Nordihydroguaiaretic acid,,1,no,4,0.83,2.6e-02,0.77,0.030,0.000,100/100/95
+unknown,267.123,9.17,2-Amino-2'-deoxyadenosine,,2,no,4,0.48,2.7e-02,0.78,0.007,0.000,100/100/95
+unknown,303.071,1.14,Fenirofibrate,,1,no,4,-1.69,2.7e-02,0.29,0.024,0.004,100/90/100
+unknown,332.2434,9.64,Cyclohexyl(phenyl)[3-(piperidin-1-yl)propyl]silanol,,1,no,4,0.87,2.7e-02,0.76,0.011,0.003,100/100/100
+unknown,296.1859,11.58,3-oxo-C12 homoserine lactone,,2,no,4,-2.98,2.7e-02,0.21,0.000,0.000,96/69/95
+unknown,361.14,9.0,Bergamottin,,1,no,4,0.54,2.7e-02,0.7,0.020,0.003,100/100/100
+unknown,269.1135,4.17,ellipticine,,1,no,4,-3.03,2.7e-02,0.24,0.002,0.000,96/55/90
+unknown,436.2544,12.93,"4-(3,4'-Dihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl)butanoic acid",,1,no,4,-1.58,2.7e-02,0.17,0.001,0.000,100/97/85
+unknown,321.0816,0.8,Dinitramine,,1,no,4,-1.62,2.7e-02,0.23,0.007,0.001,100/100/100
+unknown,370.2224,10.32,Cilostazol,,1,no,4,1.32,2.8e-02,0.75,0.038,0.001,98/100/95
+unknown,499.2486,9.6,Betamethasone 17-valerate,,1,no,4,2.84,2.8e-02,0.73,0.007,0.002,27/62/25
+unknown,319.0662,1.27,2-Oxohexanedioic acid,,1,no,4,-1.68,2.9e-02,0.27,0.009,0.002,100/100/100
+unknown,347.1929,0.8,Ingenol,,1,no,4,-2.44,2.9e-02,0.23,0.033,0.000,91/55/65
+Tetrahydrocortisone glucuronide (putative) (MSI 3),558.2914,10.76,,,9,no,3,0.87,2.9e-02,0.69,0.006,0.019,100/100/100
+unknown,557.2592,9.54,"(1R,2R,4aS,5R,8aS)-1-(Hydroxymethyl)-5-((2E)-2-((4S)-4-hydroxy-2-oxodihydrofuran-3(2H)-ylidene)ethyl)-1,4a-dimethyl-6-methylidenedecahydronaphthalen-2-yl .beta.-D-glucopyranoside",,1,no,4,1.56,2.9e-02,0.68,0.011,0.021,100/100/100
+unknown,559.2751,9.13,NCGC00380931-01_C26H42O10_,,1,no,4,1.9,2.9e-02,0.69,0.003,0.007,91/97/75
+unknown,725.4018,8.48,"(3R,4R,5R,6R)-2-(((2R,3S,4S,5R)-2-(((2'R,4R,4'S,5'R,6R,6aR,8aS,9S)-4,4'-dihydroxy-5',6a,8a,9-tetramethyl-1,3,3',4,4',5,5',6,6a,6b,6',7,8,8a,8b,9,11a,12,12a,12b-icosahydrospiro[naphtho[2',1':4,5]indeno[2,1-b]furan-10,2'-pyran]-6-yl)oxy)-4,5-dihydroxytetrahydro-2H-pyran-3-yl)oxy)-6-methyltetrahydro-2H-pyran-3,4,5-triol",,2,no,4,3.41,2.9e-02,0.72,0.003,0.006,47/69/15
+unknown,451.2486,8.15,"(2R,4aS,6aR,6aS,14aS,14bR)-10,11-dihydroxy-2,4a,6a,6a,14a-pentamethyl-8-oxo-1,3,4,5,6,13,14,14b-octahydropicene-2-carboxylic acid",,1,no,4,2.97,3.0e-02,0.73,0.001,0.004,36/72/40
+unknown,288.1629,9.77,galanthamine,,1,no,4,1.14,3.0e-02,0.73,0.038,0.009,100/100/100
+unknown,344.2064,9.35,"Methanone, [1-(5-fluoropentyl)-6-hydroxy-1H-indol-3-yl](2,2,3,3-tetramethylcyclopropyl)-",,1,no,4,0.9,3.0e-02,0.76,0.045,0.002,100/100/100
+unknown,533.6161,8.92,,,1,no,4,3.03,3.1e-02,0.73,0.000,0.001,13/55/20
+unknown,305.0867,1.84,Isopongaflavone,,3,no,4,-1.24,3.1e-02,0.25,0.005,0.003,100/100/100
+unknown,304.2123,7.95,NCGC00380897-01!2-dec-9-enyl-3-hydroxypentanedioic acid,,1,no,4,0.73,3.1e-02,0.79,0.022,0.000,100/100/100
+unknown,168.1019,7.34,"8-Azaspiro[4.5]decane-7,9-dione",,1,no,4,-2.16,3.2e-02,0.24,0.008,0.000,98/76/100
+unknown,358.2228,9.98,Bullatine G,,1,no,4,1.08,3.2e-02,0.76,0.038,0.001,100/100/100
+unknown,188.1647,4.45,Leucine butyl ester,,1,no,4,-2.71,3.2e-02,0.28,0.004,0.001,60/17/55
+unknown,305.1022,8.43,Oxypeucedanin hydrate,,1,no,4,-2.71,3.2e-02,0.29,0.007,0.015,93/86/100
+unknown,301.1624,10.05,.alpha.-Hydroxyfarnesylphosphonic acid,,1,no,4,-1.58,3.2e-02,0.24,0.003,0.001,100/90/100
+unknown,480.1867,10.28,Scopolamine .beta.-D-glucuronide,,1,no,4,-2.53,3.3e-02,0.3,0.049,0.015,98/62/65
+unknown,255.1342,2.68,Atractylenolide II,,1,no,4,-1.08,3.3e-02,0.22,0.008,0.000,100/100/100
+unknown,313.1396,6.35,Eriosematin,,1,no,4,0.82,3.3e-02,0.82,0.002,0.000,96/97/85
+unknown,398.3269,15.99,Palmitoylcarnitine,,1,no,4,1.38,3.3e-02,0.78,0.010,0.000,100/100/100
+unknown,479.1663,3.26,Lobaric acid,,1,no,4,-2.91,3.5e-02,0.26,0.008,0.001,93/66/85
+unknown,204.102,9.63,7-(Dimethylamino)-4-methylcoumarin,,1,no,4,-2.7,3.5e-02,0.26,0.002,0.000,84/66/85
+unknown,209.0115,1.38,Angelicin,,1,no,4,-1.59,3.5e-02,0.25,0.008,0.002,100/100/100
+unknown,225.006,0.76,"4-Amino-5-(2-chlorophenyl)-4H-1,2,4-triazole-3-thiol",,1,no,4,-2.44,3.5e-02,0.29,0.018,0.007,91/66/80
+unknown,261.1232,10.04,2-(4-oxoquinazolin-3(4H)-yl)ethyl isobutyrate,,1,no,4,-2.17,3.5e-02,0.26,0.005,0.001,98/100/95
+unknown,506.267,9.67,Calcimycin,,1,no,4,2.68,3.5e-02,0.7,0.029,0.002,18/52/30
+Arg-Phe (putative),322.1877,1.18,,,1,no,4,2.66,3.5e-02,0.72,0.015,0.001,13/52/25
+unknown,302.0865,0.6,(E)-4-(4-methoxybenzylidene)-3-phenylisoxazol-5(4H)-one,,1,no,4,-2.09,3.5e-02,0.3,0.028,0.007,91/83/85
+unknown,550.1924,11.24,Gliquidone,,1,no,4,-2.39,3.5e-02,0.3,0.004,0.001,62/21/25
+unknown,267.1229,10.56,Viramune,,4,no,4,0.78,3.5e-02,0.75,0.004,0.001,98/100/100
+unknown,382.1724,9.36,5-Methyl-2-(tributylstannyl)pyridine,,1,no,4,-2.38,3.5e-02,0.3,0.005,0.003,96/59/75
+unknown,223.1695,12.38,Tetradecanedioic acid,,1,no,4,-1.07,3.6e-02,0.22,0.003,0.000,100/97/100
+unknown,314.0873,3.2,Flunitrazepam,,1,no,4,0.89,3.6e-02,0.72,0.033,0.007,100/100/95
+unknown,162.0219,1.44,"(4-Oxo-1,3-thiazolidin-3-yl)acetic acid",,1,no,4,-0.78,3.6e-02,0.32,0.014,0.037,100/100/100
+unknown,302.2323,11.85,"2-Cyanoethyl N,N,N',N'-tetraisopropyldiamidophosphite",,2,no,4,1.07,3.6e-02,0.74,0.003,0.004,96/100/80
+unknown,315.1917,2.63,Pergolide,,1,no,4,-2.53,3.6e-02,0.23,0.003,0.000,98/83/95
+unknown,398.2536,11.2,Myriocin-12-en,,1,no,4,1.4,3.7e-02,0.7,0.038,0.017,100/100/100
+unknown,316.2234,1.38,"2,4-Dodecadienamide, N-(p-hydroxyphenethyl)-, (E,E)-",,1,no,4,0.38,3.7e-02,0.73,0.016,0.002,100/100/100
+unknown,186.0508,1.12,N-(2-Fluorophenyl)hydrazinecarbothioamide,,1,no,4,-2.25,3.7e-02,0.3,0.011,0.019,100/86/90
+unknown,524.3071,11.92,,,1,no,4,-3.0,3.7e-02,0.28,0.010,0.001,93/55/90
+unknown,427.1574,8.02,"1-O-((2E,4E)-9-Carboxy-8-hydroxy-2,7-dimethylnona-2,4-dienoyl)-.beta.-D-glucopyranose",,2,no,4,0.46,3.7e-02,0.69,0.020,0.026,100/100/100
+unknown,392.2799,14.27,N-Stearoyltaurine,,1,no,4,1.31,3.7e-02,0.72,0.026,0.004,96/97/100
+unknown,381.188,7.54,Vomicine,,1,no,4,0.85,3.8e-02,0.69,0.038,0.026,100/100/100
+unknown,598.3171,10.11,NCGC00380641-01!5-[[4-[5-[[4-[5-[acetyl(hydroxy)amino]pentylamino]-4-oxobutanoyl]-hydroxyamino]pentylamino]-4-oxobutanoyl]-hydroxyamino]pentanoic acid,,1,no,4,2.98,3.8e-02,0.71,0.027,0.002,33/62/40
+unknown,399.0927,7.99,Undulatoside A,,1,no,4,-1.54,3.9e-02,0.2,0.002,0.000,100/90/90
+unknown,489.2709,10.77,Cephaeline,,1,no,4,-2.82,3.9e-02,0.31,0.002,0.005,87/55/80
+unknown,259.2018,2.88,19-Noretiocholanolone,,1,no,4,-1.29,3.9e-02,0.22,0.005,0.000,98/100/100
+unknown,174.1488,2.61,2-Amino-2-methyloctanoic acid,,1,no,4,-2.84,3.9e-02,0.3,0.011,0.007,82/55/80
+unknown,298.2017,12.6,3-hydroxy-C12 homoserine lactone,,1,no,4,-2.29,3.9e-02,0.27,0.001,0.002,84/69/75
+unknown,297.0908,9.24,Flunixine,,1,no,4,0.57,3.9e-02,0.71,0.005,0.033,100/97/100
+unknown,559.2747,9.55,NCGC00380931-01_C26H42O10_,,1,no,4,0.95,3.9e-02,0.67,0.003,0.013,100/100/100
+unknown,232.1911,9.07,,,2,no,4,0.63,4.0e-02,0.72,0.005,0.003,100/100/100
+unknown,339.1919,8.9,"ent-11beta-Hydroxyatis-16-ene-3,14-dione",,1,no,4,-2.18,4.1e-02,0.25,0.010,0.001,98/86/95
+unknown,271.2058,10.33,"5-Androstene-3.beta.,16.beta.,17.alpha.-triol",,1,no,4,0.67,4.1e-02,0.71,0.001,0.006,100/100/100
+unknown,436.2179,8.56,MMV676478,,1,no,4,-2.55,4.1e-02,0.31,0.013,0.026,93/69/90
+unknown,255.0976,1.75,Ketoprofen,,2,no,4,-0.51,4.2e-02,0.22,0.002,0.000,100/100/95
+unknown,522.2902,8.03,Taurochenodeoxycholic acid,,1,no,4,2.26,4.2e-02,0.77,0.013,0.001,56/86/45
+unknown,231.1131,7.41,1-(3-(Trifluoromethyl)phenyl)piperazine,,1,no,4,1.02,4.2e-02,0.69,0.022,0.003,100/100/100
+unknown,340.0854,10.16,L-Tyrosylglycylglycine,,1,no,4,-2.76,4.3e-02,0.27,0.019,0.001,80/41/70
+N-(2-Chlorobenzyl)acetamide (putative),184.0606,1.52,,,2,yes,4,-1.34,4.3e-02,0.31,0.033,0.029,100/100/100
+unknown,166.1227,4.7,Hordenine,,1,no,4,-2.71,4.3e-02,0.27,0.000,0.001,98/93/100
+Biliverdin (MSI 2),583.2553,13.48,,,1,yes,2,2.18,4.3e-02,0.77,0.046,0.001,89/97/75
+unknown,401.2173,11.97,"5-Heptenoic acid, 7-[(1R,2R,3S,5S)-2-[(1E,3R)-3-(2,3-dihydro-1H-inden-2-yl)-3-hydroxy-1-propen-1-yl]-3-fluoro-5-hydroxycyclopentyl]-, (5Z)-",,8,no,4,-1.11,4.4e-02,0.25,0.006,0.000,100/100/100
+unknown,682.3798,12.21,,,1,no,4,1.48,4.4e-02,0.76,0.018,0.003,98/100/80
+LysoPC(16:0) (MSI 2),496.3397,16.71,,,1,yes,2,1.3,4.4e-02,0.79,0.005,0.000,100/100/100
+unknown,343.2227,10.14,"NCGC00169595-03_C20H32O3_[(2R,5R,8a'S)-2',5,5',5',8a'-Pentamethyl-4,4a',5,5',6',7',8',8a'-octahydro-3H,4'H-spiro[furan-2,1'-naphthalen]-5-yl]acetic acid",,1,no,4,-1.27,4.6e-02,0.24,0.001,0.000,100/100/100
+unknown,349.0899,9.65,bilobalide,,1,no,4,-2.02,4.6e-02,0.27,0.001,0.001,93/66/85
+unknown,287.0814,1.25,"1H-Indole-1-pentanoic acid, 3-[(8-quinolinyloxy)carbonyl]-",,1,no,4,2.88,4.6e-02,0.73,0.003,0.000,51/76/60
+unknown,338.16,10.46,"3,8-di((E)-but-2-en-1-yl)-1-methyl-7,8-dihydro-1H-imidazo[2,1-f]purine-2,4(3H,6H)-dione",,1,no,4,1.92,4.6e-02,0.66,0.005,0.022,40/69/50
+unknown,342.1895,8.99,7-Acetyllycopsamine,,1,no,4,1.0,4.6e-02,0.77,0.012,0.001,100/97/100
+unknown,305.0869,1.44,Clinafloxacin,,1,no,4,-0.91,4.6e-02,0.27,0.006,0.001,100/100/100
+unknown,490.3014,13.86,"2-((4R)-4-((3R,5R,8R,9S,12S,14S,17R)-3,12-dihydroxy-10,13-dimethylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)pentanamido)acetic acid hydrate",,1,no,4,-2.39,4.6e-02,0.23,0.005,0.000,91/69/70
+unknown,482.2968,12.96,"""2-((4R)-4-((3R,5R,9S,10S,12S,13R,14S,17R)-3,12-dihydroxy-10,13-dimethylhexadecahydro-1H-cyclopenta[a]phenanthren-17-yl)pentanamido)ethane-1-sulfonic acid""",,1,no,4,-2.46,4.6e-02,0.29,0.001,0.003,91/72/85
+unknown,183.1129,3.23,"1,3-Diazaspiro[4.6]undecane-2,4-dione",,3,no,4,-0.56,4.6e-02,0.23,0.008,0.000,100/100/100
+unknown,429.1206,8.44,"6,7-dimethoxy-1-phenyl-8H-benzo[c]indolo[3,2,1-ij][1,5]naphthyridin-8-one",,1,no,4,1.27,4.6e-02,0.75,0.016,0.007,98/97/90
+unknown,345.2064,10.7,(.+/-.)-11-Nor-.DELTA.9-tetrahydrocannabinol-9-carboxylic acid,,1,no,4,1.28,4.6e-02,0.71,0.003,0.009,98/100/100
+unknown,267.1232,6.93,Viramune,,1,no,4,-1.14,4.6e-02,0.25,0.006,0.001,100/100/100
+unknown,184.0428,3.22,2S-Amino-4-phosphonobutyric acid,,2,no,4,-1.21,4.7e-02,0.31,0.030,0.022,100/97/100
+unknown,300.2173,11.59,3-hydroxy-C12 homoserine lactone,,1,no,4,1.01,4.7e-02,0.71,0.014,0.016,78/86/65
+unknown,260.0589,0.82,D-Glucosamine-6-phosphate,,1,no,4,-3.12,4.7e-02,0.29,0.011,0.003,73/45/80
+unknown,358.2952,14.78,Putative (3-hydroxyoctadecanoyl)glycine,,1,no,4,1.07,4.8e-02,0.79,0.018,0.000,100/100/100
+unknown,310.1287,7.82,Ketotifen,,1,no,4,-1.45,4.8e-02,0.27,0.020,0.001,100/97/100
+unknown,664.3689,12.88,,,1,no,4,2.22,4.8e-02,0.8,0.027,0.000,80/97/50
+unknown,813.4293,10.6,,,1,no,4,2.46,4.8e-02,0.72,0.002,0.001,13/52/10
+unknown,301.1402,3.58,Nordihydroguaiaretic acid,,1,no,4,0.56,4.8e-02,0.76,0.017,0.000,100/100/100
+Valyl-Leucine (MSI 2),231.1704,3.72,,,1,yes,2,1.72,4.8e-02,0.76,0.004,0.001,98/100/100
+unknown,343.0636,0.83,"NCGC00385763-01!(9-hydroxy-8,8-dimethyl-2-oxo-9,10-dihydropyrano[2,3-f]chromen-10-yl) acetate [IIN-based on: CCMSLIB00000847853]",,1,no,4,-2.0,4.8e-02,0.27,0.014,0.003,96/86/95
+unknown,332.1889,11.01,"1-(1,1-Dimethylethyl)-3-(1-naphthalenylmethyl)-1H-pyrazolo[3,4-d]pyrimidin-4-amine",,1,no,4,1.12,4.9e-02,0.72,0.028,0.006,100/100/100
+unknown,183.0765,1.15,L-.beta.-Homoglutamine,,1,no,4,-2.08,4.9e-02,0.28,0.002,0.027,93/93/100
+2-Bromo-N-(4-methylphenyl)propanamide (putative),162.0914,9.45,,,7,yes,4,-1.56,4.9e-02,0.27,0.017,0.007,100/100/100
+unknown,289.1548,10.64,4-Guanidinobutyric acid,,1,no,4,-2.96,4.9e-02,0.29,0.012,0.001,53/17/50
+unknown,303.1555,8.97,MMV688939,,1,no,4,0.68,4.9e-02,0.73,0.003,0.005,100/100/100
+unknown,196.0969,1.47,"N-Hydroxy-3,4-methylenedioxyamphetamine",,1,no,4,-1.31,4.9e-02,0.29,0.018,0.006,100/100/100
+unknown,297.1451,8.22,"4-(2,5-Diethoxy-4-nitrophenyl)morpholine",,1,no,4,-1.24,4.9e-02,0.27,0.033,0.001,100/100/100
+unknown,302.1967,3.56,heliocurassavicine n-oxyde,,1,no,4,1.55,4.9e-02,0.67,0.024,0.017,91/100/100
+unknown,234.0739,7.19,3-[(3-Carboxypropanoyl)amino]-4-methylbenzoic acid,,1,no,4,-2.72,4.9e-02,0.27,0.020,0.001,89/62/85
+unknown,348.1292,0.86,"4,5-Didemethylsimmondsin",,1,no,4,-1.69,4.9e-02,0.29,0.028,0.020,96/90/95
+unknown,230.1025,1.48,Benz(c)acridine,,1,no,4,0.53,4.9e-02,0.78,0.033,0.000,100/100/100
+unknown,733.2933,1.16,"3-Methyl-6-(4-toluidino)-3H-naphtho[1,2,3-de]quinoline-2,7-dione",,1,no,4,0.8,5.0e-02,0.71,0.045,0.015,100/100/100
+unknown,262.1481,8.64,Imazethapyr,,1,no,4,1.71,5.0e-02,0.74,0.044,0.002,89/97/80

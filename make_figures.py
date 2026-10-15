@@ -60,7 +60,11 @@ RENAME = {}
 
 
 def v4():
-    return VARIANT["name"] == "v4"
+    return VARIANT["name"] in ("v4", "v5")
+
+
+def v5():      # пакет для подачи: v4 + без кривой «index-adjusted» на 4c, без Figure 5/Table S3, Tables S4–S8 -> S3–S7
+    return VARIANT["name"] == "v5"
 
 
 def panel(ax, letter, x=-0.16, y=1.04):
@@ -393,7 +397,8 @@ def fig5_roc(out, L, meta, feat, mv, pairs, zpairs=None):
         pr = pairs[pairs.comparison == c]
         zp = zpairs[zpairs.comparison == c] if zpairs is not None else pr.iloc[:0]
         runs = [("all", "panel", case, ref, "-", "All")]
-        runs.append(("all", "panel_adj", case, ref, "-.", TERM["adj"]))
+        if not (v5() and c == "PC_vs_Control"):     # v5: скорректированная модель для РПЖ vs контроль — только в Table S2
+            runs.append(("all", "panel_adj", case, ref, "-.", TERM["adj"]))
         notes = []
         msets = [("matched", pr, "--", "Age-matched")] + \
             ([] if v4() else [("contam_matched", zp, (0, (3, 1, 1, 1, 1, 1)), "Contam.-matched")])
@@ -806,6 +811,51 @@ CAPTIONS_V4 = """# Figure and table captions — v4 ("Urinary Metabolomic Profil
 **Table S8.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
 """
 
+CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urinary Metabolomic Profiles of Bladder and Prostate Cancer by LC–HRMS: A Comparative Study")
+
+## Main text
+
+**Table 1.** Clinical and demographic characteristics of the study cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex). Footnote: see table_notes.md (Table 1 note).
+
+**Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound; the {nfull} compounds detected in all study samples, i.e., without imputed values).
+
+**Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings that passed all robustness criteria; crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, background ions); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
+
+**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
+
+**Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum. q, FDR-adjusted p of the adjusted model (BC vs Control).
+
+**Figure 4.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} compounds selected by Mann–Whitney U inside each training fold, logistic regression). Exogenous compounds and compounds correlated with the exogenous-signal index (|ρ| ≥ {rho}) were excluded from the candidate pool before CV. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot (a, b), compounds adjusted for the exogenous-signal index inside each training fold (for PC vs Control, see Table S2 and its note); dashed, 1:1 age- and sex-matched pairs (shown only with ≥ {minp} pairs); dotted, sex-only baseline evaluated with the same CV. AUC, mean ± SD over repeats; p, permutation test ({perm} permutations). In (c) the exogenous-signal index nearly separates PC from controls (Table S2), so the index-adjusted estimate extrapolates beyond the overlap of the two groups and is not interpreted as a PC-specific signal.
+
+## Supplementary Materials
+
+**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index.
+
+**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
+
+**Figure S3.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
+
+**Figure S4.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exogenous features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
+
+**Figure S5.** Members of the homologous exogenous series in methanol solvent blanks, pooled QC and urine samples (raw peak areas from extracted-ion chromatograms, ± 5 ppm). (a) Peak areas in solvent blanks (n = 7, including two injected before the first sample), pooled QC (n = 6), the two controls with the lowest and the three PC samples with the highest index; † members with solvent-blank area ≥ 10% of the QC median; n.d., not detected. (b, c) Extracted-ion chromatograms of a member present in the blanks (C12) and of one absent from the blanks (C14+O).
+
+**Figure S6.** Homologous exogenous series used for the exogenous-signal index. (a) Members ([M+H]+; mass increments C2H4, O and C2H4O) in the m/z–retention-time plane; open diamonds, co-varying ions not included in the index. (b) Exogenous-signal index (mean z-score of the ten members) by group (Mann–Whitney U test).
+
+**Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
+
+**Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, 5th–95th percentiles, Q², permutation p), including the single-covariate baselines (sex only; exogenous-signal index only).
+
+**Table S3.** Curated candidate annotations: formula, ion, mass error, HMDB/KEGG identifiers, MS-DIAL MS/MS library entry, isomers not excluded, MSI level (same rule as in Table 2), supporting ions, detection by group, and correlation with the exogenous-signal index and the dilution factor; annotations with mass error > {ppm:.0f} ppm are listed separately (S3b). No reference standards were analysed (no MSI level 1).
+
+**Table S4.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
+
+**Table S5.** Compound-level statistics for all comparisons (all models and robustness checks).
+
+**Table S6.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < {low}, with the exogenous-signal index built only from series members absent from solvent blanks, restricted to compounds without imputed values, and with imputed values treated as missing; overlap with the main analysis and cross-validated panel AUC.
+
+**Table S7.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
+"""
+
 
 def replication_outputs(out, res_dir, feat, stats_, info_all):
     """Table 3 и Figure 7: маркеры первого этапа (ABC, Table 5) в независимой выборке s266."""
@@ -1055,6 +1105,53 @@ V4_TABLE_TERMS = [   # замены в таблицах и сносках вар
 V4_CELL_VALUES = {"contaminant": "background ion"}
 
 
+V5_SHEETS = {"S4_curated_candidates": "S3_curated_candidates", "S4b_mass_mismatch": "S3b_mass_mismatch",
+             "S5_presence_absence": "S4_presence_absence", "S6_BC_vs_Control": "S5_BC_vs_Control", "S6_BC_vs_PC": "S5_BC_vs_PC",
+             "S6_PC_vs_Control": "S5_PC_vs_Control", "S6_PC_vs_maleControl": "S5_PC_vs_maleControl",
+             "S7_sensitivity": "S6_sensitivity", "S8_blank_check": "S7_blank_check"}
+V5_CSV = {"TableS4_curated_candidates.csv": "TableS3_curated_candidates.csv", "TableS7_sensitivity.csv": "TableS6_sensitivity.csv",
+          "TableS8_blank_check.csv": "TableS7_blank_check.csv"}
+
+
+def v5_package(out, mv):
+    """Пакет для подачи: перенумерация таблиц приложения, сноска к Table S2, раскладка по папкам submission_analytica/."""
+    from openpyxl import load_workbook
+    root = out.parent
+    f = out / "Supplementary_Tables.xlsx"
+    wb = load_workbook(f)
+    for ws in wb.worksheets:
+        ws.title = V5_SHEETS.get(ws.title, ws.title)
+    ws = wb["S2_classification"]
+    pc = mv[(mv.comparison == "PC_vs_Control") & (mv.set == "all") & mv.model.astype(str).str.contains("скорректированы")]
+    note = ("Note: for PC vs Control the exogenous-signal index alone nearly separates the groups (index-only AUC in this table); "
+            "the index-adjusted panel AUC for this comparison is therefore an extrapolation beyond the overlap of the two groups "
+            "and is not interpreted as a PC-specific signal; it is not shown in Figure 4c."
+            + (f" (index-adjusted AUC {pc.AUC_mean.iloc[0]:.2f})" if len(pc) else ""))
+    ws.cell(row=ws.max_row + 2, column=1, value=note)
+    wb.save(f)
+    for a_, b_ in V5_CSV.items():
+        if (out / a_).exists():
+            (out / a_).rename(out / b_)
+    with open(out / "table_notes.md", "a", encoding="utf-8") as fh:
+        fh.write("\n**Table S2 note.** " + note + "\n")
+    dirs = {"figures": root / "1_main_figures", "tables": root / "2_main_tables", "supp": root / "3_supplementary"}
+    for d in dirs.values():
+        if d.exists():
+            shutil.rmtree(d)
+        d.mkdir(parents=True)
+    for p_ in out.iterdir():
+        n_ = p_.name
+        if n_.startswith("Figure") and not n_.startswith("FigureS"):
+            shutil.move(str(p_), dirs["figures"] / n_)
+        elif n_.startswith(("Table1", "Table2", "Tables_main")):
+            shutil.move(str(p_), dirs["tables"] / n_)
+        elif n_.startswith(("FigureS", "TableS", "Supplementary_Tables")):
+            shutil.move(str(p_), dirs["supp"] / n_)
+        else:
+            shutil.move(str(p_), root / n_)
+    out.rmdir()
+
+
 def v4_retitle(out):
     """Вариант v4: замена терминов в CSV/XLSX/MD каталога out (заголовки и текстовые ячейки)."""
     from openpyxl import load_workbook
@@ -1090,7 +1187,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--res", default=C.OUT)
     ap.add_argument("--data", default=C.DATA)
-    ap.add_argument("--variant", default="full", choices=["full", "v4"])
+    ap.add_argument("--variant", default="full", choices=["full", "v4", "v5"])
     a = ap.parse_args()
     res = Path(a.res)
     VARIANT["name"] = a.variant
@@ -1102,7 +1199,7 @@ def main():
                        "Figure5_ROC_cross_validated": "Figure4_ROC_cross_validated",
                        "Figure6_replication_stage1_markers": "Figure5_previous_BC_markers",
                        "FigureS5_blank_check": "FigureS5_solvent_blanks"})
-        out = Path("publication_v4") / "figures_tables"     # публикация v4; текст лежит рядом в publication_v4/text
+        out = Path("submission_analytica") / "_build" if v5() else Path("publication_v4") / "figures_tables"
     else:
         out = res / "publication"
     if out.exists():
@@ -1126,9 +1223,9 @@ def main():
     figS3_pathways(out, pw)
     figS5_blanks(out, res, meta)
     t2_full, ts_class = tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi, has_ms2, meta)
-    rep = replication_outputs(out, res, feat, stats_, info_all)
+    rep = None if v5() else replication_outputs(out, res, feat, stats_, info_all)
     supplementary_tables(out, res, t2_full, ts_class, rep, feat, msi, has_ms2)
-    (out / "figure_captions.md").write_text((CAPTIONS_V4 if v4() else CAPTIONS).format(
+    (out / "figure_captions.md").write_text((CAPTIONS_V5 if v5() else CAPTIONS_V4 if v4() else CAPTIONS).format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
         cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL,
         zcal=C.CONTAM_MATCH_CALIPER_SD, nfull=nfull), encoding="utf-8")
@@ -1136,6 +1233,8 @@ def main():
         v4_retitle(out)
         for f in out.glob("TableS3_replication_*.csv"):
             f.rename(out / f.name.replace("replication_stage1_markers", "previous_BC_markers").replace("replication_summary", "previous_BC_markers_summary"))
+    if v5():
+        v5_package(out, mv)
     print(f"Публикационные рисунки и таблицы → {out}")
 
 
