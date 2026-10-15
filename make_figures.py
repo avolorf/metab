@@ -275,9 +275,15 @@ def fig2_contamination(out, meta, series):
     save(fig, out, "Figure2_contamination_index")
 
 
+T2_FIRST = set()     # v5: соединения, которые идут первыми в Table 2 / Figure 3 (глюкурониды стероидов)
+
+
 def table2_order(r, msi):
-    """Соединения Table 2 (находки MSI 2–3) в порядке возрастания q — общая нумерация для Table 2 и Figure 3."""
-    sel = r[r.finding.astype(bool) & (msi.reindex(r.index) <= 3)].sort_values("q_model")
+    """Соединения Table 2 (находки MSI 2–3): общая нумерация для Table 2, Figure 2 и Figure 3.
+    По возрастанию q; в v5 сначала глюкурониды стероидов (как в тексте), затем остальные."""
+    sel = r[r.finding.astype(bool) & (msi.reindex(r.index) <= 3)].copy()
+    sel["grp"] = [0 if f in T2_FIRST else 1 for f in sel.index]
+    sel = sel.sort_values(["grp", "q_model"])
     return {f: k for k, f in enumerate(sel.index, 1)}
 
 
@@ -298,7 +304,7 @@ def volcano_ax(ax, r, nm, title, numbered=None):
     if len(q):
         ax.axhline(-np.log10(q.max()), c=INK2, ls="--", lw=0.6, label=f"FDR {C.FDR:.0%}")
     if numbered:
-        idx = sorted([i for i in numbered if i in r.index], key=lambda i: -y[i])
+        idx = sorted([i for i in numbered if i in r.index], key=lambda i: numbered[i])   # номера сверху вниз по порядку
         ax.scatter(x[idx], y[idx], s=30, facecolor="none", edgecolor=INK, lw=0.8, zorder=5,
                    label="Annotated finding (Table 2 no.)")
         # номера — отдельным столбцом справа от облака, каждый с выносной линией к своей точке
@@ -441,10 +447,13 @@ def fig5_roc(out, L, meta, feat, mv, pairs, zpairs=None):
 def fig6_box(out, L, meta, r, nm, msi, X_raw=None):
     """Figure 4: те же соединения, что в Table 2 (находки MSI 2–3), по возрастанию q."""
     sel = r[r.finding.astype(bool) & (msi.reindex(r.index) <= 3)]
-    sel = sel.sort_values("q_model").head(8)
+    order = table2_order(r, msi)
+    sel = sel.loc[sorted(sel.index, key=lambda i: order.get(i, 99))].head(8)
     if not len(sel):
         return
-    fig, axs = plt.subplots(2, 4, figsize=(FULL, 11 * CM), gridspec_kw={"hspace": 1.0, "wspace": 0.5})
+    ncol = 3 if len(sel) in (5, 6) else 4       # 5–6 панелей: сетка 3 + 2 / 3 + 3
+    fig, axs = plt.subplots(2, ncol, figsize=(FULL * (0.8 if ncol == 3 else 1), (10 if ncol == 3 else 11) * CM),
+                            gridspec_kw={"hspace": 0.85 if ncol == 3 else 1.0, "wspace": 0.5})
     for k, (ax, f) in enumerate(zip(axs.ravel(), sel.index)):
         for i, g in enumerate(C.STUDY_GROUPS):
             v = L.loc[meta.index[meta.study & (meta.group == g)], f]
@@ -463,7 +472,7 @@ def fig6_box(out, L, meta, r, nm, msi, X_raw=None):
         name = "\n".join(textwrap.wrap(name, 24, break_on_hyphens=True)[:2])
         mz, rt = tag.replace("m/z ", "").replace(" min", "").split(" @ ")
         ax.set_title(f"{name}\nMSI {int(msi[f])} · m/z {mz} · {rt} min\nq = {r.loc[f, 'q_model']:.1e}", fontsize=5.6)
-        if k % 4 == 0:
+        if k % ncol == 0:
             ax.set_ylabel("log$_2$ normalized intensity")
         panel(ax, "abcdefgh"[k], x=-0.3, y=1.2)
     for ax in axs.ravel()[len(sel):]:
@@ -829,11 +838,11 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings that passed all robustness criteria; crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, background ions); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
-**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
+**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3), steroid glucuronides first, then other compounds, each ordered by q. log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. Findings met all of the following: q < 0.05 in the adjusted model; p < 0.05 in age-matched pairs and against low-index controls, with the same direction of change; and no difference between controls with high and low index (p ≥ 0.05), which excludes compounds whose level itself depends on the index. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
 
 **Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum. q, FDR-adjusted p of the adjusted model (BC vs Control).
 
-**Figure 4.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} compounds selected by Mann–Whitney U inside each training fold, logistic regression). Exogenous compounds and compounds correlated with the exogenous-signal index (|ρ| ≥ {rho}) were excluded from the candidate pool before CV. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot (a, b), compounds adjusted for the exogenous-signal index inside each training fold (for PC vs Control, see Table S2 and its note); dashed, 1:1 age- and sex-matched pairs (shown only with ≥ {minp} pairs); dotted, sex-only baseline evaluated with the same CV. AUC, mean ± SD over repeats; p, permutation test ({perm} permutations). In (c) the exogenous-signal index nearly separates PC from controls (Table S2), so the index-adjusted estimate extrapolates beyond the overlap of the two groups and is not interpreted as a PC-specific signal.
+**Figure 4.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} compounds selected by Mann–Whitney U inside each training fold, logistic regression). Exogenous compounds and compounds correlated with the exogenous-signal index (|ρ| ≥ {rho}) were excluded from the candidate pool before CV. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot (a, b), compounds adjusted for the exogenous-signal index inside each training fold (for PC vs Control, see Table S2 and its note); dashed, 1:1 age- and sex-matched pairs (shown only with ≥ {minp} pairs); dotted, sex-only baseline evaluated with the same CV. AUC, mean ± SD over repeats; p, permutation test ({perm} permutations).
 
 ## Supplementary Materials
 
@@ -1217,6 +1226,10 @@ def main():
     X_all, _, info_all, _ = io.load_features(a.data)
     msi, has_ms2 = msi_levels(feat, res)
     nm = names_en(feat, cur, msi)
+    if v5():
+        cn_ = cur.dropna(subset=["feature"])
+        glc = set(cn_.feature[cn_.name_en.fillna("").str.contains("glucuronide", case=False)])
+        T2_FIRST.update(feat.index[feat.compound.isin(feat.loc[feat.index.intersection(list(glc)), "compound"])])
     nfull = f"{sum(feat.loc[feat.is_representative.fillna(False).astype(bool), [f'det_{g}' for g in C.STUDY_GROUPS]].min(axis=1) >= 1.0):,}"
     fig1_quality(out, meta, L, feat, X_all)
     fig2_contamination(out, meta, series)
