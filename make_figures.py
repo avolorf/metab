@@ -564,11 +564,19 @@ def table1_note(meta, demo):
     def by_group(mask):
         return ", ".join(f"{int(mask[sdf.group == g].sum())} {LAB[g]}" for g in C.STUDY_GROUPS if mask[sdf.group == g].sum())
     cc = int((~na_age & ~na_sex).sum())
-    return (f"Age was not available for {int(na_age.sum())} participants ({by_group(na_age)}) and sex for {int(na_sex.sum())} "
-            f"({by_group(na_sex)}); {int((na_age & na_sex).sum())} lacked both. These participants were retained in the "
-            f"unadjusted analyses (Mann–Whitney U tests, contamination index, cross-validated models on all samples) and "
-            f"excluded from the adjusted linear model (complete-case analysis, n = {cc} of {len(sdf)}) and from age- and "
-            f"contamination-matched pairs; missing values were not imputed.")
+    parts = []
+    if na_age.sum():
+        parts.append(f"age was not available for {int(na_age.sum())} participants ({by_group(na_age)})")
+    if na_sex.sum():
+        parts.append(f"sex was not available for {int(na_sex.sum())} ({by_group(na_sex)})")
+    if (na_age & na_sex).sum():
+        parts.append(f"{int((na_age & na_sex).sum())} lacked both")
+    if not parts:
+        return "Age and sex were available for all participants."
+    txt = "; ".join(parts)
+    return (txt[0].upper() + txt[1:] + ". These participants were retained in the unadjusted analyses (Mann–Whitney U tests, "
+            f"contamination index, cross-validated models on all samples) and excluded from the adjusted linear model "
+            f"(complete-case analysis, n = {cc} of {len(sdf)}) and from age-matched pairs; missing values were not imputed.")
 
 
 def figS5_blanks(out, res, meta):
