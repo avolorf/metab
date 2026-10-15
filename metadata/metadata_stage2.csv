@@ -13,7 +13,7 @@ sample,group,sex,age,include,exclude_reason,comment
 12,Control,M,66.0,1,,
 13,PC,M,65.0,1,,
 14,PC,M,64.0,1,,
-15,Control,F,,1,,
+15,Control,F,64.0,1,, возраст уточнён авторами 15.10.2026
 16,Control,F,32.0,1,,
 17,BC,F,72.0,1,,
 18,PanC,M,61.0,0,рак поджелудочной железы (вне дизайна),
@@ -23,7 +23,7 @@ sample,group,sex,age,include,exclude_reason,comment
 22,Control,F,59.0,1,,
 23,PC,M,72.0,1,,
 24,BC,M,74.0,1,,
-25,Control,F,,1,,
+25,Control,F,49.0,1,, возраст уточнён авторами 15.10.2026
 26,PC,M,72.0,1,,
 27,BC,M,64.0,1,,
 28,PC,M,73.0,1,,
@@ -70,7 +70,7 @@ sample,group,sex,age,include,exclude_reason,comment
 69,Control,F,67.0,1,,
 70,BC,F,61.0,1,,
 71,PC,M,62.0,1,,доброкачественное образование мочевого пузыря + РПЖ -> группа РПЖ
-72,Control,F,,1,,
+72,Control,F,61.0,1,, возраст уточнён авторами 15.10.2026
 73,Control,M,48.0,1,,
 74,Control,F,44.0,1,,
 75,Control,M,53.0,1,,

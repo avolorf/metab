@@ -4,14 +4,14 @@
 
 Возраст и пол по группам:
   group  n  male  female  sex_unknown  age_n  age_missing  age_mean  age_sd  age_median  age_min  age_max  male_age_ge60
-Control 45    19      26            0     42            3      53.0    14.9        58.5     18.0     72.0              8
+Control 45    19      26            0     45            0      53.3    14.6        59.0     18.0     72.0              8
      BC 29    24       5            0     29            0      62.9     9.7        62.0     41.0     78.0             16
      PC 20    20       0            0     20            0      70.7     6.6        70.0     62.0     86.0             20
                                       test        p
-        возраст, Краскел–Уоллис (3 группы) 3.14e-06
-         возраст BC vs Control, Манн–Уитни  0.00673
+        возраст, Краскел–Уоллис (3 группы)    2e-06
+         возраст BC vs Control, Манн–Уитни  0.00721
      пол BC vs Control, точный тест Фишера 0.000678
-         возраст PC vs Control, Манн–Уитни 1.71e-06
+         возраст PC vs Control, Манн–Уитни 9.23e-07
      пол PC vs Control, точный тест Фишера 3.48e-06
               возраст BC vs PC, Манн–Уитни  0.00757
           пол BC vs PC, точный тест Фишера   0.0704
@@ -32,17 +32,17 @@ Control 45    19      26            0     42            3      53.0    14.9     
 
 Одномерная статистика (уровень соединений):
        comparison  n_case  n_ref     model_covariates  model_n_case  model_n_ref  matched_pairs  n_ref_lowindex  n_ref_highindex  n_q_model  n_findings
-    BC_vs_Control      29     45 sex+age+contam_index            29           42             20            31.0             14.0        328         222
+    BC_vs_Control      29     45 sex+age+contam_index            29           45             20            31.0             14.0        340         210
          BC_vs_PC      29     20 sex+age+contam_index            29           20             18             NaN              NaN          3           3
-    PC_vs_Control      20     45 sex+age+contam_index            20           42             11            31.0             14.0          0           0
+    PC_vs_Control      20     45 sex+age+contam_index            20           45             11            31.0             14.0          0           0
 PC_vs_maleControl      20     19     age+contam_index            20           19             11            17.0              2.0          0           0
 Признаки «есть/нет» (детекция <50% в одной группе и ≥80% в другой): 41
 
 Чувствительность (PQN vs MSTUS; без проб с низким фактором разведения):
        comparison  q<FDR_PQN  q<FDR_MSTUS  overlap  jaccard  findings_PQN  findings_MSTUS  findings_overlap  rho_log2FC  log2FC_shift  q_without_lowdilution  overlap_with_main  findings_without_lowdilution  findings_overlap_main
-    BC_vs_Control        328          243      241     0.73           222             144               134         1.0          0.01                    516                311                           397                    208
+    BC_vs_Control        340          244      243     0.71           210             136               125         1.0          0.01                    536                324                           380                    195
          BC_vs_PC          3            3        3     1.00             3               3                 3         1.0          0.03                     10                  3                            10                      3
-    PC_vs_Control          0            0        0     0.00             0               0                 0         1.0          0.08                      2                  0                             1                      0
+    PC_vs_Control          0            0        0     0.00             0               0                 0         1.0          0.07                     10                  0                             3                      0
 PC_vs_maleControl          0            0        0     0.00             0               0                 0         1.0          0.00                      0                  0                             0                      0
 
 Пул для моделей: 5351 соединений (исключены до CV: экспозиции 426, |ρ с индексом загрязнения| ≥ 0.5 ещё 15: unknown 244.1294@1.76*, unknown 246.2428@12.16, unknown 261.0983@0.85*, unknown 277.0931@0.60*, unknown 334.2956@13.77, Erucamide 338.3419@19.65, unknown 349.1393@8.70*, unknown 365.2879@18.64*, unknown 380.1920@11.37*, unknown 386.2387@9.85*, unknown 462.2333@9.56*, unknown 531.2749@18.07*, unknown 533.3411@10.44*, unknown 577.3670@10.59*, unknown 654.3327@18.11*)
@@ -54,11 +54,11 @@ PC_vs_maleControl          0            0        0     0.00             0       
     BC_vs_Control            all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      29     45      5351.0     0.830   0.023   0.797    0.862  0.337   0.001  1000.0
     BC_vs_Control            all                                     только sex (базовая модель, та же CV)      29     45         1.0     0.649   0.016   0.615    0.672  0.138   0.002  1000.0
     BC_vs_Control            all                            только contam_index (базовая модель, та же CV)      29     45         1.0     0.594   0.016   0.570    0.613  0.019   0.087  1000.0
-    BC_vs_Control        matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      20     20      5351.0     0.689   0.058   0.615    0.788 -0.070   0.077  1000.0
-    BC_vs_Control        matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      20     20      5351.0     0.571   0.103   0.399    0.740 -0.286   0.280  1000.0
-    BC_vs_Control        matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      20     20      5351.0     0.672   0.057   0.603    0.766  0.066   0.075  1000.0
+    BC_vs_Control        matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      20     20      5351.0     0.676   0.054   0.604    0.770 -0.079   0.100  1000.0
+    BC_vs_Control        matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      20     20      5351.0     0.546   0.115   0.348    0.732 -0.314   0.330  1000.0
+    BC_vs_Control        matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      20     20      5351.0     0.665   0.056   0.587    0.758  0.058   0.078  1000.0
     BC_vs_Control        matched                                     только sex (базовая модель, та же CV)      20     20         1.0     0.337   0.054   0.250    0.415 -0.062   0.848  1000.0
-    BC_vs_Control        matched                            только contam_index (базовая модель, та же CV)      20     20         1.0     0.736   0.014   0.721    0.758  0.180   0.006  1000.0
+    BC_vs_Control        matched                            только contam_index (базовая модель, та же CV)      20     20         1.0     0.744   0.010   0.727    0.760  0.203   0.005  1000.0
     BC_vs_Control contam_matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      15     15      5351.0     0.691   0.072   0.573    0.787 -0.052   0.088  1000.0
     BC_vs_Control contam_matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      15     15      5351.0     0.698   0.075   0.542    0.787 -0.024   0.094  1000.0
     BC_vs_Control contam_matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      15     15      5351.0     0.736   0.071   0.598    0.822  0.183   0.045  1000.0
@@ -98,16 +98,16 @@ PC_vs_maleControl        matched                            только contam_
 PC_vs_maleControl contam_matched                                          не оценивается: 5 < 10 на группу       5      5         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
 
 Курированные кандидаты: 33 с массой ≤5.0 ppm; 9 вынесены на лист candidates_mass_mismatch
-Находки (правило в README): BC_vs_Control 222, BC_vs_PC 3, PC_vs_Control 0, PC_vs_maleControl 0
+Находки (правило в README): BC_vs_Control 210, BC_vs_PC 3, PC_vs_Control 0, PC_vs_maleControl 0
 
 Сверка с маркерами (m/z ± 5.0 ppm, RT ± 0.5 мин):
 source    comparison  markers  not_detected  below_detection_filter  failed_rsd  quantified  ambiguous_isomers  same_direction_all_candidates  same_direction_any_candidate  nominal_p05_any_candidate  replicated_q05_any_candidate
-   ABC BC_vs_Control       14             7                       2           0           5                  1                              3                             4                          1                             1
+   ABC BC_vs_Control       14             7                       2           0           5                  1                              3                             4                          1                             0
 
 Сдвиг RT между этапами: файл curation/rt_anchors_stage1.csv не найден — окно ±0.5 мин не обосновано данными
 
 Пути (mummichog, без экспозиций, BH по путям):
    comparison  n_features  n_significant  p_cutoff  excluded_exposure_features  permutations  n_pathways_p05  n_pathways_q05
-BC_vs_Control        7157            716  0.007097                         246           500              11               0
+BC_vs_Control        7157            716  0.007164                         246           500              13               0
      BC_vs_PC        7157            716  0.051146                         246           500               7               0
-PC_vs_Control        7157            716  0.042267                         246           500               5               0
+PC_vs_Control        7157            716  0.036297                         246           500               2               0

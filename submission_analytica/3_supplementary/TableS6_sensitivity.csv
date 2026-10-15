@@ -1,10 +1,10 @@
 Comparison,Analysis,q < 0.05,Findings,Shared with main (q < 0.05),Shared findings,Panel AUC (CV),Note
-BC vs Control,"Main (PQN, all samples, 10-member exogenous-signal index)",328,222,328.0,222,0.81,
-BC vs Control,MSTUS normalization,243,144,241.0,134,0.8,
-BC vs Control,Without samples with PQN factor < 0.2 (n = 26/44),516,397,311.0,208,0.8,
-BC vs Control,Exogenous-signal index from 5 members absent from solvent blanks,258,197,255.0,188,0.8,panel AUC: features adjusted for this index in-fold
-BC vs Control,"Only the 1,366 compounds detected in all samples (no imputed values; FDR within this set)",185,99,,82,,82 of the 222 main findings belong to this set
-BC vs Control,Imputed values treated as missing (each compound analysed on its detected values),318,204,,146,,
+BC vs Control,"Main (PQN, all samples, 10-member exogenous-signal index)",340,210,340.0,210,0.81,
+BC vs Control,MSTUS normalization,244,136,243.0,125,0.8,
+BC vs Control,Without samples with PQN factor < 0.2 (n = 26/44),536,380,324.0,195,0.8,
+BC vs Control,Exogenous-signal index from 5 members absent from solvent blanks,244,178,241.0,170,0.8,panel AUC: features adjusted for this index in-fold
+BC vs Control,"Only the 1,366 compounds detected in all samples (no imputed values; FDR within this set)",187,96,,79,,79 of the 210 main findings belong to this set
+BC vs Control,Imputed values treated as missing (each compound analysed on its detected values),339,196,,133,,
 BC vs PC,"Main (PQN, all samples, 10-member exogenous-signal index)",3,3,3.0,3,0.86,
 BC vs PC,MSTUS normalization,3,3,3.0,3,0.83,
 BC vs PC,Without samples with PQN factor < 0.2 (n = 26/17),10,10,3.0,3,0.81,
@@ -13,9 +13,9 @@ BC vs PC,"Only the 1,366 compounds detected in all samples (no imputed values; F
 BC vs PC,Imputed values treated as missing (each compound analysed on its detected values),0,0,,0,,
 PC vs Control,"Main (PQN, all samples, 10-member exogenous-signal index)",0,0,0.0,0,,
 PC vs Control,MSTUS normalization,0,0,0.0,0,,
-PC vs Control,Without samples with PQN factor < 0.2 (n = 17/44),2,1,0.0,0,0.64,
+PC vs Control,Without samples with PQN factor < 0.2 (n = 17/44),10,3,0.0,0,0.64,
 PC vs Control,Exogenous-signal index from 5 members absent from solvent blanks,0,0,0.0,0,0.8,panel AUC: features adjusted for this index in-fold
-PC vs Control,"Only the 1,366 compounds detected in all samples (no imputed values; FDR within this set)",1,0,,0,,0 of the 0 main findings belong to this set
+PC vs Control,"Only the 1,366 compounds detected in all samples (no imputed values; FDR within this set)",0,0,,0,,0 of the 0 main findings belong to this set
 PC vs Control,Imputed values treated as missing (each compound analysed on its detected values),0,0,,0,,
 PC vs male Control,"Main (PQN, all samples, 10-member exogenous-signal index)",0,0,0.0,0,,
 PC vs male Control,MSTUS normalization,0,0,0.0,0,,

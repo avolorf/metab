@@ -1,2 +1,2 @@
 Source,Comparison,Markers,Not detected,Below detection filter,Failed QC RSD filter,Quantified,Quantified with isomeric candidates,Same direction (all candidates),Same direction (any candidate),"p < 0.05, same direction (any candidate)","q < 0.05, same direction (any candidate)"
-ABC,BC_vs_Control,14,7,2,0,5,1,3,4,1,1
+ABC,BC_vs_Control,14,7,2,0,5,1,3,4,1,0
