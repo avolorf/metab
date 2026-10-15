@@ -8,6 +8,7 @@ from scipy import stats
 from . import config as C
 
 PROTON = 1.007276
+MOLECULAR_IONS = ["[M+H]+", "[M+Na]+", "[M+NH4]+", "[M+K]+"]
 ADDUCTS = {"[M+H]+": PROTON, "[M+Na]+": 22.989218, "[M+K]+": 38.963158, "[M+NH4]+": 18.033823,
            "[M+H-H2O]+": PROTON - 18.010565, "[M+H-2H2O]+": PROTON - 2 * 18.010565}
 # разности масс между ионами одного соединения

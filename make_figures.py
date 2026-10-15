@@ -751,7 +751,7 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
 
-**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < 0.2, and with a contamination index built only from the series members that were absent from solvent blanks; overlap with the main analysis and cross-validated panel AUC.
+**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < 0.2, with a contamination index built only from the series members that were absent from solvent blanks, restricted to compounds without imputed values, and with imputed values treated as missing; overlap with the main analysis and cross-validated panel AUC.
 
 **Table S8.** Solvent-blank check of the alkyl diethanolamine series (batch 1): median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
 """
@@ -801,7 +801,7 @@ CAPTIONS_V4 = """# Figure and table captions — v4 ("Urinary Metabolomic Profil
 
 **Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
 
-**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < {low}, and with the exogenous-signal index built only from series members absent from solvent blanks; overlap with the main analysis and cross-validated panel AUC.
+**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < {low}, with the exogenous-signal index built only from series members absent from solvent blanks, restricted to compounds without imputed values, and with imputed values treated as missing; overlap with the main analysis and cross-validated panel AUC.
 
 **Table S8.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
 """
@@ -1001,6 +1001,14 @@ def sensitivity_table(t):
                          "q < 0.05": r.q05_clean, "Findings": r.findings_clean, "Shared with main (q < 0.05)": r.q05_overlap,
                          "Shared findings": r.findings_overlap, "Panel AUC (CV)": r.get("AUC_panel_adj"),
                          "Note": "panel AUC: features adjusted for this index in-fold" if pd.notna(r.get("AUC_panel_adj")) else ""})
+    if (t / "sensitivity_imputation.csv").exists():
+        for _, r in pd.read_csv(t / "sensitivity_imputation.csv").iterrows():
+            c = r.comparison.replace("_vs_", " vs ").replace("maleControl", "male Control")
+            rows.append({"Comparison": c, "Analysis": f"Only the {int(r.compounds_without_imputation):,} compounds detected in all samples (no imputed values; FDR within this set)",
+                         "q < 0.05": r.A_q05, "Findings": r.A_findings, "Shared findings": r.A_shared,
+                         "Note": f"{int(r.main_findings_without_imputation)} of the {int(r.main_findings)} main findings belong to this set"})
+            rows.append({"Comparison": c, "Analysis": "Imputed values treated as missing (each compound analysed on its detected values)",
+                         "q < 0.05": r.B_q05, "Findings": r.B_findings, "Shared findings": r.B_shared})
     if not rows:
         return None
     d = pd.DataFrame(rows)

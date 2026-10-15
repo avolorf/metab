@@ -112,6 +112,15 @@ def main():
     # ------------------------------------------------------------ 3. соединения, индекс загрязнения, категории
     info = info_all.loc[L.columns]
     groups = features.group_features(L.loc[study], info, X1.loc[study].median())
+    # представитель соединения: курированный ион целой молекулы ([M+H]+, [M+Na]+, [M+NH4]+, [M+K]+), если он есть
+    # в группе; иначе самый интенсивный ион (фрагменты из источника не представляют соединение)
+    cur_rep = pd.read_csv(C.CURATION)
+    for _, r in cur_rep[cur_rep.ion.isin(features.MOLECULAR_IONS)].iterrows():
+        f = next(iter(info[((info.mz - r.mz).abs() < 0.002) & ((info.rt_min - r.rt_min).abs() < 0.02)].index), None)
+        if f is not None and f in groups.index:
+            members = groups.index[groups.compound == groups.loc[f, "compound"]]
+            groups.loc[members, "representative"] = f
+            groups.loc[members, "is_representative"] = members == f
     reps = groups.index[groups.is_representative]
     log(f"\nГруппировка признаков (ΔRT ≤ {C.GROUP_RT_TOL} мин, ρ ≥ {C.GROUP_MIN_CORR}): {L.shape[1]} признаков → "
         f"{len(reps)} соединений; многоионных соединений {(groups.groupby('compound').size() > 1).sum()}")

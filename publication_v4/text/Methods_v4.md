@@ -54,10 +54,11 @@ MS/MS spectra were matched against NIST 23 HRMS and the MS-DIAL metabolomics MSP
 **Special cases.**
 - Features detected in < 50% of one group and ≥ 80% of another (n = 41) were analysed separately as presence/absence features (Fisher's exact test).
 - Seven samples with a PQN factor < 0.2 were retained in the main analysis and excluded in a sensitivity analysis.
+- The influence of imputation was assessed by repeating the analysis (i) on the compounds detected in all samples and (ii) with imputed values treated as missing, each compound being analysed on its detected values only (Table S7).
 
 ## 2.5. Grouping of features into compounds
 
-Features were grouped into compounds (connected components) when they eluted within 0.02 min and were correlated across samples with Spearman ρ ≥ 0.8. Adduct, isotope and in-source-fragment mass differences were annotated. The 7,403 features formed 5,792 compounds, 718 of them with two or more ions. Statistics and false-discovery-rate (FDR) control were applied at the compound level, with the most intense ion as the representative.
+Features were grouped into compounds (connected components) when they eluted within 0.02 min and were correlated across samples with Spearman ρ ≥ 0.8. Adduct, isotope and in-source-fragment mass differences were annotated. The 7,403 features formed 5,792 compounds, 718 of them with two or more ions. Statistics and false-discovery-rate (FDR) control were applied at the compound level. Each compound was represented by its curated intact-molecule ion ([M+H]+, [M+Na]+, [M+NH4]+ or [M+K]+) when such an ion was annotated in the group, and otherwise by its most intense ion, so that in-source fragments did not represent a compound.
 
 ## 2.6. Exogenous compounds and the exogenous-signal index
 

@@ -42,6 +42,6 @@
 
 **Table S6.** Compound-level statistics for all comparisons (all models and robustness checks).
 
-**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < 0.2, and with the exogenous-signal index built only from series members absent from solvent blanks; overlap with the main analysis and cross-validated panel AUC.
+**Table S7.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < 0.2, with the exogenous-signal index built only from series members absent from solvent blanks, restricted to compounds without imputed values, and with imputed values treated as missing; overlap with the main analysis and cross-validated panel AUC.
 
 **Table S8.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.

@@ -1,0 +1,5 @@
+comparison,compounds_without_imputation,main_findings,main_findings_without_imputation,A_q05,A_findings,A_shared,B_q05,B_findings,B_shared
+BC_vs_Control,1366,213,84,165,101,84,281,200,135
+BC_vs_PC,1366,3,0,0,0,0,0,0,0
+PC_vs_Control,1366,0,0,0,0,0,0,0,0
+PC_vs_maleControl,1366,0,0,0,0,0,0,0,0

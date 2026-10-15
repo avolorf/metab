@@ -63,20 +63,20 @@ The series is therefore introduced with the samples, before or during sample pre
 
 ## 3.4. Bladder cancer versus controls
 
-In the adjusted model, 295 of 5,792 compounds had q < 0.05. Of these, 212 also passed the age-matched comparison and both contamination checks: 117 were higher and 95 lower in BC (Figure 3a, Figure S1; Table S1). Normalisation by MSTUS instead of PQN changed only a per-sample scaling: fold changes were rank-identical (ρ = 1.00), and 120 of the 125 MSTUS findings were among the PQN findings (Figure S3; Table S7).
+In the adjusted model, 296 of 5,792 compounds had q < 0.05. Of these, 213 also passed the age-matched comparison and both contamination checks: 117 were higher and 96 lower in BC (Figure 3a, Figure S1; Table S1). Normalisation by MSTUS instead of PQN changed only a per-sample scaling: fold changes were rank-identical (ρ = 1.00), and 120 of the 125 MSTUS findings were among the PQN findings (Figure S3; Table S7).
 
 Annotation confidence was limited (Table 2; Figure 4).
 - **MSI level 2** (precursor within 5 ppm of the curated formula and MS/MS library match) — four findings: dodecanoylcarnitine, biliverdin, LysoPC(16:0) and Val-Leu.
 - **MSI level 3** — three findings:
-  - a C19H28O3 oxo-androstane steroid (putatively 11-oxoetiocholanolone; [M+H−H2O]+ and [M+H−2H2O]+ at the same retention time; log2FC 1.25, q = 0.006, AUC 0.80), whose MS/MS matched two isomeric library entries;
+  - 11-oxoetiocholanolone glucuronide (C25H36O9; [M+NH4]+ 498.2697 at 11.05 min with in-source aglycone ions 287.2007 and 269.1901; log2FC 1.49, q = 0.006, AUC 0.81); the aglycone MS/MS matched 11-oxoetiocholanolone;
   - two isomeric tetrahydrocortisone glucuronides (C27H40O11; [M+H]+ 541.2642 at 11.06 min and [M+NH4]+ 558.2914 at 10.76 min; log2FC 1.14 and 0.87). Each co-eluted with aglycone ions whose MS/MS matched tetrahydrocortisone.
-- **MSI level 4** — the remaining 205 findings, including one library match judged implausible in human urine (a synthetic thiophene building block matched to an in-source fragment).
+- **MSI level 4** — the remaining 206 findings, including one library match judged implausible in human urine (a synthetic thiophene building block matched to an in-source fragment).
 
 All seven annotated findings were higher in BC, with AUC 0.69–0.80 (Table 2). The isomers that the MS/MS spectra cannot distinguish are listed with each compound in Table 2, for example Leu-Val, Val-Ile and Ile-Val for Val-Leu, and sn-1/sn-2 regioisomers for LysoPC.
 
 The annotated findings fall into three groups.
 
-1. **Glucocorticoid and androgen metabolites** (tetrahydrocortisone glucuronides, C19H28O3 steroid). Altered urinary steroid hormone metabolites, including androgen and corticosteroid metabolites, have recently been reported in BC [4]. Glucocorticoid output also rises with physiological stress and differs by sex and age. The increase survived adjustment for sex and age and remained significant in matched pairs (p = 0.011 and 0.006 for the two glucuronides; p < 0.001 for the C19H28O3 steroid). Even so, a non-specific stress or illness response cannot be excluded.
+1. **Glucocorticoid and androgen metabolites** (tetrahydrocortisone glucuronides, 11-oxoetiocholanolone glucuronide). Altered urinary steroid hormone metabolites, including androgen and corticosteroid metabolites, have recently been reported in BC [4]. Glucocorticoid output also rises with physiological stress and differs by sex and age. The increase survived adjustment for sex and age and remained significant in matched pairs (p = 0.011 and 0.006 for the two glucuronides; p < 0.001 for the C19H28O3 steroid). Even so, a non-specific stress or illness response cannot be excluded.
 2. **Acylcarnitines** (dodecanoylcarnitine). Increased urinary carnitine and acylcarnitines in BC have been reported in independent cohorts and linked to altered fatty-acid β-oxidation [5,6].
 3. **Blood- and protein-derived compounds** (LysoPC(16:0), biliverdin, Val-Leu). Lysophosphatidylcholines are abundant plasma lipids, biliverdin is a heme degradation product, and short peptides indicate proteolysis or proteinuria. Haematuria is the cardinal sign of BC. The most parsimonious explanation for these three compounds is therefore blood and protein in the urine of BC patients rather than tumour metabolism [authors: haematuria/proteinuria status, if recorded, should be added as a covariate].
 
@@ -137,7 +137,7 @@ The retention-time window of ± 0.5 min still needs to be justified by the reten
 
 The main conclusions were robust to the analytical choices (Table S7).
 
-1. **Samples with a PQN factor < 0.2** (3 BC, 3 PC, 1 control) were retained in the main analysis. Excluding them increased the number of significant BC–control compounds to 490 (277 shared) and of findings to 371 (190 of the 212 retained), and left the panel AUC unchanged (0.80).
+1. **Samples with a PQN factor < 0.2** (3 BC, 3 PC, 1 control) were retained in the main analysis. Excluding them increased the number of significant BC–control compounds to 490 (278 shared) and of findings to 371 (191 of the 213 retained), and left the panel AUC unchanged (0.80).
 2. **Index built from the five members absent from the blanks.** With this index as covariate, 206 compounds had q < 0.05 (205 shared with the main analysis) and 163 were findings (159 shared). Five of the seven annotated findings were retained; biliverdin (q = 0.057) and Val-Leu (q = 0.073) fell just above the FDR threshold. The contamination-adjusted BC panel reached AUC 0.79 (p < 0.001).
 3. **MSTUS normalisation:** see Section 3.4.
 
