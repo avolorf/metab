@@ -49,6 +49,7 @@ MS/MS spectra were matched against NIST 23 HRMS and the MS-DIAL metabolomics MSP
 - Urine dilution was corrected by probabilistic quotient normalisation (PQN; reference, median QC spectrum).
 - MSTUS normalisation (1,900 features detected in all samples) was computed in parallel as a sensitivity analysis.
 - Missing values (11.8%) were replaced by half of the feature minimum, and the data were log2-transformed. The fraction of imputed values per group is reported for every feature.
+- The data-quality PCA (Figure 1c) was computed on compounds detected in all samples (no imputed values; Pareto scaling).
 
 **Special cases.**
 - Features detected in < 50% of one group and ≥ 80% of another (n = 41) were analysed separately as presence/absence features (Fisher's exact test).

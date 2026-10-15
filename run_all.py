@@ -40,8 +40,14 @@ def main():
     random.seed(C.SEED)
 
     out = Path(a.out)
-    if out.exists():
+    if out.exists():          # results/ пересоздаётся; проверка бланков (blank_check.py, по сырым данным) сохраняется
+        keep, tmp_keep = out / "blank_check", Path(str(out) + "_blank_check_tmp")
+        if keep.exists():
+            shutil.move(str(keep), tmp_keep)
         shutil.rmtree(out)
+        if tmp_keep.exists():
+            out.mkdir()
+            shutil.move(str(tmp_keep), out / "blank_check")
     for sub in ["tables", "figures", "external", "pathways"]:
         (out / sub).mkdir(parents=True)
     fig = out / "figures"

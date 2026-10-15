@@ -198,7 +198,10 @@ def fig1_quality(out, meta, L, feat, X_all):
     ax.set(xlabel="RSD in pooled QC (%)", ylabel="Number of features")
     panel(ax, "b")
     reps = feat.index[feat.is_representative.fillna(False).astype(bool)]
-    S, var = multivariate.pca_scores(L.loc[ana, reps])
+    # PCA только по соединениям, обнаруженным во всех пробах: импутированные значения (½ минимума) есть почти только
+    # в отдельных пробах, а не в пулированном QC, и сдвигают QC к краю облака
+    full = [f for f in reps if feat.loc[f, [f"det_{g}" for g in C.STUDY_GROUPS]].min() >= 1.0]
+    S, var = multivariate.pca_scores(L.loc[ana, full])
     ax = axs[1, 0]
     scatter_groups(ax, S[0].to_numpy(), S[1].to_numpy(), grp.to_numpy(), legend=False)
     ax.set(xlabel=f"PC1 ({var[0]:.1%})", ylabel=f"PC2 ({var[1]:.1%})")
@@ -426,7 +429,7 @@ def fig5_roc(out, L, meta, feat, mv, pairs, zpairs=None):
     save(fig, out, "Figure5_ROC_cross_validated")
 
 
-def fig6_box(out, L, meta, r, nm, msi):
+def fig6_box(out, L, meta, r, nm, msi, X_raw=None):
     """Figure 4: те же соединения, что в Table 2 (находки MSI 2–3), по возрастанию q."""
     sel = r[r.finding.astype(bool) & (msi.reindex(r.index) <= 3)]
     sel = sel.sort_values("q_model").head(8)
@@ -438,8 +441,13 @@ def fig6_box(out, L, meta, r, nm, msi):
             v = L.loc[meta.index[meta.study & (meta.group == g)], f]
             ax.boxplot(v, positions=[i], widths=0.55, showfliers=False, medianprops=dict(color=INK, lw=0.9),
                        boxprops=dict(lw=0.6, color=INK2), whiskerprops=dict(lw=0.6, color=INK2), capprops=dict(lw=0.6, color=INK2))
-            ax.scatter(np.random.RandomState(i).normal(i, 0.08, len(v)), v, s=5, c=COL[g], marker=MRK[g], edgecolor="none",
-                       alpha=0.85, zorder=3)
+            xj = np.random.RandomState(i).normal(i, 0.08, len(v))
+            # импутированные значения (в исходной таблице MS-DIAL сигнала нет) — открытые символы
+            raw = X_raw.reindex(v.index)[f] if X_raw is not None and f in X_raw.columns else pd.Series(1.0, index=v.index)
+            imp = (raw.isna() | (raw <= 0)).to_numpy()
+            ax.scatter(xj[~imp], v[~imp], s=5, c=COL[g], marker=MRK[g], edgecolor="none", alpha=0.85, zorder=3)
+            if imp.any():
+                ax.scatter(xj[imp], v[imp], s=6, facecolor="white", edgecolor=COL[g], marker=MRK[g], lw=0.5, zorder=3)
         ax.set_xticks(range(3), [LAB[g] for g in C.STUDY_GROUPS])
         name, tag = nm[f].split(", m/z")[0], "m/z" + nm[f].split(", m/z")[1] if ", m/z" in nm[f] else ""
         name = re.sub(r" \((putatively[^)]*|MSI \d|putative)\)", "", name)
@@ -699,7 +707,7 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Table 1.** Clinical and demographic characteristics of the independent cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex). The footnote on missing age and sex is given in table_notes.md (Table 1 note).
 
-**Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound). (d) The same scores coloured by the contamination index.
+**Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound; the {nfull} compounds detected in all study samples, i.e., without imputed values). (d) The same scores coloured by the contamination index.
 
 **Figure 2.** Plastic-derived surfactant contamination. (a) Homologous series of alkyl diethanolamines and their oxygenated/ethoxylated analogues ([M+H]+) used to build the contamination index; open diamonds, co-varying ions not included in the index. (b) Contamination index by group (Mann–Whitney U test).
 
@@ -707,7 +715,7 @@ CAPTIONS = """# Figure and table captions (draft)
 
 **Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, contamination index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-contamination controls), BC vs controls with a contamination index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish (e.g., Leu-Val, Val-Ile and Ile-Val for Val-Leu; sn-1/sn-2 regioisomers for LysoPC). For compounds without a curated annotation, the MS-DIAL library match is given for transparency. Library matches judged implausible in human urine (ethyl 2-amino-5-methyl-3-thiophenecarboxylate, a synthetic building block matched to an in-source fragment) were assigned MSI level 4. All findings, including MSI level 4, are listed in Table S1.
 
-**Figure 4.** Annotated bladder-cancer findings (MSI levels 2–3; the compounds of Table 2) across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
+**Figure 4.** Annotated bladder-cancer findings (MSI levels 2–3; the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum. q, FDR-adjusted p of the adjusted model (BC vs Control).
 
 **Figure 5.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} features selected by Mann–Whitney U inside each training fold, logistic regression). Candidate pool defined before CV: exposure-related compounds (contaminants, food, drugs, tobacco) and compounds correlated with the contamination index (|ρ| ≥ {rho}) excluded. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, features residualized on the contamination index inside each training fold; dashed, 1:1 age-matched pairs; dash-dot-dot, 1:1 contamination-matched pairs (within sex, caliper {zcal} SD of the index; sensitivity analysis); matched sets shown only with ≥ {minp} pairs. p, permutation test ({perm} permutations). Dotted lines, single-covariate baselines (sex only; contamination index only) evaluated with the same repeated CV (logistic regression on one covariate) and permutation test. AUC, mean ± SD over repeats. In (c) the contamination index alone nearly separates PC from controls; the contamination-adjusted curve is then an extrapolation beyond the overlap of the two groups and is not interpretable as a contamination-independent signal (see Section 3.6).
 
@@ -749,13 +757,13 @@ CAPTIONS_V4 = """# Figure and table captions — v4 ("Urinary Metabolomic Profil
 
 **Table 1.** Clinical and demographic characteristics of the study cohort. Age is given as mean ± SD and median (range); p-values: Kruskal–Wallis test (three groups), Mann–Whitney U test (pairwise age) and Fisher's exact test (sex). Footnote: see table_notes.md (Table 1 note).
 
-**Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound).
+**Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound; the {nfull} compounds detected in all study samples, i.e., without imputed values).
 
 **Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings that passed all robustness criteria; crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, background ions); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
 **Table 2.** Annotated bladder-cancer findings (MSI levels 2–3). log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
 
-**Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). q, FDR-adjusted p of the adjusted model (BC vs Control).
+**Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum. q, FDR-adjusted p of the adjusted model (BC vs Control).
 
 **Figure 4.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} compounds selected by Mann–Whitney U inside each training fold, logistic regression). Exogenous compounds and compounds correlated with the exogenous-signal index (|ρ| ≥ {rho}) were excluded from the candidate pool before CV. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot, compounds adjusted for the exogenous-signal index inside each training fold; dashed, 1:1 age- and sex-matched pairs (shown only with ≥ {minp} pairs); dotted, sex-only baseline evaluated with the same CV. AUC, mean ± SD over repeats; p, permutation test ({perm} permutations). In (c) the exogenous-signal index nearly separates PC from controls (Table S2), so the index-adjusted estimate extrapolates beyond the overlap of the two groups and is not interpreted as a PC-specific signal.
 
@@ -853,7 +861,7 @@ def replication_outputs(out, res_dir, feat, stats_, info_all):
     ax.axvline(0, c=GRID, lw=0.8)
     ax.set_yticks([])
     ax.set_ylim(-0.7, ys[-1] + hts[-1] / 2 + 0.2)
-    ax.set_xlabel("log$_2$ fold change BC/Control in the independent cohort (unadjusted)")
+    ax.set_xlabel("log$_2$ fold change BC/Control in this cohort (unadjusted)")
     ax.spines["left"].set_visible(False)
     q = summ.iloc[0]
     ax.set_title(f"{TERM['prior']} (n = {int(q.markers)}): quantified {int(q.quantified)} ({int(q.ambiguous_isomers)} with isomers),\n"
@@ -1090,6 +1098,7 @@ def main():
     X_all, _, info_all, _ = io.load_features(a.data)
     msi, has_ms2 = msi_levels(feat, res)
     nm = names_en(feat, cur, msi)
+    nfull = f"{sum(feat.loc[feat.is_representative.fillna(False).astype(bool), [f'det_{g}' for g in C.STUDY_GROUPS]].min(axis=1) >= 1.0):,}"
     fig1_quality(out, meta, L, feat, X_all)
     fig2_contamination(out, meta, series)
     fig3_volcano(out, stats_, nm, msi)
@@ -1097,7 +1106,7 @@ def main():
     zp = pd.read_csv(res / "tables" / "contam_matched_pairs.csv", dtype={"case": str, "ref": str}) \
         if (res / "tables" / "contam_matched_pairs.csv").exists() else None
     fig5_roc(out, L, meta, feat, mv, pairs, zp)
-    fig6_box(out, L, meta, stats_["BC_vs_Control"], nm, msi)
+    fig6_box(out, L, meta, stats_["BC_vs_Control"], nm, msi, X_all)
     figS1_age(out, meta, pairs)
     figS2_norm(out, meta, res)
     figS3_pathways(out, pw)
@@ -1108,7 +1117,7 @@ def main():
     (out / "figure_captions.md").write_text((CAPTIONS_V4 if v4() else CAPTIONS).format(
         rsd=C.MAX_QC_RSD, fdr=C.FDR, rep=C.CV_REPEATS, fold=C.CV_FOLDS, k=C.PANEL_K, perm=C.N_PERM,
         cal=C.MATCH_CALIPER_YEARS, rho=C.PANEL_MAX_ABS_RHO_CONTAM, minp=C.MIN_PAIRS_CV, low=C.LOW_DILUTION_FACTOR, ppm=C.PPM, rttol=C.PRIOR_RT_TOL,
-        zcal=C.CONTAM_MATCH_CALIPER_SD), encoding="utf-8")
+        zcal=C.CONTAM_MATCH_CALIPER_SD, nfull=nfull), encoding="utf-8")
     if v4():
         v4_retitle(out)
         for f in out.glob("TableS3_replication_*.csv"):

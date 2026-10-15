@@ -91,7 +91,7 @@ PC_vs_maleControl            all                            только contam_
 PC_vs_maleControl        matched                                          не оценивается: 9 < 10 на группу       9      9         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
 PC_vs_maleControl contam_matched                                          не оценивается: 5 < 10 на группу       5      5         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN
 
-Курированные кандидаты: 32 с массой ≤5.0 ppm; 9 вынесены на лист candidates_mass_mismatch
+Курированные кандидаты: 33 с массой ≤5.0 ppm; 9 вынесены на лист candidates_mass_mismatch
 Находки (правило в README): BC_vs_Control 212, BC_vs_PC 3, PC_vs_Control 0, PC_vs_maleControl 0
 
 Сверка с маркерами (m/z ± 5.0 ppm, RT ± 0.5 мин):
@@ -102,6 +102,6 @@ source    comparison  markers  not_detected  below_detection_filter  failed_rsd 
 
 Пути (mummichog, без экспозиций, BH по путям):
    comparison  n_features  n_significant  p_cutoff  excluded_exposure_features  permutations  n_pathways_p05  n_pathways_q05
-BC_vs_Control        7157            716  0.008106                         246           500               9               0
-     BC_vs_PC        7157            716  0.051146                         246           500               6               0
+BC_vs_Control        7157            716  0.008106                         246           500               8               0
+     BC_vs_PC        7157            716  0.051146                         246           500               7               0
 PC_vs_Control        7157            716  0.043156                         246           500               5               0
