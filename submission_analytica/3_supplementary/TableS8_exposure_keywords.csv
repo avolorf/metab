@@ -1,0 +1,22 @@
+No.,Category,Class,Regular expression (case-insensitive),Compounds flagged
+1,Drug,Paracetamol and related analgesics,acetaminophen|paracetamol|acetanilide|4-acetamidophenol,16
+2,Drug,"NSAIDs, metamizole and salicylates",ibuprofen|naproxen|diclofenac|ketoprofen|indomethacin|celecoxib|meloxicam|nimesulide|metamizole|aminoantipyrine|antipyrine|salicyl,34
+3,Drug,Proton-pump inhibitors and H2-receptor antagonists,omeprazole|pantoprazole|lansoprazole|esomeprazole|rabeprazole|ranitidine|famotidine|cimetidine,2
+4,Drug,Antidiabetic drugs,metformin|gliclazide|glibenclamide|glimepiride|sitagliptin|vildagliptin|empagliflozin|dapagliflozin,1
+5,Drug,Lipid-lowering drugs,atorvastatin|rosuvastatin|simvastatin|pravastatin|fenofibr|ezetimibe,0
+6,Drug,"Calcium-channel blockers, ACE inhibitors and sartans",amlodipine|nifedipine|felodipine|verapamil|diltiazem|lisinopril|enalapril|perindopril|ramipril|captopril|losartan|valsartan|telmisartan|irbesartan|candesartan,4
+7,Drug,Beta-blockers,bisoprolol|metoprolol|atenolol|propranolol|carvedilol|nebivolol|talinolol|sotalol,6
+8,Drug,Diuretics,furosemide|torasemide|hydrochlorothiazide|indapamide|spironolactone|eplerenone,0
+9,Drug,Anticoagulants and antiplatelet drugs,warfarin|rivaroxaban|apixaban|dabigatran|clopidogrel|ticagrelor|cilostazol|dipyridamole|pentoxifylline,0
+10,Drug,"Urological drugs (alpha-blockers, 5-alpha-reductase inhibitors, antimuscarinics, beta3-agonists, PDE5 inhibitors)",tamsulosin|alfuzosin|silodosin|doxazosin|finasteride|dutasteride|solifenacin|tolterodine|oxybutynin|mirabegron|sildenafil|tadalafil,0
+11,Drug,Hormonal antitumour drugs,bicalutamide|enzalutamide|abiraterone|flutamide|leuprolide|goserelin|degarelix|tamoxifen|letrozole|anastrozole,0
+12,Drug,Cytotoxic and targeted antitumour drugs,cediranib|sorafenib|sunitinib|pazopanib|imatinib|erlotinib|gefitinib|lapatinib|everolimus|temsirolimus|cisplatin|gemcitabine|methotrexate|mitomycin|doxorubicin|epirubicin|valrubicin|docetaxel|paclitaxel|cabazitaxel|etoposide|capecitabine|fluorouracil,0
+13,Drug,Antiepileptic drugs,carbamazepine|oxcarbazepine|levetiracetam|valpro|lamotrigine|topiramate|gabapentin|pregabalin|primidone|phenobarbital|phenytoin,6
+14,Drug,"Antidepressants, antipsychotics, anxiolytics and hypnotics",sertraline|fluoxetine|paroxetine|citalopram|escitalopram|venlafaxine|duloxetine|mirtazapine|amitriptyline|trazodone|quetiapine|olanzapine|risperidone|haloperidol|diazepam|lorazepam|alprazolam|zolpidem|zopiclone,2
+15,Drug,Opioids and local anaesthetics,tramadol|morphine|codeine|oxycodone|fentanyl|methadone|naloxone|buprenorphine|loperamide|ketamine|lidocaine|bupivacaine|procaine,2
+16,Drug,Antibacterial and antifungal drugs,metronidazole|ciprofloxacin|levofloxacin|ofloxacin|norfloxacin|moxifloxacin|amoxicillin|ampicillin|penicillin|cefuroxime|ceftriaxone|cefixime|cephalexin|azithromycin|clarithromycin|erythromycin|doxycycline|tetracycline|nitrofurantoin|furazidin|fosfomycin|trimethoprim|sulfamethoxazole|tobramycin|gentamicin|amikacin|vancomycin|linezolid|rifampicin|fluconazole|nystatin,2
+17,Drug,Corticosteroids,prednisolone|prednisone|methylprednisolone|dexamethasone|\bhydrocortisone|betamethasone|budesonide,0
+18,Drug,Other drugs,levothyroxine|thiamazole|allopurinol|febuxostat|colchicine|mepirizole|epirizole|drotaverine|papaverine|mebeverine|metoclopramide|domperidone|ondansetron|loratadine|cetirizine|diphenhydramine|chloropyramine|hydroxyzine|crotamiton|quinidine|quinine|amiodarone|digoxin|trimetazidine|meldonium|mildronate|ivabradine|nitroglycerin|isosorbide|ambroxol|acetylcysteine|bromhexine|montelukast,19
+19,Food,Dietary methylxanthines and caffeine metabolites,caffeine|paraxanthine|theobromine|theophylline|methylxanthine|methyluric|trimethyluric|dimethyluric|AFMU|acetylamino-6-formylamino,14
+20,Food,"Other food constituents (polyphenols, alkaloids, terpenoids, betaines and others)",pyrazine|scopoletin|lupanine|sparteine|catechin|epicatechin|hesperetin|hesperidin|naringenin|naringin|quercetin|kaempferol|isorhamnetin|phloretin|enterolactone|enterodiol|equol|daidzein|genistein|ferul|caffe|chlorogenic|quinic|(?<!homo)vanill|piperine|capsaicin|menthol|limonene|perillyl|carvone|thymol|eugenol|sucrose|trigonelline|stachydrine|proline betaine|hordenine|ergothioneine|solanidine|tomatidine|alliin|sulforaphane|cyanidin|resveratrol|gingerol|curcumin|abscisic|cyclo\(|paeonol|chrysanthemic|costunolide|podophyllotoxin|muscarine|furaneol|maltol,46
+21,Tobacco,Tobacco alkaloids,nicotine|cotinine|nornicotine|anabasine|anatabine|myosmine,5

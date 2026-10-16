@@ -836,7 +836,7 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound; the {nfull} compounds detected in all study samples, i.e., without imputed values).
 
-**Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings that passed all robustness criteria; crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, background ions); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
+**Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings that passed all robustness criteria; crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, the homologous exogenous series); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
 **Table 2.** Annotated bladder-cancer findings (MSI levels 2–3), steroid glucuronides first, then other compounds, each ordered by q. log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. Findings met all of the following: q < 0.05 in the adjusted model; p < 0.05 in age-matched pairs and against low-index controls, with the same direction of change; and no difference between controls with high and low index (p ≥ 0.05), which excludes compounds whose level itself depends on the index. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST 23 HRMS / MS-DIAL MSP) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
 
@@ -871,6 +871,8 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 **Table S6.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < {low}, with the exogenous-signal index built only from series members absent from solvent blanks, restricted to compounds without imputed values, and with imputed values treated as missing; overlap with the main analysis and cross-validated panel AUC.
 
 **Table S7.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
+
+**Table S8.** Keyword list used to flag drug-, food- and tobacco-related compounds: regular expressions (case-insensitive) matched against MS-DIAL library names (NIST 23 HRMS, MS-DIAL MSP), compiled before the statistical analysis, and the number of compounds flagged by each expression (high-scoring library matches; compounds with low-scoring drug- or tobacco-related matches were excluded only from the candidate pool of the classification models).
 """
 
 
@@ -1130,6 +1132,32 @@ V5_CSV = {"TableS4_curated_candidates.csv": "TableS3_curated_candidates.csv", "T
           "TableS8_blank_check.csv": "TableS7_blank_check.csv"}
 
 
+KEYWORD_CLASSES = ["Paracetamol and related analgesics", "NSAIDs, metamizole and salicylates", "Proton-pump inhibitors and H2-receptor antagonists",
+                   "Antidiabetic drugs", "Lipid-lowering drugs", "Calcium-channel blockers, ACE inhibitors and sartans", "Beta-blockers",
+                   "Diuretics", "Anticoagulants and antiplatelet drugs",
+                   "Urological drugs (alpha-blockers, 5-alpha-reductase inhibitors, antimuscarinics, beta3-agonists, PDE5 inhibitors)",
+                   "Hormonal antitumour drugs", "Cytotoxic and targeted antitumour drugs", "Antiepileptic drugs",
+                   "Antidepressants, antipsychotics, anxiolytics and hypnotics", "Opioids and local anaesthetics", "Antibacterial and antifungal drugs",
+                   "Corticosteroids", "Other drugs", "Dietary methylxanthines and caffeine metabolites",
+                   "Other food constituents (polyphenols, alkaloids, terpenoids, betaines and others)", "Tobacco alkaloids"]
+
+
+def exposure_keywords_table(res=C.OUT):
+    """Table S8: список ключевых слов (curation/exposure_keywords.csv) и число соединений, помеченных каждым выражением."""
+    import re
+    kw = pd.read_csv(C.EXPOSURE_KEYWORDS)
+    assert len(kw) == len(KEYWORD_CLASSES)
+    ft = pd.read_csv(Path(res) / "tables" / "features.csv", index_col=0)
+    ann = ft.annotation.fillna("").astype(str)
+    first = pd.Series(-1, index=ft.index)
+    for k, r in kw.iterrows():
+        first[(first < 0) & ann.str.contains(r.pattern, flags=re.I, regex=True)] = k
+    hit = (ft.annotation_conf == "high") & (ft.category == ft.compound_category)
+    n = [ft.loc[hit & (first == k) & (ft.compound_category == r.category), "compound"].nunique() for k, r in kw.iterrows()]
+    return pd.DataFrame({"No.": range(1, len(kw) + 1), "Category": kw.category.str.capitalize(), "Class": KEYWORD_CLASSES,
+                         "Regular expression (case-insensitive)": kw.pattern, "Compounds flagged": n})
+
+
 def v5_package(out, mv):
     """Пакет для подачи: перенумерация таблиц приложения, сноска к Table S2, раскладка по папкам submission_analytica/."""
     from openpyxl import load_workbook
@@ -1145,6 +1173,12 @@ def v5_package(out, mv):
             "and is not interpreted as a PC-specific signal; it is not shown in Figure 4c."
             + (f" (index-adjusted AUC {pc.AUC_mean.iloc[0]:.2f})" if len(pc) else ""))
     ws.cell(row=ws.max_row + 2, column=1, value=note)
+    s8 = exposure_keywords_table()
+    s8.to_csv(out / "TableS8_exposure_keywords.csv", index=False)
+    ws8 = wb.create_sheet("S8_exposure_keywords")
+    ws8.append(list(s8.columns))
+    for row in s8.itertuples(index=False):
+        ws8.append(list(row))
     wb.save(f)
     for a_, b_ in V5_CSV.items():
         if (out / a_).exists():
@@ -1216,6 +1250,9 @@ def main():
                        "Figure5_ROC_cross_validated": "Figure4_ROC_cross_validated",
                        "Figure6_replication_stage1_markers": "Figure5_previous_BC_markers",
                        "FigureS5_blank_check": "FigureS5_solvent_blanks"})
+        if v5():
+            TERM["contaminant"] = "Homologous exogenous series"
+            V4_CELL_VALUES["contaminant"] = "homologous exogenous series"
         out = Path("submission_analytica") / "_build" if v5() else Path("publication_v4") / "figures_tables"
     else:
         out = res / "publication"
