@@ -42,4 +42,4 @@
 
 **Table S7.** Solvent-blank check of the homologous exogenous series: median raw peak areas in methanol solvent blanks (n = 7), pooled QC (n = 6) and five study samples, and the blank-to-QC ratio.
 
-**Table S8.** Keyword list used to flag drug-, food- and tobacco-related compounds: regular expressions (case-insensitive) matched against MS-DIAL library names (NIST 23 HRMS, MS-DIAL MSP), compiled before the statistical analysis, and the number of compounds flagged by each expression (high-scoring library matches; compounds with low-scoring drug- or tobacco-related matches were excluded only from the candidate pool of the classification models).
+**Table S8.** Keyword list used to flag drug-, food- and tobacco-related compounds: regular expressions (case-insensitive) matched against MS-DIAL library names (NIST 23 HRMS, MS-DIAL MSP), compiled before the statistical analysis, and the number of compounds flagged by each expression (library matches above the MS-DIAL identification score threshold; compounds whose drug- or tobacco-related match fell below the threshold were excluded only from the candidate pool of the classification models).

@@ -18,7 +18,7 @@ Supplementary: Figure S1 тепловая карта; S2 возраст и па�
 (4 листа); S6 анализы чувствительности; S7 проверка бланков.
 
 ## Что осталось сделать авторам
-- [ ] Заполнить все места в [квадратных скобках] в тексте (сбор мочи, этика, LC–HRMS параметры, MS-DIAL: фильтр по бланкам и QC-нормализация).
+- [ ] Заполнить все места в [квадратных скобках] в тексте (сбор мочи, этика, LC–HRMS параметры, MS-DIAL: фильтр по бланкам, QC-нормализация и порог identification score cut-off — он нужен в 2.3 и в описании флагов exogenous).
 - [ ] **Прибор:** в тексте указан Orbitrap Exploris 120, а в статье ABC — Orbitrap Fusion Lumos Tribrid; привести к фактическому прибору этого батча.
 - [ ] В тексте сослаться на Table S3 и Table S5 (MDPI требует ссылки на все материалы приложения).
 - [ ] Introduction, Abstract, ключевые слова, Author Contributions, Funding, IRB/Informed Consent Statements, Data Availability, Conflicts of Interest — по шаблону MDPI.
