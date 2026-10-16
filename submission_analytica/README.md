@@ -19,7 +19,6 @@ Supplementary: Figure S1 тепловая карта; S2 возраст и па�
 
 ## Что осталось сделать авторам
 - [ ] Заполнить все места в [квадратных скобках] в тексте (сбор мочи, этика, LC–HRMS параметры). Параметры MS-DIAL вписаны в 2.3 по Таблице 3 отчёта НКР — подтвердить, что они относятся к батчу s266, и сверить английские названия метрик сравнения (simple/weighted dot product) с окном MS-DIAL.
-- [ ] **Библиотеки:** в Таблице 3 отчёта указана только NIST HR-MS/MS (.msp), а в разделе об аннотации и в подписи к Table 2 — «NIST 23 HRMS and the MS-DIAL MSP library». Оставить одну версию.
 - [ ] **Прибор:** в тексте указан Orbitrap Exploris 120, а в статье ABC — Orbitrap Fusion Lumos Tribrid; привести к фактическому прибору этого батча.
 - [ ] В тексте сослаться на Table S3 и Table S5 (MDPI требует ссылки на все материалы приложения).
 - [ ] Introduction, Abstract, ключевые слова, Author Contributions, Funding, IRB/Informed Consent Statements, Data Availability, Conflicts of Interest — по шаблону MDPI.
