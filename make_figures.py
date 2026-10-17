@@ -122,6 +122,19 @@ def load(res):
     return meta, L, info, feat, stats_, mv, series, cur, pairs, demo, demo_t, pw
 
 
+ROMAN = {"1": "I", "2": "II", "3": "III"}
+
+
+def curated_name(r):
+    """Англ. название курированного кандидата; в v5 изомеры нумеруются: «…, isomer I (putative)»."""
+    nm = r["name_en"] if isinstance(r.get("name_en"), str) and r["name_en"] else r.get("name")
+    m = re.search(r"\(isomer (\d)\)", str(r.get("name", "")))
+    if v5() and m and isinstance(nm, str):
+        base, put = (nm[:-len(" (putative)")], " (putative)") if nm.endswith(" (putative)") else (nm, "")
+        nm = f"{base}, isomer {ROMAN.get(m.group(1), m.group(1))}{put}"
+    return nm
+
+
 def names_en(feat, cur, msi=None):
     """Подпись соединения: курированное англ. название (MSI) > уверенная аннотация > unknown m/z@RT."""
     out = {}
@@ -130,7 +143,7 @@ def names_en(feat, cur, msi=None):
         tag = f"m/z {r.mz:.4f} @ {r.rt_min:.2f} min"
         if f in cn.index and isinstance(cn.loc[f, "name_en"], str) and cn.loc[f, "name_en"]:
             lv = int(msi[f]) if msi is not None else int(cn.loc[f, "MSI_level"])
-            out[f] = f"{cn.loc[f, 'name_en']} (MSI {lv}), {tag}"
+            out[f] = f"{curated_name(cn.loc[f])} (MSI {lv}), {tag}"
         elif r.annotation_conf == "high":
             out[f] = f"{r.annotation} (putative), {tag}"
         else:
@@ -958,7 +971,7 @@ def s4_table(df, feat, msi, has_ms2):
         return df[col] if col in df else pd.Series("", index=df.index)
     ms2 = [bool(has_ms2.get(x, False)) if isinstance(x, str) else False for x in f]
     out = pd.DataFrame({
-        "Compound": [a if isinstance(a, str) and a else b for a, b in zip(g("name_en"), g("name"))],
+        "Compound": [curated_name(r) for _, r in df.iterrows()],
         "Feature RT (min)": df.rt_min.round(3), "Feature m/z": df.mz.round(5), "Formula": df.formula, "Ion": df.ion,
         "Theoretical m/z": df.theo_mz, "Mass error (ppm)": df.ppm, "HMDB": g("hmdb"), "KEGG": g("kegg"),
         "Category": g("category"), "Comment": g("comment"),
@@ -1161,9 +1174,10 @@ def exposure_keywords_table(res=C.OUT):
                          "Regular expression (case-insensitive)": kw.pattern, "Compounds flagged": n})
 
 
-T2C_NOTE = {"11-Oxoetiocholanolone glucuronide": "*", "Tetrahydrocortisone glucuronide": "†"}
+T2C_NOTE = {"11-Oxoetiocholanolone glucuronide": "*", "Tetrahydrocortisone glucuronide, isomer I": "†",
+            "Tetrahydrocortisone glucuronide, isomer II": "†"}
 T2C_FOOT = ("* 5α-Isomer (11-oxoandrosterone glucuronide) not excluded; identity assigned from the aglycone MS/MS. "
-            "† Two chromatographically resolved isomers; allo-tetrahydrocortisone and 3- vs 21-glucuronide not excluded. "
+            "† Isomers I and II are chromatographically resolved (11.06 and 10.76 min); allo-tetrahydrocortisone and 3- vs 21-glucuronide not excluded. "
             "Isomers not excluded for the other compounds are listed in Table S3.")
 T2C_CAPTION = ("**Table 2.** Annotated bladder-cancer findings (BC vs Control; MSI levels 2–3). log2FC and q (Benjamini–Hochberg), "
                "linear model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Mann–Whitney U test "
@@ -1183,7 +1197,6 @@ def table2_compact(t2, s3):
         assert len(m) == 1, r["m/z"]
         m = m.iloc[0]
         name = str(m["Compound"]).replace(" (putative)", "")
-        name = re.sub(r" \(isomer \d\)$", "", name)
         rows.append({"No.": int(r["No."]), "Compound (MSI level)": f"{name}{T2C_NOTE.get(name, '')} ({int(r['MSI level'])})",
                      "m/z (ion)": f"{r['m/z']:.4f} {m['Ion']}", "RT, min": f"{r['RT (min)']:.2f}",
                      "log2FC": f"{m['BC vs Control: log2FC (adjusted)']:.2f}", "q": _fmt_p(m["BC vs Control: q (adjusted)"]),
