@@ -964,6 +964,7 @@ def s4_table(df, feat, msi, has_ms2):
         "Category": g("category"), "Comment": g("comment"),
         "MS2 library match (MS-DIAL)": ["yes" if m else "no" for m in ms2],
         "Library entry (MS-DIAL)": [feat.loc[x, "annotation"] if m and x in feat.index else "" for x, m in zip(f, ms2)],
+        "Aglycone / related-ion MS/MS match": g("ms2_library").fillna(""),
         "Isomers not excluded": g("isomers_note").fillna(""),
         "MSI level": [int(msi[x]) if isinstance(x, str) and x in msi.index else 4 for x in f],
         "Supporting ions": g("confirming_ions"), "HMDB alternatives within 3 ppm": g("hmdb_alternatives_3ppm"),
@@ -971,7 +972,9 @@ def s4_table(df, feat, msi, has_ms2):
     for grp in C.STUDY_GROUPS:
         if f"det_{grp}" in df:
             out[f"Detected, % {LAB[grp]}"] = (100 * df[f"det_{grp}"].astype(float)).round(0)
-    extra = {"kept_after_filters": "Passed detection and RSD filters", "compound": "Compound group (ions)",
+    out["Ions in compound group"] = [int(feat.loc[x, "n_ions"]) if isinstance(x, str) and x in feat.index and pd.notna(feat.loc[x, "n_ions"])
+                                     else "" for x in f]
+    extra = {"kept_after_filters": "Passed detection and RSD filters", "compound": "Compound group ID",
              "is_representative": "Representative ion",
              "rho_contam": "ρ with contamination index", "p_contam": "p (ρ contamination)",
              "rho_contam_controls": "ρ with contamination index (controls)", "p_contam_controls": "p (ρ contamination, controls)",
@@ -1017,7 +1020,7 @@ def supplementary_tables(out, res_dir, t2_full, ts_class, rep, feat, msi, has_ms
     """Supplementary_Tables.xlsx: S1 все находки РМП, S2 классификация, S3 сверка с первым этапом,
     S4 курированные кандидаты (+ несходящаяся масса), S5 признаки «есть/нет», S6 статистика по соединениям."""
     t = res_dir / "tables"
-    s4 = s4_table(pd.read_csv(t / "candidates_curated.csv"), feat, msi, has_ms2)
+    s4 = s4_table(pd.read_csv(t / "candidates_curated.csv", index_col=0), feat, msi, has_ms2)
     s4b = s4_table(pd.read_csv(t / "candidates_mass_mismatch.csv"), feat, msi, has_ms2) \
         if (t / "candidates_mass_mismatch.csv").exists() else None
     with pd.ExcelWriter(out / "Supplementary_Tables.xlsx") as w:
@@ -1158,6 +1161,50 @@ def exposure_keywords_table(res=C.OUT):
                          "Regular expression (case-insensitive)": kw.pattern, "Compounds flagged": n})
 
 
+T2C_NOTE = {"11-Oxoetiocholanolone glucuronide": "*", "Tetrahydrocortisone glucuronide": "†"}
+T2C_FOOT = ("* 5α-Isomer (11-oxoandrosterone glucuronide) not excluded; identity assigned from the aglycone MS/MS. "
+            "† Two chromatographically resolved isomers; allo-tetrahydrocortisone and 3- vs 21-glucuronide not excluded. "
+            "Isomers not excluded for the other compounds are listed in Table S3.")
+T2C_CAPTION = ("**Table 2.** Annotated bladder-cancer findings (BC vs Control; MSI levels 2–3). log2FC and q (Benjamini–Hochberg), "
+               "linear model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Mann–Whitney U test "
+               "in age- and sex-matched subsets. Finding criteria are given in Section 2.5; complete statistics are in Table S1 and "
+               "annotation details in Table S3.")
+
+
+def _fmt_p(v, nd=3):
+    return "< 0.001" if v < 0.001 else f"{v:.{nd}f}"
+
+
+def table2_compact(t2, s3):
+    """Сокращённая Table 2 (8 столбцов) из полной Table 2 и Table S3; значения p/q — несокращённые из S3."""
+    rows = []
+    for _, r in t2.iterrows():
+        m = s3[((s3["Feature m/z"] - r["m/z"]).abs() < 0.002) & ((s3["Feature RT (min)"] - r["RT (min)"]).abs() < 0.03)]
+        assert len(m) == 1, r["m/z"]
+        m = m.iloc[0]
+        name = str(m["Compound"]).replace(" (putative)", "")
+        name = re.sub(r" \(isomer \d\)$", "", name)
+        rows.append({"No.": int(r["No."]), "Compound (MSI level)": f"{name}{T2C_NOTE.get(name, '')} ({int(r['MSI level'])})",
+                     "m/z (ion)": f"{r['m/z']:.4f} {m['Ion']}", "RT, min": f"{r['RT (min)']:.2f}",
+                     "log2FC": f"{m['BC vs Control: log2FC (adjusted)']:.2f}", "q": _fmt_p(m["BC vs Control: q (adjusted)"]),
+                     "AUC": f"{r['AUC (all)']:.2f}", "p (matched)": _fmt_p(m["BC vs Control: p (age-matched)"])})
+    return pd.DataFrame(rows)
+
+
+def write_table2_compact(tables_dir, supp_xlsx):
+    t2 = pd.read_csv(tables_dir / "Table2_annotated_findings_BC.csv")
+    s3 = pd.read_excel(supp_xlsx, sheet_name="S3_curated_candidates")
+    d = table2_compact(t2, s3)
+    d.to_csv(tables_dir / "Table2_compact.csv", index=False)
+    with pd.ExcelWriter(tables_dir / "Table2_compact.xlsx") as w:
+        d.to_excel(w, index=False, sheet_name="Table2_compact")
+        pd.DataFrame({"": [T2C_CAPTION.replace("**", ""), T2C_FOOT]}).to_excel(w, index=False, header=False, sheet_name="caption")
+    md = [T2C_CAPTION, "", "| " + " | ".join(d.columns) + " |", "|" + "---|" * len(d.columns)]
+    md += ["| " + " | ".join(str(v) for v in row) + " |" for row in d.itertuples(index=False)]
+    md += ["", T2C_FOOT, ""]
+    (tables_dir / "Table2_compact.md").write_text("\n".join(md), encoding="utf-8")
+
+
 def v5_package(out, mv):
     """Пакет для подачи: перенумерация таблиц приложения, сноска к Table S2, раскладка по папкам submission_analytica/."""
     from openpyxl import load_workbook
@@ -1201,6 +1248,7 @@ def v5_package(out, mv):
         else:
             shutil.move(str(p_), root / n_)
     out.rmdir()
+    write_table2_compact(dirs["tables"], dirs["supp"] / "Supplementary_Tables.xlsx")
 
 
 def v4_retitle(out):
