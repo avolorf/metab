@@ -1,0 +1,81 @@
+project:
+  name: fmt_table
+  seed: 20261026
+  cores: 4
+input:
+  type: table
+  table_file: /tmp/claude-0/-home-user-metab/e854c169-2f64-5c79-aaf4-d36f1dc6a38e/scratchpad/isp/work/formats/table.tsv
+  raw_dir: ''
+  metadata_file: /tmp/claude-0/-home-user-metab/e854c169-2f64-5c79-aaf4-d36f1dc6a38e/scratchpad/isp/work/setA_surrogate/metadata.csv
+  table_format: auto
+  id_column: ''
+xcms:
+  ipo: no
+  ppm: 5
+  min_peakwidth: 5
+  max_peakwidth: 30
+  snthresh: 10
+  noise: 1000
+  prefilter_k: 3
+  prefilter_i: 1000
+  bw: 5
+  min_fraction: 0.5
+  mzwid: 0.015
+  obiwarp_binsize: 0.5
+filter:
+  min_qc_detect: 0.8
+  min_group_detect: 0.5
+  max_qc_rsd: 0.3
+  blank_ratio: 5
+  target_min: 300
+  target_max: 800
+samples:
+  average_replicates: yes
+  groups: []
+impute:
+  method: rf
+  maxiter: 10
+  ntree: 100
+correct:
+  normalization: none
+  log2: yes
+  method: eigenms
+  eigen_perm: 200
+  eigen_alpha: 0.05
+select:
+  p_adjust: holm
+  alpha: 0.05
+  models:
+  - knn
+  - svmRadial
+  - pls
+  - rf
+  cv_folds: 5
+  cv_repeats: 3
+  tune_length: 5
+  top_n: 50
+  min_freq: 2
+  rfe_method: nb
+  rfe_folds: 5
+  rfe_repeats: 3
+  compare_stages: yes
+  nested_cv: yes
+  nested_folds: 5
+  nested_repeats: 2
+  nested_input: imputed
+visual:
+  dpi: 600
+  formats:
+  - png
+  - jpeg
+  heatmap_top: 50
+  boxplot_top: 12
+  vip_top: 20
+  hca_distance: manhattan
+  hca_method: ward.D2
+report:
+  database: features_db
+  rmarkdown: yes
+run:
+  from: 0
+  to: 9

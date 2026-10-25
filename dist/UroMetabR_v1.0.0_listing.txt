@@ -1,0 +1,1394 @@
+Программный инструмент для неинвазивной вспомогательной диагностики рака мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС
+UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного кода.
+
+==================== run_analysis.R ====================
+    1  #!/usr/bin/env Rscript
+    2  # Запуск без графического интерфейса:
+    3  #   Rscript run_analysis.R путь/к/settings.yaml [--from=N] [--to=M]
+    4  # settings.yaml лежит в папке проекта; результаты модулей 0–9 сохраняются в подпапки 00_input … 09_report.
+    5  
+    6  if (!isTRUE(l10n_info()$`UTF-8`) && .Platform$OS.type != "windows")      # кириллица в модулях: UTF-8
+    7    for (loc in c("C.UTF-8", "en_US.UTF-8", "ru_RU.UTF-8")) if (nzchar(suppressWarnings(Sys.setlocale("LC_CTYPE", loc)))) break
+    8  args <- commandArgs(trailingOnly = TRUE)
+    9  self <- sub("^--file=", "", grep("^--file=", commandArgs(), value = TRUE)[1])
+   10  root <- if (!is.na(self)) dirname(normalizePath(self)) else getwd()
+   11  source(file.path(root, "R", "zz_setup.R"), encoding = "UTF-8")
+   12  load_urometabr(root)
+   13  if (length(missing_packages())) install_missing()
+   14  cfg <- args[!startsWith(args, "--")][1]
+   15  if (is.na(cfg)) stop("Укажите файл настроек: Rscript run_analysis.R папка_проекта/settings.yaml")
+   16  s <- read_settings(cfg)
+   17  opt <- function(k, d) { a <- grep(paste0("^--", k, "="), args, value = TRUE); if (length(a)) as.integer(sub(".*=", "", a)) else d }
+   18  st <- run_pipeline(s, opt("from", s$run$from), opt("to", s$run$to))
+   19  quit(status = as.integer(any(st$status == "ошибка")))
+
+==================== R/00_core.R ====================
+    1  # Ядро утилиты: версия, настройки, папка проекта, журнал, запуск модулей с замером времени и памяти.
+    2  
+    3  UROMETABR_VERSION <- "1.0.0"
+    4  UROMETABR_DATE <- "2026-10-26"
+    5  PROGRAM_NAME <- paste("Программный инструмент для неинвазивной вспомогательной диагностики рака",
+    6                        "мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС")
+    7  
+    8  MODULES <- data.frame(
+    9    id = 0:9,
+   10    dir = c("00_input", "01_peaktable", "02_qc", "03_filter", "04_samples", "05_impute", "06_correct",
+   11            "07_select", "08_visual", "09_report"),
+   12    title = c("Загрузка и проверка входных данных", "Оптимизация параметров и таблица пиков (xcms)",
+   13              "Контроль качества", "Фильтр устойчивых признаков", "Удаление QC, усреднение повторов, сортировка",
+   14              "Заполнение пропусков", "Коррекция сигнала и логарифмирование", "Статистика и отбор признаков",
+   15              "Визуализация", "База признаков и отчёт"),
+   16    stringsAsFactors = FALSE)
+   17  
+   18  `%||%` <- function(a, b) if (is.null(a) || (length(a) == 1 && is.na(a))) b else a
+   19  
+   20  # ------------------------------------------------------------------ настройки
+   21  default_settings <- function() list(
+   22    project = list(name = "Проект", seed = 20261026, cores = 1),
+   23    input = list(type = "table",                       # table (CSV/TSV/TXT, экспорт MS-DIAL) | raw (mzML/mzXML/CDF)
+   24                 table_file = "", raw_dir = "", metadata_file = "",
+   25                 table_format = "auto",                # auto | wide | msdial
+   26                 id_column = ""),                      # пусто — первый столбец
+   27    xcms = list(ipo = FALSE, ppm = 5, min_peakwidth = 5, max_peakwidth = 30, snthresh = 10, noise = 1000,
+   28                prefilter_k = 3, prefilter_i = 1000, bw = 5, min_fraction = 0.5, mzwid = 0.015,
+   29                obiwarp_binsize = 0.5),
+   30    filter = list(min_qc_detect = 0.8, min_group_detect = 0.5, max_qc_rsd = 0.30, blank_ratio = 5,
+   31                  target_min = 300, target_max = 800),
+   32    samples = list(average_replicates = TRUE, groups = list()),   # пусто — все группы, кроме QC и бланков
+   33    impute = list(method = "rf", maxiter = 10, ntree = 100),      # rf | missForest | halfmin
+   34    correct = list(normalization = "none", log2 = TRUE, method = "eigenms", eigen_perm = 200, eigen_alpha = 0.05),
+   35    select = list(p_adjust = "holm",                              # holm | BH | none | stage1
+   36                  alpha = 0.05, models = c("knn", "svmRadial", "pls", "rf"), cv_folds = 5, cv_repeats = 3,
+   37                  tune_length = 5, top_n = 50, min_freq = 2, rfe_method = "nb", rfe_folds = 5, rfe_repeats = 3,
+   38                  compare_stages = TRUE, nested_cv = TRUE, nested_folds = 5, nested_repeats = 2,
+   39                  nested_input = "imputed"),                       # imputed (без EigenMS) | corrected
+   40    visual = list(dpi = 600, formats = c("png", "jpeg"), heatmap_top = 50, boxplot_top = 12, vip_top = 20,
+   41                  hca_distance = "manhattan", hca_method = "ward.D2"),
+   42    report = list(database = "features_db", rmarkdown = TRUE),
+   43    run = list(from = 0, to = 9))
+   44  
+   45  merge_settings <- function(base, over) {
+   46    for (k in names(over)) {
+   47      if (is.list(base[[k]]) && is.list(over[[k]]) && length(over[[k]]) && !is.null(names(over[[k]])))
+   48        base[[k]] <- merge_settings(base[[k]], over[[k]])
+   49      else base[k] <- list(over[[k]])
+   50    }
+   51    base
+   52  }
+   53  
+   54  read_settings <- function(path) {
+   55    if (!file.exists(path)) stop("Файл настроек не найден: ", path)
+   56    s <- merge_settings(default_settings(), yaml::read_yaml(path, fileEncoding = "UTF-8") %||% list())
+   57    s$project$dir <- normalizePath(dirname(path), winslash = "/")
+   58    s$settings_file <- normalizePath(path, winslash = "/")
+   59    check_settings(s)
+   60    s
+   61  }
+   62  
+   63  write_settings <- function(s, path) {
+   64    s$project$dir <- NULL; s$settings_file <- NULL
+   65    s <- rapply(s, function(x) if (all(x == round(x)) && all(abs(x) < 2^31)) as.integer(x) else x, classes = "numeric", how = "replace")
+   66    yaml::write_yaml(s, path, fileEncoding = "UTF-8")
+   67    invisible(path)
+   68  }
+   69  
+   70  # Путь из настроек: абсолютный — как есть, относительный — от папки проекта
+   71  project_path <- function(s, p) {
+   72    if (is.null(p) || !nzchar(p)) return("")
+   73    if (grepl("^(/|[A-Za-z]:|\\\\\\\\)", p)) p else file.path(s$project$dir, p)
+   74  }
+   75  
+   76  check_settings <- function(s) {
+   77    e <- character(0)
+   78    if (!s$input$type %in% c("table", "raw")) e <- c(e, "input$type: table или raw")
+   79    if (!s$impute$method %in% c("rf", "missForest", "halfmin")) e <- c(e, "impute$method: rf, missForest или halfmin")
+   80    if (!s$correct$method %in% c("eigenms", "none")) e <- c(e, "correct$method: eigenms или none")
+   81    if (!s$correct$normalization %in% c("none", "PQN")) e <- c(e, "correct$normalization: none или PQN")
+   82    if (!s$select$p_adjust %in% c("holm", "BH", "none", "stage1")) e <- c(e, "select$p_adjust: holm, BH, none или stage1")
+   83    if (!s$select$rfe_method %in% c("nb", "rf")) e <- c(e, "select$rfe_method: nb или rf")
+   84    if (!s$select$nested_input %in% c("imputed", "corrected")) e <- c(e, "select$nested_input: imputed или corrected")
+   85    if (s$filter$max_qc_rsd <= 0 || s$filter$min_group_detect < 0 || s$filter$min_group_detect > 1) e <- c(e, "пороги фильтра вне допустимых значений")
+   86    if (length(e)) stop("Ошибки в настройках:\n  ", paste(e, collapse = "\n  "))
+   87    invisible(TRUE)
+   88  }
+   89  
+   90  # ------------------------------------------------------------------ журнал
+   91  .ue <- new.env()
+   92  .ue$log_file <- NULL
+   93  
+   94  log_start <- function(s) {
+   95    d <- file.path(s$project$dir, "logs"); dir.create(d, showWarnings = FALSE, recursive = TRUE)
+   96    .ue$run_id <- format(Sys.time(), "%Y%m%d_%H%M%S")
+   97    .ue$log_file <- file.path(d, paste0("run_", .ue$run_id, ".log"))
+   98    file.create(.ue$log_file)
+   99    .ue$run_id
+  100  }
+  101  
+  102  log_msg <- function(...) {
+  103    s <- paste0(format(Sys.time(), "%H:%M:%S"), "  ", paste0(...))
+  104    cat(s, "\n", sep = "")
+  105    if (!is.null(.ue$log_file)) cat(s, "\n", sep = "", file = .ue$log_file, append = TRUE)
+  106    invisible(s)
+  107  }
+  108  
+  109  # ------------------------------------------------------------------ результаты модулей
+  110  module_dir <- function(s, id) {
+  111    d <- file.path(s$project$dir, MODULES$dir[MODULES$id == id])
+  112    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  113    d
+  114  }
+  115  save_module <- function(s, id, obj) saveRDS(obj, file.path(module_dir(s, id), "result.rds"))
+  116  load_module <- function(s, id) {
+  117    f <- file.path(s$project$dir, MODULES$dir[MODULES$id == id], "result.rds")
+  118    if (!file.exists(f)) stop(sprintf("Нет результата модуля %d (%s): запустите его раньше", id, MODULES$title[MODULES$id == id]))
+  119    readRDS(f)
+  120  }
+  121  # Последний доступный результат с номером < id (для таблиц модуль 1 пропускается)
+  122  load_previous <- function(s, id) {
+  123    for (k in rev(seq_len(id) - 1)) {
+  124      f <- file.path(s$project$dir, MODULES$dir[MODULES$id == k], "result.rds")
+  125      if (file.exists(f)) return(readRDS(f))
+  126    }
+  127    stop("Нет результатов предыдущих модулей — запустите модуль 0")
+  128  }
+  129  write_csv <- function(x, path) data.table::fwrite(x, path, bom = TRUE)   # BOM — корректная кириллица в Excel
+  130  
+  131  # ------------------------------------------------------------------ запуск конвейера
+  132  MODULE_FUN <- c("module0_input", "module1_peaktable", "module2_qc", "module3_filter", "module4_samples",
+  133                  "module5_impute", "module6_correct", "module7_select", "module8_visual", "module9_report")
+  134  
+  135  run_pipeline <- function(s, from = s$run$from, to = s$run$to) {
+  136    if (is.character(s)) s <- read_settings(s)
+  137    log_start(s)
+  138    log_msg("UroMetabR ", UROMETABR_VERSION, " (", UROMETABR_DATE, "); R ", R.version$major, ".", R.version$minor,
+  139            "; ", utils::sessionInfo()$running)
+  140    log_msg("Проект: ", s$project$dir, "; модули ", from, "–", to, "; seed ", s$project$seed)
+  141    file.copy(s$settings_file %||% "", file.path(s$project$dir, "logs", paste0("settings_", .ue$run_id, ".yaml")))
+  142    status <- data.frame()
+  143    for (id in from:to) {
+  144      if (id == 1 && s$input$type == "table") {
+  145        log_msg("Модуль 1 пропущен: на входе готовая таблица признаков")
+  146        status <- rbind(status, data.frame(module = 1, title = MODULES$title[2], status = "пропущен", time_s = 0, peak_ram_mb = NA))
+  147        next
+  148      }
+  149      log_msg(sprintf("=== Модуль %d. %s", id, MODULES$title[MODULES$id == id]))
+  150      set.seed(s$project$seed + id)                   # единый seed: результат модуля не зависит от предыдущих запусков
+  151      invisible(gc(reset = TRUE)); t0 <- proc.time()[["elapsed"]]
+  152      ok <- tryCatch({ get(MODULE_FUN[id + 1])(s); TRUE }, error = function(e) { log_msg("ОШИБКА: ", conditionMessage(e)); FALSE })
+  153      tm <- proc.time()[["elapsed"]] - t0
+  154      mem <- sum(gc()[, 6])
+  155      log_msg(sprintf("Модуль %d: %s, %.1f с, пиковая память R %.0f МБ", id, if (ok) "выполнен" else "ошибка", tm, mem))
+  156      status <- rbind(status, data.frame(module = id, title = MODULES$title[id + 1], status = if (ok) "выполнен" else "ошибка",
+  157                                         time_s = round(tm, 1), peak_ram_mb = round(mem)))
+  158      write_csv(status, file.path(s$project$dir, "logs", paste0("modules_", .ue$run_id, ".csv")))
+  159      if (!ok) { write_session_info(s); log_msg("Обработка остановлена на модуле ", id); return(invisible(status)) }
+  160    }
+  161    write_session_info(s)
+  162    log_msg("Готово. Отчёт: ", file.path(s$project$dir, "09_report", "report.html"))
+  163    cat("UROMETABR_DONE\n", file = .ue$log_file, append = TRUE)
+  164    invisible(status)
+  165  }
+  166  
+  167  write_session_info <- function(s) {
+  168    f <- file.path(s$project$dir, "logs", paste0("session_info_", .ue$run_id, ".txt"))
+  169    writeLines(c(paste("UroMetabR", UROMETABR_VERSION, UROMETABR_DATE), utils::capture.output(utils::sessionInfo())), f)
+  170    f
+  171  }
+  172  
+  173  # ------------------------------------------------------------------ параллельные вычисления
+  174  # Linux/macOS — fork; Windows — PSOCK-кластер с подгрузкой модулей утилиты
+  175  par_lapply <- function(X, FUN, cores = 1) {
+  176    if (cores <= 1 || length(X) < 2) return(lapply(X, FUN))
+  177    if (.Platform$OS.type == "unix") return(parallel::mclapply(X, FUN, mc.cores = cores))
+  178    cl <- parallel::makeCluster(cores); on.exit(parallel::stopCluster(cl))
+  179    files <- list.files(getOption("urometabr.dir"), pattern = "\\.R$", full.names = TRUE)
+  180    parallel::clusterCall(cl, function(f) for (x in f) source(x, encoding = "UTF-8"), files)
+  181    parallel::parLapply(cl, X, FUN)
+  182  }
+  183  
+  184  # Зерна для caret: воспроизводимость и в параллельном режиме
+  185  caret_seeds <- function(n_resamples, n_tune, seed) {
+  186    set.seed(seed)
+  187    c(lapply(seq_len(n_resamples), function(i) sample.int(1e6, n_tune)), list(sample.int(1e6, 1)))
+  188  }
+  189  
+  190  register_cores <- function(cores) {
+  191    if (cores > 1 && requireNamespace("doParallel", quietly = TRUE)) {
+  192      cl <- parallel::makeCluster(cores)
+  193      parallel::clusterEvalQ(cl, suppressPackageStartupMessages(library(caret)))   # модели caret ищут функции в caret
+  194      doParallel::registerDoParallel(cl); return(cl)
+  195    }
+  196    foreach::registerDoSEQ(); NULL
+  197  }
+  198  stop_cores <- function(cl) { if (!is.null(cl)) parallel::stopCluster(cl); foreach::registerDoSEQ() }
+  199  
+  200  # ------------------------------------------------------------------ графика
+  201  GROUP_PAL <- c("#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442", "#000000")
+  202  group_colors <- function(g) {
+  203    u <- sort(unique(as.character(g))); u <- c(setdiff(u, "QC"), intersect(u, "QC"))
+  204    col <- stats::setNames(GROUP_PAL[seq_along(u)], u); if ("QC" %in% u) col["QC"] <- "#7F7F7F"
+  205    col
+  206  }
+  207  save_fig <- function(s, p, dir, name, w = 17, h = 12) {
+  208    out <- character(0)
+  209    for (fmt in s$visual$formats) {
+  210      f <- file.path(dir, paste0(name, ".", if (fmt == "jpeg") "jpg" else fmt))
+  211      ggplot2::ggsave(f, p, width = w, height = h, units = "cm", dpi = s$visual$dpi, bg = "white")
+  212      out <- c(out, f)
+  213    }
+  214    invisible(out)
+  215  }
+  216  # Графики не-ggplot (дендрограммы, тепловые карты): одна функция рисования — несколько форматов
+  217  save_base_fig <- function(s, draw, dir, name, w = 17, h = 12) {
+  218    for (fmt in s$visual$formats) {
+  219      f <- file.path(dir, paste0(name, ".", if (fmt == "jpeg") "jpg" else fmt))
+  220      dev <- if (fmt == "jpeg") grDevices::jpeg else grDevices::png
+  221      args <- list(f, width = w, height = h, units = "cm", res = s$visual$dpi)
+  222      if (capabilities("cairo")) args$type <- "cairo"
+  223      if (fmt == "jpeg") args$quality <- 95
+  224      do.call(dev, args); try(draw()); grDevices::dev.off()
+  225    }
+  226  }
+  227  theme_um <- function() ggplot2::theme_bw(base_size = 9) +
+  228    ggplot2::theme(panel.grid.minor = ggplot2::element_blank(), legend.position = "top")
+
+==================== R/m0_input.R ====================
+    1  # Модуль 0. Загрузка и проверка входных данных: таблица CSV/TSV/TXT (или экспорт MS-DIAL) либо сырые
+    2  # mzML/mzXML/CDF, файл метаданных (образец, группа, порядок ввода, повтор). Результат — проверенный
+    3  # набор данных или понятное сообщение об ошибке.
+    4  
+    5  read_metadata <- function(path) {
+    6    if (!nzchar(path) || !file.exists(path)) stop("Не найден файл метаданных: ", path)
+    7    md <- data.table::fread(path, data.table = FALSE, encoding = "UTF-8", colClasses = "character")
+    8    names(md) <- tolower(trimws(sub("^﻿", "", names(md))))
+    9    if (!"file" %in% names(md) && "sample" %in% names(md)) md$file <- md$sample
+   10    miss <- setdiff(c("file", "group"), names(md))
+   11    if (length(miss)) stop("В файле метаданных нет обязательных столбцов: ", paste(miss, collapse = ", "),
+   12                           ". Нужны: file (имя файла или строки таблицы), group; необязательно: sample, injection_order, replicate, include, sex, age")
+   13    md$file <- trimws(md$file); md$group <- trimws(md$group)
+   14    if (any(duplicated(md$file))) stop("В метаданных повторяются имена файлов: ", paste(unique(md$file[duplicated(md$file)]), collapse = ", "))
+   15    if (any(md$group == "")) stop("В метаданных не указана группа для: ", paste(md$file[md$group == ""], collapse = ", "))
+   16    md$sample <- if ("sample" %in% names(md)) ifelse(nzchar(md$sample), md$sample, md$file) else md$file
+   17    md$injection_order <- if ("injection_order" %in% names(md)) suppressWarnings(as.numeric(md$injection_order)) else NA_real_
+   18    md$replicate <- if ("replicate" %in% names(md)) suppressWarnings(as.integer(md$replicate)) else 1L
+   19    md$include <- if ("include" %in% names(md)) ifelse(md$include %in% c("0", "FALSE", "false", "нет"), 0L, 1L) else 1L
+   20    if ("age" %in% names(md)) md$age <- suppressWarnings(as.numeric(md$age))
+   21    if ("sex" %in% names(md)) { md$sex <- toupper(trimws(md$sex)); md$sex[md$sex == "М"] <- "M"; md$sex[md$sex == "Ж"] <- "F" }
+   22    md$kind <- ifelse(toupper(md$group) == "QC", "QC", ifelse(grepl("^(blank|бланк)", md$group, ignore.case = TRUE), "blank", "sample"))
+   23    rownames(md) <- md$file
+   24    md
+   25  }
+   26  
+   27  # Имя признака → m/z, RT: «RT_mz_аннотация», «mz / RT» (xcms, RT в секундах), «M150.05T2.23»
+   28  parse_feature_names <- function(cols) {
+   29    rt <- mz <- rep(NA_real_, length(cols)); nm <- rep("", length(cols))
+   30    m1 <- regmatches(cols, regexec("^([0-9]+\\.?[0-9]*)_([0-9]+\\.?[0-9]*)_?(.*)$", cols))
+   31    m2 <- regmatches(cols, regexec("^([0-9]+\\.?[0-9]*) ?/ ?([0-9]+\\.?[0-9]*)$", cols))
+   32    m3 <- regmatches(cols, regexec("^M([0-9]+\\.?[0-9]*)T([0-9]+\\.?[0-9]*)", cols))
+   33    for (i in seq_along(cols)) {
+   34      if (length(m1[[i]]) == 4) { rt[i] <- as.numeric(m1[[i]][2]); mz[i] <- as.numeric(m1[[i]][3]); nm[i] <- m1[[i]][4] }
+   35      else if (length(m2[[i]]) == 3) { mz[i] <- as.numeric(m2[[i]][2]); rt[i] <- as.numeric(m2[[i]][3]) / 60 }
+   36      else if (length(m3[[i]]) == 3) { mz[i] <- as.numeric(m3[[i]][2]); rt[i] <- as.numeric(m3[[i]][3]) }
+   37    }
+   38    data.frame(id = sprintf("F%05d", seq_along(cols)), original = cols, mz = mz, rt_min = rt,
+   39               name = sub("^low score:\\s*", "", nm), stringsAsFactors = FALSE)
+   40  }
+   41  
+   42  read_msdial_table <- function(path) {
+   43    lines <- readLines(path, n = 60, encoding = "UTF-8", warn = FALSE)
+   44    hdr <- which(grepl("^\"?Alignment ID", lines))[1]
+   45    sep <- if (grepl("\t", lines[hdr])) "\t" else ","
+   46    top <- data.table::fread(path, sep = sep, nrows = hdr - 1, header = FALSE, data.table = FALSE, fill = TRUE, encoding = "UTF-8")
+   47    tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8")
+   48    ft <- trimws(as.character(unlist(top[which(apply(top, 1, function(x) any(trimws(x) == "File type")))[1], ])))
+   49    sc <- which(tolower(ft) %in% c("sample", "qc", "blank", "standard")); sc <- sc[sc <= ncol(tab)]
+   50    X <- t(as.matrix(tab[, sc, drop = FALSE])); storage.mode(X) <- "double"
+   51    info <- data.frame(id = sprintf("F%05d", seq_len(nrow(tab))), original = as.character(tab[["Alignment ID"]]),
+   52                       mz = as.numeric(tab[["Average Mz"]]), rt_min = as.numeric(tab[["Average Rt(min)"]]),
+   53                       name = sub("^low score:\\s*", "", as.character(tab[["Metabolite name"]] %||% "")), stringsAsFactors = FALSE)
+   54    list(X = X, info = info)
+   55  }
+   56  
+   57  # Таблица признаков: строки — инъекции (или признаки — определяется по совпадению с метаданными)
+   58  read_feature_table <- function(path, md, format = "auto", id_column = "") {
+   59    if (!nzchar(path) || !file.exists(path)) stop("Не найден файл таблицы: ", path)
+   60    head1 <- readLines(path, n = 60, encoding = "UTF-8", warn = FALSE)
+   61    if (format == "msdial" || (format == "auto" && any(grepl("^\"?Alignment ID", head1)))) {
+   62      r <- read_msdial_table(path); r$format <- "MS-DIAL"; return(r)
+   63    }
+   64    raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1))
+   65    names(raw)[1] <- sub("^﻿", "", names(raw)[1])
+   66    idc <- if (nzchar(id_column)) id_column else names(raw)[1]
+   67    if (!idc %in% names(raw)) stop("В таблице нет столбца идентификатора '", idc, "'")
+   68    ids <- as.character(raw[[idc]])
+   69    if (sum(ids %in% md$file) == 0 && sum(names(raw) %in% md$file) > 0) {        # признаки по строкам
+   70      sc <- names(raw)[names(raw) %in% md$file]
+   71      X <- t(as.matrix(raw[, sc])); storage.mode(X) <- "double"
+   72      info <- parse_feature_names(ids); return(list(X = X, info = info, format = "признаки по строкам"))
+   73    }
+   74    num <- vapply(raw, function(v) is.numeric(v) || all(is.na(v)), TRUE); num[names(raw) == idc] <- FALSE
+   75    skipped <- setdiff(names(raw)[!num], idc)
+   76    if (length(skipped)) log_msg("Нечисловые столбцы пропущены: ", paste(utils::head(skipped, 10), collapse = ", "))
+   77    X <- as.matrix(raw[, num, drop = FALSE]); storage.mode(X) <- "double"
+   78    rownames(X) <- ids
+   79    dup <- duplicated(ids)
+   80    if (any(dup)) { log_msg("Повторяющиеся строки удалены: ", paste(unique(ids[dup]), collapse = ", ")); X <- X[!dup, , drop = FALSE] }
+   81    list(X = X, info = parse_feature_names(colnames(X)), format = "пробы по строкам")
+   82  }
+   83  
+   84  check_raw_file <- function(f) {
+   85    con <- file(f, "rb"); on.exit(close(con)); b <- readBin(con, "raw", 1e6)
+   86    ext <- tolower(tools::file_ext(f)); txt <- rawToChar(b[b != as.raw(0)])
+   87    if (ext == "mzml") {
+   88      if (!grepl("<(indexedmzML|mzML)", txt)) return(list(ok = FALSE, msg = "нет тега <mzML>"))
+   89      n <- regmatches(txt, regexpr("spectrumList count=\"[0-9]+\"", txt))
+   90      list(ok = TRUE, msg = if (length(n)) sub(".*\"([0-9]+)\"", "спектров: \\1", n) else "mzML")
+   91    } else if (ext == "mzxml") {
+   92      if (!grepl("<mzXML", txt)) return(list(ok = FALSE, msg = "нет тега <mzXML>"))
+   93      n <- regmatches(txt, regexpr("scanCount=\"[0-9]+\"", txt))
+   94      list(ok = TRUE, msg = if (length(n)) sub(".*\"([0-9]+)\"", "сканов: \\1", n) else "mzXML")
+   95    } else if (ext %in% c("cdf", "nc")) {
+   96      list(ok = identical(b[1:3], charToRaw("CDF")), msg = "netCDF")
+   97    } else list(ok = FALSE, msg = "неизвестный формат")
+   98  }
+   99  
+  100  module0_input <- function(s) {
+  101    out <- module_dir(s, 0)
+  102    md <- read_metadata(project_path(s, s$input$metadata_file))
+  103    chk <- data.frame(check = character(0), status = character(0), detail = character(0))
+  104    add <- function(check, ok, detail) chk[nrow(chk) + 1, ] <<- list(check, if (ok) "ок" else "ошибка", detail)
+  105    add("Метаданные", TRUE, sprintf("%d строк; группы: %s", nrow(md), paste(sprintf("%s %d", names(table(md$group)), table(md$group)), collapse = ", ")))
+  106    if (s$input$type == "raw") {
+  107      d <- project_path(s, s$input$raw_dir)
+  108      if (!dir.exists(d)) stop("Не найдена папка с сырыми данными: ", d)
+  109      files <- list.files(d, pattern = "\\.(mzML|mzXML|CDF)$", ignore.case = TRUE, full.names = TRUE, recursive = TRUE)
+  110      if (!length(files)) stop("В папке ", d, " нет файлов mzML, mzXML или CDF")
+  111      fc <- lapply(files, check_raw_file)
+  112      bad <- !vapply(fc, `[[`, TRUE, "ok")
+  113      add("Файлы сырых данных", !any(bad), sprintf("%d файлов (%s)%s", length(files), paste(names(table(tolower(tools::file_ext(files)))), collapse = ", "),
+  114                                                   if (any(bad)) paste0("; повреждены: ", paste(basename(files[bad]), collapse = ", ")) else ""))
+  115      if (any(bad)) stop("Повреждённые или неподдерживаемые файлы: ", paste(basename(files[bad]), collapse = ", "))
+  116      key <- tools::file_path_sans_ext(basename(files))
+  117      names(files) <- key
+  118      md$file <- tools::file_path_sans_ext(md$file); rownames(md) <- md$file
+  119      ids <- key
+  120      obj <- list(files = files, meta = NULL, type = "raw")
+  121    } else {
+  122      tb <- read_feature_table(project_path(s, s$input$table_file), md, s$input$table_format, s$input$id_column)
+  123      X <- tb$X; X[!is.finite(X) | X <= 0] <- NA
+  124      colnames(X) <- tb$info$id
+  125      add("Таблица признаков", TRUE, sprintf("%s: %d инъекций × %d признаков; пропусков %.1f%%", tb$format, nrow(X), ncol(X), 100 * mean(is.na(X))))
+  126      if (all(is.na(tb$info$mz))) add("m/z и RT признаков", FALSE, "не распознаны в именах столбцов (ожидается RT_mz_имя, mz / RT или M…T…); анализ продолжится без них")
+  127      ids <- rownames(X)
+  128      obj <- list(X = X, info = tb$info, meta = NULL, type = "table")
+  129    }
+  130    nodata <- setdiff(md$file[md$include == 1], ids); nometa <- setdiff(ids, md$file)
+  131    if (length(nometa)) add("Данные без метаданных", FALSE, paste("исключены:", paste(utils::head(nometa, 20), collapse = ", ")))
+  132    if (length(nodata)) add("Метаданные без данных", FALSE, paste(utils::head(nodata, 20), collapse = ", "))
+  133    use <- intersect(ids, md$file[md$include == 1])
+  134    if (length(use) < 6) stop("Слишком мало совпадений имён между данными и метаданными (", length(use), "). Проверьте столбец file")
+  135    meta <- md[use, , drop = FALSE]
+  136    if (all(is.na(meta$injection_order))) {
+  137      meta$injection_order <- match(use, ids); add("Порядок ввода", FALSE, "не указан — принят порядок строк/файлов")
+  138    } else add("Порядок ввода", !anyNA(meta$injection_order), if (anyNA(meta$injection_order)) "не указан у части файлов" else "указан")
+  139    grp <- table(meta$group[meta$kind == "sample"])
+  140    add("Группы сравнения", length(grp) >= 2 && all(grp >= 3), paste(sprintf("%s %d", names(grp), grp), collapse = ", "))
+  141    if (length(grp) < 2) stop("Нужны минимум две группы образцов (кроме QC и бланков)")
+  142    nqc <- sum(meta$kind == "QC")
+  143    add("Образцы QC", nqc >= 3, sprintf("%d; %s", nqc, if (nqc >= 3) "фильтр RSD будет применён" else "фильтр RSD и детекции в QC будут пропущены"))
+  144    add("Повторные измерения", TRUE, sprintf("%d образцов имеют > 1 инъекции", sum(table(meta$sample[meta$kind == "sample"]) > 1)))
+  145    obj$meta <- meta
+  146    if (obj$type == "table") {
+  147      obj$X <- obj$X[use, , drop = FALSE]
+  148      pct <- 100 * mean(is.na(obj$X[meta$kind == "sample", ]))
+  149      add("Доля пропусков в образцах", pct <= 30, sprintf("%.1f%% (допустимо по ТЗ до 20–30%%)", pct))
+  150    } else obj$files <- obj$files[use]
+  151    write_csv(chk, file.path(out, "input_check.csv"))
+  152    write_csv(meta, file.path(out, "metadata_checked.csv"))
+  153    for (i in seq_len(nrow(chk))) log_msg(sprintf("  [%s] %s: %s", chk$status[i], chk$check[i], chk$detail[i]))
+  154    obj$checks <- chk
+  155    save_module(s, 0, obj)
+  156    if (obj$type == "table") {                                    # для таблиц модуль 1 не нужен: таблица пиков уже есть
+  157      write_csv(cbind(file = rownames(obj$X), as.data.frame(obj$X)), file.path(module_dir(s, 1), "peak_table.csv"))
+  158      write_csv(obj$info, file.path(module_dir(s, 1), "features.csv"))
+  159      save_module(s, 1, obj[c("X", "info", "meta", "type")])
+  160    }
+  161    invisible(obj)
+  162  }
+
+==================== R/m1_peaktable.R ====================
+    1  # Модуль 1. Оптимизация параметров (IPO) и таблица пиков (xcms: centWave → Obiwarp → PeakDensity →
+    2  # fillChromPeaks) по сырым данным. Исправлено относительно этапа 1: пути из настроек, один режим
+    3  # параллельных вычислений, minFraction — параметр (по умолчанию 0,5), группы образцов из метаданных.
+    4  # Нужны Bioconductor-пакеты xcms и MSnbase (IPO — только при xcms$ipo: true).
+    5  
+    6  bp_param <- function(cores) {
+    7    if (cores <= 1) return(BiocParallel::SerialParam())
+    8    if (.Platform$OS.type == "windows") BiocParallel::SnowParam(cores) else BiocParallel::MulticoreParam(cores)
+    9  }
+   10  
+   11  module1_peaktable <- function(s) {
+   12    for (p in c("xcms", "MSnbase", "BiocParallel"))
+   13      if (!requireNamespace(p, quietly = TRUE))
+   14        stop("Для обработки сырых данных нужен пакет ", p, ": BiocManager::install(c('xcms', 'MSnbase', 'IPO'))")
+   15    out <- module_dir(s, 1); x <- s$xcms
+   16    inp <- load_module(s, 0); meta <- inp$meta; files <- inp$files[meta$file]
+   17    bp <- bp_param(s$project$cores)
+   18    BiocParallel::register(bp)
+   19    P <- list(ppm = x$ppm, min_peakwidth = x$min_peakwidth, max_peakwidth = x$max_peakwidth, snthresh = x$snthresh,
+   20              noise = x$noise, prefilter = x$prefilter_k, value_of_prefilter = x$prefilter_i, mzdiff = -0.001,
+   21              integrate = 1L, fitgauss = FALSE, mzCenterFun = "wMean")
+   22    R <- list(binsize = x$obiwarp_binsize, bw = x$bw, mzwid = x$mzwid)
+   23    if (isTRUE(x$ipo)) {
+   24      if (!requireNamespace("IPO", quietly = TRUE)) stop("xcms$ipo: true, но пакет IPO не установлен")
+   25      qc <- files[meta$kind == "QC"]
+   26      if (length(qc) < 2) stop("Для оптимизации IPO нужны минимум 2 файла QC")
+   27      log_msg("IPO: оптимизация centWave по ", length(qc), " файлам QC")
+   28      pp <- IPO::getDefaultXcmsSetStartingParams("centWave")
+   29      pp$ppm <- c(max(1, x$ppm - 2), x$ppm + 5); pp$min_peakwidth <- c(3, 15); pp$max_peakwidth <- c(20, 40)
+   30      pp$noise <- c(100, 1000); pp$value_of_prefilter <- c(3, 800)
+   31      rp <- IPO::optimizeXcmsSet(files = qc, params = pp, nSlaves = s$project$cores, subdir = NULL, plot = FALSE)
+   32      rg <- IPO::optimizeRetGroup(xset = rp$best_settings$xset, params = IPO::getDefaultRetGroupStartingParams(),
+   33                                  nSlaves = 1, subdir = NULL, plot = FALSE)
+   34      P <- utils::modifyList(P, rp$best_settings$parameters)
+   35      R <- list(binsize = rg$best_settings$profStep, bw = rg$best_settings$bw, mzwid = rg$best_settings$mzwid)
+   36      saveRDS(list(peakpicking = rp$best_settings$parameters, retgroup = rg$best_settings), file.path(out, "ipo_params.rds"))
+   37    }
+   38    pd <- data.frame(sample_name = meta$file, group = meta$group, stringsAsFactors = FALSE)
+   39    raw <- MSnbase::readMSData(files, pdata = methods::new("NAnnotatedDataFrame", pd), mode = "onDisk")
+   40    cwp <- xcms::CentWaveParam(ppm = P$ppm, peakwidth = c(P$min_peakwidth, P$max_peakwidth), snthresh = P$snthresh,
+   41                               prefilter = c(P$prefilter, P$value_of_prefilter), noise = P$noise, mzdiff = P$mzdiff,
+   42                               integrate = as.integer(P$integrate), fitgauss = as.logical(P$fitgauss), mzCenterFun = P$mzCenterFun)
+   43    log_msg("Детектирование пиков (centWave)…")
+   44    xd <- xcms::findChromPeaks(raw, param = cwp, BPPARAM = bp)
+   45    log_msg("Выравнивание времён удерживания (Obiwarp)…")
+   46    xd <- xcms::adjustRtime(xd, param = xcms::ObiwarpParam(binSize = R$binsize))
+   47    xd <- xcms::groupChromPeaks(xd, param = xcms::PeakDensityParam(sampleGroups = pd$group, bw = R$bw,
+   48                                                                    minFraction = x$min_fraction, binSize = R$mzwid))
+   49    xd <- xcms::fillChromPeaks(xd, param = xcms::ChromPeakAreaParam(), BPPARAM = bp)
+   50    ft <- xcms::featureValues(xd, value = "into"); fd <- xcms::featureDefinitions(xd)
+   51    X <- t(ft); rownames(X) <- meta$file; X[!is.finite(X) | X <= 0] <- NA
+   52    info <- data.frame(id = sprintf("F%05d", seq_len(ncol(X))), original = rownames(fd), mz = fd$mzmed,
+   53                       rt_min = fd$rtmed / 60, name = "", stringsAsFactors = FALSE)
+   54    colnames(X) <- info$id
+   55    log_msg(sprintf("Таблица пиков: %d признаков, пропусков %.1f%% (minFraction = %g)", ncol(X), 100 * mean(is.na(X)), x$min_fraction))
+   56    write_csv(cbind(file = rownames(X), as.data.frame(X)), file.path(out, "peak_table.csv"))
+   57    write_csv(info, file.path(out, "features.csv"))
+   58    saveRDS(xd, file.path(out, "xcms_object.rds"))
+   59    save_module(s, 1, list(X = X, info = info, meta = meta, type = "raw"))
+   60  }
+
+==================== R/m2_m4_quality.R ====================
+    1  # Модули 2–4: контроль качества, фильтр устойчивых признаков, подготовка матрицы образцов.
+    2  
+    3  rsd_cols <- function(M) apply(M, 2, function(v) stats::sd(v, na.rm = TRUE) / mean(v, na.rm = TRUE))
+    4  half_min_log2 <- function(X) { X <- apply(X, 2, function(v) { v[is.na(v)] <- min(v, na.rm = TRUE) / 2; v }); log2(X) }
+    5  
+    6  pca_plot <- function(L, groups, title, ellipses = TRUE) {
+    7    L <- L[, apply(L, 2, stats::sd) > 0, drop = FALSE]
+    8    p <- stats::prcomp(L, center = TRUE, scale. = TRUE)
+    9    v <- 100 * p$sdev^2 / sum(p$sdev^2)
+   10    d <- data.frame(PC1 = p$x[, 1], PC2 = p$x[, 2], group = groups)
+   11    g <- ggplot2::ggplot(d, ggplot2::aes(PC1, PC2, colour = group)) + ggplot2::geom_point(size = 1.6) +
+   12      ggplot2::scale_colour_manual(values = group_colors(d$group)) +
+   13      ggplot2::labs(x = sprintf("PC1 (%.1f%%)", v[1]), y = sprintf("PC2 (%.1f%%)", v[2]), colour = NULL, title = title) + theme_um()
+   14    if (ellipses) g <- g + ggplot2::stat_ellipse(data = d[d$group != "QC" & ave(seq_along(d$group), d$group, FUN = length) > 3, ],
+   15                                                 level = 0.95, linewidth = 0.3)
+   16    g
+   17  }
+   18  
+   19  # ------------------------------------------------------------------ модуль 2
+   20  module2_qc <- function(s) {
+   21    out <- module_dir(s, 2); d <- load_previous(s, 2)
+   22    X <- d$X; meta <- d$meta[rownames(X), ]
+   23    smp <- meta$kind == "sample"; qc <- meta$kind == "QC"
+   24    summ <- data.frame(parameter = c("Инъекций всего", "из них QC", "Признаков", "Пропусков, все инъекции, %",
+   25                                     "Пропусков в образцах, %", "Пропусков в QC, %", "Медианный RSD в QC, %"),
+   26                       value = c(nrow(X), sum(qc), ncol(X), round(100 * mean(is.na(X)), 1),
+   27                                 round(100 * mean(is.na(X[smp, ])), 1), if (any(qc)) round(100 * mean(is.na(X[qc, ])), 1) else NA,
+   28                                 if (sum(qc) >= 2) round(100 * stats::median(rsd_cols(X[qc, , drop = FALSE]), na.rm = TRUE), 1) else NA))
+   29    by_group <- stats::aggregate(list(missing_pct = rowMeans(is.na(X)) * 100), list(group = meta$group), mean)
+   30    write_csv(summ, file.path(out, "qc_summary.csv")); write_csv(by_group, file.path(out, "missing_by_group.csv"))
+   31    for (i in seq_len(nrow(summ))) log_msg("  ", summ$parameter[i], ": ", summ$value[i])
+   32    ok <- colSums(!is.na(X)) >= 2
+   33    save_fig(s, pca_plot(half_min_log2(X[, ok]), meta$group, "PCA: образцы и QC (log2, автошкалирование)"), out, "pca_qc", 12, 11)
+   34    tic <- data.frame(order = meta$injection_order, tic = rowSums(X, na.rm = TRUE), group = meta$group)
+   35    g <- ggplot2::ggplot(tic, ggplot2::aes(order, tic, colour = group, shape = group == "QC")) + ggplot2::geom_point(size = 1.6) +
+   36      ggplot2::scale_y_log10() + ggplot2::scale_colour_manual(values = group_colors(tic$group)) + ggplot2::guides(shape = "none") +
+   37      ggplot2::labs(x = "Порядок ввода", y = "Суммарная интенсивность (TIC)", colour = NULL) + theme_um()
+   38    save_fig(s, g, out, "tic_by_order", 14, 9)
+   39    if (sum(qc) >= 2) {
+   40      r <- data.frame(rsd = 100 * rsd_cols(X[qc, , drop = FALSE])); r <- r[is.finite(r$rsd), , drop = FALSE]
+   41      g <- ggplot2::ggplot(r, ggplot2::aes(rsd)) + ggplot2::geom_histogram(bins = 50, fill = "grey60", colour = "white") +
+   42        ggplot2::geom_vline(xintercept = 100 * s$filter$max_qc_rsd, linetype = 2) +
+   43        ggplot2::labs(x = "RSD в QC, %", y = "Число признаков") + theme_um()
+   44      save_fig(s, g, out, "rsd_qc", 10, 8)
+   45    }
+   46    save_module(s, 2, c(d, list(qc_summary = summ)))
+   47  }
+   48  
+   49  # ------------------------------------------------------------------ модуль 3
+   50  module3_filter <- function(s) {
+   51    out <- module_dir(s, 3); d <- load_module(s, 2); f <- s$filter
+   52    X <- d$X; meta <- d$meta[rownames(X), ]
+   53    qc <- meta$kind == "QC"; bl <- meta$kind == "blank"
+   54    groups <- sort(unique(meta$group[meta$kind == "sample"]))
+   55    tab <- data.frame(id = colnames(X), mz = d$info$mz, rt_min = d$info$rt_min, stringsAsFactors = FALSE)
+   56    for (g in groups) tab[[paste0("detect_", g)]] <- colMeans(!is.na(X[meta$group == g, , drop = FALSE]))
+   57    keep_group <- apply(tab[paste0("detect_", groups)], 1, max) >= f$min_group_detect
+   58    steps <- data.frame(step = "Исходно", n = ncol(X))
+   59    keep <- keep_group
+   60    steps[nrow(steps) + 1, ] <- list(sprintf("Присутствие ≥ %.0f%% хотя бы в одной группе", 100 * f$min_group_detect), sum(keep))
+   61    if (sum(qc) >= 3) {
+   62      tab$detect_QC <- colMeans(!is.na(X[qc, , drop = FALSE]))
+   63      keep <- keep & tab$detect_QC >= f$min_qc_detect
+   64      steps[nrow(steps) + 1, ] <- list(sprintf("Обнаружение в QC ≥ %.0f%%", 100 * f$min_qc_detect), sum(keep))
+   65    }
+   66    if (any(bl)) {
+   67      B <- X[bl, , drop = FALSE]; B[is.na(B)] <- 0
+   68      ref <- if (any(qc)) X[qc, , drop = FALSE] else X[meta$kind == "sample", , drop = FALSE]
+   69      mb <- apply(B, 2, stats::median); mb[mb == 0] <- NA
+   70      tab$blank_ratio <- apply(ref, 2, stats::median, na.rm = TRUE) / mb
+   71      tab$blank_ratio[is.na(tab$blank_ratio)] <- Inf
+   72      keep <- keep & tab$blank_ratio >= f$blank_ratio
+   73      steps[nrow(steps) + 1, ] <- list(sprintf("Отношение к бланку ≥ %g", f$blank_ratio), sum(keep))
+   74    }
+   75    if (sum(qc) >= 3) {
+   76      tab$rsd_qc <- rsd_cols(X[qc, , drop = FALSE])
+   77      keep <- keep & !is.na(tab$rsd_qc) & tab$rsd_qc <= f$max_qc_rsd
+   78      steps[nrow(steps) + 1, ] <- list(sprintf("RSD в QC ≤ %.0f%%", 100 * f$max_qc_rsd), sum(keep))
+   79    } else log_msg("  QC меньше трёх — фильтр RSD не применяется")
+   80    tab$kept <- keep
+   81    for (i in seq_len(nrow(steps))) log_msg(sprintf("  %s: %d", steps$step[i], steps$n[i]))
+   82    n <- sum(keep)
+   83    inrange <- n >= f$target_min && n <= f$target_max
+   84    log_msg(sprintf("  Устойчивых признаков: %d (%s целевого диапазона %d–%d)", n, if (inrange) "в пределах" else "ВНЕ", f$target_min, f$target_max))
+   85    if (n < 2) stop("После фильтрации осталось меньше двух признаков — ослабьте пороги в настройках")
+   86    write_csv(tab, file.path(out, "feature_filter.csv")); write_csv(steps, file.path(out, "filter_steps.csv"))
+   87    Xf <- X[, keep, drop = FALSE]
+   88    write_csv(cbind(file = rownames(Xf), as.data.frame(Xf)), file.path(out, "filtered_peak_table.csv"))
+   89    save_module(s, 3, list(X = Xf, info = d$info[keep, ], meta = meta, filter = tab, steps = steps, in_target = inrange))
+   90  }
+   91  
+   92  # ------------------------------------------------------------------ модуль 4
+   93  module4_samples <- function(s) {
+   94    out <- module_dir(s, 4); d <- load_module(s, 3)
+   95    X <- d$X; meta <- d$meta[rownames(X), ]
+   96    use <- meta$kind == "sample"
+   97    if (length(s$samples$groups)) use <- use & meta$group %in% unlist(s$samples$groups)
+   98    X <- X[use, , drop = FALSE]; meta <- meta[use, ]
+   99    log_msg(sprintf("  Удалены QC и бланки: осталось %d инъекций", nrow(X)))
+  100    if (isTRUE(s$samples$average_replicates) && any(duplicated(meta$sample))) {
+  101      ng <- tapply(meta$group, meta$sample, function(g) length(unique(g)))
+  102      if (any(ng > 1)) stop("У повторов одного образца разные группы: ", paste(names(ng)[ng > 1], collapse = ", "))
+  103      sm <- unique(meta$sample)
+  104      A <- t(vapply(sm, function(k) { v <- colMeans(X[meta$sample == k, , drop = FALSE], na.rm = TRUE); v[is.nan(v)] <- NA; v }, numeric(ncol(X))))
+  105      m2 <- meta[match(sm, meta$sample), ]
+  106      m2$injection_order <- tapply(meta$injection_order, meta$sample, min)[sm]
+  107      m2$n_injections <- as.integer(table(meta$sample)[sm])
+  108      log_msg(sprintf("  Усреднены повторы: %d инъекций → %d образцов", nrow(X), length(sm)))
+  109      X <- A; rownames(X) <- sm; meta <- m2; rownames(meta) <- sm
+  110    } else { rownames(X) <- meta$sample; rownames(meta) <- meta$sample; meta$n_injections <- 1L }
+  111    o <- order(meta$injection_order)
+  112    X <- X[o, , drop = FALSE]; meta <- meta[o, ]
+  113    tab <- data.frame(sample = rownames(X), group = meta$group, injection_order = meta$injection_order, as.data.frame(X), check.names = FALSE)
+  114    write_csv(tab, file.path(out, "samples_matrix.csv"))
+  115    log_msg(sprintf("  Матрица образцов: %d × %d; группы: %s", nrow(X), ncol(X), paste(sprintf("%s %d", names(table(meta$group)), table(meta$group)), collapse = ", ")))
+  116    save_module(s, 4, list(X = X, info = d$info, meta = meta))
+  117  }
+
+==================== R/m5_m6_impute_correct.R ====================
+    1  # Модуль 5 — заполнение пропусков; модуль 6 — коррекция сигнала (EigenMS) и логарифмирование.
+    2  
+    3  # Заполнение пропусков случайным лесом по алгоритму missForest (Stekhoven, Bühlmann, 2012):
+    4  # начальное заполнение средним; на каждой итерации для каждого признака с пропусками лес обучается на
+    5  # наблюдённых значениях (предикторы — остальные признаки) и предсказывает пропуски; остановка, когда
+    6  # относительное изменение заполненных значений перестаёт уменьшаться (возвращается предыдущая итерация).
+    7  # Все признаки итерации обновляются по матрице предыдущей итерации, поэтому результат не зависит от
+    8  # числа потоков. Расчёт ведётся в шкале log2 (распределения интенсивностей сильно скошены).
+    9  rf_impute <- function(X, maxiter = 10, ntree = 100, cores = 1, seed = 1) {
+   10    L <- log2(X); miss <- is.na(L); p <- ncol(L)
+   11    vars <- which(colSums(miss) > 0)
+   12    if (!length(vars)) return(list(X = X, iterations = 0, nrmse_oob = NA, diff = numeric(0)))
+   13    vars <- vars[order(colSums(miss)[vars])]
+   14    Li <- L; for (j in vars) Li[miss[, j], j] <- mean(L[, j], na.rm = TRUE)
+   15    set.seed(seed); seeds <- matrix(sample.int(1e8, maxiter * p), maxiter)
+   16    diff_prev <- Inf; diffs <- numeric(0); oob <- NA
+   17    for (it in seq_len(maxiter)) {
+   18      cur <- Li
+   19      res <- par_lapply(vars, function(j) {
+   20        set.seed(seeds[it, j]); obs <- !miss[, j]
+   21        rf <- randomForest::randomForest(x = cur[obs, -j, drop = FALSE], y = cur[obs, j], ntree = ntree,
+   22                                         mtry = max(1, floor(sqrt(p - 1))))
+   23        list(pred = stats::predict(rf, cur[!obs, -j, drop = FALSE]), nmse = utils::tail(rf$mse, 1) / stats::var(cur[obs, j]))
+   24      }, cores)
+   25      new <- cur
+   26      for (k in seq_along(vars)) new[miss[, vars[k]], vars[k]] <- res[[k]]$pred
+   27      d <- sum((new[miss] - cur[miss])^2) / sum(new[miss]^2)
+   28      diffs <- c(diffs, d)
+   29      log_msg(sprintf("    итерация %d: относительное изменение %.2e", it, d))
+   30      if (d >= diff_prev) break                     # изменение перестало уменьшаться: остаётся предыдущая итерация (Li)
+   31      Li <- new; diff_prev <- d
+   32      oob <- sqrt(mean(vapply(res, `[[`, 0, "nmse"), na.rm = TRUE))
+   33    }
+   34    list(X = 2^Li, iterations = length(diffs), nrmse_oob = oob, diff = diffs)
+   35  }
+   36  
+   37  half_min_impute <- function(X) apply(X, 2, function(v) { v[is.na(v)] <- min(v, na.rm = TRUE) / 2; v })
+   38  
+   39  module5_impute <- function(s) {
+   40    out <- module_dir(s, 5); d <- load_module(s, 4); X <- d$X; m <- s$impute
+   41    pm <- 100 * mean(is.na(X))
+   42    log_msg(sprintf("  Пропусков: %.1f%% (%d значений); метод: %s", pm, sum(is.na(X)), m$method))
+   43    info <- list(method = m$method, missing_pct = pm)
+   44    if (m$method == "rf") {
+   45      r <- rf_impute(X, m$maxiter, m$ntree, s$project$cores, s$project$seed + 5)
+   46      Xi <- r$X; info$iterations <- r$iterations; info$nrmse_oob <- r$nrmse_oob
+   47      log_msg(sprintf("  Случайный лес (алгоритм missForest): итераций %d, оценка NRMSE (OOB) %.3f", r$iterations, r$nrmse_oob))
+   48    } else if (m$method == "missForest") {
+   49      if (!requireNamespace("missForest", quietly = TRUE)) stop("impute$method = missForest, но пакет missForest не установлен (или выберите rf)")
+   50      r <- missForest::missForest(as.data.frame(X), maxiter = m$maxiter, ntree = m$ntree)
+   51      Xi <- as.matrix(r$ximp); dimnames(Xi) <- dimnames(X); info$nrmse_oob <- unname(r$OOBerror[1])
+   52      log_msg(sprintf("  missForest: NRMSE (OOB) %.3f", info$nrmse_oob))
+   53    } else Xi <- half_min_impute(X)
+   54    stopifnot(!anyNA(Xi))
+   55    write_csv(data.frame(sample = rownames(Xi), group = d$meta$group, as.data.frame(Xi), check.names = FALSE), file.path(out, "imputed.csv"))
+   56    write_csv(as.data.frame(info), file.path(out, "impute_info.csv"))
+   57    save_module(s, 5, list(X = Xi, info = d$info, meta = d$meta, missing = is.na(X), impute = info))
+   58  }
+   59  
+   60  # EigenMS (Karpievitch et al., Bioinformatics 2009): остатки модели «признак ~ группа» раскладываются
+   61  # сингулярным разложением; число значимых трендов систематической ошибки определяется перестановочным
+   62  # тестом (Buja, Eyuboglu 1992; как в sva); тренды вычитаются из данных. Векторы трендов ортогональны
+   63  # дизайну групп, поэтому средние групп не меняются. ВНИМАНИЕ: метод использует метки групп — оценки
+   64  # точности классификации на скорректированных данных завышены (см. модуль 7, вложенная проверка).
+   65  eigenms <- function(L, groups, n_perm = 200, alpha = 0.05, seed = 1) {
+   66    Y <- t(L); n <- ncol(Y)
+   67    Xd <- stats::model.matrix(~ factor(groups))
+   68    Q <- diag(n) - Xd %*% solve(crossprod(Xd)) %*% t(Xd)
+   69    R <- Y %*% Q
+   70    sv <- svd(R)
+   71    kmax <- min(n - ncol(Xd), length(sv$d), 50)
+   72    ds <- (sv$d^2 / sum(sv$d^2))[seq_len(kmax)]
+   73    set.seed(seed); cnt <- numeric(kmax)
+   74    for (b in seq_len(n_perm)) {
+   75      Rp <- t(apply(R, 1, sample)) %*% Q
+   76      d0 <- svd(Rp, nu = 0, nv = 0)$d
+   77      cnt <- cnt + ((d0^2 / sum(d0^2))[seq_len(kmax)] >= ds)
+   78    }
+   79    p <- (cnt + 1) / (n_perm + 1)
+   80    p <- cummax(p)                                  # последовательная проверка: тренд k значим, только если значимы 1..k-1
+   81    k <- sum(p <= alpha)
+   82    Yn <- if (k > 0) Y - Y %*% sv$v[, seq_len(k), drop = FALSE] %*% t(sv$v[, seq_len(k), drop = FALSE]) else Y
+   83    list(L = t(Yn), n_trends = k, p = p, var_explained = ds, trends = sv$v[, seq_len(max(k, 1)), drop = FALSE])
+   84  }
+   85  
+   86  pqn_factors <- function(X) {
+   87    ref <- apply(X, 2, stats::median)
+   88    apply(sweep(X, 2, ref, "/"), 1, stats::median)
+   89  }
+   90  
+   91  sample_boxplot <- function(L, meta, title) {
+   92    ids <- rownames(L)
+   93    d <- data.frame(sample = factor(rep(ids, ncol(L)), levels = ids), value = as.vector(L), group = rep(meta[ids, "group"], ncol(L)))
+   94    ggplot2::ggplot(d, ggplot2::aes(sample, value, fill = group)) + ggplot2::geom_boxplot(outlier.shape = NA, linewidth = 0.2) +
+   95      ggplot2::scale_fill_manual(values = group_colors(d$group)) +
+   96      ggplot2::labs(x = "Образцы (в порядке ввода)", y = "Интенсивность (log2)", fill = NULL, title = title) + theme_um() +
+   97      ggplot2::theme(axis.text.x = ggplot2::element_blank(), axis.ticks.x = ggplot2::element_blank())
+   98  }
+   99  
+  100  module6_correct <- function(s) {
+  101    out <- module_dir(s, 6); d <- load_module(s, 5); X <- d$X; meta <- d$meta; cc <- s$correct
+  102    if (cc$normalization == "PQN") {
+  103      f <- pqn_factors(X); X <- X / f
+  104      log_msg(sprintf("  PQN: факторы разведения %.2f–%.2f", min(f), max(f)))
+  105    }
+  106    L0 <- if (isTRUE(cc$log2)) log2(X) else X
+  107    info <- list(normalization = cc$normalization, log2 = isTRUE(cc$log2), method = cc$method)
+  108    if (cc$method == "eigenms") {
+  109      e <- eigenms(L0, meta$group, cc$eigen_perm, cc$eigen_alpha, s$project$seed + 6)
+  110      L <- e$L; info$n_trends <- e$n_trends
+  111      log_msg(sprintf("  EigenMS: найдено и удалено трендов систематической ошибки: %d (перестановок %d)", e$n_trends, cc$eigen_perm))
+  112      write_csv(data.frame(trend = seq_along(e$p), var_explained = e$var_explained, p = e$p), file.path(out, "eigenms_trends.csv"))
+  113    } else L <- L0
+  114    save_fig(s, patchwork::wrap_plots(sample_boxplot(L0, meta, "(a) до коррекции"), sample_boxplot(L, meta, "(b) после коррекции"), ncol = 1),
+  115             out, "distribution_by_sample", 24, 14)
+  116    write_csv(data.frame(sample = rownames(L), group = meta$group, as.data.frame(L), check.names = FALSE), file.path(out, "corrected_log2.csv"))
+  117    write_csv(as.data.frame(info), file.path(out, "correct_info.csv"))
+  118    save_module(s, 6, list(L = L, L_raw = L0, info = d$info, meta = meta, correct = info))
+  119  }
+
+==================== R/m7_select.R ====================
+    1  # Модуль 7. Статистика и отбор признаков (гибридный алгоритм этапа 1, исправленный):
+    2  # ОСФ (одномерный статистический фильтр) → 4 модели caret → частота встречаемости (СПФ) → РОП (RFE).
+    3  # Поправка на множественные сравнения — по всем признакам, метод — параметр (по умолчанию Холм).
+    4  # Вложенная кросс-валидация повторяет весь отбор внутри обучающих блоков и даёт несмещённую оценку.
+    5  
+    6  # ------------------------------------------------------------------ ОСФ
+    7  uvf <- function(L, groups, p_adjust = "holm", alpha = 0.05) {
+    8    g <- factor(groups); k <- nlevels(g)
+    9    st1 <- p_adjust == "stage1"
+   10    safe <- function(expr) tryCatch(expr, error = function(e) NA_real_)
+   11    res <- lapply(seq_len(ncol(L)), function(j) {
+   12      v <- L[, j]
+   13      p_norm <- if (st1) safe(stats::shapiro.test(v)$p.value)                       # как на этапе 1: по всей выборке
+   14                else min(vapply(levels(g), function(l) { x <- v[g == l]; if (length(x) < 3 || stats::sd(x) == 0) NA_real_ else safe(stats::shapiro.test(x)$p.value) }, 0), na.rm = TRUE)
+   15      if (!is.finite(p_norm)) p_norm <- 0
+   16      p_hom <- safe(stats::bartlett.test(v, g)$p.value); if (is.na(p_hom)) p_hom <- 0
+   17      test <- if (p_norm < 0.05) "Уилкоксон" else if (p_hom < 0.05) "Уэлч" else "Стьюдент"
+   18      pin <- if (st1) "BH" else "holm"                                                 # поправка между парами групп (k > 2)
+   19      p <- if (k == 2) {
+   20        a <- v[g == levels(g)[1]]; b <- v[g == levels(g)[2]]
+   21        switch(test, "Уилкоксон" = safe(stats::wilcox.test(a, b, exact = FALSE)$p.value),
+   22               "Уэлч" = safe(stats::t.test(a, b, var.equal = FALSE)$p.value), "Стьюдент" = safe(stats::t.test(a, b, var.equal = TRUE)$p.value))
+   23      } else {
+   24        pm <- switch(test, "Уилкоксон" = safe(stats::pairwise.wilcox.test(v, g, p.adjust.method = pin, exact = FALSE)$p.value),
+   25                     "Уэлч" = safe(stats::pairwise.t.test(v, g, p.adjust.method = pin, pool.sd = FALSE)$p.value),
+   26                     "Стьюдент" = safe(stats::pairwise.t.test(v, g, p.adjust.method = pin, pool.sd = TRUE)$p.value))
+   27        min(pm, na.rm = TRUE)
+   28      }
+   29      c(p_norm = p_norm, p_homog = p_hom, p = p, test = match(test, c("Уилкоксон", "Уэлч", "Стьюдент")))
+   30    })
+   31    r <- as.data.frame(do.call(rbind, res)); r$id <- colnames(L)
+   32    r$test <- c("Уилкоксон", "Уэлч", "Стьюдент")[r$test]
+   33    r$p_adj <- if (p_adjust %in% c("stage1", "none")) r$p else stats::p.adjust(r$p, p_adjust)
+   34    r$selected <- !is.na(r$p_adj) & r$p_adj <= alpha
+   35    if (k == 2) r$log2FC <- colMeans(L[g == levels(g)[2], , drop = FALSE]) - colMeans(L[g == levels(g)[1], , drop = FALSE])
+   36    r[, c("id", setdiff(names(r), "id"))]
+   37  }
+   38  
+   39  # ------------------------------------------------------------------ модели caret и частота встречаемости
+   40  nb_funcs <- function() {                       # наивный байесовский классификатор (e1071) для caret::rfe
+   41    f <- caret::rfFuncs
+   42    f$fit <- function(x, y, first, last, ...) e1071::naiveBayes(x, y)
+   43    f$pred <- function(object, x) {
+   44      pr <- stats::predict(object, x, type = "raw")
+   45      data.frame(pred = factor(colnames(pr)[max.col(pr, ties.method = "first")], levels = colnames(pr)), pr, check.names = FALSE)
+   46    }
+   47    f$rank <- function(object, x, y) {
+   48      v <- caret::filterVarImp(x, y); v$Overall <- rowMeans(v)
+   49      v <- v[order(v$Overall, decreasing = TRUE), , drop = FALSE]; v$var <- rownames(v); v
+   50    }
+   51    f
+   52  }
+   53  
+   54  train_models <- function(df, s, seed) {
+   55    suppressPackageStartupMessages(library(caret))       # knn3, plsda и др. вызываются caret без префикса
+   56    sl <- s$select
+   57    B <- sl$cv_folds * sl$cv_repeats
+   58    fits <- list()
+   59    for (m in sl$models) {
+   60      ctrl <- caret::trainControl(method = "repeatedcv", number = sl$cv_folds, repeats = sl$cv_repeats,
+   61                                  seeds = caret_seeds(B, max(sl$tune_length, 25), seed + match(m, sl$models)))
+   62      fits[[m]] <- tryCatch(suppressWarnings(caret::train(Label ~ ., data = df, method = m, metric = "Accuracy",
+   63                                                          trControl = ctrl, tuneLength = sl$tune_length)),
+   64                            error = function(e) { log_msg("    модель ", m, " не обучена: ", conditionMessage(e)); NULL })
+   65    }
+   66    fits[!vapply(fits, is.null, TRUE)]
+   67  }
+   68  
+   69  top_features <- function(fit, n) {
+   70    imp <- caret::varImp(fit, scale = FALSE)$importance
+   71    rownames(imp) <- gsub("`", "", rownames(imp))
+   72    imp$sum <- rowSums(imp)
+   73    utils::head(rownames(imp)[order(-imp$sum)], n)
+   74  }
+   75  
+   76  run_rfe <- function(df, s, seed) {
+   77    sl <- s$select; x <- df[, -1, drop = FALSE]; y <- df$Label
+   78    sizes <- seq_len(ncol(x)); B <- sl$rfe_folds * sl$rfe_repeats
+   79    set.seed(seed)
+   80    seeds <- c(lapply(seq_len(B), function(i) sample.int(1e6, length(sizes) + 1)), list(sample.int(1e6, 1)))
+   81    ctrl <- caret::rfeControl(functions = if (sl$rfe_method == "nb") nb_funcs() else caret::rfFuncs, method = "repeatedcv",
+   82                              number = sl$rfe_folds, repeats = sl$rfe_repeats, seeds = seeds, verbose = FALSE)
+   83    suppressWarnings(caret::rfe(x, y, sizes = sizes, metric = "Accuracy", rfeControl = ctrl))
+   84  }
+   85  
+   86  # Весь отбор: ОСФ → модели → частота → РОП. Возвращает признаки каждого шага.
+   87  select_features <- function(L, groups, s, seed, verbose = TRUE) {
+   88    sl <- s$select; say <- function(...) if (verbose) log_msg(...)
+   89    u <- uvf(L, groups, sl$p_adjust, sl$alpha)
+   90    f_uvf <- u$id[u$selected]
+   91    say(sprintf("  ОСФ (поправка: %s, α = %g): %d из %d признаков", sl$p_adjust, sl$alpha, length(f_uvf), ncol(L)))
+   92    out <- list(uvf = u, f_uvf = f_uvf, f_spf = f_uvf, f_rfe = f_uvf, fits = list(), freq = NULL, rfe = NULL)
+   93    if (length(f_uvf) < 2) { say("  Меньше двух признаков после ОСФ: модели и РОП пропущены"); return(out) }
+   94    df <- data.frame(Label = factor(groups), L[, f_uvf, drop = FALSE], check.names = FALSE)
+   95    out$fits <- train_models(df, s, seed)
+   96    tops <- lapply(out$fits, top_features, n = sl$top_n)
+   97    freq <- sort(table(unlist(tops)), decreasing = TRUE)                  # частота встречаемости (вместо tuple::tuplicated)
+   98    out$freq <- data.frame(id = names(freq), n_models = as.integer(freq), stringsAsFactors = FALSE)
+   99    out$f_spf <- out$freq$id[out$freq$n_models >= min(sl$min_freq, length(out$fits))]
+  100    say(sprintf("  СПФ (в top-%d не менее чем у %d из %d моделей): %d признаков", sl$top_n, sl$min_freq, length(out$fits), length(out$f_spf)))
+  101    if (length(out$f_spf) < 2) { out$f_rfe <- out$f_spf; return(out) }
+  102    out$rfe <- run_rfe(data.frame(Label = factor(groups), L[, out$f_spf, drop = FALSE], check.names = FALSE), s, seed + 100)
+  103    out$f_rfe <- caret::predictors(out$rfe)                              # ds_rfe собирается из результата RFE
+  104    say(sprintf("  РОП (%s): %d признаков, точность CV %.3f", if (sl$rfe_method == "nb") "наивный Байес" else "случайный лес",
+  105                length(out$f_rfe), max(out$rfe$results$Accuracy)))
+  106    out
+  107  }
+  108  
+  109  mean_auroc <- function(L, groups) {           # средняя AUROC отдельных признаков (описательная, как на этапе 1)
+  110    v <- caret::filterVarImp(as.data.frame(L), factor(groups))
+  111    mean(rowMeans(v))
+  112  }
+  113  
+  114  auc_binary <- function(y, score) {
+  115    r <- rank(score); n1 <- sum(y == 1); n0 <- sum(y == 0)
+  116    (sum(r[y == 1]) - n1 * (n1 + 1) / 2) / (n1 * n0)
+  117  }
+  118  
+  119  # Вложенная кросс-валидация: отбор признаков и классификатор обучаются только на обучающем блоке
+  120  nested_cv <- function(L, groups, s, seed) {
+  121    sl <- s$select; g <- factor(groups); lev <- levels(g)
+  122    pred <- list(); chosen <- list(); k <- 0
+  123    for (r in seq_len(sl$nested_repeats)) {
+  124      set.seed(seed + r)
+  125      folds <- integer(length(g))
+  126      for (l in lev) { i <- which(g == l); folds[i[sample.int(length(i))]] <- rep_len(seq_len(sl$nested_folds), length(i)) }
+  127      for (f in seq_len(sl$nested_folds)) {
+  128        k <- k + 1; te <- folds == f; tr <- !te
+  129        sel <- select_features(L[tr, , drop = FALSE], g[tr], s, seed + 1000 * r + f, verbose = FALSE)
+  130        feats <- sel$f_rfe; chosen[[k]] <- feats
+  131        prob <- if (length(feats) == 0) matrix(rep(as.numeric(table(g[tr]) / sum(tr)), each = sum(te)), sum(te), dimnames = list(NULL, lev))
+  132        else if (sl$rfe_method == "nb") stats::predict(e1071::naiveBayes(L[tr, feats, drop = FALSE], g[tr]), L[te, feats, drop = FALSE], type = "raw")
+  133        else { set.seed(seed + k); stats::predict(randomForest::randomForest(L[tr, feats, drop = FALSE], g[tr]), L[te, feats, drop = FALSE], type = "prob") }
+  134        pred[[k]] <- data.frame(repeat_ = r, fold = f, sample = rownames(L)[te], truth = g[te],
+  135                                predicted = lev[max.col(prob, ties.method = "first")], prob, check.names = FALSE)
+  136        log_msg(sprintf("    вложенная CV: повтор %d, блок %d — признаков %d", r, f, length(feats)))
+  137      }
+  138    }
+  139    P <- do.call(rbind, pred)
+  140    per_rep <- lapply(split(P, P$repeat_), function(d) c(accuracy = mean(d$predicted == d$truth),
+  141                                                       auc = if (length(lev) == 2) auc_binary(as.integer(d$truth == lev[2]), d[[lev[2]]]) else NA))
+  142    M <- do.call(rbind, per_rep)
+  143    fr <- sort(table(unlist(chosen)), decreasing = TRUE)
+  144    list(predictions = P,
+  145         summary = data.frame(outer_folds = sl$nested_folds, repeats = sl$nested_repeats, input = sl$nested_input,
+  146                              accuracy_mean = mean(M[, "accuracy"]), accuracy_sd = if (nrow(M) > 1) stats::sd(M[, "accuracy"]) else NA,
+  147                              auc_mean = mean(M[, "auc"]), auc_sd = if (nrow(M) > 1) stats::sd(M[, "auc"]) else NA,
+  148                              mean_n_features = mean(lengths(chosen))),
+  149         frequency = data.frame(id = names(fr), share_of_folds = as.numeric(fr) / k, stringsAsFactors = FALSE))
+  150  }
+  151  
+  152  # Необязательно: модель с ковариатами (пол, возраст), если они есть в метаданных и групп две
+  153  covariate_model <- function(L, meta) {
+  154    g <- factor(meta$group); if (nlevels(g) != 2 || is.null(meta$sex) || is.null(meta$age)) return(NULL)
+  155    D <- data.frame(group = as.numeric(g == levels(g)[2]), sex = as.numeric(meta$sex == "M"), age = meta$age)
+  156    ok <- stats::complete.cases(D); if (sum(ok) < 10) return(NULL)
+  157    D <- D[ok, ]; used <- names(D)[vapply(D, stats::sd, 0) > 0]
+  158    Xd <- cbind(1, as.matrix(D[, used, drop = FALSE])); Y <- L[ok, , drop = FALSE]
+  159    XtX <- solve(crossprod(Xd)); b <- XtX %*% crossprod(Xd, Y); res <- Y - Xd %*% b; dof <- nrow(Xd) - ncol(Xd)
+  160    se <- sqrt(colSums(res^2) / dof * XtX[2, 2]); p <- 2 * stats::pt(abs(b[2, ] / se), dof, lower.tail = FALSE)
+  161    data.frame(id = colnames(L), log2FC_adjusted = b[2, ], p = p, p_BH = stats::p.adjust(p, "BH"), covariates = paste(used[-1], collapse = "+"))
+  162  }
+  163  
+  164  module7_select <- function(s) {
+  165    out <- module_dir(s, 7); d <- load_module(s, 6); sl <- s$select
+  166    meta <- d$meta; g <- factor(meta$group); info <- d$info
+  167    ann <- function(df) merge(info[, c("id", "mz", "rt_min", "name")], df, by = "id", sort = FALSE)
+  168    cl <- register_cores(s$project$cores); on.exit(stop_cores(cl))
+  169    sel <- select_features(d$L, g, s, s$project$seed + 7)
+  170    write_csv(ann(sel$uvf[order(sel$uvf$p), ]), file.path(out, "uvf_stats.csv"))
+  171    tab <- function(f) data.frame(sample = rownames(d$L), Label = g, d$L[, f, drop = FALSE], check.names = FALSE)
+  172    write_csv(tab(sel$f_uvf), file.path(out, "ds.csv")); write_csv(tab(sel$f_spf), file.path(out, "ds_d.csv"))
+  173    write_csv(tab(sel$f_rfe), file.path(out, "ds_rfe.csv"))
+  174    if (!is.null(sel$freq)) write_csv(ann(sel$freq), file.path(out, "feature_frequency.csv"))
+  175    if (!is.null(sel$rfe)) write_csv(sel$rfe$results, file.path(out, "rfe_profile.csv"))
+  176    acc <- data.frame()
+  177    addacc <- function(fits, set) for (m in names(fits))
+  178      acc <<- rbind(acc, data.frame(dataset = set, model = m, n_features = length(fits[[m]]$coefnames),
+  179                                    accuracy_cv = mean(fits[[m]]$resample$Accuracy), accuracy_sd = stats::sd(fits[[m]]$resample$Accuracy)))
+  180    addacc(sel$fits, "ds (после ОСФ)")
+  181    if (isTRUE(sl$compare_stages)) {
+  182      log_msg("  Точность моделей на всех признаках до и после коррекции (сравнение этапов)…")
+  183      addacc(train_models(data.frame(Label = g, d$L_raw, check.names = FALSE), s, s$project$seed + 71), "ds_raw (до коррекции)")
+  184      addacc(train_models(data.frame(Label = g, d$L, check.names = FALSE), s, s$project$seed + 72), "dsr (после коррекции)")
+  185    }
+  186    if (nrow(acc)) { write_csv(acc, file.path(out, "model_accuracy.csv"))
+  187      for (i in seq_len(nrow(acc))) log_msg(sprintf("    %s, %s: точность CV %.3f", acc$dataset[i], acc$model[i], acc$accuracy_cv[i])) }
+  188    steps <- data.frame(dataset = c("ds_raw (до коррекции)", "dsr (после коррекции)", "ds (после ОСФ)", "ds_d (после СПФ)", "ds_rfe (после РОП)"),
+  189                        n_features = c(ncol(d$L_raw), ncol(d$L), length(sel$f_uvf), length(sel$f_spf), length(sel$f_rfe)))
+  190    steps$mean_auroc_descriptive <- c(mean_auroc(d$L_raw, g), mean_auroc(d$L, g),
+  191                                      vapply(list(sel$f_uvf, sel$f_spf, sel$f_rfe), function(f) if (length(f)) mean_auroc(d$L[, f, drop = FALSE], g) else NA, 0))
+  192    write_csv(steps, file.path(out, "auroc_steps.csv"))
+  193    log_msg("  Число признаков и средняя AUROC по этапам (описательная): ",
+  194            paste(sprintf("%d (%.3f)", steps$n_features, steps$mean_auroc_descriptive), collapse = " → "))
+  195    nest <- NULL
+  196    if (isTRUE(sl$nested_cv)) {
+  197      log_msg(sprintf("  Вложенная кросс-валидация (%d блоков × %d повтора, данные: %s)…", sl$nested_folds, sl$nested_repeats,
+  198                      if (sl$nested_input == "imputed") "после заполнения пропусков, без EigenMS" else "после EigenMS — оценка завышена"))
+  199      nest <- nested_cv(if (sl$nested_input == "imputed") d$L_raw else d$L, g, s, s$project$seed + 700)
+  200      write_csv(nest$summary, file.path(out, "nested_cv.csv")); write_csv(nest$predictions, file.path(out, "nested_cv_predictions.csv"))
+  201      write_csv(ann(nest$frequency), file.path(out, "nested_cv_feature_frequency.csv"))
+  202      log_msg(sprintf("  Вложенная CV: точность %.3f, AUC %.3f (несмещённая оценка всей процедуры отбора)", nest$summary$accuracy_mean, nest$summary$auc_mean))
+  203    }
+  204    cov <- covariate_model(d$L_raw, meta)
+  205    if (!is.null(cov)) { write_csv(ann(cov[order(cov$p), ]), file.path(out, "covariate_model.csv"))
+  206      log_msg(sprintf("  Модель с поправкой на %s: q(BH) < 0,05 у %d признаков", cov$covariates[1], sum(cov$p_BH < 0.05))) }
+  207    save_module(s, 7, list(L = d$L, L_raw = d$L_raw, info = info, meta = meta, sel = sel[c("uvf", "f_uvf", "f_spf", "f_rfe", "freq")],
+  208                           rfe_results = if (!is.null(sel$rfe)) sel$rfe$results, accuracy = acc, steps = steps, nested = nest, covariate = cov))
+  209  }
+
+==================== R/m8_visual.R ====================
+    1  # Модуль 8. Визуализация: PCA и иерархическая кластеризация (Манхэттен, Уорд) на трёх этапах обработки,
+    2  # тепловая карта, диаграммы размаха по метаболитам, PLS-DA с VIP. PNG/JPEG с разрешением из настроек.
+    3  
+    4  feature_label <- function(info, ids) {
+    5    i <- match(ids, info$id)
+    6    ifelse(nzchar(info$name[i]) & info$name[i] != "Unknown", substr(info$name[i], 1, 28),
+    7           ifelse(is.na(info$mz[i]), ids, sprintf("m/z %.4f @ %.2f min", info$mz[i], info$rt_min[i])))
+    8  }
+    9  
+   10  draw_dendrogram <- function(L, groups, title, s) {
+   11    hc <- stats::hclust(stats::dist(L, method = s$visual$hca_distance), method = s$visual$hca_method)
+   12    cols <- group_colors(groups); gi <- stats::setNames(as.character(groups), rownames(L))
+   13    dd <- stats::dendrapply(stats::as.dendrogram(hc), function(n) {
+   14      if (stats::is.leaf(n)) attr(n, "nodePar") <- list(lab.col = cols[gi[attr(n, "label")]], pch = NA, lab.cex = 0.35)
+   15      n })
+   16    graphics::par(mar = c(3, 3, 2, 0.5), cex.main = 0.9)
+   17    plot(dd, main = title, ylab = "")
+   18    k <- length(unique(groups))
+   19    stats::rect.hclust(hc, k = k, border = "grey40")
+   20    graphics::legend("topright", legend = names(cols), text.col = cols, bty = "n", cex = 0.7)
+   21  }
+   22  
+   23  vip_pls <- function(m) {
+   24    W <- m$loading.weights; Tt <- m$scores; Q <- m$Yloadings
+   25    SS <- colSums(Tt^2) * colSums(matrix(Q^2, ncol = ncol(W)))
+   26    Wn <- sweep(W, 2, sqrt(colSums(W^2)), "/")
+   27    drop(sqrt(nrow(W) * (Wn^2 %*% SS) / sum(SS)))
+   28  }
+   29  
+   30  module8_visual <- function(s) {
+   31    out <- module_dir(s, 8); d <- load_module(s, 7); v <- s$visual
+   32    meta <- d$meta; g <- meta$group; info <- d$info; sel <- d$sel
+   33    sets <- list("A — до коррекции" = d$L_raw, "B — после коррекции" = d$L,
+   34                 "C — после отбора (ОСФ+СПФ+РОП)" = d$L[, sel$f_rfe, drop = FALSE])
+   35    pcs <- lapply(names(sets), function(n) if (ncol(sets[[n]]) >= 2) pca_plot(sets[[n]], g, n) else
+   36      ggplot2::ggplot() + ggplot2::annotate("text", x = 0, y = 0, label = "менее двух признаков") + ggplot2::theme_void() + ggplot2::labs(title = n))
+   37    save_fig(s, patchwork::wrap_plots(pcs, nrow = 1), out, "pca_stages", 26, 9)
+   38    save_base_fig(s, function() { graphics::par(mfrow = c(1, 3))
+   39      for (n in names(sets)) if (ncol(sets[[n]]) >= 1) draw_dendrogram(sets[[n]], g, n, s) }, out, "hca_stages", 30, 11)
+   40    hf <- if (length(sel$f_spf) >= 2) sel$f_spf else utils::head(sel$uvf$id[order(sel$uvf$p)], v$heatmap_top)
+   41    hf <- utils::head(hf, v$heatmap_top)
+   42    M <- t(scale(d$L[, hf, drop = FALSE])); rownames(M) <- make.unique(feature_label(info, hf)); M[M > 3] <- 3; M[M < -3] <- -3
+   43    ann <- data.frame(group = g, row.names = rownames(d$L))
+   44    save_base_fig(s, function() pheatmap::pheatmap(M, annotation_col = ann, show_colnames = FALSE, fontsize_row = 5,
+   45      clustering_distance_cols = v$hca_distance, clustering_method = v$hca_method, annotation_colors = list(group = group_colors(g)),
+   46      color = grDevices::colorRampPalette(c("#2166AC", "white", "#B2182B"))(101), main = "Heatmap: z-score, Ward"), out, "heatmap", 18, 16)
+   47    bf <- unique(c(sel$f_rfe, utils::head(sel$uvf$id[order(sel$uvf$p)], v$boxplot_top)))[seq_len(min(v$boxplot_top, ncol(d$L)))]
+   48    bd <- do.call(rbind, lapply(bf, function(f) data.frame(name = feature_label(info, f), value = d$L[, f], group = g)))
+   49    bd$name <- factor(bd$name, levels = unique(bd$name))
+   50    bp <- ggplot2::ggplot(bd, ggplot2::aes(group, value, fill = group)) + ggplot2::geom_boxplot(outlier.shape = NA, alpha = 0.6) +
+   51      ggplot2::geom_jitter(width = 0.15, size = 0.5) + ggplot2::facet_wrap(~name, scales = "free_y", ncol = 4) +
+   52      ggplot2::scale_fill_manual(values = group_colors(g), guide = "none") + ggplot2::labs(x = NULL, y = "log2 интенсивность") + theme_um() +
+   53      ggplot2::theme(strip.text = ggplot2::element_text(size = 6))
+   54    save_fig(s, bp, out, "boxplots_metabolites", 17, 4.5 * ceiling(length(bf) / 4) + 1)
+   55    Y <- stats::model.matrix(~ factor(g) - 1); Xs <- scale(d$L)
+   56    m <- pls::plsr(Y ~ Xs, ncomp = 2, scale = FALSE, method = if (ncol(Xs) > nrow(Xs)) "widekernelpls" else "kernelpls")
+   57    vip <- vip_pls(m); vt <- utils::head(order(-vip), v$vip_top)
+   58    vd <- data.frame(name = factor(feature_label(info, colnames(d$L)[vt]), levels = rev(make.unique(feature_label(info, colnames(d$L)[vt])))), vip = vip[vt])
+   59    vd$name <- factor(make.unique(as.character(vd$name)), levels = rev(make.unique(as.character(vd$name))))
+   60    pv <- ggplot2::ggplot(vd, ggplot2::aes(vip, name)) + ggplot2::geom_col(fill = "#0072B2") + ggplot2::geom_vline(xintercept = 1, linetype = 2) +
+   61      ggplot2::labs(x = "VIP", y = NULL, title = "PLS-DA: важность переменных (VIP)") + theme_um()
+   62    sc <- data.frame(t1 = m$scores[, 1], t2 = m$scores[, 2], group = g)
+   63    ps <- ggplot2::ggplot(sc, ggplot2::aes(t1, t2, colour = group)) + ggplot2::geom_point(size = 1.6) + ggplot2::stat_ellipse(level = 0.95) +
+   64      ggplot2::scale_colour_manual(values = group_colors(g)) + ggplot2::labs(x = "Компонента 1", y = "Компонента 2", colour = NULL, title = "PLS-DA: счета (описательно)") + theme_um()
+   65    save_fig(s, patchwork::wrap_plots(ps, pv, nrow = 1, widths = c(1, 1.2)), out, "plsda_vip", 24, 10)
+   66    write_csv(merge(info[, c("id", "mz", "rt_min", "name")], data.frame(id = colnames(d$L), vip = vip), by = "id")[order(-vip), ], file.path(out, "plsda_vip.csv"))
+   67    log_msg(sprintf("  Рисунки: PCA и ИКА по трём этапам, тепловая карта (%d признаков), диаграммы размаха (%d), PLS-DA/VIP; форматы: %s, %d dpi",
+   68                    length(hf), length(bf), paste(v$formats, collapse = ", "), v$dpi))
+   69    save_module(s, 8, list(figures = list.files(out, pattern = "\\.(png|jpg)$")))
+   70  }
+
+==================== R/m9_report.R ====================
+    1  # Модуль 9. База метаболомных признаков (CSV с дозаписью) и отчёт HTML (R Markdown; без pandoc —
+    2  # встроенный генератор HTML) со всеми таблицами, рисунками, журналом и sessionInfo().
+    3  
+    4  db_append <- function(df, path) {
+    5    if (file.exists(path)) {
+    6      h <- names(data.table::fread(path, nrows = 0))
+    7      if (!identical(h, names(df))) stop("Структура базы ", path, " не совпадает с текущей версией — укажите другую папку базы")
+    8      data.table::fwrite(df, path, append = TRUE)
+    9    } else data.table::fwrite(df, path, bom = TRUE)
+   10  }
+   11  
+   12  module9_report <- function(s) {
+   13    out <- module_dir(s, 9); d <- load_module(s, 7)
+   14    run_id <- .ue$run_id %||% format(Sys.time(), "%Y%m%d_%H%M%S")
+   15    # ---------------- база признаков
+   16    db <- project_path(s, s$report$database); dir.create(db, showWarnings = FALSE, recursive = TRUE)
+   17    m3 <- load_module(s, 3); m4 <- load_module(s, 4)
+   18    u <- d$sel$uvf; ids <- colnames(d$L)
+   19    ft <- data.frame(run_id = run_id, date = format(Sys.Date()), project = s$project$name, id = ids,
+   20                     d$info[match(ids, d$info$id), c("mz", "rt_min", "name")],
+   21                     rsd_qc = m3$filter$rsd_qc[match(ids, m3$filter$id)] %||% NA,
+   22                     p_uvf = u$p[match(ids, u$id)], p_adj = u$p_adj[match(ids, u$id)],
+   23                     log2FC = if (!is.null(u$log2FC)) u$log2FC[match(ids, u$id)] else NA,
+   24                     selected_uvf = ids %in% d$sel$f_uvf,
+   25                     n_models = if (!is.null(d$sel$freq)) d$sel$freq$n_models[match(ids, d$sel$freq$id)] else NA,
+   26                     selected_spf = ids %in% d$sel$f_spf, selected_rfe = ids %in% d$sel$f_rfe,
+   27                     nested_share = if (!is.null(d$nested)) d$nested$frequency$share_of_folds[match(ids, d$nested$frequency$id)] else NA)
+   28    inten <- data.frame(run_id = run_id, sample = rep(rownames(m4$X), ncol(m4$X)), group = rep(m4$meta$group, ncol(m4$X)),
+   29                        id = rep(colnames(m4$X), each = nrow(m4$X)),
+   30                        mz = rep(d$info$mz[match(colnames(m4$X), d$info$id)], each = nrow(m4$X)),
+   31                        rt_min = rep(d$info$rt_min[match(colnames(m4$X), d$info$id)], each = nrow(m4$X)),
+   32                        intensity_raw = as.vector(m4$X), log2_corrected = as.vector(d$L[rownames(m4$X), colnames(m4$X)]))
+   33    runs <- data.frame(run_id = run_id, date = format(Sys.time(), "%Y-%m-%d %H:%M"), project = s$project$name, version = UROMETABR_VERSION,
+   34                       input = basename(if (s$input$type == "table") s$input$table_file else s$input$raw_dir),
+   35                       n_samples = nrow(d$L), groups = paste(sprintf("%s:%d", names(table(d$meta$group)), table(d$meta$group)), collapse = " "),
+   36                       n_features = ncol(d$L), n_uvf = length(d$sel$f_uvf), n_spf = length(d$sel$f_spf), n_rfe = length(d$sel$f_rfe),
+   37                       p_adjust = s$select$p_adjust, seed = s$project$seed)
+   38    db_append(runs, file.path(db, "runs_db.csv")); db_append(ft, file.path(db, "features_db.csv")); db_append(inten, file.path(db, "intensities_db.csv"))
+   39    log_msg(sprintf("  База признаков (%s): добавлено %d признаков, %d значений интенсивности (прогон %s)", db, nrow(ft), nrow(inten), run_id))
+   40    # ---------------- отчёт
+   41    sec <- report_sections(s, run_id)
+   42    saveRDS(sec, file.path(out, "report_sections.rds"))
+   43    f <- file.path(out, "report.html")
+   44    rendered <- FALSE
+   45    if (isTRUE(s$report$rmarkdown) && requireNamespace("rmarkdown", quietly = TRUE) && rmarkdown::pandoc_available()) {
+   46      tpl <- file.path(getOption("urometabr.root", "."), "templates", "report.Rmd")
+   47      rendered <- tryCatch({
+   48        rmarkdown::render(tpl, output_file = "report.html", output_dir = out, intermediates_dir = tempdir(),
+   49                          params = list(sections = file.path(out, "report_sections.rds")), quiet = TRUE, envir = new.env())
+   50        TRUE }, error = function(e) { log_msg("  R Markdown недоступен (", conditionMessage(e), ") — встроенный генератор HTML"); FALSE })
+   51    }
+   52    if (!rendered) write_html(sec, f)
+   53    log_msg("  Отчёт: ", f, if (rendered) " (R Markdown)" else " (встроенный генератор)")
+   54    save_module(s, 9, list(report = f, database = db, run_id = run_id))
+   55  }
+   56  
+   57  # Содержание отчёта: список разделов (текст, таблицы, рисунки) — общий для R Markdown и встроенного HTML
+   58  report_sections <- function(s, run_id) {
+   59    P <- function(id, f) file.path(s$project$dir, MODULES$dir[MODULES$id == id], f)
+   60    rd <- function(id, f) if (file.exists(P(id, f))) as.data.frame(data.table::fread(P(id, f), encoding = "UTF-8")) else NULL
+   61    img <- function(id, f) { p <- P(id, paste0(f, ".png")); if (file.exists(p)) p else NULL }
+   62    logs <- file.path(s$project$dir, "logs")
+   63    lastf <- function(pat) { f <- sort(list.files(logs, pattern = pat, full.names = TRUE)); if (length(f)) utils::tail(f, 1) else NULL }
+   64    m7 <- load_module(s, 7)
+   65    sec <- list(
+   66      list(title = "Сведения о прогоне", text = c(sprintf("%s. Версия %s (%s).", PROGRAM_NAME, UROMETABR_VERSION, UROMETABR_DATE),
+   67             sprintf("Проект: %s; папка: %s; прогон %s; seed %s.", s$project$name, s$project$dir, run_id, s$project$seed)),
+   68           tables = list("Время и память по модулям" = if (!is.null(lastf("^modules_"))) as.data.frame(data.table::fread(lastf("^modules_"), encoding = "UTF-8")))),
+   69      list(title = "0. Входные данные", tables = list("Проверки" = rd(0, "input_check.csv"))),
+   70      list(title = "2. Контроль качества", tables = list("Сводка" = rd(2, "qc_summary.csv"), "Пропуски по группам" = rd(2, "missing_by_group.csv")),
+   71           images = c(img(2, "pca_qc"), img(2, "tic_by_order"), img(2, "rsd_qc"))),
+   72      list(title = "3. Фильтр устойчивых признаков", tables = list("Шаги фильтрации" = rd(3, "filter_steps.csv"))),
+   73      list(title = "5. Заполнение пропусков", tables = list(rd(5, "impute_info.csv"))),
+   74      list(title = "6. Коррекция сигнала", tables = list(rd(6, "correct_info.csv")), images = img(6, "distribution_by_sample")),
+   75      list(title = "7. Статистика и отбор признаков",
+   76           text = "Средняя AUROC по этапам — описательная величина (признаки отобраны по тем же данным). Несмещённая оценка — вложенная кросс-валидация.",
+   77           tables = list("Число признаков и средняя AUROC по этапам" = rd(7, "auroc_steps.csv"), "Точность моделей (кросс-валидация)" = rd(7, "model_accuracy.csv"),
+   78                         "Вложенная кросс-валидация" = rd(7, "nested_cv.csv"),
+   79                         "Признаки после РОП" = { x <- rd(7, "uvf_stats.csv"); if (!is.null(x)) x[x$id %in% m7$sel$f_rfe, ] },
+   80                         "ОСФ: 30 признаков с наименьшими p" = utils::head(rd(7, "uvf_stats.csv"), 30),
+   81                         "Модель с поправкой на пол и возраст (30 первых)" = utils::head(rd(7, "covariate_model.csv"), 30))),
+   82      list(title = "8. Визуализация", images = c(img(8, "pca_stages"), img(8, "hca_stages"), img(8, "heatmap"), img(8, "boxplots_metabolites"), img(8, "plsda_vip"))),
+   83      list(title = "9. База признаков", text = sprintf("Записи добавлены в %s (runs_db.csv, features_db.csv, intensities_db.csv).", project_path(s, s$report$database))),
+   84      list(title = "Журнал прогона", pre = if (!is.null(.ue$log_file)) readLines(.ue$log_file, encoding = "UTF-8")),
+   85      list(title = "sessionInfo()", pre = utils::capture.output(utils::sessionInfo())))
+   86    sec
+   87  }
+   88  
+   89  html_esc <- function(x) { x <- gsub("&", "&amp;", x); x <- gsub("<", "&lt;", x); gsub(">", "&gt;", x) }
+   90  html_tab <- function(d) {
+   91    if (is.null(d) || !nrow(d)) return("")
+   92    f <- function(v) if (is.numeric(v)) formatC(v, digits = 4, format = "g") else html_esc(as.character(v))
+   93    rows <- apply(as.data.frame(lapply(d, f)), 1, function(r) paste0("<tr><td>", paste(r, collapse = "</td><td>"), "</td></tr>"))
+   94    paste0("<table><tr><th>", paste(html_esc(names(d)), collapse = "</th><th>"), "</th></tr>", paste(rows, collapse = ""), "</table>")
+   95  }
+   96  write_html <- function(sec, f) {
+   97    body <- vapply(sec, function(x) {
+   98      tb <- if (length(x$tables)) paste(vapply(seq_along(x$tables), function(i) {
+   99        nm <- names(x$tables)[i]; paste0(if (!is.null(nm) && nzchar(nm)) paste0("<h4>", html_esc(nm), "</h4>") else "", html_tab(x$tables[[i]])) }, ""), collapse = "") else ""
+  100      im <- paste(vapply(x$images %||% character(0), function(p)
+  101        sprintf("<img src=\"data:image/png;base64,%s\"/>", jsonlite::base64_enc(readBin(p, "raw", file.info(p)$size))), ""), collapse = "")
+  102      paste0("<h2>", html_esc(x$title), "</h2>", paste0("<p>", html_esc(x$text %||% character(0)), "</p>", collapse = ""), tb, im,
+  103             if (length(x$pre)) paste0("<pre>", html_esc(paste(x$pre, collapse = "\n")), "</pre>") else "")
+  104    }, "")
+  105    css <- "body{font-family:Arial,sans-serif;max-width:1100px;margin:20px auto;padding:0 16px}table{border-collapse:collapse;font-size:12px}td,th{border:1px solid #ccc;padding:2px 6px}th{background:#eee}img{max-width:100%;margin:8px 0}pre{background:#f6f6f6;padding:8px;font-size:11px;white-space:pre-wrap}"
+  106    writeLines(c("<!doctype html><html lang=\"ru\"><head><meta charset=\"utf-8\"><title>Отчёт UroMetabR</title><style>", css, "</style></head><body>",
+  107                 paste0("<h1>Отчёт о прогоне UroMetabR ", UROMETABR_VERSION, "</h1>"), body, "</body></html>"), f, useBytes = TRUE)
+  108  }
+
+==================== R/zz_setup.R ====================
+    1  # Пакеты и загрузка модулей утилиты.
+    2  
+    3  REQUIRED_PACKAGES <- c("data.table", "yaml", "ggplot2", "patchwork", "pheatmap", "caret", "e1071", "kernlab",
+    4                         "randomForest", "pls", "foreach", "doParallel", "jsonlite", "shiny", "rmarkdown", "knitr")
+    5  OPTIONAL_PACKAGES <- c(xcms = "Bioconductor: обработка mzML/mzXML/CDF (модуль 1)", MSnbase = "Bioconductor: чтение сырых данных (модуль 1)",
+    6                         IPO = "Bioconductor: оптимизация параметров xcms (модуль 1)", missForest = "CRAN: альтернативная реализация заполнения пропусков")
+    7  
+    8  missing_packages <- function() REQUIRED_PACKAGES[!vapply(REQUIRED_PACKAGES, requireNamespace, TRUE, quietly = TRUE)]
+    9  
+   10  install_missing <- function(repos = "https://cloud.r-project.org") {
+   11    miss <- missing_packages()
+   12    if (length(miss)) { message("Установка пакетов: ", paste(miss, collapse = ", ")); utils::install.packages(miss, repos = repos) }
+   13    miss <- missing_packages()
+   14    if (length(miss)) stop("Не удалось установить: ", paste(miss, collapse = ", "))
+   15    invisible(TRUE)
+   16  }
+   17  
+   18  load_urometabr <- function(root) {
+   19    if (!isTRUE(l10n_info()$`UTF-8`))
+   20      for (loc in c("C.UTF-8", "en_US.UTF-8", "ru_RU.UTF-8", "Russian_Russia.utf8")) if (nzchar(suppressWarnings(Sys.setlocale("LC_CTYPE", loc)))) break
+   21    options(urometabr.root = normalizePath(root, winslash = "/"), urometabr.dir = file.path(normalizePath(root, winslash = "/"), "R"))
+   22    for (f in sort(list.files(file.path(root, "R"), pattern = "\\.R$", full.names = TRUE))) sys.source(f, envir = globalenv(), keep.source = FALSE)
+   23    invisible(TRUE)
+   24  }
+
+==================== app/app.R ====================
+    1  # Графический интерфейс UroMetabR (Shiny). Запуск: Start_UroMetabR.bat (Windows), start_urometabr.sh
+    2  # (Linux/macOS) или в R: shiny::runApp("app"). Пользователь выбирает папку проекта, файлы данных и
+    3  # параметры; обработка идёт в отдельном процессе R, журнал обновляется на экране.
+    4  
+    5  library(shiny)
+    6  root <- getOption("urometabr.root", normalizePath(file.path(getwd(), if (basename(getwd()) == "app") ".." else ".")))
+    7  source(file.path(root, "R", "zz_setup.R"), encoding = "UTF-8"); load_urometabr(root)
+    8  
+    9  is_win <- .Platform$OS.type == "windows"
+   10  pick_dir <- function() if (is_win) utils::choose.dir() else NA
+   11  pick_file <- function() if (is_win) tryCatch(utils::choose.files(multi = FALSE), error = function(e) NA) else NA
+   12  num <- function(id, label, value, step = NULL, min = NA, max = NA) numericInput(id, label, value, min = min, max = max, step = step, width = "100%")
+   13  
+   14  ui <- fluidPage(
+   15    tags$head(tags$script(HTML("$(document).on('shiny:value', function(e){ if (e.name === 'log_text') setTimeout(function(){ var d = document.getElementById('log_box'); d.scrollTop = d.scrollHeight; }, 50); });")),
+   16              tags$style("body{font-size:14px} #fig_img img{max-width:900px} .mono{font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;background:#f6f6f6;padding:8px;max-height:420px;overflow-y:auto}")),
+   17    titlePanel(div(h3(PROGRAM_NAME), tags$small(paste("UroMetabR", UROMETABR_VERSION, "от", UROMETABR_DATE)))),
+   18    fluidRow(column(7, textInput("proj", "Папка проекта (результаты всех модулей сохраняются в ней)", width = "100%")),
+   19             column(2, br(), actionButton("proj_pick", "Выбрать…", width = "100%")),
+   20             column(3, br(), actionButton("proj_open", "Открыть / создать проект", class = "btn-primary", width = "100%"))),
+   21    textOutput("proj_status"),
+   22    tabsetPanel(id = "tabs",
+   23      tabPanel("1. Данные", br(),
+   24        radioButtons("in_type", "Тип входных данных", c("Готовая таблица признаков (CSV, TSV, TXT, экспорт MS-DIAL)" = "table",
+   25                                                        "Сырые данные (папка с mzML / mzXML / CDF; нужен пакет xcms)" = "raw")),
+   26        conditionalPanel("input.in_type == 'table'",
+   27          fluidRow(column(8, textInput("table_file", "Файл таблицы признаков", width = "100%")),
+   28                   column(2, br(), actionButton("table_pick", "Выбрать…", width = "100%")),
+   29                   column(2, fileInput("table_up", "или загрузить", buttonLabel = "Файл…", placeholder = "")))),
+   30        conditionalPanel("input.in_type == 'raw'",
+   31          fluidRow(column(8, textInput("raw_dir", "Папка с файлами mzML / mzXML / CDF", width = "100%")),
+   32                   column(2, br(), actionButton("raw_pick", "Выбрать…", width = "100%")))),
+   33        fluidRow(column(8, textInput("meta_file", "Файл метаданных (столбцы: file, group; необязательно: sample, injection_order, replicate, include, sex, age)", width = "100%")),
+   34                 column(2, br(), actionButton("meta_pick", "Выбрать…", width = "100%")),
+   35                 column(2, fileInput("meta_up", "или загрузить", buttonLabel = "Файл…", placeholder = ""))),
+   36        actionButton("check", "Проверить данные (модуль 0)", class = "btn-info"), br(), br(),
+   37        tableOutput("check_tab")),
+   38      tabPanel("2. Параметры", br(),
+   39        fluidRow(
+   40          column(4, h4("Фильтр (модуль 3)"),
+   41                 num("f_rsd", "Макс. RSD в QC", 0.30, 0.05, 0, 1), num("f_grp", "Мин. доля присутствия в группе", 0.5, 0.05, 0, 1),
+   42                 num("f_qc", "Мин. доля обнаружения в QC", 0.8, 0.05, 0, 1), num("f_blank", "Мин. отношение к бланку", 5, 1, 1),
+   43                 h4("Пропуски и коррекция (5–6)"),
+   44                 selectInput("imp", "Заполнение пропусков", c("Случайный лес, алгоритм missForest" = "rf", "Пакет missForest" = "missForest", "½ минимума" = "halfmin")),
+   45                 num("imp_iter", "Макс. итераций", 10, 1, 1), num("imp_tree", "Деревьев", 100, 10, 10),
+   46                 selectInput("norm", "Нормализация", c("нет" = "none", "PQN" = "PQN")),
+   47                 selectInput("corr", "Коррекция сигнала", c("EigenMS" = "eigenms", "нет" = "none")), num("eig_perm", "Перестановок EigenMS", 200, 50, 20)),
+   48          column(4, h4("Отбор признаков (модуль 7)"),
+   49                 selectInput("padj", "Поправка на множественные сравнения", c("Холм–Бонферрони" = "holm", "Бенджамини–Хохберг (FDR)" = "BH",
+   50                                                                              "без поправки" = "none", "как на этапе 1 (без поправки по признакам)" = "stage1")),
+   51                 num("alpha", "Уровень значимости", 0.05, 0.01, 0.001, 0.2),
+   52                 checkboxGroupInput("models", "Модели", c("KNN" = "knn", "SVM (радиальное ядро)" = "svmRadial", "PLS" = "pls", "Случайный лес" = "rf"),
+   53                                    c("knn", "svmRadial", "pls", "rf"), inline = TRUE),
+   54                 num("top_n", "Важнейших признаков на модель", 50, 5, 5), num("min_freq", "Мин. число моделей", 2, 1, 1, 4),
+   55                 selectInput("rfe", "РОП: классификатор", c("наивный Байес" = "nb", "случайный лес" = "rf")),
+   56                 checkboxInput("nested", "Вложенная кросс-валидация (несмещённая оценка точности)", TRUE),
+   57                 num("n_folds", "Блоков вложенной CV", 5, 1, 3, 10), num("n_rep", "Повторов вложенной CV", 2, 1, 1, 10)),
+   58          column(4, h4("Общие"),
+   59                 textInput("pname", "Название проекта", "Проект"), num("seed", "Seed (одно число для всех модулей)", 20261026, 1),
+   60                 num("cores", "Потоков", 1, 1, 1, 64), num("dpi", "Разрешение рисунков, dpi", 600, 50, 72, 1200),
+   61                 checkboxGroupInput("fmt", "Форматы рисунков", c("PNG" = "png", "JPEG" = "jpeg"), c("png", "jpeg"), inline = TRUE),
+   62                 textInput("db", "Папка базы признаков (дозапись)", "features_db"),
+   63                 h4("xcms (модуль 1, сырые данные)"),
+   64                 num("x_ppm", "ppm", 5, 1, 1), num("x_pw1", "Мин. ширина пика, с", 5, 1, 1), num("x_pw2", "Макс. ширина пика, с", 30, 1, 2),
+   65                 num("x_minfrac", "minFraction", 0.5, 0.05, 0, 1), checkboxInput("x_ipo", "Оптимизировать параметры (IPO)", FALSE))),
+   66        actionButton("save", "Сохранить настройки", class = "btn-primary"), textOutput("save_status"), br()),
+   67      tabPanel("3. Запуск", br(),
+   68        fluidRow(column(3, selectInput("from", "С модуля", setNames(0:9, paste(0:9, MODULES$title)), 0)),
+   69                 column(3, selectInput("to", "по модуль", setNames(0:9, paste(0:9, MODULES$title)), 9)),
+   70                 column(3, br(), actionButton("run", "Запустить обработку", class = "btn-success", width = "100%"))),
+   71        h4(textOutput("run_state")), tableOutput("mod_tab"), div(id = "log_box", class = "mono", textOutput("log_text"))),
+   72      tabPanel("4. Результаты", br(),
+   73        actionButton("open_report", "Открыть отчёт (HTML)", class = "btn-primary"), actionButton("open_dir", "Открыть папку проекта"), br(), br(),
+   74        h4("Число признаков и средняя AUROC по этапам"), tableOutput("res_steps"),
+   75        h4("Вложенная кросс-валидация"), tableOutput("res_nested"),
+   76        h4("Отобранные признаки (РОП)"), tableOutput("res_rfe"),
+   77        selectInput("fig", "Рисунок", character(0), width = "60%"), imageOutput("fig_img", height = "auto")),
+   78      tabPanel("Справка", br(), includeMarkdown(file.path(root, "docs", "user_guide.md"))))
+   79  )
+   80  
+   81  server <- function(input, output, session) {
+   82    rv <- reactiveValues(s = NULL, running = FALSE, started = NULL, msg = "")
+   83    observeEvent(input$proj_pick, { d <- pick_dir(); if (!is.na(d)) updateTextInput(session, "proj", value = d)
+   84      else showNotification("Выбор папки окном доступен в Windows; введите путь вручную", type = "warning") })
+   85    for (k in c("table", "meta")) local({ kk <- k
+   86      observeEvent(input[[paste0(kk, "_pick")]], { f <- pick_file(); if (length(f) && !is.na(f)) updateTextInput(session, paste0(kk, "_file"), value = f)
+   87        else showNotification("Выбор файла окном доступен в Windows; введите путь или загрузите файл", type = "warning") })
+   88      observeEvent(input[[paste0(kk, "_up")]], {
+   89        req(rv$s); up <- input[[paste0(kk, "_up")]]; d <- file.path(rv$s$project$dir, "input"); dir.create(d, showWarnings = FALSE)
+   90        f <- file.path(d, up$name); file.copy(up$datapath, f, overwrite = TRUE); updateTextInput(session, paste0(kk, "_file"), value = f) }) })
+   91    observeEvent(input$raw_pick, { d <- pick_dir(); if (!is.na(d)) updateTextInput(session, "raw_dir", value = d) })
+   92  
+   93    fill_ui <- function(s) {
+   94      upd <- function(id, v) updateNumericInput(session, id, value = v)
+   95      updateTextInput(session, "pname", value = s$project$name); upd("seed", s$project$seed); upd("cores", s$project$cores)
+   96      updateRadioButtons(session, "in_type", selected = s$input$type)
+   97      updateTextInput(session, "table_file", value = s$input$table_file); updateTextInput(session, "meta_file", value = s$input$metadata_file)
+   98      updateTextInput(session, "raw_dir", value = s$input$raw_dir)
+   99      upd("f_rsd", s$filter$max_qc_rsd); upd("f_grp", s$filter$min_group_detect); upd("f_qc", s$filter$min_qc_detect); upd("f_blank", s$filter$blank_ratio)
+  100      updateSelectInput(session, "imp", selected = s$impute$method); upd("imp_iter", s$impute$maxiter); upd("imp_tree", s$impute$ntree)
+  101      updateSelectInput(session, "norm", selected = s$correct$normalization); updateSelectInput(session, "corr", selected = s$correct$method); upd("eig_perm", s$correct$eigen_perm)
+  102      updateSelectInput(session, "padj", selected = s$select$p_adjust); upd("alpha", s$select$alpha)
+  103      updateCheckboxGroupInput(session, "models", selected = s$select$models); upd("top_n", s$select$top_n); upd("min_freq", s$select$min_freq)
+  104      updateSelectInput(session, "rfe", selected = s$select$rfe_method); updateCheckboxInput(session, "nested", value = isTRUE(s$select$nested_cv))
+  105      upd("n_folds", s$select$nested_folds); upd("n_rep", s$select$nested_repeats); upd("dpi", s$visual$dpi)
+  106      updateCheckboxGroupInput(session, "fmt", selected = s$visual$formats); updateTextInput(session, "db", value = s$report$database)
+  107      upd("x_ppm", s$xcms$ppm); upd("x_pw1", s$xcms$min_peakwidth); upd("x_pw2", s$xcms$max_peakwidth); upd("x_minfrac", s$xcms$min_fraction)
+  108      updateCheckboxInput(session, "x_ipo", value = isTRUE(s$xcms$ipo))
+  109    }
+  110    collect <- function() {
+  111      s <- rv$s
+  112      s$project$name <- input$pname; s$project$seed <- input$seed; s$project$cores <- input$cores
+  113      s$input$type <- input$in_type; s$input$table_file <- input$table_file; s$input$metadata_file <- input$meta_file; s$input$raw_dir <- input$raw_dir
+  114      s$filter$max_qc_rsd <- input$f_rsd; s$filter$min_group_detect <- input$f_grp; s$filter$min_qc_detect <- input$f_qc; s$filter$blank_ratio <- input$f_blank
+  115      s$impute$method <- input$imp; s$impute$maxiter <- input$imp_iter; s$impute$ntree <- input$imp_tree
+  116      s$correct$normalization <- input$norm; s$correct$method <- input$corr; s$correct$eigen_perm <- input$eig_perm
+  117      s$select$p_adjust <- input$padj; s$select$alpha <- input$alpha; s$select$models <- input$models; s$select$top_n <- input$top_n
+  118      s$select$min_freq <- input$min_freq; s$select$rfe_method <- input$rfe; s$select$nested_cv <- input$nested
+  119      s$select$nested_folds <- input$n_folds; s$select$nested_repeats <- input$n_rep
+  120      s$visual$dpi <- input$dpi; s$visual$formats <- input$fmt; s$report$database <- input$db
+  121      s$xcms$ppm <- input$x_ppm; s$xcms$min_peakwidth <- input$x_pw1; s$xcms$max_peakwidth <- input$x_pw2
+  122      s$xcms$min_fraction <- input$x_minfrac; s$xcms$ipo <- input$x_ipo
+  123      s$run$from <- as.integer(input$from); s$run$to <- as.integer(input$to)
+  124      s
+  125    }
+  126    save_s <- function() { s <- collect(); check_settings(s); write_settings(s, s$settings_file); rv$s <- read_settings(s$settings_file); rv$s }
+  127  
+  128    observeEvent(input$proj_open, {
+  129      d <- trimws(input$proj); if (!nzchar(d)) { showNotification("Укажите папку проекта", type = "error"); return() }
+  130      dir.create(d, showWarnings = FALSE, recursive = TRUE); f <- file.path(d, "settings.yaml")
+  131      if (!file.exists(f)) write_settings(default_settings(), f)
+  132      rv$s <- tryCatch(read_settings(f), error = function(e) { showNotification(conditionMessage(e), type = "error"); NULL })
+  133      if (!is.null(rv$s)) fill_ui(rv$s)
+  134    })
+  135    output$proj_status <- renderText(if (is.null(rv$s)) "Проект не открыт" else paste("Открыт проект:", rv$s$project$dir, "— настройки:", rv$s$settings_file))
+  136    observeEvent(input$save, { req(rv$s); r <- tryCatch({ save_s(); "Настройки сохранены" }, error = function(e) conditionMessage(e)); output$save_status <- renderText(r) })
+  137    observeEvent(input$check, {
+  138      req(rv$s); s <- tryCatch(save_s(), error = function(e) { showNotification(conditionMessage(e), type = "error"); NULL }); req(s)
+  139      log_start(s); r <- tryCatch({ module0_input(s); NULL }, error = function(e) conditionMessage(e))
+  140      if (!is.null(r)) { showNotification(r, type = "error", duration = NULL); output$check_tab <- renderTable(data.frame(Ошибка = r)) }
+  141      else output$check_tab <- renderTable(utils::read.csv(file.path(s$project$dir, "00_input", "input_check.csv"), encoding = "UTF-8", check.names = FALSE))
+  142    })
+  143    observeEvent(input$run, {
+  144      req(rv$s); if (rv$running) return()
+  145      s <- tryCatch(save_s(), error = function(e) { showNotification(conditionMessage(e), type = "error"); NULL }); req(s)
+  146      rs <- file.path(R.home("bin"), if (is_win) "Rscript.exe" else "Rscript")
+  147      rv$started <- Sys.time(); rv$running <- TRUE
+  148      system2(rs, c(shQuote(file.path(root, "run_analysis.R")), shQuote(s$settings_file), paste0("--from=", input$from), paste0("--to=", input$to)),
+  149              wait = FALSE, stdout = file.path(s$project$dir, "logs", "console.txt"), stderr = file.path(s$project$dir, "logs", "console.txt"))
+  150      updateTabsetPanel(session, "tabs", "3. Запуск")
+  151    })
+  152    latest <- function(pat) { if (is.null(rv$s)) return(NULL); f <- list.files(file.path(rv$s$project$dir, "logs"), pattern = pat, full.names = TRUE)
+  153      if (!length(f)) return(NULL); f <- f[order(file.info(f)$mtime)]; if (!is.null(rv$started)) f <- f[file.info(f)$mtime >= rv$started - 1]
+  154      if (length(f)) utils::tail(f, 1) else NULL }
+  155    log_now <- reactivePoll(1000, session, function() { f <- latest("^run_.*\\.log$"); if (is.null(f)) 0 else file.info(f)$mtime },
+  156                            function() { f <- latest("^run_.*\\.log$"); if (is.null(f)) character(0) else readLines(f, encoding = "UTF-8", warn = FALSE) })
+  157    observe({ l <- log_now(); if (rv$running && any(grepl("UROMETABR_DONE|Обработка остановлена", l))) rv$running <- FALSE })
+  158    output$run_state <- renderText({ l <- log_now()
+  159      if (rv$running) "Идёт обработка…" else if (any(grepl("Обработка остановлена", l))) "Остановлено из-за ошибки — см. журнал"
+  160      else if (any(grepl("UROMETABR_DONE", l))) "Обработка завершена" else "" })
+  161    output$log_text <- renderText(paste(utils::tail(setdiff(log_now(), "UROMETABR_DONE"), 200), collapse = "\n"))
+  162    output$mod_tab <- renderTable({ log_now(); f <- latest("^modules_.*\\.csv$"); if (is.null(f)) return(NULL)
+  163      d <- utils::read.csv(f, encoding = "UTF-8", check.names = FALSE)
+  164      stats::setNames(d, c("Модуль", "Название", "Статус", "Время, с", "Пиковая память R, МБ")) }, na = "")
+  165    rd <- function(id, f) { log_now(); req(rv$s); p <- file.path(rv$s$project$dir, MODULES$dir[MODULES$id == id], f)
+  166      if (file.exists(p)) utils::read.csv(p, encoding = "UTF-8", check.names = FALSE) }
+  167    output$res_steps <- renderTable(rd(7, "auroc_steps.csv"), digits = 3)
+  168    output$res_nested <- renderTable(rd(7, "nested_cv.csv"), digits = 3)
+  169    output$res_rfe <- renderTable({ u <- rd(7, "uvf_stats.csv"); r <- rd(7, "ds_rfe.csv"); if (!is.null(u) && !is.null(r)) u[u$id %in% names(r), c("id", "mz", "rt_min", "name", "test", "p", "p_adj")] }, digits = 4, na = "")
+  170    observe({ log_now(); req(rv$s); f <- list.files(file.path(rv$s$project$dir, c("02_qc", "06_correct", "08_visual")), pattern = "\\.png$", full.names = TRUE)
+  171      updateSelectInput(session, "fig", choices = stats::setNames(f, basename(f))) })
+  172    output$fig_img <- renderImage({ req(input$fig); list(src = input$fig, width = "100%") }, deleteFile = FALSE)
+  173    observeEvent(input$open_report, { req(rv$s); f <- file.path(rv$s$project$dir, "09_report", "report.html")
+  174      if (file.exists(f)) utils::browseURL(f) else showNotification("Отчёт ещё не сформирован", type = "warning") })
+  175    observeEvent(input$open_dir, { req(rv$s); if (is_win) shell.exec(rv$s$project$dir) else utils::browseURL(rv$s$project$dir) })
+  176  }
+  177  
+  178  shinyApp(ui, server)
+
+==================== app/launch.R ====================
+    1  # Запуск графического интерфейса: проверка/установка пакетов и открытие окна в браузере.
+    2  if (!isTRUE(l10n_info()$`UTF-8`) && .Platform$OS.type != "windows")      # кириллица в модулях: UTF-8
+    3    for (loc in c("C.UTF-8", "en_US.UTF-8", "ru_RU.UTF-8")) if (nzchar(suppressWarnings(Sys.setlocale("LC_CTYPE", loc)))) break
+    4  self <- sub("^--file=", "", grep("^--file=", commandArgs(), value = TRUE)[1])
+    5  root <- normalizePath(file.path(dirname(normalizePath(self)), ".."))
+    6  source(file.path(root, "R", "zz_setup.R"), encoding = "UTF-8")
+    7  if (length(missing_packages())) install_missing()
+    8  load_urometabr(root)
+    9  port <- as.integer(Sys.getenv("UROMETABR_PORT", "0")); if (!port) port <- NULL
+   10  shiny::runApp(file.path(root, "app"), launch.browser = Sys.getenv("UROMETABR_NO_BROWSER") == "", port = port)
+
+==================== templates/report.Rmd ====================
+    1  ---
+    2  title: "Отчёт о прогоне UroMetabR"
+    3  output:
+    4    html_document:
+    5      self_contained: true
+    6      toc: true
+    7      toc_float: false
+    8  params:
+    9    sections: ""
+   10  ---
+   11  
+   12  ```{r setup, include = FALSE}
+   13  knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+   14  sec <- readRDS(params$sections)
+   15  ```
+   16  
+   17  ```{r body, results = "asis"}
+   18  for (x in sec) {
+   19    cat("\n\n## ", x$title, "\n\n", sep = "")
+   20    for (t in x$text) cat(t, "\n\n")
+   21    if (length(x$tables)) for (i in seq_along(x$tables)) {
+   22      d <- x$tables[[i]]; nm <- names(x$tables)[i]
+   23      if (is.null(d) || !nrow(d)) next
+   24      if (!is.null(nm) && nzchar(nm)) cat("**", nm, "**\n\n", sep = "")
+   25      print(knitr::kable(d, digits = 4, format = "html", table.attr = "class='table table-condensed' style='font-size:12px'"))
+   26      cat("\n\n")
+   27    }
+   28    for (p in x$images) cat("![](", p, ")\n\n", sep = "")
+   29    if (length(x$pre)) cat("```\n", paste(x$pre, collapse = "\n"), "\n```\n\n", sep = "")
+   30  }
+   31  ```
+
+==================== Start_UroMetabR.bat ====================
+    1  @echo off
+    2  chcp 65001 >nul
+    3  cd /d "%~dp0"
+    4  set "RS="
+    5  for /f "delims=" %%i in ('where Rscript 2^>nul') do if not defined RS set "RS=%%i"
+    6  if not defined RS for /d %%d in ("%ProgramFiles%\R\R-*") do if exist "%%d\bin\Rscript.exe" set "RS=%%d\bin\Rscript.exe"
+    7  if not defined RS (
+    8    echo R не найден. Установите R версии 4.0.0 или новее: https://cran.r-project.org/bin/windows/base/
+    9    pause
+   10    exit /b 1
+   11  )
+   12  echo Запуск UroMetabR: "%RS%"
+   13  "%RS%" --vanilla app\launch.R
+   14  if errorlevel 1 pause
+
+==================== start_urometabr.sh ====================
+    1  #!/bin/sh
+    2  # Запуск графического интерфейса UroMetabR (Linux, macOS)
+    3  cd "$(dirname "$0")" && Rscript --vanilla app/launch.R
+
+==================== Create_desktop_shortcut.vbs ====================
+    1  Set sh = CreateObject("WScript.Shell")
+    2  d = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
+    3  Set lnk = sh.CreateShortcut(sh.SpecialFolders("Desktop") & "\UroMetabR.lnk")
+    4  lnk.TargetPath = d & "\Start_UroMetabR.bat"
+    5  lnk.WorkingDirectory = d
+    6  lnk.Description = "UroMetabR"
+    7  lnk.Save
+    8  MsgBox "Shortcut UroMetabR created on Desktop"
