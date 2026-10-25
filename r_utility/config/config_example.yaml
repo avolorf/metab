@@ -1,0 +1,36 @@
+# Параметры UroMetabR для контрольного набора данных (пути — относительно этого файла)
+input:
+  data: ../example/control_set_1/feature_table.csv
+  format: wide                 # wide (CSV/TSV, пробы × признаки) | msdial (экспорт MS-DIAL) | xcms (mzML, нужен xcms)
+  metadata: ../example/control_set_1/metadata.csv
+  id_column: Sample
+  meta_columns: [Sample, Group, Diag]
+  contaminant_series: ../example/contaminant_series.csv
+  exposure_keywords: ../example/exposure_keywords.csv
+output: ../example/results_control_set_1
+seed: 20261013
+cores: 2
+design:
+  groups: [Control, BC, PC]
+  qc_pattern: "^QC"
+  blank_pattern: "^(blank|бланк|blk)"
+  comparisons:
+    - {name: BC_vs_Control, case: BC, ref: Control}
+    - {name: BC_vs_PC, case: BC, ref: PC}
+    - {name: PC_vs_Control, case: PC, ref: Control}
+  covariates: [sex, age, contam_index]
+  match_caliper_years: 5
+  match_within_sex: true
+preprocess:
+  min_qc_detect: 0.8
+  min_group_detect: 0.5
+  max_qc_rsd: 0.30
+  blank_ratio: 5
+  drift: auto                  # none | lowess | auto (LOWESS, только если снижает ошибку QC на ≥ 20 %)
+  normalization: PQN           # PQN | MSTUS | none
+  compare_normalizations: [PQN, MSTUS]
+  low_dilution_factor: 0.2
+grouping: {rt_tol: 0.02, min_corr: 0.8, ppm: 5}
+stats: {fdr: 0.05, confirm_p: 0.05, ctrl_index_p: 0.05}
+multivariate: {cv_folds: 5, cv_repeats: 20, panel_k: 5, n_perm: 200, max_abs_rho_contam: 0.5, min_pairs_cv: 10, run: true}
+report: {fig_dpi: 200, top_boxplots: 12, heatmap_top: 50, html: true}
