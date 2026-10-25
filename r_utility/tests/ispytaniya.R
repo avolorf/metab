@@ -65,7 +65,7 @@ ids <- data.table::fread(A[2], data.table = FALSE, colClasses = "character")$fil
 rawd <- file.path(W, "raw_stub"); write_raw_stubs(rawd, ids)
 d <- file.path(W, "fmt_raw_stub"); unlink(d, recursive = TRUE)
 s <- read_settings(new_project(d, "", normalizePath(A[2]), type = "raw", raw_dir = rawd))
-log_start(s); m0 <- tryCatch({ invisible(utils::capture.output(module0_input(s))); TRUE }, error = function(e) conditionMessage(e))
+invisible(log_start(s)); m0 <- tryCatch({ invisible(utils::capture.output(module0_input(s))); TRUE }, error = function(e) conditionMessage(e))
 add(1, "Формат mzML и mzXML: модуль 0 (проверка файлов)", if (isTRUE(m0)) sprintf("%d файлов распознаны", length(ids)) else m0, "файлы распознаны", ok(isTRUE(m0)))
 RAW <- arg("raw")
 if (!requireNamespace("xcms", quietly = TRUE)) {
@@ -100,13 +100,14 @@ for (n in c(50, 100)) {
 
 # ------------------------------------------------------------------ 3. устойчивые признаки; 7. сходимость; 8. время
 rA <- run_project("setA_full", A[1], A[2])
-nA <- nrow(rd(rA, 3, "filtered_peak_table.csv"))
+nfeat <- function(r) ncol(load_module(r$s, 3)$X)
+nA <- nfeat(rA)
 add(3, sprintf("Устойчивых признаков, набор А%s", if (A_real) "" else "*"), nA, "300–800", ok(nA >= 300 && nA <= 800))
 add(8, sprintf("Полный цикл, набор А%s", if (A_real) "" else "*"), sprintf("%.1f мин; пиковая память R %.0f МБ; по модулям: %s", rA$time / 60, rA$ram,
     paste(sprintf("%d — %.0f с", rA$status$module, rA$status$time_s), collapse = "; ")), "≤ 24–48 ч", ok(rA$ok && rA$time < 24 * 3600))
 if (!is.null(B)) {
   rB <- run_project("setB_full", B[1], B[2])
-  nB <- if (rB$ok) nrow(rd(rB, 3, "filtered_peak_table.csv")) else NA
+  nB <- if (rB$ok) nfeat(rB) else NA
   add(3, "Устойчивых признаков, набор Б", nB, "300–800", ok(!is.na(nB) && nB >= 300 && nB <= 800))
   add(8, "Полный цикл, набор Б", sprintf("%.1f мин; пиковая память R %.0f МБ", rB$time / 60, rB$ram), "≤ 24–48 ч", ok(rB$ok && rB$time < 24 * 3600))
 }
@@ -126,7 +127,7 @@ if (rC$ok) {
 
 # ------------------------------------------------------------------ 4–5. набор В: пропуски и корректность
 for (mp in c(0.20, 0.25, 0.30)) {
-  v <- make_set_V(A[1], A[2], file.path(W, sprintf("setV_%02d", round(100 * mp))), n_spike = 15, missing = mp)
+  v <- make_set_V(A[1], A[2], file.path(W, sprintf("data_setV_%02d", round(100 * mp))), n_spike = 15, missing = mp)
   r <- run_project(sprintf("setV_%02d", round(100 * mp)), v$table, v$metadata)
   if (!r$ok) { add(4, sprintf("Набор В, %d%% пропусков", round(100 * mp)), "ошибка", "", "не пройден"); next }
   im <- readRDS(file.path(dirname(v$table), "introduced_missing.rds"))
@@ -149,7 +150,7 @@ for (mp in c(0.20, 0.25, 0.30)) {
     tr <- v$truth; tid <- info$id[match(tr$column, info$original)]
     u <- rd(r, 7, "uvf_stats.csv"); fs <- rd(r, 7, "ds_d.csv"); fr <- rd(r, 7, "ds_rfe.csv"); ne <- rd(r, 7, "nested_cv.csv")
     sel <- u$id[u$selected]
-    add(5, "Набор В: найдено внесённых признаков после ОСФ", sprintf("%d из %d; ложных %d", sum(tid %in% sel), length(tid), sum(!sel %in% tid)), "все внесённые, ложных 0–1",
+    add(5, "Набор В: найдено внесённых признаков после ОСФ", sprintf("%d из %d; ложных %d", sum(tid %in% sel), length(tid), sum(!sel %in% tid)), "≥ 80 % внесённых, ложных ≤ 1",
         ok(sum(tid %in% sel) >= 0.8 * length(tid) && sum(!sel %in% tid) <= 1))
     add(5, "Набор В: после СПФ / после РОП", sprintf("%d (внесённых %d) / %d (внесённых %d)", ncol(fs) - 2, sum(tid %in% names(fs)), ncol(fr) - 2, sum(tid %in% names(fr))))
     add(5, "Набор В: вложенная CV, точность / AUC", sprintf("%.3f / %.3f", ne$accuracy_mean, ne$auc_mean))
