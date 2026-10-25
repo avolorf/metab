@@ -1,0 +1,31 @@
+---
+title: "Отчёт о прогоне UroMetabR"
+output:
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float: false
+params:
+  sections: ""
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+sec <- readRDS(params$sections)
+```
+
+```{r body, results = "asis"}
+for (x in sec) {
+  cat("\n\n## ", x$title, "\n\n", sep = "")
+  for (t in x$text) cat(t, "\n\n")
+  if (length(x$tables)) for (i in seq_along(x$tables)) {
+    d <- x$tables[[i]]; nm <- names(x$tables)[i]
+    if (is.null(d) || !nrow(d)) next
+    if (!is.null(nm) && nzchar(nm)) cat("**", nm, "**\n\n", sep = "")
+    print(knitr::kable(d, digits = 4, format = "html", table.attr = "class='table table-condensed' style='font-size:12px'"))
+    cat("\n\n")
+  }
+  for (p in x$images) cat("![](", p, ")\n\n", sep = "")
+  if (length(x$pre)) cat("```\n", paste(x$pre, collapse = "\n"), "\n```\n\n", sep = "")
+}
+```

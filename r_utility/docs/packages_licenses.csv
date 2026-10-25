@@ -1,0 +1,28 @@
+﻿package,source,version,license,purpose
+data.table,CRAN,1.14.10,MPL-2.0,"таблицы, чтение и запись CSV"
+yaml,CRAN,2.3.8,BSD_3_clause,файл настроек
+ggplot2,CRAN,3.4.4,MIT,графики
+patchwork,CRAN,1.2.0,MIT,компоновка графиков
+pheatmap,CRAN,1.0.12,GPL-2,тепловые карты
+caret,CRAN,6.0-94,GPL (>= 2),"модели KNN/SVM/PLS/RF, кросс-валидация, RFE"
+e1071,CRAN,1.7-14,GPL-2 | GPL-3,наивный Байес (RFE)
+kernlab,CRAN,0.9-32,GPL-2,SVM с радиальным ядром
+randomForest,CRAN,4.7-1.1,GPL (>= 2),"случайный лес (модели, заполнение пропусков)"
+pls,CRAN,2.8-3,GPL-2,"PLS, PLS-DA, VIP"
+foreach,CRAN,1.5.2,Apache License (== 2.0),параллельные вычисления caret
+doParallel,CRAN,1.0.17,GPL-2,параллельные вычисления caret
+jsonlite,CRAN,1.8.8,MIT,встраивание рисунков в HTML
+shiny,CRAN,1.8.0,GPL-3,графический интерфейс
+rmarkdown,CRAN,2.25,GPL-3,отчёт HTML
+knitr,CRAN,1.45,GPL,таблицы отчёта
+digest,CRAN,0.6.34,GPL (>= 2),контрольные суммы (испытания)
+testthat,CRAN,3.2.1,MIT,модульные тесты
+xcms*,Bioconductor,—,GPL (>= 2),модуль 1: таблица пиков из mzML/mzXML/CDF (необязательно)
+MSnbase*,Bioconductor,—,Artistic-2.0,модуль 1: чтение сырых данных (необязательно)
+BiocParallel*,Bioconductor,—,GPL-2 | GPL-3,модуль 1: параллельные вычисления (необязательно)
+IPO*,Bioconductor,—,GPL (>= 2),модуль 1: оптимизация параметров xcms (необязательно)
+missForest*,CRAN,—,GPL (>= 2),модуль 5: альтернатива встроенному заполнению (необязательно)
+ProteoMM*,Bioconductor,—,MIT,этап 1 (EigenMS); в v1.0 не используется
+FactoMineR*,CRAN,—,GPL (>= 2),этап 1 (PCA); в v1.0 не используется
+factoextra*,CRAN,—,GPL-2,этап 1 (графики PCA); в v1.0 не используется
+tuple*,CRAN (архив),—,проверить,этап 1 (tuplicated); в v1.0 не используется
