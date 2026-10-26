@@ -4,3 +4,7 @@ __pycache__/
 r_utility/example/results_*/
 r_utility/tests/test_log.txt
 runs/*/input/
+# прогоны на реальных данных: в git только журналы, настройки и сводные таблицы (без матриц интенсивностей)
+runs/*/*/
+!runs/*/logs/
+!runs/*/summary/
