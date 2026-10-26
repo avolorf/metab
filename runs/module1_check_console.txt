@@ -1,0 +1,324 @@
+[пройден] Версии: R 4.5.2; xcms 4.8.0; MSnbase 2.36.0
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+Polarity can not be extracted from netCDF files, please set manually the polarity with the 'polarity' method.
+[пройден] faahKO: файлы: 12 CDF → mzML и mzXML
+12:44:17  UroMetabR 1.0.0 (2026-10-26); R 4.5.2; Ubuntu 24.04.3 LTS
+12:44:17  Проект: /work/runs/module1_check/project_faahKO_CDF; модули 0–3; seed 20261026
+12:44:17  === Модуль 0. Загрузка и проверка входных данных
+12:44:19    [ок] Метаданные: 12 строк; группы: KO 6, WT 6
+12:44:19    [ок] Файлы сырых данных: 12 файлов (cdf)
+12:44:19    [ок] Порядок ввода: указан
+12:44:19    [ок] Группы сравнения: KO 6, WT 6
+12:44:19    [ошибка] Образцы QC: 0; фильтр RSD и детекции в QC будут пропущены
+12:44:19    [ок] Повторные измерения: 0 образцов имеют > 1 инъекции
+12:44:20  Модуль 0: выполнен, 0.5 с, пиковая память R 955 МБ
+12:44:20  === Модуль 1. Оптимизация параметров и таблица пиков (xcms)
+Polarity can not be extracted from netCDF files, please set manually the polarity with the 'polarity' method.
+12:44:42  Детектирование пиков (centWave)…
+
+This is xcms version 4.8.0 
+
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2246 regions of interest ... OK: 608 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2501 regions of interest ... OK: 787 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2214 regions of interest ... OK: 496 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1808 regions of interest ... OK: 343 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1424 regions of interest ... OK: 304 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1285 regions of interest ... OK: 349 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2308 regions of interest ... OK: 617 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1937 regions of interest ... OK: 530 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1930 regions of interest ... OK: 479 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1498 regions of interest ... OK: 372 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1558 regions of interest ... OK: 342 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1480 regions of interest ... OK: 480 found.
+12:45:30  Выравнивание времён удерживания (Obiwarp)…
+Sample number 6 used as center sample.
+Aligning ko15.CDF against ko22.CDF ... OK
+Aligning ko16.CDF against ko22.CDF ... OK
+Aligning ko18.CDF against ko22.CDF ... OK
+Aligning ko19.CDF against ko22.CDF ... OK
+Aligning ko21.CDF against ko22.CDF ... OK
+Aligning wt15.CDF against ko22.CDF ... OK
+Aligning wt16.CDF against ko22.CDF ... OK
+Aligning wt18.CDF against ko22.CDF ... OK
+Aligning wt19.CDF against ko22.CDF ... OK
+Aligning wt21.CDF against ko22.CDF ... OK
+Aligning wt22.CDF against ko22.CDF ... OK
+Applying retention time adjustment to the identified chromatographic peaks ... OK
+Defining peak areas for filling-in ... OK
+Start integrating peak areas from original files
+Requesting 124 peaks from ko15.CDF ... got 119.
+Requesting 110 peaks from ko16.CDF ... got 106.
+Requesting 112 peaks from ko18.CDF ... got 107.
+Requesting 184 peaks from ko19.CDF ... got 177.
+Requesting 191 peaks from ko21.CDF ... got 181.
+Requesting 164 peaks from ko22.CDF ... got 158.
+Requesting 144 peaks from wt15.CDF ... got 133.
+Requesting 144 peaks from wt16.CDF ... got 139.
+Requesting 148 peaks from wt18.CDF ... got 143.
+Requesting 184 peaks from wt19.CDF ... got 176.
+Requesting 195 peaks from wt21.CDF ... got 183.
+Requesting 167 peaks from wt22.CDF ... got 161.
+12:45:52  Таблица пиков: 416 признаков, пропусков 1.7% (minFraction = 0.5)
+12:45:53  Модуль 1: выполнен, 90.6 с, пиковая память R 1403 МБ
+12:45:53  === Модуль 2. Контроль качества
+12:45:55    Инъекций всего: 12
+12:45:55    из них QC: 0
+12:45:55    Признаков: 416
+12:45:55    Пропусков, все инъекции, %: 1.7
+12:45:55    Пропусков в образцах, %: 1.7
+12:45:55    Пропусков в QC, %: NA
+12:45:55    Медианный RSD в QC, %: NA
+12:46:00  Модуль 2: выполнен, 3.9 с, пиковая память R 1245 МБ
+12:46:00  === Модуль 3. Фильтр устойчивых признаков
+12:46:01    QC меньше трёх — фильтры по QC не применяются
+12:46:01    [стандартный] Исходно: 416
+12:46:01    [стандартный] Присутствие ≥ 50% хотя бы в одной группе: 416
+12:46:01    [строгий] Исходно: 416
+12:46:01    [строгий] Обнаружение в ≥ 100% всех образцов: 378
+12:46:01    Устойчивых признаков: стандартный профиль 416, строгий 378 (целевой диапазон базы признаков 300–800: строгий профиль в пределах)
+12:46:01    Для анализа (модули 4–8) используется стандартный профиль: 416 признаков; для базы признаков (модуль 9) — строгий
+12:46:03  Модуль 3: выполнен, 0.1 с, пиковая память R 812 МБ
+12:46:03  Готово. Отчёт: /work/runs/module1_check/project_faahKO_CDF/09_report/report.html
+[пройден] faahKO CDF: модули 0–3: признаков в таблице пиков 416; время 1.8 мин; модуль 1 — 90.6 с, пиковая память R 1403 МБ
+12:46:03  UroMetabR 1.0.0 (2026-10-26); R 4.5.2; Ubuntu 24.04.3 LTS
+12:46:03  Проект: /work/runs/module1_check/project_faahKO_mzML; модули 0–9; seed 20261026
+12:46:03  === Модуль 0. Загрузка и проверка входных данных
+12:46:05    [ок] Метаданные: 12 строк; группы: KO 6, WT 6
+12:46:05    [ок] Файлы сырых данных: 12 файлов (mzml)
+12:46:05    [ок] Порядок ввода: указан
+12:46:05    [ок] Группы сравнения: KO 6, WT 6
+12:46:05    [ошибка] Образцы QC: 0; фильтр RSD и детекции в QC будут пропущены
+12:46:05    [ок] Повторные измерения: 0 образцов имеют > 1 инъекции
+12:46:06  Модуль 0: выполнен, 0.6 с, пиковая память R 907 МБ
+12:46:06  === Модуль 1. Оптимизация параметров и таблица пиков (xcms)
+12:46:21  Детектирование пиков (centWave)…
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2246 regions of interest ... OK: 608 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2501 regions of interest ... OK: 787 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2214 regions of interest ... OK: 496 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1808 regions of interest ... OK: 343 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1424 regions of interest ... OK: 304 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1285 regions of interest ... OK: 349 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2308 regions of interest ... OK: 617 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1937 regions of interest ... OK: 530 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1930 regions of interest ... OK: 479 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1498 regions of interest ... OK: 372 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1558 regions of interest ... OK: 342 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1480 regions of interest ... OK: 480 found.
+12:47:11  Выравнивание времён удерживания (Obiwarp)…
+Sample number 6 used as center sample.
+Aligning ko15.mzML against ko22.mzML ... OK
+Aligning ko16.mzML against ko22.mzML ... OK
+Aligning ko18.mzML against ko22.mzML ... OK
+Aligning ko19.mzML against ko22.mzML ... OK
+Aligning ko21.mzML against ko22.mzML ... OK
+Aligning wt15.mzML against ko22.mzML ... OK
+Aligning wt16.mzML against ko22.mzML ... OK
+Aligning wt18.mzML against ko22.mzML ... OK
+Aligning wt19.mzML against ko22.mzML ... OK
+Aligning wt21.mzML against ko22.mzML ... OK
+Aligning wt22.mzML against ko22.mzML ... OK
+Applying retention time adjustment to the identified chromatographic peaks ... OK
+Defining peak areas for filling-in ... OK
+Start integrating peak areas from original files
+Requesting 124 peaks from ko15.mzML ... got 119.
+Requesting 110 peaks from ko16.mzML ... got 106.
+Requesting 112 peaks from ko18.mzML ... got 107.
+Requesting 184 peaks from ko19.mzML ... got 177.
+Requesting 191 peaks from ko21.mzML ... got 181.
+Requesting 164 peaks from ko22.mzML ... got 158.
+Requesting 144 peaks from wt15.mzML ... got 133.
+Requesting 144 peaks from wt16.mzML ... got 139.
+Requesting 148 peaks from wt18.mzML ... got 143.
+Requesting 184 peaks from wt19.mzML ... got 176.
+Requesting 195 peaks from wt21.mzML ... got 183.
+Requesting 167 peaks from wt22.mzML ... got 161.
+12:47:29  Таблица пиков: 416 признаков, пропусков 1.7% (minFraction = 0.5)
+12:47:30  Модуль 1: выполнен, 81.8 с, пиковая память R 1403 МБ
+12:47:30  === Модуль 2. Контроль качества
+12:47:31    Инъекций всего: 12
+12:47:31    из них QC: 0
+12:47:31    Признаков: 416
+12:47:31    Пропусков, все инъекции, %: 1.7
+12:47:31    Пропусков в образцах, %: 1.7
+12:47:31    Пропусков в QC, %: NA
+12:47:31    Медианный RSD в QC, %: NA
+12:47:33  Модуль 2: выполнен, 0.8 с, пиковая память R 1089 МБ
+12:47:33  === Модуль 3. Фильтр устойчивых признаков
+12:47:34    QC меньше трёх — фильтры по QC не применяются
+12:47:34    [стандартный] Исходно: 416
+12:47:34    [стандартный] Присутствие ≥ 50% хотя бы в одной группе: 416
+12:47:34    [строгий] Исходно: 416
+12:47:34    [строгий] Обнаружение в ≥ 100% всех образцов: 378
+12:47:34    Устойчивых признаков: стандартный профиль 416, строгий 378 (целевой диапазон базы признаков 300–800: строгий профиль в пределах)
+12:47:34    Для анализа (модули 4–8) используется стандартный профиль: 416 признаков; для базы признаков (модуль 9) — строгий
+12:47:35  Модуль 3: выполнен, 0.0 с, пиковая память R 768 МБ
+12:47:35  === Модуль 4. Удаление QC, усреднение повторов, сортировка
+12:47:37    Удалены QC и бланки: осталось 12 инъекций
+12:47:37    Матрица образцов: 12 × 416; группы: KO 6, WT 6
+12:47:38  Модуль 4: выполнен, 0.1 с, пиковая память R 787 МБ
+12:47:38  === Модуль 5. Заполнение пропусков
+12:47:39    Пропусков: 1.7% (84 значений); метод: rf
+12:47:39      итерация 1: относительное изменение 1.32e-03
+12:47:39      итерация 2: относительное изменение 2.26e-04
+12:47:39      итерация 3: относительное изменение 3.16e-04
+12:47:39    Случайный лес (алгоритм missForest): итераций 3, оценка NRMSE (OOB) 0.979
+12:47:41  Модуль 5: выполнен, 0.4 с, пиковая память R 882 МБ
+12:47:41  === Модуль 6. Коррекция сигнала и логарифмирование
+12:47:42    EigenMS: найдено и удалено трендов систематической ошибки: 2 (перестановок 200)
+12:47:45  Модуль 6: выполнен, 2.5 с, пиковая память R 1386 МБ
+12:47:45  === Модуль 7. Статистика и отбор признаков
+12:47:47    ОСФ (поправка: holm, α = 0.05): 25 из 416 признаков
+
+Attaching package: ‘pls’
+
+The following object is masked from ‘package:caret’:
+
+    R2
+
+The following object is masked from ‘package:stats’:
+
+    loadings
+
+12:47:49    СПФ (в top-50 не менее чем у 2 из 4 моделей): 25 признаков
+12:47:51    РОП (наивный Байес): 4 признаков, точность CV 1.000
+12:47:51      ds (после ОСФ), knn: точность CV 1.000
+12:47:51      ds (после ОСФ), svmRadial: точность CV 1.000
+12:47:51      ds (после ОСФ), pls: точность CV 1.000
+12:47:51      ds (после ОСФ), rf: точность CV 1.000
+12:47:51    Число признаков и средняя AUROC по этапам (описательная): 416 (0.668) → 416 (0.716) → 25 (1.000) → 25 (1.000) → 4 (1.000)
+12:47:52  Модуль 7: выполнен, 4.5 с, пиковая память R 1403 МБ
+12:47:52  === Модуль 8. Визуализация
+12:47:59    Рисунки: PCA и ИКА по трём этапам, тепловая карта (25 признаков), диаграммы размаха (12), PLS-DA/VIP; форматы: png, jpeg, 150 dpi
+12:48:00  Модуль 8: выполнен, 5.7 с, пиковая память R 1288 МБ
+12:48:00  === Модуль 9. База признаков и отчёт
+12:48:02    База признаков (/work/runs/module1_check/project_faahKO_mzML/features_db, строгий профиль): добавлено 378 признаков, 4536 значений интенсивности (прогон 20261026_124603)
+12:48:11    Отчёт: /work/runs/module1_check/project_faahKO_mzML/09_report/report.html (R Markdown)
+12:48:12  Модуль 9: выполнен, 9.4 с, пиковая память R 901 МБ
+12:48:12  Готово. Отчёт: /work/runs/module1_check/project_faahKO_mzML/09_report/report.html
+[пройден] faahKO mzML: модули 0–9: признаков в таблице пиков 416; время 2.2 мин; модуль 1 — 81.8 с, пиковая память R 1403 МБ
+12:48:12  UroMetabR 1.0.0 (2026-10-26); R 4.5.2; Ubuntu 24.04.3 LTS
+12:48:12  Проект: /work/runs/module1_check/project_faahKO_mzXML; модули 0–3; seed 20261026
+12:48:12  === Модуль 0. Загрузка и проверка входных данных
+12:48:14    [ок] Метаданные: 12 строк; группы: KO 6, WT 6
+12:48:14    [ок] Файлы сырых данных: 12 файлов (mzxml)
+12:48:14    [ок] Порядок ввода: указан
+12:48:14    [ок] Группы сравнения: KO 6, WT 6
+12:48:14    [ошибка] Образцы QC: 0; фильтр RSD и детекции в QC будут пропущены
+12:48:14    [ок] Повторные измерения: 0 образцов имеют > 1 инъекции
+12:48:15  Модуль 0: выполнен, 0.4 с, пиковая память R 927 МБ
+12:48:15  === Модуль 1. Оптимизация параметров и таблица пиков (xcms)
+12:48:32  Детектирование пиков (centWave)…
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2246 regions of interest ... OK: 608 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2501 regions of interest ... OK: 787 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2214 regions of interest ... OK: 496 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1808 regions of interest ... OK: 343 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1424 regions of interest ... OK: 304 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1285 regions of interest ... OK: 349 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 2308 regions of interest ... OK: 617 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1937 regions of interest ... OK: 530 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1930 regions of interest ... OK: 479 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1498 regions of interest ... OK: 372 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1558 regions of interest ... OK: 342 found.
+Detecting mass traces at 25 ppm ... OK
+Detecting chromatographic peaks in 1480 regions of interest ... OK: 480 found.
+12:49:19  Выравнивание времён удерживания (Obiwarp)…
+Sample number 6 used as center sample.
+Aligning ko15.mzXML against ko22.mzXML ... OK
+Aligning ko16.mzXML against ko22.mzXML ... OK
+Aligning ko18.mzXML against ko22.mzXML ... OK
+Aligning ko19.mzXML against ko22.mzXML ... OK
+Aligning ko21.mzXML against ko22.mzXML ... OK
+Aligning wt15.mzXML against ko22.mzXML ... OK
+Aligning wt16.mzXML against ko22.mzXML ... OK
+Aligning wt18.mzXML against ko22.mzXML ... OK
+Aligning wt19.mzXML against ko22.mzXML ... OK
+Aligning wt21.mzXML against ko22.mzXML ... OK
+Aligning wt22.mzXML against ko22.mzXML ... OK
+Applying retention time adjustment to the identified chromatographic peaks ... OK
+Defining peak areas for filling-in ... OK
+Start integrating peak areas from original files
+Requesting 124 peaks from ko15.mzXML ... got 119.
+Requesting 110 peaks from ko16.mzXML ... got 106.
+Requesting 112 peaks from ko18.mzXML ... got 107.
+Requesting 184 peaks from ko19.mzXML ... got 177.
+Requesting 191 peaks from ko21.mzXML ... got 181.
+Requesting 164 peaks from ko22.mzXML ... got 158.
+Requesting 144 peaks from wt15.mzXML ... got 133.
+Requesting 144 peaks from wt16.mzXML ... got 139.
+Requesting 148 peaks from wt18.mzXML ... got 143.
+Requesting 184 peaks from wt19.mzXML ... got 176.
+Requesting 195 peaks from wt21.mzXML ... got 183.
+Requesting 167 peaks from wt22.mzXML ... got 161.
+12:49:35  Таблица пиков: 416 признаков, пропусков 1.7% (minFraction = 0.5)
+12:49:36  Модуль 1: выполнен, 79.0 с, пиковая память R 1463 МБ
+12:49:36  === Модуль 2. Контроль качества
+12:49:38    Инъекций всего: 12
+12:49:38    из них QC: 0
+12:49:38    Признаков: 416
+12:49:38    Пропусков, все инъекции, %: 1.7
+12:49:38    Пропусков в образцах, %: 1.7
+12:49:38    Пропусков в QC, %: NA
+12:49:38    Медианный RSD в QC, %: NA
+12:49:40  Модуль 2: выполнен, 0.9 с, пиковая память R 1114 МБ
+12:49:40  === Модуль 3. Фильтр устойчивых признаков
+12:49:41    QC меньше трёх — фильтры по QC не применяются
+12:49:41    [стандартный] Исходно: 416
+12:49:41    [стандартный] Присутствие ≥ 50% хотя бы в одной группе: 416
+12:49:41    [строгий] Исходно: 416
+12:49:41    [строгий] Обнаружение в ≥ 100% всех образцов: 378
+12:49:41    Устойчивых признаков: стандартный профиль 416, строгий 378 (целевой диапазон базы признаков 300–800: строгий профиль в пределах)
+12:49:41    Для анализа (модули 4–8) используется стандартный профиль: 416 признаков; для базы признаков (модуль 9) — строгий
+12:49:42  Модуль 3: выполнен, 0.0 с, пиковая память R 790 МБ
+12:49:42  Готово. Отчёт: /work/runs/module1_check/project_faahKO_mzXML/09_report/report.html
+Warning messages:
+[пройден] faahKO mzXML: модули 0–3: признаков в таблице пиков 416; время 1.5 мин; модуль 1 — 79 с, пиковая память R 1463 МБ
+1: In randomForest.default(x = cur[obs, -j, drop = FALSE], y = cur[obs,  :
+  The response has five or fewer unique values.  Are you sure you want to do regression?
+2: In randomForest.default(x = cur[obs, -j, drop = FALSE], y = cur[obs,  :
+  The response has five or fewer unique values.  Are you sure you want to do regression?
+3: In randomForest.default(x = cur[obs, -j, drop = FALSE], y = cur[obs,  :
+  The response has five or fewer unique values.  Are you sure you want to do regression?
+4: In .local(object, param, ...) :
+  Your data appears to be not centroided! CentWave works best on data in centroid mode.
+[пройден] faahKO: одинаковое число признаков для CDF, mzML, mzXML: CDF 416; mzML 416; mzXML 416
+[пройден] msdata: 20171016_POOL_POS_1_105-134.mzML: модуль 0: спектров: 931; MSnbase: 931 спектров
+[пройден] msdata: 20171016_POOL_POS_3_105-134.mzML: модуль 0: спектров: 931; MSnbase: 931 спектров
+[пройден] msdata: LockMass_test.mzXML: модуль 0: сканов: 400; MSnbase: 400 спектров
+
+Итог: /work/runs/module1_check/summary.csv 
+M1_FINISHED

@@ -36,7 +36,8 @@ module1_peaktable <- function(s) {
     saveRDS(list(peakpicking = rp$best_settings$parameters, retgroup = rg$best_settings), file.path(out, "ipo_params.rds"))
   }
   pd <- data.frame(sample_name = meta$file, group = meta$group, stringsAsFactors = FALSE)
-  raw <- MSnbase::readMSData(files, pdata = methods::new("NAnnotatedDataFrame", pd), mode = "onDisk")
+  # NAnnotatedDataFrame (как в коде этапа 1) в актуальных MSnbase отсутствует — AnnotatedDataFrame из Biobase
+  raw <- MSnbase::readMSData(files, pdata = Biobase::AnnotatedDataFrame(pd), mode = "onDisk")
   cwp <- xcms::CentWaveParam(ppm = P$ppm, peakwidth = c(P$min_peakwidth, P$max_peakwidth), snthresh = P$snthresh,
                              prefilter = c(P$prefilter, P$value_of_prefilter), noise = P$noise, mzdiff = P$mzdiff,
                              integrate = as.integer(P$integrate), fitgauss = as.logical(P$fitgauss), mzCenterFun = P$mzCenterFun)

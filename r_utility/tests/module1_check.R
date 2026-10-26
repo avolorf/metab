@@ -7,6 +7,8 @@
 # журналы и sessionInfo() — в module1_check/<проект>/logs.
 if (!isTRUE(l10n_info()$`UTF-8`) && .Platform$OS.type != "windows")
   for (loc in c("C.UTF-8", "en_US.UTF-8")) if (nzchar(suppressWarnings(Sys.setlocale("LC_CTYPE", loc)))) break
+extra <- Sys.getenv("UROMETABR_EXTRA_LIB")              # необязательно: дополнительная библиотека пакетов (в конце .libPaths)
+if (nzchar(extra)) .libPaths(c(.libPaths(), strsplit(extra, .Platform$path.sep)[[1]]))
 args <- commandArgs(trailingOnly = TRUE)
 OUT <- normalizePath(sub("^--out=", "", c(grep("^--out=", args, value = TRUE), "--out=module1_check")[1]), mustWork = FALSE)
 self <- sub("^--file=", "", grep("^--file=", commandArgs(), value = TRUE)[1])
@@ -19,6 +21,7 @@ if (length(miss)) BiocManager::install(miss, update = FALSE, ask = FALSE)
 source(file.path(root, "R", "zz_setup.R"), encoding = "UTF-8")
 if (length(missing_packages())) install_missing()
 load_urometabr(root)
+source(file.path(root, "tests", "make_test_data.R"), encoding = "UTF-8")      # new_project()
 dir.create(OUT, showWarnings = FALSE, recursive = TRUE)
 S <- data.frame(check = character(0), result = character(0), detail = character(0))
 add <- function(check, ok, detail) { S[nrow(S) + 1, ] <<- list(check, if (isTRUE(ok)) "пройден" else "не пройден", detail)
@@ -53,7 +56,7 @@ for (fmt in names(dirs)) {
       sprintf("признаков в таблице пиков %s; время %.1f мин; модуль 1 — %s с, пиковая память R %s МБ", n, tm / 60,
               st$time_s[st$module == 1], st$peak_ram_mb[st$module == 1]))
 }
-add("faahKO: одинаковое число признаков для CDF, mzML, mzXML", length(unique(unlist(nfeat))) == 1, paste(names(nfeat), unlist(nfeat), collapse = "; "))
+add("faahKO: одинаковое число признаков для CDF, mzML, mzXML", !anyNA(unlist(nfeat)) && length(unique(unlist(nfeat))) == 1, paste(names(nfeat), unlist(nfeat), collapse = "; "))
 
 # ---- msdata: проверка чтения mzML (Sciex) модулем 0 и MSnbase
 ms <- list.files(system.file(package = "msdata"), recursive = TRUE, full.names = TRUE, pattern = "\\.(mzML|mzXML)$")

@@ -4,9 +4,18 @@
 
     Rscript tests/module1_check.R --out=module1_check
 
-В Docker-образе Bioconductor (из папки, где лежит `r_utility`):
+В Docker-образе Bioconductor (из папки, где лежит `r_utility`; пакеты Bioconductor и CRAN скачиваются при первом запуске):
 
     docker run --rm -v "$PWD":/work -w /work/r_utility bioconductor/bioconductor_docker:RELEASE_3_22 Rscript tests/module1_check.R --out=/work/module1_check
+
+Проверено 26.10.2026 в образе `jorainer/xcms_tutorials:RELEASE_3_22` (R 4.5.2, xcms 4.8.0, MSnbase 2.36.0; в образе уже есть
+xcms, faahKO и msdata, недостающие пакеты CRAN подключены из внешней библиотеки через `UROMETABR_EXTRA_LIB`):
+
+    docker run --rm -v "$PWD":/work -v /путь/к/R/site-library:/hostlib:ro -e UROMETABR_EXTRA_LIB=/hostlib \
+      -w /work/r_utility jorainer/xcms_tutorials:RELEASE_3_22 Rscript tests/module1_check.R --out=/work/runs/module1_check
+
+Результат: CDF, mzML и mzXML дают одинаковую таблицу пиков (416 признаков); модуль 1 — 79–91 с, пиковая память R 1,4–1,5 ГБ;
+модули 0–9 на mzML выполнены, отчёт сформирован; файлы msdata (mzML Sciex, mzXML) прочитаны. Протокол — `runs/module1_check/summary.csv`.
 
 Скрипт ставит xcms, MSnbase, faahKO, msdata и недостающие пакеты CRAN; копирует 12 файлов faahKO (netCDF, 6 KO и 6 WT),
 конвертирует их в mzML и mzXML, прогоняет утилиту на трёх форматах (CDF и mzXML — модули 0–3, mzML — модули 0–9) и проверяет

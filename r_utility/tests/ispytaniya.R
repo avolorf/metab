@@ -71,8 +71,11 @@ d <- file.path(W, "fmt_raw_stub"); unlink(d, recursive = TRUE)
 s <- read_settings(new_project(d, "", normalizePath(A[2]), type = "raw", raw_dir = rawd))
 invisible(log_start(s)); m0 <- tryCatch({ invisible(utils::capture.output(module0_input(s))); TRUE }, error = function(e) conditionMessage(e))
 add(1, "Формат mzML и mzXML: модуль 0 (проверка файлов)", if (isTRUE(m0)) sprintf("%d файлов распознаны", length(ids)) else m0, "файлы распознаны", ok(isTRUE(m0)))
-RAW <- arg("raw")
-if (!requireNamespace("xcms", quietly = TRUE)) {
+RAW <- arg("raw"); M1 <- arg("module1")
+if (!is.null(M1) && file.exists(M1)) {                 # результаты tests/module1_check.R (например, из Docker-образа с xcms)
+  m1 <- as.data.frame(data.table::fread(M1, encoding = "UTF-8"))
+  for (i in seq_len(nrow(m1))) add(1, paste("Модуль 1 (xcms, проверка module1_check):", m1$check[i]), m1$detail[i], "", m1$result[i])
+} else if (!requireNamespace("xcms", quietly = TRUE)) {
   add(1, "Формат mzML и mzXML: модуль 1 (xcms)", "не выполнен: пакет xcms не установлен в среде испытаний", "таблица пиков", "не выполнен")
 } else if (is.null(RAW)) {
   add(1, "Формат mzML и mzXML: модуль 1 (xcms)", "не выполнен: не передан --raw", "таблица пиков", "не выполнен")
