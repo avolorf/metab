@@ -1,0 +1,8 @@
+project:
+  name: data_original (статья ABC, 107 образцов)
+  seed: 20261026
+  cores: 4
+input:
+  type: table
+  table_file: input/peak_table.csv
+  metadata_file: input/metadata.csv

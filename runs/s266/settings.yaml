@@ -1,0 +1,8 @@
+project:
+  name: s266 (статья Analytica, 94 участника)
+  seed: 20261026
+  cores: 4
+input:
+  type: table
+  table_file: input/s266_table_for_calc.csv
+  metadata_file: input/metadata.csv
