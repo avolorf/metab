@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 r_utility/example/results_*/
 r_utility/tests/test_log.txt
+runs/*/input/
