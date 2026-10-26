@@ -130,3 +130,20 @@ test_that("модуль 3: стандартный и строгий профил
   s$filter$analysis_profile <- "strict"; s$filter$strict$max_qc_rsd <- 0.3
   invisible(capture.output(module3_filter(s))); expect_equal(colnames(load_module(s, 3)$X), c("F1", "F3"))
 })
+
+test_that("модуль 9: пустой строгий профиль не останавливает обработку", {
+  d <- file.path(tempdir(), "m9"); unlink(d, recursive = TRUE); dir.create(d)
+  f <- new_project(d); s <- read_settings(f)
+  L <- matrix(rnorm(40), 10, dimnames = list(paste0("s", 1:10), paste0("F", 1:4)))
+  info <- data.frame(id = colnames(L), mz = 1:4, rt_min = 1:4, name = "", original = colnames(L))
+  meta <- data.frame(sample = rownames(L), group = rep(c("A", "B"), 5), kind = "sample", row.names = rownames(L))
+  save_module(s, 3, list(X = 2^L, info = info, meta = meta, filter = data.frame(id = colnames(L), rsd_qc = 0.1),
+                         strict_ids = character(0), standard_ids = colnames(L)))
+  save_module(s, 4, list(X = 2^L, info = info, meta = meta))
+  save_module(s, 7, list(L = L, L_raw = L, info = info, meta = meta,
+                         sel = list(uvf = data.frame(id = colnames(L), p = 0.5, p_adj = 1), f_uvf = character(0), f_spf = character(0), f_rfe = character(0))))
+  log_start(s); s$report$rmarkdown <- FALSE
+  expect_error(invisible(capture.output(module9_report(s))), NA)
+  db <- read.csv(file.path(d, "features_db", "features_db.csv"))
+  expect_equal(nrow(db), 4); expect_true(all(grepl("strict→standard", db$db_profile)))
+})

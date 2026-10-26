@@ -18,6 +18,10 @@ module9_report <- function(s) {
   u <- d$sel$uvf
   prof <- s$report$database_profile
   ids <- intersect(if (prof == "strict") m3$strict_ids %||% colnames(d$L) else m3$standard_ids %||% colnames(d$L), colnames(d$L))
+  if (!length(ids)) {                           # например, строгий профиль пуст при большой доле пропусков
+    log_msg("  ВНИМАНИЕ: в профиле базы признаков нет признаков — в базу записывается профиль анализа")
+    prof <- paste0(prof, "→", s$filter$analysis_profile); ids <- colnames(d$L)
+  }
   ft <- data.frame(run_id = run_id, date = format(Sys.Date()), project = s$project$name, db_profile = prof, id = ids,
                    d$info[match(ids, d$info$id), c("mz", "rt_min", "name")],
                    rsd_qc = m3$filter$rsd_qc[match(ids, m3$filter$id)] %||% NA,
