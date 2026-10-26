@@ -2,7 +2,7 @@
 module.exports = ({ rd, csv, ROOT }) => {
   const fs = require("fs"), path = require("path"), crypto = require("crypto");
   const walk = (d) => fs.readdirSync(path.join(ROOT, d)).map((f) => path.join(d, f));
-  const prog = [...walk("R"), ...walk("app"), ...walk("templates"), "run_analysis.R", "Start_UroMetabR.bat", "Create_desktop_shortcut.vbs", "start_urometabr.sh"]
+  const prog = [...walk("R"), ...walk("app"), ...walk("templates"), "docs/user_guide.md", "run_analysis.R", "Start_UroMetabR.bat", "Create_desktop_shortcut.vbs", "start_urometabr.sh"]
     .filter((f) => fs.statSync(path.join(ROOT, f)).isFile()).sort();
   const tests = [...walk("tests"), ...walk("tests/testthat")].filter((f) => /\.R$/.test(f)).sort();
   const size = (fl) => fl.reduce((s, f) => s + fs.statSync(path.join(ROOT, f)).size, 0);

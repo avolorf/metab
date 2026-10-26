@@ -5,7 +5,7 @@ set -e
 V=$(sed -n 's/^UROMETABR_VERSION <- "\(.*\)"/\1/p' R/00_core.R)
 D=$(sed -n 's/^UROMETABR_DATE <- "\(.*\)"/\1/p' R/00_core.R)
 OUT=../dist; mkdir -p "$OUT"
-FILES="run_analysis.R $(ls R/*.R) app/app.R app/launch.R templates/report.Rmd Start_UroMetabR.bat start_urometabr.sh Create_desktop_shortcut.vbs"
+FILES="run_analysis.R $(ls R/*.R) app/app.R app/launch.R templates/report.Rmd docs/user_guide.md Start_UroMetabR.bat start_urometabr.sh Create_desktop_shortcut.vbs"
 L="$OUT/UroMetabR_v${V}_listing.txt"
 { echo "Программный инструмент для неинвазивной вспомогательной диагностики рака мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС"
   echo "UroMetabR, версия $V от $D. Листинг исходного кода."
