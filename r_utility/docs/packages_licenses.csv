@@ -22,7 +22,3 @@ MSnbase*,Bioconductor,—,Artistic-2.0,модуль 1: чтение сырых �
 BiocParallel*,Bioconductor,—,GPL-2 | GPL-3,модуль 1: параллельные вычисления (необязательно)
 IPO*,Bioconductor,—,GPL (>= 2),модуль 1: оптимизация параметров xcms (необязательно)
 missForest*,CRAN,—,GPL (>= 2),модуль 5: альтернатива встроенному заполнению (необязательно)
-ProteoMM*,Bioconductor,—,MIT,этап 1 (EigenMS); в v1.0 не используется
-FactoMineR*,CRAN,—,GPL (>= 2),этап 1 (PCA); в v1.0 не используется
-factoextra*,CRAN,—,GPL-2,этап 1 (графики PCA); в v1.0 не используется
-tuple*,CRAN (архив),—,проверить,этап 1 (tuplicated); в v1.0 не используется
