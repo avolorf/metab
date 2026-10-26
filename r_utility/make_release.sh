@@ -9,6 +9,10 @@ FILES="run_analysis.R $(ls R/*.R) app/app.R app/launch.R templates/report.Rmd do
 L="$OUT/UroMetabR_v${V}_listing.txt"
 { echo "Программный инструмент для неинвазивной вспомогательной диагностики рака мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС"
   echo "UroMetabR, версия $V от $D. Листинг исходного кода."
+  echo; echo "Состав (размер файла в байтах на диске, число строк, MD5):"
+  for f in $FILES; do printf "  %-34s %8d байт %6d строк  %s\n" "$f" "$(wc -c < "$f")" "$(wc -l < "$f")" "$(md5sum "$f" | cut -d' ' -f1)"; done
+  printf "  %-34s %8d байт %6d строк\n" "Итого: $(echo $FILES | wc -w) файлов" "$(cat $FILES | wc -c)" "$(cat $FILES | wc -l)"
+  echo "  Файлы .bat и .vbs хранятся с концами строк Windows (CR LF); символы CR входят в размер, в листинге не отображаются."
   for f in $FILES; do echo; echo "==================== $f ===================="; tr -d '\r' < "$f" | awk '{printf "%5d  %s\n", NR, $0}'; done; } > "$L"
 Z="$OUT/UroMetabR_v${V}_${D}.zip"; rm -f "$Z"
 cd .. && zip -qr "dist/$(basename "$Z")" r_utility -x "r_utility/tests/ispytaniya_results/runs/*" "r_utility/docs/*.docx" "r_utility/make_release.sh" && cd r_utility
