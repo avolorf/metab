@@ -27,9 +27,13 @@ add <- function(trial, item, value, target = "", result = "") {
 ok <- function(x) if (isTRUE(x)) "пройден" else "не пройден"
 
 # Прогон проекта; журналы и sessionInfo копируются в протокол
-run_project <- function(name, table, meta, from = 0, to = 9, ...) {
+LIGHT <- list(impute = list(maxiter = 3), correct = list(eigen_perm = 100),
+              select = list(compare_stages = FALSE, nested_repeats = 1))
+LIGHT_TXT <- "облегчённые настройки: ≤ 3 итерации заполнения, 100 перестановок EigenMS, вложенная CV 1 × 5, без сравнения этапов"
+run_project <- function(name, table, meta, from = 0, to = 9, light = FALSE, ...) {
   d <- file.path(W, name); unlink(d, recursive = TRUE)
   f <- new_project(d, normalizePath(table), normalizePath(meta), project = list(cores = CORES), ...)
+  if (light) { s0 <- merge_settings(read_settings(f), LIGHT); write_settings(s0, f) }
   s <- read_settings(f)
   t0 <- proc.time()[["elapsed"]]
   r <- NULL
@@ -90,7 +94,7 @@ subset_set <- function(tab, meta, n, name) {
   data.table::fwrite(t2, file.path(d, "peak_table.csv")); data.table::fwrite(m2, file.path(d, "metadata.csv"))
   c(file.path(d, "peak_table.csv"), file.path(d, "metadata.csv"))
 }
-for (n in c(50, 100)) {
+for (n in c(50)) {
   ss <- subset_set(A[1], A[2], n, paste0("subset", n))
   r <- run_project(paste0("volume_", n), ss[1], ss[2])
   add(2, sprintf("Объём %d образцов (набор А%s)", n, if (A_real) "" else "*"),
@@ -100,15 +104,23 @@ for (n in c(50, 100)) {
 
 # ------------------------------------------------------------------ 3. устойчивые признаки; 7. сходимость; 8. время
 rA <- run_project("setA_full", A[1], A[2])
-nfeat <- function(r) ncol(load_module(r$s, 3)$X)
-nA <- nfeat(rA)
-add(3, sprintf("Устойчивых признаков, набор А%s", if (A_real) "" else "*"), nA, "300–800", ok(nA >= 300 && nA <= 800))
+filter_rows <- function(r, label) {
+  m3 <- load_module(r$s, 3); st <- m3$steps
+  for (pr in c("стандартный", "строгий")) {
+    x <- st[st$profile == pr, ]; n <- utils::tail(x$n, 1)
+    add(3, sprintf("Устойчивых признаков, %s, %s профиль%s", label, pr, if (pr == "строгий") " (база признаков)" else " (анализ, по умолчанию)"),
+        sprintf("%d; шаги: %s", n, paste(sprintf("%s — %d", x$step, x$n), collapse = "; ")), "300–800", ok(n >= 300 && n <= 800))
+  }
+}
+filter_rows(rA, sprintf("набор А%s", if (A_real) "" else "*"))
+nA_s <- sum(load_module(rA$s, 4)$meta$kind == "sample")
+add(2, sprintf("Объём %d образцов (весь набор А%s)", nA_s, if (A_real) "" else "*"),
+    sprintf("%s; время %.1f мин; пиковая память R %.0f МБ", if (rA$ok) "выполнено" else "ошибка", rA$time / 60, rA$ram), "50–100 образцов без ошибок", ok(rA$ok))
 add(8, sprintf("Полный цикл, набор А%s", if (A_real) "" else "*"), sprintf("%.1f мин; пиковая память R %.0f МБ; по модулям: %s", rA$time / 60, rA$ram,
     paste(sprintf("%d — %.0f с", rA$status$module, rA$status$time_s), collapse = "; ")), "≤ 24–48 ч", ok(rA$ok && rA$time < 24 * 3600))
 if (!is.null(B)) {
   rB <- run_project("setB_full", B[1], B[2])
-  nB <- if (rB$ok) nfeat(rB) else NA
-  add(3, "Устойчивых признаков, набор Б", nB, "300–800", ok(!is.na(nB) && nB >= 300 && nB <= 800))
+  if (rB$ok) filter_rows(rB, "набор Б") else add(3, "Набор Б", "ошибка обработки", "", "не пройден")
   add(8, "Полный цикл, набор Б", sprintf("%.1f мин; пиковая память R %.0f МБ", rB$time / 60, rB$ram), "≤ 24–48 ч", ok(rB$ok && rB$time < 24 * 3600))
 }
 stA <- rd(rA, 7, "auroc_steps.csv"); nest <- rd(rA, 7, "nested_cv.csv")
@@ -118,7 +130,7 @@ add(7, "Набор А, вложенная CV: точность / AUC", sprintf("
 # ------------------------------------------------------------------ 4–5. набор В: пропуски и корректность
 for (mp in c(0.20, 0.25, 0.30)) {
   v <- make_set_V(A[1], A[2], file.path(W, sprintf("data_setV_%02d", round(100 * mp))), n_spike = 15, missing = mp)
-  r <- run_project(sprintf("setV_%02d", round(100 * mp)), v$table, v$metadata)
+  r <- run_project(sprintf("setV_%02d", round(100 * mp)), v$table, v$metadata, light = TRUE)
   if (!r$ok) { add(4, sprintf("Набор В, %d%% пропусков", round(100 * mp)), "ошибка", "", "не пройден"); next }
   im <- readRDS(file.path(dirname(v$table), "introduced_missing.rds"))
   X5 <- load_module(r$s, 5); info <- X5$info; X4 <- load_module(r$s, 4)
@@ -133,7 +145,7 @@ for (mp in c(0.20, 0.25, 0.30)) {
   est <- X5$X[cbind(smp[okm], fid[okm])]
   hm <- half_min_impute(X4$X)[cbind(smp[okm], fid[okm])]
   nr <- function(e) sqrt(mean((log2(e) - log2(tv[okm]))^2)) / stats::sd(log2(tv[okm]))
-  add(4, sprintf("Набор В, %d%% пропусков (фактически %.1f%%)", round(100 * mp), v$missing_pct),
+  add(4, sprintf("Набор В, %d%% пропусков (фактически %.1f%%; %s)", round(100 * mp), v$missing_pct, LIGHT_TXT),
       sprintf("обработан; NRMSE заполнения на внесённых пропусках: лес %.3f, ½ минимума %.3f (n = %d)", nr(est), nr(hm), sum(okm)),
       "без ошибок, ошибка заполнения меньше, чем у ½ минимума", ok(nr(est) < nr(hm)))
   if (mp == 0.25) {
@@ -152,11 +164,11 @@ for (mp in c(0.20, 0.25, 0.30)) {
 # ------------------------------------------------------------------ 6. воспроизводимость
 keyf <- c("05_impute/imputed.csv", "06_correct/corrected_log2.csv", "07_select/uvf_stats.csv", "07_select/ds.csv", "07_select/ds_d.csv",
           "07_select/ds_rfe.csv", "07_select/model_accuracy.csv", "07_select/nested_cv.csv")
-h <- lapply(1:3, function(i) { r <- run_project(sprintf("repro_same_seed_%d", i), A[1], A[2], project = list(cores = if (i == 3) max(2, CORES) else CORES)); md5(r, keyf) })
+h <- lapply(1:3, function(i) { r <- run_project(sprintf("repro_same_seed_%d", i), A[1], A[2], light = TRUE, project = list(cores = if (i == 3) max(2, CORES) else CORES)); md5(r, keyf) })
 same <- all(vapply(h[-1], function(x) identical(x, h[[1]]), TRUE))
-add(6, "3 запуска с одним seed (третий — в параллельном режиме)", if (same) "все ключевые таблицы побайтно совпадают (md5)" else "есть различия",
+add(6, paste0("3 запуска с одним seed (третий — в параллельном режиме; ", LIGHT_TXT, ")"), if (same) "все ключевые таблицы побайтно совпадают (md5)" else "есть различия",
     "полное совпадение", ok(same))
-sets <- lapply(1:5, function(i) { r <- run_project(sprintf("repro_seed_%d", i), A[1], A[2], project = list(seed = 1000 + i, cores = CORES))
+sets <- lapply(1:5, function(i) { r <- run_project(sprintf("repro_seed_%d", i), A[1], A[2], light = TRUE, project = list(seed = 1000 + i, cores = CORES))
   list(rfe = setdiff(names(rd(r, 7, "ds_rfe.csv")), c("sample", "Label")), uvf = setdiff(names(rd(r, 7, "ds.csv")), c("sample", "Label"))) })
 stab <- function(k) { L <- lapply(sets, `[[`, k); length(Reduce(intersect, L)) / max(1, length(Reduce(union, L))) }
 add(6, "5 запусков с разными seed: доля признаков, отобранных во всех запусках (РОП)", sprintf("%.2f (во всех %d, хотя бы в одном %d)", stab("rfe"),

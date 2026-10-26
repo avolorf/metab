@@ -47,46 +47,59 @@ module2_qc <- function(s) {
 }
 
 # ------------------------------------------------------------------ модуль 3
+# Два профиля фильтра. Стандартный (по умолчанию для анализа, модули 4–8): присутствие ≥ 50 % хотя бы
+# в одной группе, обнаружение в QC ≥ 80 %, бланк, RSD в QC ≤ 30 %. Строгий (для базы признаков, модуль 9):
+# обнаружение во всех образцах, в QC ≥ 80 %, бланк, RSD в QC ≤ 15 % — сигналы, устойчивые в любой когорте
+# и пригодные для накопления; признаки, характерные только для одной группы, в него не входят.
 module3_filter <- function(s) {
   out <- module_dir(s, 3); d <- load_module(s, 2); f <- s$filter
   X <- d$X; meta <- d$meta[rownames(X), ]
-  qc <- meta$kind == "QC"; bl <- meta$kind == "blank"
-  groups <- sort(unique(meta$group[meta$kind == "sample"]))
+  qc <- meta$kind == "QC"; bl <- meta$kind == "blank"; smp <- meta$kind == "sample"
+  groups <- sort(unique(meta$group[smp]))
   tab <- data.frame(id = colnames(X), mz = d$info$mz, rt_min = d$info$rt_min, stringsAsFactors = FALSE)
   for (g in groups) tab[[paste0("detect_", g)]] <- colMeans(!is.na(X[meta$group == g, , drop = FALSE]))
-  keep_group <- apply(tab[paste0("detect_", groups)], 1, max) >= f$min_group_detect
-  steps <- data.frame(step = "Исходно", n = ncol(X))
-  keep <- keep_group
-  steps[nrow(steps) + 1, ] <- list(sprintf("Присутствие ≥ %.0f%% хотя бы в одной группе", 100 * f$min_group_detect), sum(keep))
-  if (sum(qc) >= 3) {
-    tab$detect_QC <- colMeans(!is.na(X[qc, , drop = FALSE]))
-    keep <- keep & tab$detect_QC >= f$min_qc_detect
-    steps[nrow(steps) + 1, ] <- list(sprintf("Обнаружение в QC ≥ %.0f%%", 100 * f$min_qc_detect), sum(keep))
-  }
+  tab$detect_all <- colMeans(!is.na(X[smp, , drop = FALSE]))
+  if (sum(qc) >= 3) { tab$detect_QC <- colMeans(!is.na(X[qc, , drop = FALSE])); tab$rsd_qc <- rsd_cols(X[qc, , drop = FALSE]) }
+  else log_msg("  QC меньше трёх — фильтры по QC не применяются")
   if (any(bl)) {
     B <- X[bl, , drop = FALSE]; B[is.na(B)] <- 0
-    ref <- if (any(qc)) X[qc, , drop = FALSE] else X[meta$kind == "sample", , drop = FALSE]
+    ref <- if (any(qc)) X[qc, , drop = FALSE] else X[smp, , drop = FALSE]
     mb <- apply(B, 2, stats::median); mb[mb == 0] <- NA
     tab$blank_ratio <- apply(ref, 2, stats::median, na.rm = TRUE) / mb
     tab$blank_ratio[is.na(tab$blank_ratio)] <- Inf
-    keep <- keep & tab$blank_ratio >= f$blank_ratio
-    steps[nrow(steps) + 1, ] <- list(sprintf("Отношение к бланку ≥ %g", f$blank_ratio), sum(keep))
   }
-  if (sum(qc) >= 3) {
-    tab$rsd_qc <- rsd_cols(X[qc, , drop = FALSE])
-    keep <- keep & !is.na(tab$rsd_qc) & tab$rsd_qc <= f$max_qc_rsd
-    steps[nrow(steps) + 1, ] <- list(sprintf("RSD в QC ≤ %.0f%%", 100 * f$max_qc_rsd), sum(keep))
-  } else log_msg("  QC меньше трёх — фильтр RSD не применяется")
-  tab$kept <- keep
-  for (i in seq_len(nrow(steps))) log_msg(sprintf("  %s: %d", steps$step[i], steps$n[i]))
-  n <- sum(keep)
-  inrange <- n >= f$target_min && n <= f$target_max
-  log_msg(sprintf("  Устойчивых признаков: %d (%s целевого диапазона %d–%d)", n, if (inrange) "в пределах" else "ВНЕ", f$target_min, f$target_max))
-  if (n < 2) stop("После фильтрации осталось меньше двух признаков — ослабьте пороги в настройках")
+  run_profile <- function(name, presence, presence_label, min_qc, max_rsd) {
+    st <- data.frame(profile = name, step = "Исходно", n = ncol(X)); keep <- presence
+    add <- function(lbl) st[nrow(st) + 1, ] <<- list(name, lbl, sum(keep))
+    add(presence_label)
+    if (sum(qc) >= 3) { keep <- keep & tab$detect_QC >= min_qc; add(sprintf("Обнаружение в QC ≥ %.0f%%", 100 * min_qc)) }
+    if (any(bl)) { keep <- keep & tab$blank_ratio >= f$blank_ratio; add(sprintf("Отношение к бланку ≥ %g", f$blank_ratio)) }
+    if (sum(qc) >= 3) { keep <- keep & !is.na(tab$rsd_qc) & tab$rsd_qc <= max_rsd; add(sprintf("RSD в QC ≤ %.0f%%", 100 * max_rsd)) }
+    list(keep = keep, steps = st)
+  }
+  ps <- run_profile("стандартный", apply(tab[paste0("detect_", groups)], 1, max) >= f$min_group_detect,
+                    sprintf("Присутствие ≥ %.0f%% хотя бы в одной группе", 100 * f$min_group_detect), f$min_qc_detect, f$max_qc_rsd)
+  sp <- f$strict
+  pt <- run_profile("строгий", tab$detect_all >= sp$min_all_detect,
+                    sprintf("Обнаружение в ≥ %.0f%% всех образцов", 100 * sp$min_all_detect), sp$min_qc_detect, sp$max_qc_rsd)
+  tab$kept_standard <- ps$keep; tab$kept_strict <- pt$keep
+  steps <- rbind(ps$steps, pt$steps)
+  for (i in seq_len(nrow(steps))) log_msg(sprintf("  [%s] %s: %d", steps$profile[i], steps$step[i], steps$n[i]))
+  inr <- function(n) n >= f$target_min && n <= f$target_max
+  log_msg(sprintf("  Устойчивых признаков: стандартный профиль %d, строгий %d (целевой диапазон базы признаков %d–%d: %s)",
+                  sum(ps$keep), sum(pt$keep), f$target_min, f$target_max, if (inr(sum(pt$keep))) "строгий профиль в пределах" else "строгий профиль вне"))
+  keep <- if (f$analysis_profile == "strict") pt$keep else ps$keep
+  log_msg(sprintf("  Для анализа (модули 4–8) используется %s профиль: %d признаков; для базы признаков (модуль 9) — %s",
+                  if (f$analysis_profile == "strict") "строгий" else "стандартный", sum(keep),
+                  if (s$report$database_profile == "strict") "строгий" else "стандартный"))
+  if (sum(keep) < 2) stop("После фильтрации осталось меньше двух признаков — ослабьте пороги в настройках")
   write_csv(tab, file.path(out, "feature_filter.csv")); write_csv(steps, file.path(out, "filter_steps.csv"))
   Xf <- X[, keep, drop = FALSE]
   write_csv(cbind(file = rownames(Xf), as.data.frame(Xf)), file.path(out, "filtered_peak_table.csv"))
-  save_module(s, 3, list(X = Xf, info = d$info[keep, ], meta = meta, filter = tab, steps = steps, in_target = inrange))
+  Xs <- X[, pt$keep, drop = FALSE]
+  write_csv(cbind(file = rownames(Xs), as.data.frame(Xs)), file.path(out, "strict_profile_peak_table.csv"))
+  save_module(s, 3, list(X = Xf, info = d$info[keep, ], meta = meta, filter = tab, steps = steps,
+                         strict_ids = tab$id[pt$keep], standard_ids = tab$id[ps$keep], in_target = inr(sum(pt$keep))))
 }
 
 # ------------------------------------------------------------------ модуль 4

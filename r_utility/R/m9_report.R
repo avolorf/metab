@@ -15,8 +15,10 @@ module9_report <- function(s) {
   # ---------------- база признаков
   db <- project_path(s, s$report$database); dir.create(db, showWarnings = FALSE, recursive = TRUE)
   m3 <- load_module(s, 3); m4 <- load_module(s, 4)
-  u <- d$sel$uvf; ids <- colnames(d$L)
-  ft <- data.frame(run_id = run_id, date = format(Sys.Date()), project = s$project$name, id = ids,
+  u <- d$sel$uvf
+  prof <- s$report$database_profile
+  ids <- intersect(if (prof == "strict") m3$strict_ids %||% colnames(d$L) else m3$standard_ids %||% colnames(d$L), colnames(d$L))
+  ft <- data.frame(run_id = run_id, date = format(Sys.Date()), project = s$project$name, db_profile = prof, id = ids,
                    d$info[match(ids, d$info$id), c("mz", "rt_min", "name")],
                    rsd_qc = m3$filter$rsd_qc[match(ids, m3$filter$id)] %||% NA,
                    p_uvf = u$p[match(ids, u$id)], p_adj = u$p_adj[match(ids, u$id)],
@@ -25,18 +27,20 @@ module9_report <- function(s) {
                    n_models = if (!is.null(d$sel$freq)) d$sel$freq$n_models[match(ids, d$sel$freq$id)] else NA,
                    selected_spf = ids %in% d$sel$f_spf, selected_rfe = ids %in% d$sel$f_rfe,
                    nested_share = if (!is.null(d$nested)) d$nested$frequency$share_of_folds[match(ids, d$nested$frequency$id)] else NA)
-  inten <- data.frame(run_id = run_id, sample = rep(rownames(m4$X), ncol(m4$X)), group = rep(m4$meta$group, ncol(m4$X)),
-                      id = rep(colnames(m4$X), each = nrow(m4$X)),
-                      mz = rep(d$info$mz[match(colnames(m4$X), d$info$id)], each = nrow(m4$X)),
-                      rt_min = rep(d$info$rt_min[match(colnames(m4$X), d$info$id)], each = nrow(m4$X)),
-                      intensity_raw = as.vector(m4$X), log2_corrected = as.vector(d$L[rownames(m4$X), colnames(m4$X)]))
+  X4 <- m4$X[, ids, drop = FALSE]
+  inten <- data.frame(run_id = run_id, sample = rep(rownames(X4), ncol(X4)), group = rep(m4$meta$group, ncol(X4)),
+                      id = rep(colnames(X4), each = nrow(X4)),
+                      mz = rep(d$info$mz[match(colnames(X4), d$info$id)], each = nrow(X4)),
+                      rt_min = rep(d$info$rt_min[match(colnames(X4), d$info$id)], each = nrow(X4)),
+                      intensity_raw = as.vector(X4), log2_corrected = as.vector(d$L[rownames(X4), colnames(X4)]))
   runs <- data.frame(run_id = run_id, date = format(Sys.time(), "%Y-%m-%d %H:%M"), project = s$project$name, version = UROMETABR_VERSION,
                      input = basename(if (s$input$type == "table") s$input$table_file else s$input$raw_dir),
                      n_samples = nrow(d$L), groups = paste(sprintf("%s:%d", names(table(d$meta$group)), table(d$meta$group)), collapse = " "),
-                     n_features = ncol(d$L), n_uvf = length(d$sel$f_uvf), n_spf = length(d$sel$f_spf), n_rfe = length(d$sel$f_rfe),
+                     n_features = ncol(d$L), db_profile = prof, n_db_features = length(ids), n_uvf = length(d$sel$f_uvf), n_spf = length(d$sel$f_spf), n_rfe = length(d$sel$f_rfe),
                      p_adjust = s$select$p_adjust, seed = s$project$seed)
   db_append(runs, file.path(db, "runs_db.csv")); db_append(ft, file.path(db, "features_db.csv")); db_append(inten, file.path(db, "intensities_db.csv"))
-  log_msg(sprintf("  База признаков (%s): добавлено %d признаков, %d значений интенсивности (прогон %s)", db, nrow(ft), nrow(inten), run_id))
+  log_msg(sprintf("  База признаков (%s, %s профиль): добавлено %d признаков, %d значений интенсивности (прогон %s)", db,
+                  if (prof == "strict") "строгий" else "стандартный", nrow(ft), nrow(inten), run_id))
   # ---------------- отчёт
   sec <- report_sections(s, run_id)
   saveRDS(sec, file.path(out, "report_sections.rds"))
@@ -69,7 +73,8 @@ report_sections <- function(s, run_id) {
     list(title = "0. Входные данные", tables = list("Проверки" = rd(0, "input_check.csv"))),
     list(title = "2. Контроль качества", tables = list("Сводка" = rd(2, "qc_summary.csv"), "Пропуски по группам" = rd(2, "missing_by_group.csv")),
          images = c(img(2, "pca_qc"), img(2, "tic_by_order"), img(2, "rsd_qc"))),
-    list(title = "3. Фильтр устойчивых признаков", tables = list("Шаги фильтрации" = rd(3, "filter_steps.csv"))),
+    list(title = "3. Фильтр устойчивых признаков", text = "Стандартный профиль — для анализа (модули 4–8); строгий — для базы признаков (модуль 9).",
+         tables = list("Шаги фильтрации по профилям" = rd(3, "filter_steps.csv"))),
     list(title = "5. Заполнение пропусков", tables = list(rd(5, "impute_info.csv"))),
     list(title = "6. Коррекция сигнала", tables = list(rd(6, "correct_info.csv")), images = img(6, "distribution_by_sample")),
     list(title = "7. Статистика и отбор признаков",

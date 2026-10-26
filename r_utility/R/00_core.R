@@ -28,6 +28,8 @@ default_settings <- function() list(
               prefilter_k = 3, prefilter_i = 1000, bw = 5, min_fraction = 0.5, mzwid = 0.015,
               obiwarp_binsize = 0.5),
   filter = list(min_qc_detect = 0.8, min_group_detect = 0.5, max_qc_rsd = 0.30, blank_ratio = 5,
+                strict = list(min_all_detect = 1.0, min_qc_detect = 0.8, max_qc_rsd = 0.15),   # профиль базы признаков
+                analysis_profile = "standard",                                                  # standard | strict
                 target_min = 300, target_max = 800),
   samples = list(average_replicates = TRUE, groups = list()),   # пусто — все группы, кроме QC и бланков
   impute = list(method = "rf", maxiter = 10, ntree = 100),      # rf | missForest | halfmin
@@ -39,7 +41,7 @@ default_settings <- function() list(
                 nested_input = "imputed"),                       # imputed (без EigenMS) | corrected
   visual = list(dpi = 600, formats = c("png", "jpeg"), heatmap_top = 50, boxplot_top = 12, vip_top = 20,
                 hca_distance = "manhattan", hca_method = "ward.D2"),
-  report = list(database = "features_db", rmarkdown = TRUE),
+  report = list(database = "features_db", database_profile = "strict", rmarkdown = TRUE),   # strict | standard
   run = list(from = 0, to = 9))
 
 merge_settings <- function(base, over) {
@@ -82,6 +84,8 @@ check_settings <- function(s) {
   if (!s$select$p_adjust %in% c("holm", "BH", "none", "stage1")) e <- c(e, "select$p_adjust: holm, BH, none или stage1")
   if (!s$select$rfe_method %in% c("nb", "rf")) e <- c(e, "select$rfe_method: nb или rf")
   if (!s$select$nested_input %in% c("imputed", "corrected")) e <- c(e, "select$nested_input: imputed или corrected")
+  if (!s$filter$analysis_profile %in% c("standard", "strict")) e <- c(e, "filter$analysis_profile: standard или strict")
+  if (!s$report$database_profile %in% c("standard", "strict")) e <- c(e, "report$database_profile: standard или strict")
   if (s$filter$max_qc_rsd <= 0 || s$filter$min_group_detect < 0 || s$filter$min_group_detect > 1) e <- c(e, "пороги фильтра вне допустимых значений")
   if (length(e)) stop("Ошибки в настройках:\n  ", paste(e, collapse = "\n  "))
   invisible(TRUE)

@@ -112,3 +112,21 @@ test_that("модуль 0: понятные ошибки на неверных �
   write_raw_stubs(file.path(d, "raw"), c("y1", "y2")); writeLines("garbage", file.path(d, "raw", "bad.mzML"))
   s$input$raw_dir <- "raw"; expect_error(module0_input(s), "bad.mzML")
 })
+
+test_that("модуль 3: стандартный и строгий профили фильтра", {
+  d <- file.path(tempdir(), "m3"); unlink(d, recursive = TRUE); dir.create(d)
+  s <- default_settings(); s$project$dir <- d
+  set.seed(6); n <- 12; X <- matrix(2^rnorm(n * 4, 15, 0.05), n, dimnames = list(c(paste0("s", 1:8), paste0("QC", 1:4)), paste0("F", 1:4)))
+  X[1:4, "F2"] <- NA                                  # только в одной группе — стандартный да, строгий нет
+  X[9:12, "F3"] <- X[9:12, "F3"] * c(1, 1.3, 0.8, 1.2) # RSD в QC ≈ 20 % — стандартный да, строгий нет
+  X[1:7, "F4"] <- NA                                  # почти нигде — оба нет
+  meta <- data.frame(file = rownames(X), group = c(rep(c("A", "B"), each = 4), rep("QC", 4)), kind = c(rep("sample", 8), rep("QC", 4)),
+                     row.names = rownames(X))
+  save_module(s, 2, list(X = X, info = data.frame(id = colnames(X), mz = 1:4, rt_min = 1:4), meta = meta))
+  invisible(capture.output(module3_filter(s))); r <- load_module(s, 3)
+  expect_equal(r$standard_ids, c("F1", "F2", "F3")); expect_equal(r$strict_ids, "F1")
+  expect_true(all(r$strict_ids %in% r$standard_ids)); expect_equal(colnames(r$X), r$standard_ids)
+  expect_setequal(unique(r$steps$profile), c("стандартный", "строгий"))
+  s$filter$analysis_profile <- "strict"; s$filter$strict$max_qc_rsd <- 0.3
+  invisible(capture.output(module3_filter(s))); expect_equal(colnames(load_module(s, 3)$X), c("F1", "F3"))
+})

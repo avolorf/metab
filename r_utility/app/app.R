@@ -40,6 +40,9 @@ ui <- fluidPage(
         column(4, h4("Фильтр (модуль 3)"),
                num("f_rsd", "Макс. RSD в QC", 0.30, 0.05, 0, 1), num("f_grp", "Мин. доля присутствия в группе", 0.5, 0.05, 0, 1),
                num("f_qc", "Мин. доля обнаружения в QC", 0.8, 0.05, 0, 1), num("f_blank", "Мин. отношение к бланку", 5, 1, 1),
+               num("f_strict_rsd", "Строгий профиль (база признаков): макс. RSD в QC", 0.15, 0.05, 0, 1),
+               selectInput("f_prof", "Профиль для анализа (модули 4–8)", c("стандартный" = "standard", "строгий" = "strict")),
+               selectInput("db_prof", "Профиль для базы признаков (модуль 9)", c("строгий" = "strict", "стандартный" = "standard")),
                h4("Пропуски и коррекция (5–6)"),
                selectInput("imp", "Заполнение пропусков", c("Случайный лес, алгоритм missForest" = "rf", "Пакет missForest" = "missForest", "½ минимума" = "halfmin")),
                num("imp_iter", "Макс. итераций", 10, 1, 1), num("imp_tree", "Деревьев", 100, 10, 10),
@@ -96,7 +99,8 @@ server <- function(input, output, session) {
     updateRadioButtons(session, "in_type", selected = s$input$type)
     updateTextInput(session, "table_file", value = s$input$table_file); updateTextInput(session, "meta_file", value = s$input$metadata_file)
     updateTextInput(session, "raw_dir", value = s$input$raw_dir)
-    upd("f_rsd", s$filter$max_qc_rsd); upd("f_grp", s$filter$min_group_detect); upd("f_qc", s$filter$min_qc_detect); upd("f_blank", s$filter$blank_ratio)
+    upd("f_rsd", s$filter$max_qc_rsd); upd("f_grp", s$filter$min_group_detect); upd("f_qc", s$filter$min_qc_detect); upd("f_blank", s$filter$blank_ratio); upd("f_strict_rsd", s$filter$strict$max_qc_rsd)
+    updateSelectInput(session, "f_prof", selected = s$filter$analysis_profile); updateSelectInput(session, "db_prof", selected = s$report$database_profile)
     updateSelectInput(session, "imp", selected = s$impute$method); upd("imp_iter", s$impute$maxiter); upd("imp_tree", s$impute$ntree)
     updateSelectInput(session, "norm", selected = s$correct$normalization); updateSelectInput(session, "corr", selected = s$correct$method); upd("eig_perm", s$correct$eigen_perm)
     updateSelectInput(session, "padj", selected = s$select$p_adjust); upd("alpha", s$select$alpha)
@@ -112,6 +116,7 @@ server <- function(input, output, session) {
     s$project$name <- input$pname; s$project$seed <- input$seed; s$project$cores <- input$cores
     s$input$type <- input$in_type; s$input$table_file <- input$table_file; s$input$metadata_file <- input$meta_file; s$input$raw_dir <- input$raw_dir
     s$filter$max_qc_rsd <- input$f_rsd; s$filter$min_group_detect <- input$f_grp; s$filter$min_qc_detect <- input$f_qc; s$filter$blank_ratio <- input$f_blank
+    s$filter$strict$max_qc_rsd <- input$f_strict_rsd; s$filter$analysis_profile <- input$f_prof; s$report$database_profile <- input$db_prof
     s$impute$method <- input$imp; s$impute$maxiter <- input$imp_iter; s$impute$ntree <- input$imp_tree
     s$correct$normalization <- input$norm; s$correct$method <- input$corr; s$correct$eigen_perm <- input$eig_perm
     s$select$p_adjust <- input$padj; s$select$alpha <- input$alpha; s$select$models <- input$models; s$select$top_n <- input$top_n
