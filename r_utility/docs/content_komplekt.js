@@ -6,7 +6,9 @@ module.exports = ({ rd, csv, ROOT }) => {
     .filter((f) => fs.statSync(path.join(ROOT, f)).isFile()).sort();
   const tests = [...walk("tests"), ...walk("tests/testthat")].filter((f) => /\.R$/.test(f)).sort();
   const size = (fl) => fl.reduce((s, f) => s + fs.statSync(path.join(ROOT, f)).size, 0);
-  const lines = (fl) => fl.reduce((s, f) => s + rd(f).split("\n").length, 0);
+  const nl = (f) => (rd(f).match(/\n/g) || []).length;                       // число строк, как wc -l
+  const lines = (fl) => fl.reduce((s, f) => s + nl(f), 0);
+  const bytes = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   const kb = (b) => (b / 1024).toFixed(1).replace(".", ",");
   const md5 = (f) => crypto.createHash("md5").update(fs.readFileSync(path.join(ROOT, f))).digest("hex");
   const V = (rd("R/00_core.R").match(/UROMETABR_VERSION <- "([^"]+)"/) || [])[1];
@@ -25,7 +27,7 @@ module.exports = ({ rd, csv, ROOT }) => {
     ["Язык программирования", "R (версия не ниже 4.0.0); отчёт — R Markdown"],
     ["Операционные системы", "Windows 8 и новее (основная), Linux, macOS — везде, где работает R ≥ 4.0.0"],
     ["Требования к ПК", "Процессор от 2,5 ГГц, оперативная память от 8 ГБ, свободное место на диске от 1 ГБ; браузер для графического интерфейса и отчёта; при первом запуске — доступ к репозиторию CRAN для установки пакетов"],
-    ["Объём программы", `${kb(size(prog))} КБ исходного кода (${prog.length} файлов, ${lines(prog)} строк); с тестами и генераторами контрольных данных — ${kb(size(prog) + size(tests))} КБ (${prog.length + tests.length} файлов)`],
+    ["Объём программы", `${bytes(size(prog))} байт (${kb(size(prog))} КБ) исходного кода: ${prog.length} файлов, ${lines(prog)} строк; с тестами и генераторами контрольных данных — ${kb(size(prog) + size(tests))} КБ (${prog.length + tests.length} файлов)`],
     ["Форма поставки", `Архив UroMetabR_v${V}_${DATE}.zip: исходный код, шаблон отчёта, файлы запуска, инструкция пользователя, тесты`]],
     [25, 75]]);
   C.push(["h1", "3 Собственный код и сторонние библиотеки", true]);
@@ -34,7 +36,8 @@ module.exports = ({ rd, csv, ROOT }) => {
   C.push(["table", ["Пакет", "Источник", "Версия в испытаниях", "Лицензия", "Назначение в программе"], pk.map((r) => [r.package, r.source, r.version, r.license, r.purpose]), [14, 13, 13, 22, 38]]);
   C.push(["p", "Лицензии пакетов, установленных в среде испытаний, взяты из их файлов DESCRIPTION; для пакетов, не установленных в среде испытаний (отмечены «*»), — по данным CRAN/Bioconductor, их нужно сверить перед подачей. Полный перечень пакетов с версиями, включая зависимости, приводится в файле sessionInfo каждого прогона."]);
   C.push(["h1", "4 Состав исходного кода (для листинга)", true]);
-  C.push(["table", ["Файл", "Размер, КБ", "Строк", "MD5"], prog.map((f) => [f, kb(fs.statSync(path.join(ROOT, f)).size), String(rd(f).split("\n").length), md5(f)]), [42, 12, 10, 36]]);
+  C.push(["table", ["Файл", "Размер, байт", "Строк", "MD5"], [...prog.map((f) => [f, String(fs.statSync(path.join(ROOT, f)).size), String(nl(f)), md5(f)]),
+                ["Итого", bytes(size(prog)), String(lines(prog)), ""]], [42, 12, 10, 36]]);
   C.push(["p", `Полный листинг собственного кода с номерами строк — файл UroMetabR_v${V}_listing.txt (кодировка UTF-8) в этом же комплекте; его можно использовать для депонирования.`]);
   return C;
 };

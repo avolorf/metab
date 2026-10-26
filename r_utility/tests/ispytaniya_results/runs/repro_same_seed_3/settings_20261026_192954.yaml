@@ -1,0 +1,87 @@
+project:
+  name: repro_same_seed_3
+  seed: 20261026
+  cores: 4
+input:
+  type: table
+  table_file: /home/user/metab/runs/data_original/input/peak_table.csv
+  raw_dir: ''
+  metadata_file: /home/user/metab/runs/data_original/input/metadata.csv
+  table_format: auto
+  id_column: ''
+xcms:
+  ipo: no
+  ppm: 5
+  min_peakwidth: 5
+  max_peakwidth: 30
+  snthresh: 10
+  noise: 1000
+  prefilter_k: 3
+  prefilter_i: 1000
+  bw: 5
+  min_fraction: 0.5
+  mzwid: 0.015
+  obiwarp_binsize: 0.5
+filter:
+  min_qc_detect: 0.8
+  min_group_detect: 0.5
+  max_qc_rsd: 0.3
+  blank_ratio: 5
+  strict:
+    min_all_detect: 1
+    min_qc_detect: 0.8
+    max_qc_rsd: 0.15
+  analysis_profile: standard
+  target_min: 300
+  target_max: 800
+samples:
+  average_replicates: yes
+  groups: []
+impute:
+  method: rf
+  maxiter: 3
+  ntree: 100
+correct:
+  normalization: none
+  log2: yes
+  method: eigenms
+  eigen_perm: 100
+  eigen_alpha: 0.05
+select:
+  p_adjust: holm
+  alpha: 0.05
+  models:
+  - knn
+  - svmRadial
+  - pls
+  - rf
+  cv_folds: 5
+  cv_repeats: 3
+  tune_length: 5
+  top_n: 50
+  min_freq: 2
+  rfe_method: nb
+  rfe_folds: 5
+  rfe_repeats: 3
+  compare_stages: no
+  nested_cv: yes
+  nested_folds: 5
+  nested_repeats: 1
+  nested_input: imputed
+visual:
+  dpi: 600
+  formats:
+  - png
+  - jpeg
+  heatmap_top: 50
+  boxplot_top: 12
+  vip_top: 20
+  hca_distance: manhattan
+  hca_method: ward.D2
+report:
+  database: features_db
+  database_profile: strict
+  rmarkdown: yes
+run:
+  from: 0
+  to: 9
