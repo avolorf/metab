@@ -19,6 +19,12 @@ OUT <- normalizePath(arg("out", "ispytaniya_out"), mustWork = FALSE); dir.create
 W <- file.path(OUT, "work"); dir.create(W, showWarnings = FALSE)
 CORES <- as.integer(arg("cores", "1"))
 P <- data.frame(trial = integer(0), item = character(0), value = character(0), target = character(0), result = character(0))
+TR <- if (!is.null(arg("trials"))) as.integer(strsplit(arg("trials"), ",")[[1]]) else NULL   # --trials=4,5,6 — дозапуск пунктов
+want <- function(...) is.null(TR) || any(c(...) %in% TR)
+if (!is.null(TR) && file.exists(file.path(OUT, "protocol.csv"))) {                     # прежние строки остальных пунктов сохраняются
+  P <- as.data.frame(data.table::fread(file.path(OUT, "protocol.csv"), encoding = "UTF-8", colClasses = "character"))
+  P$trial <- as.integer(P$trial); P <- P[!P$trial %in% TR, ]
+}
 add <- function(trial, item, value, target = "", result = "") {
   P[nrow(P) + 1, ] <<- list(trial, item, as.character(value), target, result)
   data.table::fwrite(P, file.path(OUT, "protocol.csv"), bom = TRUE)
@@ -52,10 +58,11 @@ A <- arg("setA"); B <- arg("setB")
 if (is.null(A)) { a <- make_set_A_surrogate(file.path(W, "setA_surrogate")); A <- c(a$table, a$metadata); A_real <- FALSE
 } else { A <- strsplit(A, ",")[[1]]; A_real <- TRUE }
 if (!is.null(B)) B <- strsplit(B, ",")[[1]]
-add(0, "Набор А", if (A_real) paste("реальный:", basename(A[1])) else "синтетический заменитель А* (реальный набор не передан)")
-add(0, "Набор Б", if (is.null(B)) "не передан — пункты для набора Б не выполнялись" else basename(B[1]))
+if (want(0)) add(0, "Набор А", if (A_real) paste("реальный:", basename(A[1])) else "синтетический заменитель А* (реальный набор не передан)")
+if (want(0)) add(0, "Набор Б", if (is.null(B)) "не передан — пункты для набора Б не выполнялись" else basename(B[1]))
 
 # ------------------------------------------------------------------ 1. форматы входа
+if (want(1)) {
 fv <- write_format_variants(A[1], file.path(W, "formats"))
 ref <- NULL
 for (f in c("table.csv", "table.tsv", "table.txt", "table_semicolon.txt", "table_features_in_rows.csv")) {
@@ -85,6 +92,8 @@ if (!is.null(M1) && file.exists(M1)) {                 # результаты te
   add(1, "Формат mzML/mzXML: модули 0–3 по сырым данным", if (r$ok) sprintf("выполнено за %.0f с", r$time) else "ошибка", "без ошибок", ok(r$ok))
 }
 
+}
+
 # ------------------------------------------------------------------ 2. объём сессии; 8. время
 subset_set <- function(tab, meta, n, name) {
   t <- data.table::fread(tab, data.table = FALSE, check.names = FALSE, colClasses = list(character = 1))
@@ -97,7 +106,7 @@ subset_set <- function(tab, meta, n, name) {
   data.table::fwrite(t2, file.path(d, "peak_table.csv")); data.table::fwrite(m2, file.path(d, "metadata.csv"))
   c(file.path(d, "peak_table.csv"), file.path(d, "metadata.csv"))
 }
-for (n in c(50)) {
+for (n in if (want(2)) c(50) else integer(0)) {
   ss <- subset_set(A[1], A[2], n, paste0("subset", n))
   r <- run_project(paste0("volume_", n), ss[1], ss[2])
   add(2, sprintf("Объём %d образцов (набор А%s)", n, if (A_real) "" else "*"),
@@ -106,7 +115,14 @@ for (n in c(50)) {
 }
 
 # ------------------------------------------------------------------ 3. устойчивые признаки; 7. сходимость; 8. время
-rA <- run_project("setA_full", A[1], A[2])
+attach_project <- function(name) {
+  d <- file.path(W, name); st <- utils::tail(sort(list.files(file.path(d, "logs"), pattern = "^modules_", full.names = TRUE)), 1)
+  st <- as.data.frame(data.table::fread(st, encoding = "UTF-8"))
+  list(dir = d, s = read_settings(file.path(d, "settings.yaml")), status = st, ok = all(st$status %in% c("выполнен", "пропущен")),
+       time = sum(st$time_s, na.rm = TRUE), ram = max(st$peak_ram_mb, na.rm = TRUE))
+}
+rA <- if (want(2, 3, 7, 8) || !dir.exists(file.path(W, "setA_full", "09_report"))) run_project("setA_full", A[1], A[2]) else attach_project("setA_full")
+if (want(2, 3, 7, 8)) {
 filter_rows <- function(r, label) {
   m3 <- load_module(r$s, 3); st <- m3$steps
   for (pr in c("стандартный", "строгий")) {
@@ -130,9 +146,17 @@ stA <- rd(rA, 7, "auroc_steps.csv"); nest <- rd(rA, 7, "nested_cv.csv")
 add(7, "Набор А: признаки по этапам (до коррекции → после → ОСФ → СПФ → РОП)", paste(stA$n_features, collapse = " → "))
 add(7, "Набор А: средняя AUROC по этапам (описательная)", paste(sprintf("%.3f", stA$mean_auroc_descriptive), collapse = " → "))
 add(7, "Набор А, вложенная CV: точность / AUC", sprintf("%.3f / %.3f", nest$accuracy_mean, nest$auc_mean))
+}
 # ------------------------------------------------------------------ 4–5. набор В: пропуски и корректность
-for (mp in c(0.20, 0.25, 0.30)) {
-  v <- make_set_V(A[1], A[2], file.path(W, sprintf("data_setV_%02d", round(100 * mp))), n_spike = 15, missing = mp)
+# Набор В строится из таблицы А после стандартного фильтра модуля 3: в исходном экспорте MS-DIAL много почти пустых
+# признаков (у набора А — 52 % пропусков), а требование ТЗ «до 20–30 % пропусков» относится к устойчивым признакам.
+m3A <- load_module(rA$s, 3)
+XA <- m3A$X; colnames(XA) <- m3A$info$original[match(colnames(XA), m3A$info$id)]
+A_filt <- file.path(W, "setA_filtered.csv")
+data.table::fwrite(data.frame(file = rownames(XA), XA, check.names = FALSE), A_filt)
+add_if <- want(4, 5)
+for (mp in if (add_if) c(0.20, 0.25, 0.30) else numeric(0)) {
+  v <- make_set_V(A_filt, A[2], file.path(W, sprintf("data_setV_%02d", round(100 * mp))), n_spike = 15, missing = mp)
   r <- run_project(sprintf("setV_%02d", round(100 * mp)), v$table, v$metadata, light = TRUE)
   if (!r$ok) { add(4, sprintf("Набор В, %d%% пропусков", round(100 * mp)), "ошибка", "", "не пройден"); next }
   im <- readRDS(file.path(dirname(v$table), "introduced_missing.rds"))
@@ -165,6 +189,7 @@ for (mp in c(0.20, 0.25, 0.30)) {
 }
 
 # ------------------------------------------------------------------ 6. воспроизводимость
+if (want(6)) {
 keyf <- c("05_impute/imputed.csv", "06_correct/corrected_log2.csv", "07_select/uvf_stats.csv", "07_select/ds.csv", "07_select/ds_d.csv",
           "07_select/ds_rfe.csv", "07_select/model_accuracy.csv", "07_select/nested_cv.csv")
 h <- lapply(1:3, function(i) { r <- run_project(sprintf("repro_same_seed_%d", i), A[1], A[2], light = TRUE, project = list(cores = if (i == 3) max(2, CORES) else CORES)); md5(r, keyf) })
@@ -178,7 +203,9 @@ add(6, "5 запусков с разными seed: доля признаков, 
     length(Reduce(intersect, lapply(sets, `[[`, "rfe"))), length(Reduce(union, lapply(sets, `[[`, "rfe")))))
 add(6, "5 запусков с разными seed: то же для ОСФ (не зависит от seed)", sprintf("%.2f", stab("uvf")), "1.00", ok(stab("uvf") == 1))
 
+}
 # ------------------------------------------------------------------ 9. полнота отчёта
+if (want(9)) {
 rep <- file.path(rA$dir, "09_report", "report.html"); html <- if (file.exists(rep)) paste(readLines(rep, encoding = "UTF-8"), collapse = "\n") else ""
 need <- c("Сведения о прогоне", "0. Входные данные", "2. Контроль качества", "3. Фильтр", "5. Заполнение", "6. Коррекция", "7. Статистика",
           "8. Визуализация", "9. База признаков", "Журнал прогона", "sessionInfo")
@@ -189,7 +216,9 @@ add(9, "HTML-отчёт: разделы и рисунки", sprintf("разде�
 add(9, "Табличные результаты", paste(length(list.files(rA$dir, pattern = "\\.csv$", recursive = TRUE)), "CSV-файлов; база:", paste(list.files(file.path(rA$dir, "features_db")), collapse = ", ")))
 file.copy(rep, file.path(OUT, "report_setA.html"), overwrite = TRUE)
 
+}
 # ------------------------------------------------------------------ 10. установка с нуля
+if (want(10))
 add(10, "Установка на чистый ПК с Windows", "выполняется вручную по чек-листу (docs/user_guide.md, раздел «Установка»)", "время установки, проблемы", "не выполнен в среде разработки")
 
 writeLines(c(paste("UroMetabR", UROMETABR_VERSION), utils::capture.output(utils::sessionInfo())), file.path(OUT, "session_info_ispytaniya.txt"))
