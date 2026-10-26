@@ -1,0 +1,8 @@
+10:36:26  UroMetabR 1.0.0 (2026-10-26); R 4.3.3; Ubuntu 24.04.5 LTS
+10:36:26  Проект: /home/user/metab/runs/data_original; модули 9–9; seed 20261026
+10:36:26  === Модуль 9. База признаков и отчёт
+10:36:26    База признаков (/home/user/metab/runs/data_original/features_db, строгий профиль): добавлено 777 признаков, 80808 значений интенсивности (прогон 20261026_103626)
+10:36:27    Отчёт: /home/user/metab/runs/data_original/09_report/report.html (R Markdown)
+10:36:28  Модуль 9: выполнен, 1.6 с, пиковая память R 264 МБ
+10:36:28  Готово. Отчёт: /home/user/metab/runs/data_original/09_report/report.html
+UROMETABR_DONE
