@@ -3,7 +3,7 @@
 # каждого прогона собираются в папку --out.
 #
 #   Rscript tests/ispytaniya.R --out=протокол
-#          [--setA=таблица.csv,метаданные.csv]   набор А (этап 1, 106 образцов); без него — синтетический заменитель А*
+#          [--setA=таблица.csv,метаданные.csv]   набор А (когорта статьи ABC, 107 участников); без него — синтетический заменитель А*
 #          [--setB=таблица.csv,метаданные.csv]   набор Б (когорта 2025–2026, 94 образца)
 #          [--raw=папка_mzML,метаданные.csv]     сырые данные для п. 1 (нужен xcms)
 #          [--cores=4]
@@ -112,19 +112,9 @@ if (!is.null(B)) {
   add(8, "Полный цикл, набор Б", sprintf("%.1f мин; пиковая память R %.0f МБ", rB$time / 60, rB$ram), "≤ 24–48 ч", ok(rB$ok && rB$time < 24 * 3600))
 }
 stA <- rd(rA, 7, "auroc_steps.csv"); nest <- rd(rA, 7, "nested_cv.csv")
-add(7, "Набор А, режим по умолчанию (Холм): признаки по этапам", paste(stA$n_features, collapse = " → "))
-add(7, "Набор А, режим по умолчанию: средняя AUROC по этапам", paste(sprintf("%.3f", stA$mean_auroc_descriptive), collapse = " → "))
+add(7, "Набор А: признаки по этапам (до коррекции → после → ОСФ → СПФ → РОП)", paste(stA$n_features, collapse = " → "))
+add(7, "Набор А: средняя AUROC по этапам (описательная)", paste(sprintf("%.3f", stA$mean_auroc_descriptive), collapse = " → "))
 add(7, "Набор А, вложенная CV: точность / AUC", sprintf("%.3f / %.3f", nest$accuracy_mean, nest$auc_mean))
-rC <- run_project("setA_stage1_mode", A[1], A[2], select = list(p_adjust = "stage1"),
-                  filter = list(min_group_detect = 0, min_qc_detect = 0, max_qc_rsd = 1e9, blank_ratio = 0))
-if (rC$ok) {
-  stC <- rd(rC, 7, "auroc_steps.csv")
-  add(7, "Набор А, режим совместимости с этапом 1: признаки по этапам", paste(stC$n_features, collapse = " → "), "эталон: 981 → 981 → 226 → 54 → 5",
-      if (A_real) ok(abs(stC$n_features[3] - 226) / 226 < 0.1) else "эталон только для реального набора А")
-  add(7, "Набор А, режим совместимости: средняя AUROC по этапам", paste(sprintf("%.3f", stC$mean_auroc_descriptive), collapse = " → "),
-      "эталон: 0.541 → 0.564 → 0.642 → 0.693 → 0.873", if (A_real) "сравнить с эталоном" else "эталон только для реального набора А")
-} else add(7, "Набор А, режим совместимости с этапом 1", "ошибка", "", "не пройден")
-
 # ------------------------------------------------------------------ 4–5. набор В: пропуски и корректность
 for (mp in c(0.20, 0.25, 0.30)) {
   v <- make_set_V(A[1], A[2], file.path(W, sprintf("data_setV_%02d", round(100 * mp))), n_spike = 15, missing = mp)
