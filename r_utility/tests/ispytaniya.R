@@ -240,7 +240,7 @@ file.copy(rep, file.path(OUT, "report_setA.html"), overwrite = TRUE)
 }
 # ------------------------------------------------------------------ 10. установка с нуля
 if (want(10))
-add(10, "Установка на чистый ПК с Windows", "выполняется вручную по чек-листу (docs/user_guide.md, раздел «Установка»)", "время установки, проблемы", "не выполнен в среде разработки")
+add(10, "Установка на чистый ПК с Windows", "выполняется вручную по чек-листу (docs/user_guide.md, раздел «Проверка установки»)", "время установки, проблемы", "не выполнен в среде разработки")
 
 writeLines(c(paste("UroMetabR", UROMETABR_VERSION), utils::capture.output(utils::sessionInfo())), file.path(OUT, "session_info_ispytaniya.txt"))
 cat("\nПротокол:", file.path(OUT, "protocol.csv"), "\n")

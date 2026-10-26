@@ -7,4 +7,7 @@ source(file.path(root, "R", "zz_setup.R"), encoding = "UTF-8")
 if (length(missing_packages())) install_missing()
 load_urometabr(root)
 port <- as.integer(Sys.getenv("UROMETABR_PORT", "0")); if (!port) port <- NULL
+message("\nUroMetabR запускается. Окно программы откроется в браузере.\n",
+        "НЕ ЗАКРЫВАЙТЕ это чёрное окно, пока работаете с программой: его закрытие завершает работу UroMetabR.\n",
+        "Если браузер не открылся, скопируйте адрес http://127.0.0.1:… из строки «Listening on» ниже в браузер.\n")
 shiny::runApp(file.path(root, "app"), launch.browser = Sys.getenv("UROMETABR_NO_BROWSER") == "", port = port)
