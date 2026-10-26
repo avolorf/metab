@@ -49,6 +49,8 @@ ui <- fluidPage(
                selectInput("norm", "Нормализация", c("нет" = "none", "PQN" = "PQN")),
                selectInput("corr", "Коррекция сигнала", c("EigenMS" = "eigenms", "нет" = "none")), num("eig_perm", "Перестановок EigenMS", 200, 50, 20)),
         column(4, h4("Отбор признаков (модуль 7)"),
+               selectInput("sel_in", "Данные для отбора", c("после заполнения пропусков, без EigenMS (рекомендуется)" = "imputed",
+                                                            "после EigenMS (p-значения занижены)" = "corrected")),
                selectInput("padj", "Поправка на множественные сравнения", c("Холм–Бонферрони" = "holm", "Бенджамини–Хохберг (FDR)" = "BH",
                                                                             "без поправки" = "none", "как на этапе 1 (без поправки по признакам)" = "stage1")),
                num("alpha", "Уровень значимости", 0.05, 0.01, 0.001, 0.2),
@@ -103,7 +105,7 @@ server <- function(input, output, session) {
     updateSelectInput(session, "f_prof", selected = s$filter$analysis_profile); updateSelectInput(session, "db_prof", selected = s$report$database_profile)
     updateSelectInput(session, "imp", selected = s$impute$method); upd("imp_iter", s$impute$maxiter); upd("imp_tree", s$impute$ntree)
     updateSelectInput(session, "norm", selected = s$correct$normalization); updateSelectInput(session, "corr", selected = s$correct$method); upd("eig_perm", s$correct$eigen_perm)
-    updateSelectInput(session, "padj", selected = s$select$p_adjust); upd("alpha", s$select$alpha)
+    updateSelectInput(session, "sel_in", selected = s$select$selection_input); updateSelectInput(session, "padj", selected = s$select$p_adjust); upd("alpha", s$select$alpha)
     updateCheckboxGroupInput(session, "models", selected = s$select$models); upd("top_n", s$select$top_n); upd("min_freq", s$select$min_freq)
     updateSelectInput(session, "rfe", selected = s$select$rfe_method); updateCheckboxInput(session, "nested", value = isTRUE(s$select$nested_cv))
     upd("n_folds", s$select$nested_folds); upd("n_rep", s$select$nested_repeats); upd("dpi", s$visual$dpi)
@@ -119,7 +121,7 @@ server <- function(input, output, session) {
     s$filter$strict$max_qc_rsd <- input$f_strict_rsd; s$filter$analysis_profile <- input$f_prof; s$report$database_profile <- input$db_prof
     s$impute$method <- input$imp; s$impute$maxiter <- input$imp_iter; s$impute$ntree <- input$imp_tree
     s$correct$normalization <- input$norm; s$correct$method <- input$corr; s$correct$eigen_perm <- input$eig_perm
-    s$select$p_adjust <- input$padj; s$select$alpha <- input$alpha; s$select$models <- input$models; s$select$top_n <- input$top_n
+    s$select$selection_input <- input$sel_in; s$select$p_adjust <- input$padj; s$select$alpha <- input$alpha; s$select$models <- input$models; s$select$top_n <- input$top_n
     s$select$min_freq <- input$min_freq; s$select$rfe_method <- input$rfe; s$select$nested_cv <- input$nested
     s$select$nested_folds <- input$n_folds; s$select$nested_repeats <- input$n_rep
     s$visual$dpi <- input$dpi; s$visual$formats <- input$fmt; s$report$database <- input$db

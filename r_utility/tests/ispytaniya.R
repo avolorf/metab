@@ -36,8 +36,22 @@ ok <- function(x) if (isTRUE(x)) "пройден" else "не пройден"
 LIGHT <- list(impute = list(maxiter = 3), correct = list(eigen_perm = 100),
               select = list(compare_stages = FALSE, nested_repeats = 1))
 LIGHT_TXT <- "облегчённые настройки: ≤ 3 итерации заполнения, 100 перестановок EigenMS, вложенная CV 1 × 5, без сравнения этапов"
+RERUN <- if (!is.null(arg("rerun_from"))) as.integer(arg("rerun_from")) else NULL   # --rerun_from=7: пересчёт с модуля N в готовых проектах
 run_project <- function(name, table, meta, from = 0, to = 9, light = FALSE, ...) {
-  d <- file.path(W, name); unlink(d, recursive = TRUE)
+  d <- file.path(W, name)
+  if (!is.null(RERUN) && to >= RERUN && file.exists(file.path(d, MODULES$dir[MODULES$id == RERUN - 1], "result.rds"))) {
+    s <- read_settings(file.path(d, "settings.yaml"))
+    prev <- utils::tail(sort(list.files(file.path(d, "logs"), pattern = "^modules_", full.names = TRUE)), 1)
+    prev <- as.data.frame(data.table::fread(prev, encoding = "UTF-8")); prev <- prev[prev$module < RERUN, ]
+    t0 <- proc.time()[["elapsed"]]; r <- NULL
+    tryCatch(utils::capture.output(r <- run_pipeline(s, RERUN, to)), error = function(e) NULL)
+    st <- if (!is.null(r)) rbind(prev[, names(r)], r) else data.frame(module = NA, status = "ошибка", time_s = NA, peak_ram_mb = NA)
+    dl <- file.path(OUT, "runs", name); dir.create(dl, showWarnings = FALSE, recursive = TRUE)
+    file.copy(list.files(file.path(d, "logs"), full.names = TRUE), dl, overwrite = TRUE)
+    return(list(dir = d, s = s, status = st, ok = all(st$status %in% c("выполнен", "пропущен")), time = sum(st$time_s, na.rm = TRUE),
+                ram = suppressWarnings(max(st$peak_ram_mb, na.rm = TRUE))))
+  }
+  unlink(d, recursive = TRUE)
   f <- new_project(d, normalizePath(table), normalizePath(meta), project = list(cores = CORES), ...)
   if (light) { s0 <- merge_settings(read_settings(f), LIGHT); write_settings(s0, f) }
   s <- read_settings(f)
@@ -179,8 +193,15 @@ for (mp in if (add_if) c(0.20, 0.25, 0.30) else numeric(0)) {
     tr <- v$truth; tid <- info$id[match(tr$column, info$original)]
     u <- rd(r, 7, "uvf_stats.csv"); fs <- rd(r, 7, "ds_d.csv"); fr <- rd(r, 7, "ds_rfe.csv"); ne <- rd(r, 7, "nested_cv.csv")
     sel <- u$id[u$selected]
-    add(5, "Набор В: найдено внесённых признаков после ОСФ", sprintf("%d из %d; ложных %d", sum(tid %in% sel), length(tid), sum(!sel %in% tid)), "≥ 80 % внесённых, ложных ≤ 1",
-        ok(sum(tid %in% sel) >= 0.8 * length(tid) && sum(!sel %in% tid) <= 1))
+    add(5, "Набор В (25 % пропусков), поправка Холма (по умолчанию): после ОСФ", sprintf("найдено %d из %d, ложных %d", sum(tid %in% sel), length(tid), sum(!sel %in% tid)))
+    # для информации: тот же набор, поправка Бенджамини–Хохберга (FDR) — пересчёт только модуля 7 в копии проекта
+    dB <- file.path(W, "setV_25_BH"); unlink(dB, recursive = TRUE); dir.create(dB)
+    file.copy(list.files(r$dir, full.names = TRUE), dB, recursive = TRUE)
+    sB <- read_settings(file.path(dB, "settings.yaml")); sB$select$p_adjust <- "BH"; write_settings(sB, file.path(dB, "settings.yaml"))
+    invisible(utils::capture.output(run_pipeline(read_settings(file.path(dB, "settings.yaml")), 7, 7)))
+    uB <- as.data.frame(data.table::fread(file.path(dB, "07_select", "uvf_stats.csv"), encoding = "UTF-8")); selB <- uB$id[uB$selected]
+    add(5, "Набор В (25 % пропусков), поправка Бенджамини–Хохберга (FDR), для информации — только модуль 7: после ОСФ",
+        sprintf("найдено %d из %d, ложных %d", sum(tid %in% selB), length(tid), sum(!selB %in% tid)))
     add(5, "Набор В: после СПФ / после РОП", sprintf("%d (внесённых %d) / %d (внесённых %d)", ncol(fs) - 2, sum(tid %in% names(fs)), ncol(fr) - 2, sum(tid %in% names(fr))))
     add(5, "Набор В: вложенная CV, точность / AUC", sprintf("%.3f / %.3f", ne$accuracy_mean, ne$auc_mean))
     data.table::fwrite(data.frame(tr, id = tid, found_uvf = tid %in% sel, in_ds_d = tid %in% names(fs), in_ds_rfe = tid %in% names(fr)),

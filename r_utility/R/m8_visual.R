@@ -30,8 +30,9 @@ vip_pls <- function(m) {
 module8_visual <- function(s) {
   out <- module_dir(s, 8); d <- load_module(s, 7); v <- s$visual
   meta <- d$meta; g <- meta$group; info <- d$info; sel <- d$sel
+  Ls <- d$L_sel %||% d$L                                  # данные, на которых выполнен отбор
   sets <- list("A — до коррекции" = d$L_raw, "B — после коррекции" = d$L,
-               "C — после отбора (ОСФ+СПФ+РОП)" = d$L[, sel$f_rfe, drop = FALSE])
+               "C — после отбора (ОСФ+СПФ+РОП)" = Ls[, sel$f_rfe, drop = FALSE])
   pcs <- lapply(names(sets), function(n) if (ncol(sets[[n]]) >= 2) pca_plot(sets[[n]], g, n) else
     ggplot2::ggplot() + ggplot2::annotate("text", x = 0, y = 0, label = "менее двух признаков") + ggplot2::theme_void() + ggplot2::labs(title = n))
   save_fig(s, patchwork::wrap_plots(pcs, nrow = 1), out, "pca_stages", 26, 9)
@@ -39,13 +40,13 @@ module8_visual <- function(s) {
     for (n in names(sets)) if (ncol(sets[[n]]) >= 1) draw_dendrogram(sets[[n]], g, n, s) }, out, "hca_stages", 30, 11)
   hf <- if (length(sel$f_spf) >= 2) sel$f_spf else utils::head(sel$uvf$id[order(sel$uvf$p)], v$heatmap_top)
   hf <- utils::head(hf, v$heatmap_top)
-  M <- t(scale(d$L[, hf, drop = FALSE])); rownames(M) <- make.unique(feature_label(info, hf)); M[M > 3] <- 3; M[M < -3] <- -3
-  ann <- data.frame(group = g, row.names = rownames(d$L))
+  M <- t(scale(Ls[, hf, drop = FALSE])); rownames(M) <- make.unique(feature_label(info, hf)); M[M > 3] <- 3; M[M < -3] <- -3
+  ann <- data.frame(group = g, row.names = rownames(Ls))
   save_base_fig(s, function() pheatmap::pheatmap(M, annotation_col = ann, show_colnames = FALSE, fontsize_row = 5,
     clustering_distance_cols = v$hca_distance, clustering_method = v$hca_method, annotation_colors = list(group = group_colors(g)),
     color = grDevices::colorRampPalette(c("#2166AC", "white", "#B2182B"))(101), main = "Heatmap: z-score, Ward"), out, "heatmap", 18, 16)
-  bf <- unique(c(sel$f_rfe, utils::head(sel$uvf$id[order(sel$uvf$p)], v$boxplot_top)))[seq_len(min(v$boxplot_top, ncol(d$L)))]
-  bd <- do.call(rbind, lapply(bf, function(f) data.frame(name = feature_label(info, f), value = d$L[, f], group = g)))
+  bf <- unique(c(sel$f_rfe, utils::head(sel$uvf$id[order(sel$uvf$p)], v$boxplot_top)))[seq_len(min(v$boxplot_top, ncol(Ls)))]
+  bd <- do.call(rbind, lapply(bf, function(f) data.frame(name = feature_label(info, f), value = Ls[, f], group = g)))
   bd$name <- factor(bd$name, levels = unique(bd$name))
   bp <- ggplot2::ggplot(bd, ggplot2::aes(group, value, fill = group)) + ggplot2::geom_boxplot(outlier.shape = NA, alpha = 0.6) +
     ggplot2::geom_jitter(width = 0.15, size = 0.5) + ggplot2::facet_wrap(~name, scales = "free_y", ncol = 4) +

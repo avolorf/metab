@@ -1,4 +1,6 @@
-# Модуль 7. Статистика и отбор признаков (гибридный алгоритм этапа 1, исправленный):
+# Модуль 7. Статистика и отбор признаков (гибридный алгоритм этапа 1, исправленный).
+# Отбор по умолчанию выполняется на данных после заполнения пропусков и log2, без EigenMS: EigenMS подбирает тренды по
+# тем же меткам групп, внутригрупповая дисперсия занижается, и тесты дают ложные находки (испытание 5, набор В).
 # ОСФ (одномерный статистический фильтр) → 4 модели caret → частота встречаемости (СПФ) → РОП (RFE).
 # Поправка на множественные сравнения — по всем признакам, метод — параметр (по умолчанию Холм).
 # Вложенная кросс-валидация повторяет весь отбор внутри обучающих блоков и даёт несмещённую оценку.
@@ -166,9 +168,11 @@ module7_select <- function(s) {
   meta <- d$meta; g <- factor(meta$group); info <- d$info
   ann <- function(df) merge(info[, c("id", "mz", "rt_min", "name")], df, by = "id", sort = FALSE)
   cl <- register_cores(s$project$cores); on.exit(stop_cores(cl))
-  sel <- select_features(d$L, g, s, s$project$seed + 7)
+  Ls <- if (sl$selection_input == "imputed") d$L_raw else d$L            # данные для отбора
+  log_msg("  Данные для отбора: ", if (sl$selection_input == "imputed") "после заполнения пропусков и log2, без EigenMS" else "после EigenMS (тесты не учитывают удалённые тренды — p занижены)")
+  sel <- select_features(Ls, g, s, s$project$seed + 7)
   write_csv(ann(sel$uvf[order(sel$uvf$p), ]), file.path(out, "uvf_stats.csv"))
-  tab <- function(f) data.frame(sample = rownames(d$L), Label = g, d$L[, f, drop = FALSE], check.names = FALSE)
+  tab <- function(f) data.frame(sample = rownames(Ls), Label = g, Ls[, f, drop = FALSE], check.names = FALSE)
   write_csv(tab(sel$f_uvf), file.path(out, "ds.csv")); write_csv(tab(sel$f_spf), file.path(out, "ds_d.csv"))
   write_csv(tab(sel$f_rfe), file.path(out, "ds_rfe.csv"))
   if (!is.null(sel$freq)) write_csv(ann(sel$freq), file.path(out, "feature_frequency.csv"))
@@ -188,7 +192,7 @@ module7_select <- function(s) {
   steps <- data.frame(dataset = c("ds_raw (до коррекции)", "dsr (после коррекции)", "ds (после ОСФ)", "ds_d (после СПФ)", "ds_rfe (после РОП)"),
                       n_features = c(ncol(d$L_raw), ncol(d$L), length(sel$f_uvf), length(sel$f_spf), length(sel$f_rfe)))
   steps$mean_auroc_descriptive <- c(mean_auroc(d$L_raw, g), mean_auroc(d$L, g),
-                                    vapply(list(sel$f_uvf, sel$f_spf, sel$f_rfe), function(f) if (length(f)) mean_auroc(d$L[, f, drop = FALSE], g) else NA, 0))
+                                    vapply(list(sel$f_uvf, sel$f_spf, sel$f_rfe), function(f) if (length(f)) mean_auroc(Ls[, f, drop = FALSE], g) else NA, 0))
   write_csv(steps, file.path(out, "auroc_steps.csv"))
   log_msg("  Число признаков и средняя AUROC по этапам (описательная): ",
           paste(sprintf("%d (%.3f)", steps$n_features, steps$mean_auroc_descriptive), collapse = " → "))
@@ -204,6 +208,6 @@ module7_select <- function(s) {
   cov <- covariate_model(d$L_raw, meta)
   if (!is.null(cov)) { write_csv(ann(cov[order(cov$p), ]), file.path(out, "covariate_model.csv"))
     log_msg(sprintf("  Модель с поправкой на %s: q(BH) < 0,05 у %d признаков", cov$covariates[1], sum(cov$p_BH < 0.05))) }
-  save_module(s, 7, list(L = d$L, L_raw = d$L_raw, info = info, meta = meta, sel = sel[c("uvf", "f_uvf", "f_spf", "f_rfe", "freq")],
+  save_module(s, 7, list(L = d$L, L_raw = d$L_raw, L_sel = Ls, info = info, meta = meta, sel = sel[c("uvf", "f_uvf", "f_spf", "f_rfe", "freq")],
                          rfe_results = if (!is.null(sel$rfe)) sel$rfe$results, accuracy = acc, steps = steps, nested = nest, covariate = cov))
 }

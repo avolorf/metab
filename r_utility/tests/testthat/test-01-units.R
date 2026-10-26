@@ -147,3 +147,8 @@ test_that("модуль 9: пустой строгий профиль не ос�
   db <- read.csv(file.path(d, "features_db", "features_db.csv"))
   expect_equal(nrow(db), 4); expect_true(all(grepl("strict→standard", db$db_profile)))
 })
+
+test_that("отбор по умолчанию — на данных без EigenMS", {
+  expect_equal(default_settings()$select$selection_input, "imputed")
+  expect_true(any(grepl('Ls <- if \\(sl\\$selection_input == "imputed"\\) d\\$L_raw else d\\$L', code)))
+})

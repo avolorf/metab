@@ -34,7 +34,8 @@ default_settings <- function() list(
   samples = list(average_replicates = TRUE, groups = list()),   # пусто — все группы, кроме QC и бланков
   impute = list(method = "rf", maxiter = 10, ntree = 100),      # rf | missForest | halfmin
   correct = list(normalization = "none", log2 = TRUE, method = "eigenms", eigen_perm = 200, eigen_alpha = 0.05),
-  select = list(p_adjust = "holm",                              # holm | BH | none | stage1
+  select = list(selection_input = "imputed",                    # imputed (без EigenMS, по умолчанию) | corrected (после EigenMS)
+                p_adjust = "holm",                              # holm | BH | none | stage1
                 alpha = 0.05, models = c("knn", "svmRadial", "pls", "rf"), cv_folds = 5, cv_repeats = 3,
                 tune_length = 5, top_n = 50, min_freq = 2, rfe_method = "nb", rfe_folds = 5, rfe_repeats = 3,
                 compare_stages = TRUE, nested_cv = TRUE, nested_folds = 5, nested_repeats = 2,
@@ -84,6 +85,7 @@ check_settings <- function(s) {
   if (!s$select$p_adjust %in% c("holm", "BH", "none", "stage1")) e <- c(e, "select$p_adjust: holm, BH, none или stage1")
   if (!s$select$rfe_method %in% c("nb", "rf")) e <- c(e, "select$rfe_method: nb или rf")
   if (!s$select$nested_input %in% c("imputed", "corrected")) e <- c(e, "select$nested_input: imputed или corrected")
+  if (!s$select$selection_input %in% c("imputed", "corrected")) e <- c(e, "select$selection_input: imputed или corrected")
   if (!s$filter$analysis_profile %in% c("standard", "strict")) e <- c(e, "filter$analysis_profile: standard или strict")
   if (!s$report$database_profile %in% c("standard", "strict")) e <- c(e, "report$database_profile: standard или strict")
   if (s$filter$max_qc_rsd <= 0 || s$filter$min_group_detect < 0 || s$filter$min_group_detect > 1) e <- c(e, "пороги фильтра вне допустимых значений")
