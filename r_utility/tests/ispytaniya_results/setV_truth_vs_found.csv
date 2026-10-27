@@ -1,16 +1,16 @@
 ﻿column,log2_effect,case_group,id,found_uvf,in_ds_d,in_ds_rfe
-"10.22_330.17361_low score: 4-{[(2E)-6,7-Dihydroxy-3,7-dimethyloct-2-en-1-yl]oxy}quinolin-2(1H)-one",1.18,BC,F02206,FALSE,FALSE,FALSE
-"8.826_548.29199_low score: (2E,6E,12E)-19-(2-Amino-2-oxoethyl)-9,11-dihydroxy-8-methoxy-10,12,14-trimethyl-15-oxohenicosa-2,6,12-trienedioic acid",1.46,BC,F03929,TRUE,TRUE,TRUE
-"3.148_311.16031_low score: 9,11,18-Trihydroxy-6,18-epoxypimara-5,8(14),15-trien-7-one",-1.2,BC,F01936,FALSE,FALSE,FALSE
-10.021_473.2316_low score: Tyr-Tyr-Lys,-1.47,BC,F03556,FALSE,FALSE,FALSE
+"10.22_330.17361_low score: 4-{[(2E)-6,7-Dihydroxy-3,7-dimethyloct-2-en-1-yl]oxy}quinolin-2(1H)-one",1.18,BC,F02205,FALSE,FALSE,FALSE
+"8.826_548.29199_low score: (2E,6E,12E)-19-(2-Amino-2-oxoethyl)-9,11-dihydroxy-8-methoxy-10,12,14-trimethyl-15-oxohenicosa-2,6,12-trienedioic acid",1.46,BC,F03928,TRUE,TRUE,TRUE
+"3.148_311.16031_low score: 9,11,18-Trihydroxy-6,18-epoxypimara-5,8(14),15-trien-7-one",-1.2,BC,F01935,FALSE,FALSE,FALSE
+10.021_473.2316_low score: Tyr-Tyr-Lys,-1.47,BC,F03555,FALSE,FALSE,FALSE
 3.239_234.07964_low score: 3-(Trifluoromethyl)phenylalanine,-1.35,BC,F00962,FALSE,FALSE,FALSE
 2.445_238.14366_low score: D-Tyrosine tert-butyl ester,-0.88,BC,F01019,FALSE,FALSE,FALSE
-9.734_429.17361_low score: Phenethyl rutinoside,1.39,BC,F03221,FALSE,FALSE,FALSE
-9.668_370.08273_low score: N-[2-[(4-Hydroxyphenyl)amino]-3-pyridinyl]-4-methoxybenzenesulfonamide,0.86,BC,F02659,TRUE,TRUE,TRUE
+9.734_429.17361_low score: Phenethyl rutinoside,1.39,BC,F03220,FALSE,FALSE,FALSE
+9.668_370.08273_low score: N-[2-[(4-Hydroxyphenyl)amino]-3-pyridinyl]-4-methoxybenzenesulfonamide,0.86,BC,F02658,FALSE,FALSE,FALSE
 "9.41_287.1315_low score: 8-Hydroxy-3-(7-hydroxyheptyl)-6-oxo-3,4-dihydroisochromene-7-carboxylic acid",1.32,BC,F01600,FALSE,FALSE,FALSE
-11.316_486.2338_low score: Rosellichalasin,0.85,BC,F03643,FALSE,FALSE,FALSE
+11.316_486.2338_low score: Rosellichalasin,0.85,BC,F03642,FALSE,FALSE,FALSE
 "3.576_226.0712_low score: N-[1,1'-Biphenyl]-4-yl-2,2,2-trifluoroacetamide",-0.85,BC,F00846,FALSE,FALSE,FALSE
-8.095_342.21265_low score: N-(1-Acetylpiperidin-4-yl)-N'-adamantan-1-ylurea,0.87,BC,F02336,FALSE,FALSE,FALSE
+8.095_342.21265_low score: N-(1-Acetylpiperidin-4-yl)-N'-adamantan-1-ylurea,0.87,BC,F02335,FALSE,FALSE,FALSE
 4.726_281.11334_low score: Phe-Asp,1.08,BC,F01529,TRUE,TRUE,TRUE
 8.115_288.08487_low score: Tenofovir,1.48,BC,F01611,TRUE,TRUE,TRUE
-13.839_416.31638_low score: Lithocholylglycine,-0.92,BC,F03125,FALSE,FALSE,FALSE
+13.839_416.31638_low score: Lithocholylglycine,-0.92,BC,F03124,FALSE,FALSE,FALSE
