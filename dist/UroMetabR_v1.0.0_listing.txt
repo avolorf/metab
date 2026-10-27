@@ -8,7 +8,7 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
   R/m1_peaktable.R                       4870 байт     61 строк  7dc56dd61e7a14c9d73bd246aef8b927
   R/m2_m4_quality.R                     10631 байт    130 строк  813872ed729e91a678fe2f96519fe816
   R/m5_m6_impute_correct.R               8435 байт    119 строк  70fda78fa39ce19a25708366f0511627
-  R/m7_select.R                         16493 байт    213 строк  fadc3e493f10bb057ff315ff5b026642
+  R/m7_select.R                         16690 байт    214 строк  5612c64ae76eea14ea2267d8980c813e
   R/m8_visual.R                          5957 байт     71 строк  62889d077a5229b627242abceca360d0
   R/m9_report.R                         11008 байт    118 строк  b9e633bd2a089869e91639bfcf0496dd
   R/zz_setup.R                           2939 байт     42 строк  dc3852f8b2785f0f9db70714cdf6d9e9
@@ -19,7 +19,7 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
   Start_UroMetabR.bat                     931 байт     20 строк  9b9b1b5ed4d7caed4f41ee0db074af71
   start_urometabr.sh                      151 байт      3 строк  02c5405a949566c80ca7381c580b2a11
   Create_desktop_shortcut.vbs             370 байт      8 строк  48dc6ba2e14d48ae09edcef07ab4cfe2
-  Итого: 17 файлов          129203 байт   1542 строк
+  Итого: 17 файлов          129400 байт   1543 строк
   Файлы .bat и .vbs хранятся с концами строк Windows (CR LF); символы CR входят в размер, в листинге не отображаются.
 
 ==================== run_analysis.R ====================
@@ -872,108 +872,109 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
   109  }
   110  
   111  mean_auroc <- function(L, groups) {           # средняя AUROC отдельных признаков (описательная, как на этапе 1)
-  112    v <- caret::filterVarImp(as.data.frame(L), factor(groups))
-  113    mean(rowMeans(v))
-  114  }
-  115  
-  116  auc_binary <- function(y, score) {
-  117    r <- rank(score); n1 <- sum(y == 1); n0 <- sum(y == 0)
-  118    (sum(r[y == 1]) - n1 * (n1 + 1) / 2) / (n1 * n0)
-  119  }
-  120  
-  121  # Вложенная кросс-валидация: отбор признаков и классификатор обучаются только на обучающем блоке
-  122  nested_cv <- function(L, groups, s, seed) {
-  123    sl <- s$select; g <- factor(groups); lev <- levels(g)
-  124    pred <- list(); chosen <- list(); k <- 0
-  125    for (r in seq_len(sl$nested_repeats)) {
-  126      set.seed(seed + r)
-  127      folds <- integer(length(g))
-  128      for (l in lev) { i <- which(g == l); folds[i[sample.int(length(i))]] <- rep_len(seq_len(sl$nested_folds), length(i)) }
-  129      for (f in seq_len(sl$nested_folds)) {
-  130        k <- k + 1; te <- folds == f; tr <- !te
-  131        sel <- select_features(L[tr, , drop = FALSE], g[tr], s, seed + 1000 * r + f, verbose = FALSE)
-  132        feats <- sel$f_rfe; chosen[[k]] <- feats
-  133        prob <- if (length(feats) == 0) matrix(rep(as.numeric(table(g[tr]) / sum(tr)), each = sum(te)), sum(te), dimnames = list(NULL, lev))
-  134        else if (sl$rfe_method == "nb") stats::predict(e1071::naiveBayes(L[tr, feats, drop = FALSE], g[tr]), L[te, feats, drop = FALSE], type = "raw")
-  135        else { set.seed(seed + k); stats::predict(randomForest::randomForest(L[tr, feats, drop = FALSE], g[tr]), L[te, feats, drop = FALSE], type = "prob") }
-  136        pred[[k]] <- data.frame(repeat_ = r, fold = f, sample = rownames(L)[te], truth = g[te],
-  137                                predicted = lev[max.col(prob, ties.method = "first")], prob, check.names = FALSE)
-  138        log_msg(sprintf("    вложенная CV: повтор %d, блок %d — признаков %d", r, f, length(feats)))
-  139      }
-  140    }
-  141    P <- do.call(rbind, pred)
-  142    per_rep <- lapply(split(P, P$repeat_), function(d) c(accuracy = mean(d$predicted == d$truth),
-  143                                                       auc = if (length(lev) == 2) auc_binary(as.integer(d$truth == lev[2]), d[[lev[2]]]) else NA))
-  144    M <- do.call(rbind, per_rep)
-  145    fr <- sort(table(unlist(chosen)), decreasing = TRUE)
-  146    list(predictions = P,
-  147         summary = data.frame(outer_folds = sl$nested_folds, repeats = sl$nested_repeats, input = sl$nested_input,
-  148                              accuracy_mean = mean(M[, "accuracy"]), accuracy_sd = if (nrow(M) > 1) stats::sd(M[, "accuracy"]) else NA,
-  149                              auc_mean = mean(M[, "auc"]), auc_sd = if (nrow(M) > 1) stats::sd(M[, "auc"]) else NA,
-  150                              mean_n_features = mean(lengths(chosen))),
-  151         frequency = data.frame(id = names(fr), share_of_folds = as.numeric(fr) / k, stringsAsFactors = FALSE))
-  152  }
-  153  
-  154  # Необязательно: модель с ковариатами (пол, возраст), если они есть в метаданных и групп две
-  155  covariate_model <- function(L, meta) {
-  156    g <- factor(meta$group); if (nlevels(g) != 2 || is.null(meta$sex) || is.null(meta$age)) return(NULL)
-  157    D <- data.frame(group = as.numeric(g == levels(g)[2]), sex = as.numeric(meta$sex == "M"), age = meta$age)
-  158    ok <- stats::complete.cases(D); if (sum(ok) < 10) return(NULL)
-  159    D <- D[ok, ]; used <- names(D)[vapply(D, stats::sd, 0) > 0]
-  160    Xd <- cbind(1, as.matrix(D[, used, drop = FALSE])); Y <- L[ok, , drop = FALSE]
-  161    XtX <- solve(crossprod(Xd)); b <- XtX %*% crossprod(Xd, Y); res <- Y - Xd %*% b; dof <- nrow(Xd) - ncol(Xd)
-  162    se <- sqrt(colSums(res^2) / dof * XtX[2, 2]); p <- 2 * stats::pt(abs(b[2, ] / se), dof, lower.tail = FALSE)
-  163    data.frame(id = colnames(L), log2FC_adjusted = b[2, ], p = p, p_BH = stats::p.adjust(p, "BH"), covariates = paste(used[-1], collapse = "+"))
-  164  }
-  165  
-  166  module7_select <- function(s) {
-  167    out <- module_dir(s, 7); d <- load_module(s, 6); sl <- s$select
-  168    meta <- d$meta; g <- factor(meta$group); info <- d$info
-  169    ann <- function(df) merge(info[, c("id", "mz", "rt_min", "name")], df, by = "id", sort = FALSE)
-  170    cl <- register_cores(s$project$cores); on.exit(stop_cores(cl))
-  171    Ls <- if (sl$selection_input == "imputed") d$L_raw else d$L            # данные для отбора
-  172    log_msg("  Данные для отбора: ", if (sl$selection_input == "imputed") "после заполнения пропусков и log2, без EigenMS" else "после EigenMS (тесты не учитывают удалённые тренды — p занижены)")
-  173    sel <- select_features(Ls, g, s, s$project$seed + 7)
-  174    write_csv(ann(sel$uvf[order(sel$uvf$p), ]), file.path(out, "uvf_stats.csv"))
-  175    tab <- function(f) data.frame(sample = rownames(Ls), Label = g, Ls[, f, drop = FALSE], check.names = FALSE)
-  176    write_csv(tab(sel$f_uvf), file.path(out, "ds.csv")); write_csv(tab(sel$f_spf), file.path(out, "ds_d.csv"))
-  177    write_csv(tab(sel$f_rfe), file.path(out, "ds_rfe.csv"))
-  178    if (!is.null(sel$freq)) write_csv(ann(sel$freq), file.path(out, "feature_frequency.csv"))
-  179    if (!is.null(sel$rfe)) write_csv(sel$rfe$results, file.path(out, "rfe_profile.csv"))
-  180    acc <- data.frame()
-  181    addacc <- function(fits, set) for (m in names(fits))
-  182      acc <<- rbind(acc, data.frame(dataset = set, model = m, n_features = length(fits[[m]]$coefnames),
-  183                                    accuracy_cv = mean(fits[[m]]$resample$Accuracy), accuracy_sd = stats::sd(fits[[m]]$resample$Accuracy)))
-  184    addacc(sel$fits, "ds (после ОСФ)")
-  185    if (isTRUE(sl$compare_stages)) {
-  186      log_msg("  Точность моделей на всех признаках до и после коррекции (сравнение этапов)…")
-  187      addacc(train_models(data.frame(Label = g, d$L_raw, check.names = FALSE), s, s$project$seed + 71), "ds_raw (до коррекции)")
-  188      addacc(train_models(data.frame(Label = g, d$L, check.names = FALSE), s, s$project$seed + 72), "dsr (после коррекции)")
-  189    }
-  190    if (nrow(acc)) { write_csv(acc, file.path(out, "model_accuracy.csv"))
-  191      for (i in seq_len(nrow(acc))) log_msg(sprintf("    %s, %s: точность CV %.3f", acc$dataset[i], acc$model[i], acc$accuracy_cv[i])) }
-  192    steps <- data.frame(dataset = c("ds_raw (до коррекции)", "dsr (после коррекции)", "ds (после ОСФ)", "ds_d (после СПФ)", "ds_rfe (после РОП)"),
-  193                        n_features = c(ncol(d$L_raw), ncol(d$L), length(sel$f_uvf), length(sel$f_spf), length(sel$f_rfe)))
-  194    steps$mean_auroc_descriptive <- c(mean_auroc(d$L_raw, g), mean_auroc(d$L, g),
-  195                                      vapply(list(sel$f_uvf, sel$f_spf, sel$f_rfe), function(f) if (length(f)) mean_auroc(Ls[, f, drop = FALSE], g) else NA, 0))
-  196    write_csv(steps, file.path(out, "auroc_steps.csv"))
-  197    log_msg("  Число признаков и средняя AUROC по этапам (описательная): ",
-  198            paste(sprintf("%d (%.3f)", steps$n_features, steps$mean_auroc_descriptive), collapse = " → "))
-  199    nest <- NULL
-  200    if (isTRUE(sl$nested_cv)) {
-  201      log_msg(sprintf("  Вложенная кросс-валидация (%d блоков × %d повтора, данные: %s)…", sl$nested_folds, sl$nested_repeats,
-  202                      if (sl$nested_input == "imputed") "после заполнения пропусков, без EigenMS" else "после EigenMS — оценка завышена"))
-  203      nest <- nested_cv(if (sl$nested_input == "imputed") d$L_raw else d$L, g, s, s$project$seed + 700)
-  204      write_csv(nest$summary, file.path(out, "nested_cv.csv")); write_csv(nest$predictions, file.path(out, "nested_cv_predictions.csv"))
-  205      write_csv(ann(nest$frequency), file.path(out, "nested_cv_feature_frequency.csv"))
-  206      log_msg(sprintf("  Вложенная CV: точность %.3f, AUC %.3f (несмещённая оценка всей процедуры отбора)", nest$summary$accuracy_mean, nest$summary$auc_mean))
-  207    }
-  208    cov <- covariate_model(d$L_raw, meta)
-  209    if (!is.null(cov)) { write_csv(ann(cov[order(cov$p), ]), file.path(out, "covariate_model.csv"))
-  210      log_msg(sprintf("  Модель с поправкой на %s: q(BH) < 0,05 у %d признаков", cov$covariates[1], sum(cov$p_BH < 0.05))) }
-  211    save_module(s, 7, list(L = d$L, L_raw = d$L_raw, L_sel = Ls, info = info, meta = meta, sel = sel[c("uvf", "f_uvf", "f_spf", "f_rfe", "freq")],
-  212                           rfe_results = if (!is.null(sel$rfe)) sel$rfe$results, accuracy = acc, steps = steps, nested = nest, covariate = cov))
-  213  }
+  112    if (ncol(L) == 1) L <- cbind(a = L[, 1], b = L[, 1])   # filterVarImp при 3+ группах не работает с одним признаком; копия не меняет среднее
+  113    v <- caret::filterVarImp(as.data.frame(L), factor(groups))
+  114    mean(rowMeans(v))
+  115  }
+  116  
+  117  auc_binary <- function(y, score) {
+  118    r <- rank(score); n1 <- sum(y == 1); n0 <- sum(y == 0)
+  119    (sum(r[y == 1]) - n1 * (n1 + 1) / 2) / (n1 * n0)
+  120  }
+  121  
+  122  # Вложенная кросс-валидация: отбор признаков и классификатор обучаются только на обучающем блоке
+  123  nested_cv <- function(L, groups, s, seed) {
+  124    sl <- s$select; g <- factor(groups); lev <- levels(g)
+  125    pred <- list(); chosen <- list(); k <- 0
+  126    for (r in seq_len(sl$nested_repeats)) {
+  127      set.seed(seed + r)
+  128      folds <- integer(length(g))
+  129      for (l in lev) { i <- which(g == l); folds[i[sample.int(length(i))]] <- rep_len(seq_len(sl$nested_folds), length(i)) }
+  130      for (f in seq_len(sl$nested_folds)) {
+  131        k <- k + 1; te <- folds == f; tr <- !te
+  132        sel <- select_features(L[tr, , drop = FALSE], g[tr], s, seed + 1000 * r + f, verbose = FALSE)
+  133        feats <- sel$f_rfe; chosen[[k]] <- feats
+  134        prob <- if (length(feats) == 0) matrix(rep(as.numeric(table(g[tr]) / sum(tr)), each = sum(te)), sum(te), dimnames = list(NULL, lev))
+  135        else if (sl$rfe_method == "nb") stats::predict(e1071::naiveBayes(L[tr, feats, drop = FALSE], g[tr]), L[te, feats, drop = FALSE], type = "raw")
+  136        else { set.seed(seed + k); stats::predict(randomForest::randomForest(L[tr, feats, drop = FALSE], g[tr]), L[te, feats, drop = FALSE], type = "prob") }
+  137        pred[[k]] <- data.frame(repeat_ = r, fold = f, sample = rownames(L)[te], truth = g[te],
+  138                                predicted = lev[max.col(prob, ties.method = "first")], prob, check.names = FALSE)
+  139        log_msg(sprintf("    вложенная CV: повтор %d, блок %d — признаков %d", r, f, length(feats)))
+  140      }
+  141    }
+  142    P <- do.call(rbind, pred)
+  143    per_rep <- lapply(split(P, P$repeat_), function(d) c(accuracy = mean(d$predicted == d$truth),
+  144                                                       auc = if (length(lev) == 2) auc_binary(as.integer(d$truth == lev[2]), d[[lev[2]]]) else NA))
+  145    M <- do.call(rbind, per_rep)
+  146    fr <- sort(table(unlist(chosen)), decreasing = TRUE)
+  147    list(predictions = P,
+  148         summary = data.frame(outer_folds = sl$nested_folds, repeats = sl$nested_repeats, input = sl$nested_input,
+  149                              accuracy_mean = mean(M[, "accuracy"]), accuracy_sd = if (nrow(M) > 1) stats::sd(M[, "accuracy"]) else NA,
+  150                              auc_mean = mean(M[, "auc"]), auc_sd = if (nrow(M) > 1) stats::sd(M[, "auc"]) else NA,
+  151                              mean_n_features = mean(lengths(chosen))),
+  152         frequency = data.frame(id = names(fr), share_of_folds = as.numeric(fr) / k, stringsAsFactors = FALSE))
+  153  }
+  154  
+  155  # Необязательно: модель с ковариатами (пол, возраст), если они есть в метаданных и групп две
+  156  covariate_model <- function(L, meta) {
+  157    g <- factor(meta$group); if (nlevels(g) != 2 || is.null(meta$sex) || is.null(meta$age)) return(NULL)
+  158    D <- data.frame(group = as.numeric(g == levels(g)[2]), sex = as.numeric(meta$sex == "M"), age = meta$age)
+  159    ok <- stats::complete.cases(D); if (sum(ok) < 10) return(NULL)
+  160    D <- D[ok, ]; used <- names(D)[vapply(D, stats::sd, 0) > 0]
+  161    Xd <- cbind(1, as.matrix(D[, used, drop = FALSE])); Y <- L[ok, , drop = FALSE]
+  162    XtX <- solve(crossprod(Xd)); b <- XtX %*% crossprod(Xd, Y); res <- Y - Xd %*% b; dof <- nrow(Xd) - ncol(Xd)
+  163    se <- sqrt(colSums(res^2) / dof * XtX[2, 2]); p <- 2 * stats::pt(abs(b[2, ] / se), dof, lower.tail = FALSE)
+  164    data.frame(id = colnames(L), log2FC_adjusted = b[2, ], p = p, p_BH = stats::p.adjust(p, "BH"), covariates = paste(used[-1], collapse = "+"))
+  165  }
+  166  
+  167  module7_select <- function(s) {
+  168    out <- module_dir(s, 7); d <- load_module(s, 6); sl <- s$select
+  169    meta <- d$meta; g <- factor(meta$group); info <- d$info
+  170    ann <- function(df) merge(info[, c("id", "mz", "rt_min", "name")], df, by = "id", sort = FALSE)
+  171    cl <- register_cores(s$project$cores); on.exit(stop_cores(cl))
+  172    Ls <- if (sl$selection_input == "imputed") d$L_raw else d$L            # данные для отбора
+  173    log_msg("  Данные для отбора: ", if (sl$selection_input == "imputed") "после заполнения пропусков и log2, без EigenMS" else "после EigenMS (тесты не учитывают удалённые тренды — p занижены)")
+  174    sel <- select_features(Ls, g, s, s$project$seed + 7)
+  175    write_csv(ann(sel$uvf[order(sel$uvf$p), ]), file.path(out, "uvf_stats.csv"))
+  176    tab <- function(f) data.frame(sample = rownames(Ls), Label = g, Ls[, f, drop = FALSE], check.names = FALSE)
+  177    write_csv(tab(sel$f_uvf), file.path(out, "ds.csv")); write_csv(tab(sel$f_spf), file.path(out, "ds_d.csv"))
+  178    write_csv(tab(sel$f_rfe), file.path(out, "ds_rfe.csv"))
+  179    if (!is.null(sel$freq)) write_csv(ann(sel$freq), file.path(out, "feature_frequency.csv"))
+  180    if (!is.null(sel$rfe)) write_csv(sel$rfe$results, file.path(out, "rfe_profile.csv"))
+  181    acc <- data.frame()
+  182    addacc <- function(fits, set) for (m in names(fits))
+  183      acc <<- rbind(acc, data.frame(dataset = set, model = m, n_features = length(fits[[m]]$coefnames),
+  184                                    accuracy_cv = mean(fits[[m]]$resample$Accuracy), accuracy_sd = stats::sd(fits[[m]]$resample$Accuracy)))
+  185    addacc(sel$fits, "ds (после ОСФ)")
+  186    if (isTRUE(sl$compare_stages)) {
+  187      log_msg("  Точность моделей на всех признаках до и после коррекции (сравнение этапов)…")
+  188      addacc(train_models(data.frame(Label = g, d$L_raw, check.names = FALSE), s, s$project$seed + 71), "ds_raw (до коррекции)")
+  189      addacc(train_models(data.frame(Label = g, d$L, check.names = FALSE), s, s$project$seed + 72), "dsr (после коррекции)")
+  190    }
+  191    if (nrow(acc)) { write_csv(acc, file.path(out, "model_accuracy.csv"))
+  192      for (i in seq_len(nrow(acc))) log_msg(sprintf("    %s, %s: точность CV %.3f", acc$dataset[i], acc$model[i], acc$accuracy_cv[i])) }
+  193    steps <- data.frame(dataset = c("ds_raw (до коррекции)", "dsr (после коррекции)", "ds (после ОСФ)", "ds_d (после СПФ)", "ds_rfe (после РОП)"),
+  194                        n_features = c(ncol(d$L_raw), ncol(d$L), length(sel$f_uvf), length(sel$f_spf), length(sel$f_rfe)))
+  195    steps$mean_auroc_descriptive <- c(mean_auroc(d$L_raw, g), mean_auroc(d$L, g),
+  196                                      vapply(list(sel$f_uvf, sel$f_spf, sel$f_rfe), function(f) if (length(f)) mean_auroc(Ls[, f, drop = FALSE], g) else NA, 0))
+  197    write_csv(steps, file.path(out, "auroc_steps.csv"))
+  198    log_msg("  Число признаков и средняя AUROC по этапам (описательная): ",
+  199            paste(sprintf("%d (%.3f)", steps$n_features, steps$mean_auroc_descriptive), collapse = " → "))
+  200    nest <- NULL
+  201    if (isTRUE(sl$nested_cv)) {
+  202      log_msg(sprintf("  Вложенная кросс-валидация (%d блоков × %d повтора, данные: %s)…", sl$nested_folds, sl$nested_repeats,
+  203                      if (sl$nested_input == "imputed") "после заполнения пропусков, без EigenMS" else "после EigenMS — оценка завышена"))
+  204      nest <- nested_cv(if (sl$nested_input == "imputed") d$L_raw else d$L, g, s, s$project$seed + 700)
+  205      write_csv(nest$summary, file.path(out, "nested_cv.csv")); write_csv(nest$predictions, file.path(out, "nested_cv_predictions.csv"))
+  206      write_csv(ann(nest$frequency), file.path(out, "nested_cv_feature_frequency.csv"))
+  207      log_msg(sprintf("  Вложенная CV: точность %.3f, AUC %.3f (несмещённая оценка всей процедуры отбора)", nest$summary$accuracy_mean, nest$summary$auc_mean))
+  208    }
+  209    cov <- covariate_model(d$L_raw, meta)
+  210    if (!is.null(cov)) { write_csv(ann(cov[order(cov$p), ]), file.path(out, "covariate_model.csv"))
+  211      log_msg(sprintf("  Модель с поправкой на %s: q(BH) < 0,05 у %d признаков", cov$covariates[1], sum(cov$p_BH < 0.05))) }
+  212    save_module(s, 7, list(L = d$L, L_raw = d$L_raw, L_sel = Ls, info = info, meta = meta, sel = sel[c("uvf", "f_uvf", "f_spf", "f_rfe", "freq")],
+  213                           rfe_results = if (!is.null(sel$rfe)) sel$rfe$results, accuracy = acc, steps = steps, nested = nest, covariate = cov))
+  214  }
 
 ==================== R/m8_visual.R ====================
     1  # Модуль 8. Визуализация: PCA и иерархическая кластеризация (Манхэттен, Уорд) на трёх этапах обработки,

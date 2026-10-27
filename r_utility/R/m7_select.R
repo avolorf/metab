@@ -109,6 +109,7 @@ select_features <- function(L, groups, s, seed, verbose = TRUE) {
 }
 
 mean_auroc <- function(L, groups) {           # средняя AUROC отдельных признаков (описательная, как на этапе 1)
+  if (ncol(L) == 1) L <- cbind(a = L[, 1], b = L[, 1])   # filterVarImp при 3+ группах не работает с одним признаком; копия не меняет среднее
   v <- caret::filterVarImp(as.data.frame(L), factor(groups))
   mean(rowMeans(v))
 }

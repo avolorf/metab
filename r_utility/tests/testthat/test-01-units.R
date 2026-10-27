@@ -159,3 +159,10 @@ test_that("чтение таблицы: интенсивности больше 
   X <- read_feature_table(f, md)$X
   expect_equal(unname(X[, "F1"]), c(4212240040, 892085242))
 })
+
+test_that("средняя AUROC: один признак при трёх группах (РОП оставил 1 признак)", {
+  set.seed(1); g <- factor(rep(c("A", "B", "C"), each = 10)); x <- matrix(rnorm(30) + as.integer(g), ncol = 1, dimnames = list(NULL, "F1"))
+  v <- mean_auroc(x, g)
+  expect_true(is.finite(v) && v > 0.5 && v <= 1)
+  expect_equal(v, mean_auroc(cbind(x, F2 = x[, 1]), g))
+})
