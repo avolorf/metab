@@ -1,10 +1,10 @@
 Программный инструмент для неинвазивной вспомогательной диагностики рака мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС
-UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного кода.
+UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного кода.
 
 Состав (размер файла в байтах на диске, число строк, MD5):
   run_analysis.R                         1351 байт     19 строк  da0e84f387a03b0c71c6388144caff57
-  R/00_core.R                           14300 байт    234 строк  a22fb1c7979c76b77582e2cf10bfc5aa
-  R/m0_input.R                          12672 байт    162 строк  80504767f9ba248a13c23a1018c87b50
+  R/00_core.R                           14300 байт    234 строк  b942c53b187d6b21c6051fe628ff4566
+  R/m0_input.R                          12716 байт    162 строк  50c00b9af0f4cbbd85a76a3f3511fb4f
   R/m1_peaktable.R                       4870 байт     61 строк  7dc56dd61e7a14c9d73bd246aef8b927
   R/m2_m4_quality.R                     10631 байт    130 строк  813872ed729e91a678fe2f96519fe816
   R/m5_m6_impute_correct.R               8435 байт    119 строк  70fda78fa39ce19a25708366f0511627
@@ -15,11 +15,11 @@ UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного
   app/app.R                             19285 байт    185 строк  8d60de7bd589a0de4aa99d326d5a7310
   app/launch.R                           1360 байт     13 строк  1a1ed147f07c35c8443e2c248dd9e98c
   templates/report.Rmd                    936 байт     31 строк  b15b4b340e3e7935d5bbb1d77d81b245
-  docs/user_guide.md                    16977 байт    109 строк  9295d6c944372ccf3a845b2a7a2f74fc
+  docs/user_guide.md                    16977 байт    109 строк  b20af41e20ad99326177fed04d18a774
   Start_UroMetabR.bat                     931 байт     20 строк  9b9b1b5ed4d7caed4f41ee0db074af71
   start_urometabr.sh                      151 байт      3 строк  02c5405a949566c80ca7381c580b2a11
   Create_desktop_shortcut.vbs             370 байт      8 строк  48dc6ba2e14d48ae09edcef07ab4cfe2
-  Итого: 17 файлов          128579 байт   1537 строк
+  Итого: 17 файлов          128623 байт   1537 строк
   Файлы .bat и .vbs хранятся с концами строк Windows (CR LF); символы CR входят в размер, в листинге не отображаются.
 
 ==================== run_analysis.R ====================
@@ -47,7 +47,7 @@ UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного
     1  # Ядро утилиты: версия, настройки, папка проекта, журнал, запуск модулей с замером времени и памяти.
     2  
     3  UROMETABR_VERSION <- "1.0.0"
-    4  UROMETABR_DATE <- "2026-10-26"
+    4  UROMETABR_DATE <- "2026-10-27"
     5  PROGRAM_NAME <- paste("Программный инструмент для неинвазивной вспомогательной диагностики рака",
     6                        "мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС")
     7  
@@ -326,7 +326,7 @@ UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного
    44    hdr <- which(grepl("^\"?Alignment ID", lines))[1]
    45    sep <- if (grepl("\t", lines[hdr])) "\t" else ","
    46    top <- data.table::fread(path, sep = sep, nrows = hdr - 1, header = FALSE, data.table = FALSE, fill = TRUE, encoding = "UTF-8")
-   47    tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8")
+   47    tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", integer64 = "double")
    48    ft <- trimws(as.character(unlist(top[which(apply(top, 1, function(x) any(trimws(x) == "File type")))[1], ])))
    49    sc <- which(tolower(ft) %in% c("sample", "qc", "blank", "standard")); sc <- sc[sc <= ncol(tab)]
    50    X <- t(as.matrix(tab[, sc, drop = FALSE])); storage.mode(X) <- "double"
@@ -343,7 +343,7 @@ UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного
    61    if (format == "msdial" || (format == "auto" && any(grepl("^\"?Alignment ID", head1)))) {
    62      r <- read_msdial_table(path); r$format <- "MS-DIAL"; return(r)
    63    }
-   64    raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1))
+   64    raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1), integer64 = "double")
    65    names(raw)[1] <- sub("^﻿", "", names(raw)[1])
    66    idc <- if (nzchar(id_column)) id_column else names(raw)[1]
    67    if (!idc %in% names(raw)) stop("В таблице нет столбца идентификатора '", idc, "'")
@@ -1458,7 +1458,7 @@ UroMetabR, версия 1.0.0 от 2026-10-26. Листинг исходного
    10  RStudio для работы программы не нужна.
    11  
    12  **Шаг 2. Распакуйте архив программы.**
-   13  1. Скопируйте архив `UroMetabR_v1.0.0_2026-10-26.zip` в удобное место, например на диск `C:` или в «Документы».
+   13  1. Скопируйте архив `UroMetabR_v1.0.0_2026-10-27.zip` в удобное место, например на диск `C:` или в «Документы».
    14  2. Щёлкните архив правой кнопкой мыши → «Извлечь все…» → «Извлечь». Запускать файлы прямо из окна архива нельзя — сначала распакуйте.
    15  3. Рекомендуется папка без русских букв и пробелов в пути, например `C:\UroMetabR`.
    16  
