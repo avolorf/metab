@@ -4,7 +4,7 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
 Состав (размер файла в байтах на диске, число строк, MD5):
   run_analysis.R                         1351 байт     19 строк  da0e84f387a03b0c71c6388144caff57
   R/00_core.R                           14530 байт    235 строк  6fd931f96300c11ca462614fc441ce84
-  R/m0_input.R                          12716 байт    162 строк  50c00b9af0f4cbbd85a76a3f3511fb4f
+  R/m0_input.R                          13151 байт    166 строк  9a3f8299589bae73757bfb91c7b4daba
   R/m1_peaktable.R                       4870 байт     61 строк  7dc56dd61e7a14c9d73bd246aef8b927
   R/m2_m4_quality.R                     10631 байт    130 строк  813872ed729e91a678fe2f96519fe816
   R/m5_m6_impute_correct.R               8435 байт    119 строк  70fda78fa39ce19a25708366f0511627
@@ -19,7 +19,7 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
   Start_UroMetabR.bat                     931 байт     20 строк  9b9b1b5ed4d7caed4f41ee0db074af71
   start_urometabr.sh                      151 байт      3 строк  02c5405a949566c80ca7381c580b2a11
   Create_desktop_shortcut.vbs             370 байт      8 строк  48dc6ba2e14d48ae09edcef07ab4cfe2
-  Итого: 17 файлов          129400 байт   1543 строк
+  Итого: 17 файлов          129835 байт   1547 строк
   Файлы .bat и .vbs хранятся с концами строк Windows (CR LF); символы CR входят в размер, в листинге не отображаются.
 
 ==================== run_analysis.R ====================
@@ -327,7 +327,7 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
    44    hdr <- which(grepl("^\"?Alignment ID", lines))[1]
    45    sep <- if (grepl("\t", lines[hdr])) "\t" else ","
    46    top <- data.table::fread(path, sep = sep, nrows = hdr - 1, header = FALSE, data.table = FALSE, fill = TRUE, encoding = "UTF-8")
-   47    tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", integer64 = "double")
+   47    tab <- as_double_cols(data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8"))
    48    ft <- trimws(as.character(unlist(top[which(apply(top, 1, function(x) any(trimws(x) == "File type")))[1], ])))
    49    sc <- which(tolower(ft) %in% c("sample", "qc", "blank", "standard")); sc <- sc[sc <= ncol(tab)]
    50    X <- t(as.matrix(tab[, sc, drop = FALSE])); storage.mode(X) <- "double"
@@ -338,111 +338,115 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
    55  }
    56  
    57  # Таблица признаков: строки — инъекции (или признаки — определяется по совпадению с метаданными)
-   58  read_feature_table <- function(path, md, format = "auto", id_column = "") {
-   59    if (!nzchar(path) || !file.exists(path)) stop("Не найден файл таблицы: ", path)
-   60    head1 <- readLines(path, n = 60, encoding = "UTF-8", warn = FALSE)
-   61    if (format == "msdial" || (format == "auto" && any(grepl("^\"?Alignment ID", head1)))) {
-   62      r <- read_msdial_table(path); r$format <- "MS-DIAL"; return(r)
-   63    }
-   64    raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1), integer64 = "double")
-   65    names(raw)[1] <- sub("^﻿", "", names(raw)[1])
-   66    idc <- if (nzchar(id_column)) id_column else names(raw)[1]
-   67    if (!idc %in% names(raw)) stop("В таблице нет столбца идентификатора '", idc, "'")
-   68    ids <- as.character(raw[[idc]])
-   69    if (sum(ids %in% md$file) == 0 && sum(names(raw) %in% md$file) > 0) {        # признаки по строкам
-   70      sc <- names(raw)[names(raw) %in% md$file]
-   71      X <- t(as.matrix(raw[, sc])); storage.mode(X) <- "double"
-   72      info <- parse_feature_names(ids); return(list(X = X, info = info, format = "признаки по строкам"))
-   73    }
-   74    num <- vapply(raw, function(v) is.numeric(v) || all(is.na(v)), TRUE); num[names(raw) == idc] <- FALSE
-   75    skipped <- setdiff(names(raw)[!num], idc)
-   76    if (length(skipped)) log_msg("Нечисловые столбцы пропущены: ", paste(utils::head(skipped, 10), collapse = ", "))
-   77    X <- as.matrix(raw[, num, drop = FALSE]); storage.mode(X) <- "double"
-   78    rownames(X) <- ids
-   79    dup <- duplicated(ids)
-   80    if (any(dup)) { log_msg("Повторяющиеся строки удалены: ", paste(unique(ids[dup]), collapse = ", ")); X <- X[!dup, , drop = FALSE] }
-   81    list(X = X, info = parse_feature_names(colnames(X)), format = "пробы по строкам")
-   82  }
-   83  
-   84  check_raw_file <- function(f) {
-   85    con <- file(f, "rb"); on.exit(close(con)); b <- readBin(con, "raw", 1e6)
-   86    ext <- tolower(tools::file_ext(f)); txt <- rawToChar(b[b != as.raw(0)])
-   87    if (ext == "mzml") {
-   88      if (!grepl("<(indexedmzML|mzML)", txt)) return(list(ok = FALSE, msg = "нет тега <mzML>"))
-   89      n <- regmatches(txt, regexpr("spectrumList count=\"[0-9]+\"", txt))
-   90      list(ok = TRUE, msg = if (length(n)) sub(".*\"([0-9]+)\"", "спектров: \\1", n) else "mzML")
-   91    } else if (ext == "mzxml") {
-   92      if (!grepl("<mzXML", txt)) return(list(ok = FALSE, msg = "нет тега <mzXML>"))
-   93      n <- regmatches(txt, regexpr("scanCount=\"[0-9]+\"", txt))
-   94      list(ok = TRUE, msg = if (length(n)) sub(".*\"([0-9]+)\"", "сканов: \\1", n) else "mzXML")
-   95    } else if (ext %in% c("cdf", "nc")) {
-   96      list(ok = identical(b[1:3], charToRaw("CDF")), msg = "netCDF")
-   97    } else list(ok = FALSE, msg = "неизвестный формат")
-   98  }
-   99  
-  100  module0_input <- function(s) {
-  101    out <- module_dir(s, 0)
-  102    md <- read_metadata(project_path(s, s$input$metadata_file))
-  103    chk <- data.frame(check = character(0), status = character(0), detail = character(0))
-  104    add <- function(check, ok, detail) chk[nrow(chk) + 1, ] <<- list(check, if (ok) "ок" else "ошибка", detail)
-  105    add("Метаданные", TRUE, sprintf("%d строк; группы: %s", nrow(md), paste(sprintf("%s %d", names(table(md$group)), table(md$group)), collapse = ", ")))
-  106    if (s$input$type == "raw") {
-  107      d <- project_path(s, s$input$raw_dir)
-  108      if (!dir.exists(d)) stop("Не найдена папка с сырыми данными: ", d)
-  109      files <- list.files(d, pattern = "\\.(mzML|mzXML|CDF)$", ignore.case = TRUE, full.names = TRUE, recursive = TRUE)
-  110      if (!length(files)) stop("В папке ", d, " нет файлов mzML, mzXML или CDF")
-  111      fc <- lapply(files, check_raw_file)
-  112      bad <- !vapply(fc, `[[`, TRUE, "ok")
-  113      add("Файлы сырых данных", !any(bad), sprintf("%d файлов (%s)%s", length(files), paste(names(table(tolower(tools::file_ext(files)))), collapse = ", "),
-  114                                                   if (any(bad)) paste0("; повреждены: ", paste(basename(files[bad]), collapse = ", ")) else ""))
-  115      if (any(bad)) stop("Повреждённые или неподдерживаемые файлы: ", paste(basename(files[bad]), collapse = ", "))
-  116      key <- tools::file_path_sans_ext(basename(files))
-  117      names(files) <- key
-  118      md$file <- tools::file_path_sans_ext(md$file); rownames(md) <- md$file
-  119      ids <- key
-  120      obj <- list(files = files, meta = NULL, type = "raw")
-  121    } else {
-  122      tb <- read_feature_table(project_path(s, s$input$table_file), md, s$input$table_format, s$input$id_column)
-  123      X <- tb$X; X[!is.finite(X) | X <= 0] <- NA
-  124      colnames(X) <- tb$info$id
-  125      add("Таблица признаков", TRUE, sprintf("%s: %d инъекций × %d признаков; пропусков %.1f%%", tb$format, nrow(X), ncol(X), 100 * mean(is.na(X))))
-  126      if (all(is.na(tb$info$mz))) add("m/z и RT признаков", FALSE, "не распознаны в именах столбцов (ожидается RT_mz_имя, mz / RT или M…T…); анализ продолжится без них")
-  127      ids <- rownames(X)
-  128      obj <- list(X = X, info = tb$info, meta = NULL, type = "table")
-  129    }
-  130    nodata <- setdiff(md$file[md$include == 1], ids); nometa <- setdiff(ids, md$file)
-  131    if (length(nometa)) add("Данные без метаданных", FALSE, paste("исключены:", paste(utils::head(nometa, 20), collapse = ", ")))
-  132    if (length(nodata)) add("Метаданные без данных", FALSE, paste(utils::head(nodata, 20), collapse = ", "))
-  133    use <- intersect(ids, md$file[md$include == 1])
-  134    if (length(use) < 6) stop("Слишком мало совпадений имён между данными и метаданными (", length(use), "). Проверьте столбец file")
-  135    meta <- md[use, , drop = FALSE]
-  136    if (all(is.na(meta$injection_order))) {
-  137      meta$injection_order <- match(use, ids); add("Порядок ввода", FALSE, "не указан — принят порядок строк/файлов")
-  138    } else add("Порядок ввода", !anyNA(meta$injection_order), if (anyNA(meta$injection_order)) "не указан у части файлов" else "указан")
-  139    grp <- table(meta$group[meta$kind == "sample"])
-  140    add("Группы сравнения", length(grp) >= 2 && all(grp >= 3), paste(sprintf("%s %d", names(grp), grp), collapse = ", "))
-  141    if (length(grp) < 2) stop("Нужны минимум две группы образцов (кроме QC и бланков)")
-  142    nqc <- sum(meta$kind == "QC")
-  143    add("Образцы QC", nqc >= 3, sprintf("%d; %s", nqc, if (nqc >= 3) "фильтр RSD будет применён" else "фильтр RSD и детекции в QC будут пропущены"))
-  144    add("Повторные измерения", TRUE, sprintf("%d образцов имеют > 1 инъекции", sum(table(meta$sample[meta$kind == "sample"]) > 1)))
-  145    obj$meta <- meta
-  146    if (obj$type == "table") {
-  147      obj$X <- obj$X[use, , drop = FALSE]
-  148      pct <- 100 * mean(is.na(obj$X[meta$kind == "sample", ]))
-  149      add("Доля пропусков в образцах", pct <= 30, sprintf("%.1f%% (допустимо по ТЗ до 20–30%%)", pct))
-  150    } else obj$files <- obj$files[use]
-  151    write_csv(chk, file.path(out, "input_check.csv"))
-  152    write_csv(meta, file.path(out, "metadata_checked.csv"))
-  153    for (i in seq_len(nrow(chk))) log_msg(sprintf("  [%s] %s: %s", chk$status[i], chk$check[i], chk$detail[i]))
-  154    obj$checks <- chk
-  155    save_module(s, 0, obj)
-  156    if (obj$type == "table") {                                    # для таблиц модуль 1 не нужен: таблица пиков уже есть
-  157      write_csv(cbind(file = rownames(obj$X), as.data.frame(obj$X)), file.path(module_dir(s, 1), "peak_table.csv"))
-  158      write_csv(obj$info, file.path(module_dir(s, 1), "features.csv"))
-  159      save_module(s, 1, obj[c("X", "info", "meta", "type")])
-  160    }
-  161    invisible(obj)
-  162  }
+   58  # fread читает целые больше 2^31 как integer64 (bit64); аргумент integer64 = "double" действует не всегда
+   59  # (тип, найденный вне выборки строк, остаётся integer64), поэтому такие столбцы переводятся в double явно
+   60  as_double_cols <- function(df) { j <- vapply(df, inherits, TRUE, "integer64"); df[j] <- lapply(df[j], as.double); df }
+   61  
+   62  read_feature_table <- function(path, md, format = "auto", id_column = "") {
+   63    if (!nzchar(path) || !file.exists(path)) stop("Не найден файл таблицы: ", path)
+   64    head1 <- readLines(path, n = 60, encoding = "UTF-8", warn = FALSE)
+   65    if (format == "msdial" || (format == "auto" && any(grepl("^\"?Alignment ID", head1)))) {
+   66      r <- read_msdial_table(path); r$format <- "MS-DIAL"; return(r)
+   67    }
+   68    raw <- as_double_cols(data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1)))
+   69    names(raw)[1] <- sub("^﻿", "", names(raw)[1])
+   70    idc <- if (nzchar(id_column)) id_column else names(raw)[1]
+   71    if (!idc %in% names(raw)) stop("В таблице нет столбца идентификатора '", idc, "'")
+   72    ids <- as.character(raw[[idc]])
+   73    if (sum(ids %in% md$file) == 0 && sum(names(raw) %in% md$file) > 0) {        # признаки по строкам
+   74      sc <- names(raw)[names(raw) %in% md$file]
+   75      X <- t(as.matrix(raw[, sc])); storage.mode(X) <- "double"
+   76      info <- parse_feature_names(ids); return(list(X = X, info = info, format = "признаки по строкам"))
+   77    }
+   78    num <- vapply(raw, function(v) is.numeric(v) || all(is.na(v)), TRUE); num[names(raw) == idc] <- FALSE
+   79    skipped <- setdiff(names(raw)[!num], idc)
+   80    if (length(skipped)) log_msg("Нечисловые столбцы пропущены: ", paste(utils::head(skipped, 10), collapse = ", "))
+   81    X <- as.matrix(raw[, num, drop = FALSE]); storage.mode(X) <- "double"
+   82    rownames(X) <- ids
+   83    dup <- duplicated(ids)
+   84    if (any(dup)) { log_msg("Повторяющиеся строки удалены: ", paste(unique(ids[dup]), collapse = ", ")); X <- X[!dup, , drop = FALSE] }
+   85    list(X = X, info = parse_feature_names(colnames(X)), format = "пробы по строкам")
+   86  }
+   87  
+   88  check_raw_file <- function(f) {
+   89    con <- file(f, "rb"); on.exit(close(con)); b <- readBin(con, "raw", 1e6)
+   90    ext <- tolower(tools::file_ext(f)); txt <- rawToChar(b[b != as.raw(0)])
+   91    if (ext == "mzml") {
+   92      if (!grepl("<(indexedmzML|mzML)", txt)) return(list(ok = FALSE, msg = "нет тега <mzML>"))
+   93      n <- regmatches(txt, regexpr("spectrumList count=\"[0-9]+\"", txt))
+   94      list(ok = TRUE, msg = if (length(n)) sub(".*\"([0-9]+)\"", "спектров: \\1", n) else "mzML")
+   95    } else if (ext == "mzxml") {
+   96      if (!grepl("<mzXML", txt)) return(list(ok = FALSE, msg = "нет тега <mzXML>"))
+   97      n <- regmatches(txt, regexpr("scanCount=\"[0-9]+\"", txt))
+   98      list(ok = TRUE, msg = if (length(n)) sub(".*\"([0-9]+)\"", "сканов: \\1", n) else "mzXML")
+   99    } else if (ext %in% c("cdf", "nc")) {
+  100      list(ok = identical(b[1:3], charToRaw("CDF")), msg = "netCDF")
+  101    } else list(ok = FALSE, msg = "неизвестный формат")
+  102  }
+  103  
+  104  module0_input <- function(s) {
+  105    out <- module_dir(s, 0)
+  106    md <- read_metadata(project_path(s, s$input$metadata_file))
+  107    chk <- data.frame(check = character(0), status = character(0), detail = character(0))
+  108    add <- function(check, ok, detail) chk[nrow(chk) + 1, ] <<- list(check, if (ok) "ок" else "ошибка", detail)
+  109    add("Метаданные", TRUE, sprintf("%d строк; группы: %s", nrow(md), paste(sprintf("%s %d", names(table(md$group)), table(md$group)), collapse = ", ")))
+  110    if (s$input$type == "raw") {
+  111      d <- project_path(s, s$input$raw_dir)
+  112      if (!dir.exists(d)) stop("Не найдена папка с сырыми данными: ", d)
+  113      files <- list.files(d, pattern = "\\.(mzML|mzXML|CDF)$", ignore.case = TRUE, full.names = TRUE, recursive = TRUE)
+  114      if (!length(files)) stop("В папке ", d, " нет файлов mzML, mzXML или CDF")
+  115      fc <- lapply(files, check_raw_file)
+  116      bad <- !vapply(fc, `[[`, TRUE, "ok")
+  117      add("Файлы сырых данных", !any(bad), sprintf("%d файлов (%s)%s", length(files), paste(names(table(tolower(tools::file_ext(files)))), collapse = ", "),
+  118                                                   if (any(bad)) paste0("; повреждены: ", paste(basename(files[bad]), collapse = ", ")) else ""))
+  119      if (any(bad)) stop("Повреждённые или неподдерживаемые файлы: ", paste(basename(files[bad]), collapse = ", "))
+  120      key <- tools::file_path_sans_ext(basename(files))
+  121      names(files) <- key
+  122      md$file <- tools::file_path_sans_ext(md$file); rownames(md) <- md$file
+  123      ids <- key
+  124      obj <- list(files = files, meta = NULL, type = "raw")
+  125    } else {
+  126      tb <- read_feature_table(project_path(s, s$input$table_file), md, s$input$table_format, s$input$id_column)
+  127      X <- tb$X; X[!is.finite(X) | X <= 0] <- NA
+  128      colnames(X) <- tb$info$id
+  129      add("Таблица признаков", TRUE, sprintf("%s: %d инъекций × %d признаков; пропусков %.1f%%", tb$format, nrow(X), ncol(X), 100 * mean(is.na(X))))
+  130      if (all(is.na(tb$info$mz))) add("m/z и RT признаков", FALSE, "не распознаны в именах столбцов (ожидается RT_mz_имя, mz / RT или M…T…); анализ продолжится без них")
+  131      ids <- rownames(X)
+  132      obj <- list(X = X, info = tb$info, meta = NULL, type = "table")
+  133    }
+  134    nodata <- setdiff(md$file[md$include == 1], ids); nometa <- setdiff(ids, md$file)
+  135    if (length(nometa)) add("Данные без метаданных", FALSE, paste("исключены:", paste(utils::head(nometa, 20), collapse = ", ")))
+  136    if (length(nodata)) add("Метаданные без данных", FALSE, paste(utils::head(nodata, 20), collapse = ", "))
+  137    use <- intersect(ids, md$file[md$include == 1])
+  138    if (length(use) < 6) stop("Слишком мало совпадений имён между данными и метаданными (", length(use), "). Проверьте столбец file")
+  139    meta <- md[use, , drop = FALSE]
+  140    if (all(is.na(meta$injection_order))) {
+  141      meta$injection_order <- match(use, ids); add("Порядок ввода", FALSE, "не указан — принят порядок строк/файлов")
+  142    } else add("Порядок ввода", !anyNA(meta$injection_order), if (anyNA(meta$injection_order)) "не указан у части файлов" else "указан")
+  143    grp <- table(meta$group[meta$kind == "sample"])
+  144    add("Группы сравнения", length(grp) >= 2 && all(grp >= 3), paste(sprintf("%s %d", names(grp), grp), collapse = ", "))
+  145    if (length(grp) < 2) stop("Нужны минимум две группы образцов (кроме QC и бланков)")
+  146    nqc <- sum(meta$kind == "QC")
+  147    add("Образцы QC", nqc >= 3, sprintf("%d; %s", nqc, if (nqc >= 3) "фильтр RSD будет применён" else "фильтр RSD и детекции в QC будут пропущены"))
+  148    add("Повторные измерения", TRUE, sprintf("%d образцов имеют > 1 инъекции", sum(table(meta$sample[meta$kind == "sample"]) > 1)))
+  149    obj$meta <- meta
+  150    if (obj$type == "table") {
+  151      obj$X <- obj$X[use, , drop = FALSE]
+  152      pct <- 100 * mean(is.na(obj$X[meta$kind == "sample", ]))
+  153      add("Доля пропусков в образцах", pct <= 30, sprintf("%.1f%% (допустимо по ТЗ до 20–30%%)", pct))
+  154    } else obj$files <- obj$files[use]
+  155    write_csv(chk, file.path(out, "input_check.csv"))
+  156    write_csv(meta, file.path(out, "metadata_checked.csv"))
+  157    for (i in seq_len(nrow(chk))) log_msg(sprintf("  [%s] %s: %s", chk$status[i], chk$check[i], chk$detail[i]))
+  158    obj$checks <- chk
+  159    save_module(s, 0, obj)
+  160    if (obj$type == "table") {                                    # для таблиц модуль 1 не нужен: таблица пиков уже есть
+  161      write_csv(cbind(file = rownames(obj$X), as.data.frame(obj$X)), file.path(module_dir(s, 1), "peak_table.csv"))
+  162      write_csv(obj$info, file.path(module_dir(s, 1), "features.csv"))
+  163      save_module(s, 1, obj[c("X", "info", "meta", "type")])
+  164    }
+  165    invisible(obj)
+  166  }
 
 ==================== R/m1_peaktable.R ====================
     1  # Модуль 1. Оптимизация параметров (IPO) и таблица пиков (xcms: centWave → Obiwarp → PeakDensity →

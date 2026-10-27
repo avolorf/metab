@@ -158,6 +158,10 @@ test_that("чтение таблицы: интенсивности больше 
   writeLines(c("file,F1,F2", "s1,4212240040,10", "s2,892085242,20"), f)
   X <- read_feature_table(f, md)$X
   expect_equal(unname(X[, "F1"]), c(4212240040, 892085242))
+  n <- 20000; v <- rep("1", n); v[6050] <- "4212240040"                       # длинная таблица: признаки по строкам, большое
+  writeLines(c("feature,s1,s2", paste0("F", seq_len(n), ",", v, ",10")), f)   # значение вне выборки строк fread
+  X <- read_feature_table(f, md)$X
+  expect_equal(unname(X["s1", 6050]), 4212240040); expect_equal(sum(X["s1", ]), n - 1 + 4212240040)
 })
 
 test_that("средняя AUROC: один признак при трёх группах (РОП оставил 1 признак)", {

@@ -44,7 +44,7 @@ read_msdial_table <- function(path) {
   hdr <- which(grepl("^\"?Alignment ID", lines))[1]
   sep <- if (grepl("\t", lines[hdr])) "\t" else ","
   top <- data.table::fread(path, sep = sep, nrows = hdr - 1, header = FALSE, data.table = FALSE, fill = TRUE, encoding = "UTF-8")
-  tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", integer64 = "double")
+  tab <- as_double_cols(data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8"))
   ft <- trimws(as.character(unlist(top[which(apply(top, 1, function(x) any(trimws(x) == "File type")))[1], ])))
   sc <- which(tolower(ft) %in% c("sample", "qc", "blank", "standard")); sc <- sc[sc <= ncol(tab)]
   X <- t(as.matrix(tab[, sc, drop = FALSE])); storage.mode(X) <- "double"
@@ -55,13 +55,17 @@ read_msdial_table <- function(path) {
 }
 
 # Таблица признаков: строки — инъекции (или признаки — определяется по совпадению с метаданными)
+# fread читает целые больше 2^31 как integer64 (bit64); аргумент integer64 = "double" действует не всегда
+# (тип, найденный вне выборки строк, остаётся integer64), поэтому такие столбцы переводятся в double явно
+as_double_cols <- function(df) { j <- vapply(df, inherits, TRUE, "integer64"); df[j] <- lapply(df[j], as.double); df }
+
 read_feature_table <- function(path, md, format = "auto", id_column = "") {
   if (!nzchar(path) || !file.exists(path)) stop("Не найден файл таблицы: ", path)
   head1 <- readLines(path, n = 60, encoding = "UTF-8", warn = FALSE)
   if (format == "msdial" || (format == "auto" && any(grepl("^\"?Alignment ID", head1)))) {
     r <- read_msdial_table(path); r$format <- "MS-DIAL"; return(r)
   }
-  raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1), integer64 = "double")
+  raw <- as_double_cols(data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1)))
   names(raw)[1] <- sub("^﻿", "", names(raw)[1])
   idc <- if (nzchar(id_column)) id_column else names(raw)[1]
   if (!idc %in% names(raw)) stop("В таблице нет столбца идентификатора '", idc, "'")
