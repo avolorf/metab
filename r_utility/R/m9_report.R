@@ -47,6 +47,7 @@ module9_report <- function(s) {
                   if (prof == "strict") "строгий" else "стандартный", nrow(ft), nrow(inten), run_id))
   # ---------------- отчёт
   sec <- report_sections(s, run_id)
+  attr(sec, "support") <- PROGRAM_SUPPORT
   saveRDS(sec, file.path(out, "report_sections.rds"))
   f <- file.path(out, "report.html")
   rendered <- FALSE
@@ -113,5 +114,5 @@ write_html <- function(sec, f) {
   }, "")
   css <- "body{font-family:Arial,sans-serif;max-width:1100px;margin:20px auto;padding:0 16px}table{border-collapse:collapse;font-size:12px}td,th{border:1px solid #ccc;padding:2px 6px}th{background:#eee}img{max-width:100%;margin:8px 0}pre{background:#f6f6f6;padding:8px;font-size:11px;white-space:pre-wrap}"
   writeLines(c("<!doctype html><html lang=\"ru\"><head><meta charset=\"utf-8\"><title>Отчёт UroMetabR</title><style>", css, "</style></head><body>",
-               paste0("<h1>Отчёт о прогоне UroMetabR ", UROMETABR_VERSION, "</h1>"), body, "</body></html>"), f, useBytes = TRUE)
+               paste0("<h1>Отчёт о прогоне UroMetabR ", UROMETABR_VERSION, "</h1><p><i>", html_esc(PROGRAM_SUPPORT), "</i></p>"), body, "</body></html>"), f, useBytes = TRUE)
 }

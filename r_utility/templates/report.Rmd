@@ -15,6 +15,7 @@ sec <- readRDS(params$sections)
 ```
 
 ```{r body, results = "asis"}
+cat("*", attr(sec, "support"), "*\n\n", sep = "")
 for (x in sec) {
   cat("\n\n## ", x$title, "\n\n", sep = "")
   for (t in x$text) cat(t, "\n\n")

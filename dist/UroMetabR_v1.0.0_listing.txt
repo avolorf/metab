@@ -3,23 +3,23 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
 
 Состав (размер файла в байтах на диске, число строк, MD5):
   run_analysis.R                         1351 байт     19 строк  da0e84f387a03b0c71c6388144caff57
-  R/00_core.R                           14300 байт    234 строк  b942c53b187d6b21c6051fe628ff4566
+  R/00_core.R                           14530 байт    235 строк  6fd931f96300c11ca462614fc441ce84
   R/m0_input.R                          12716 байт    162 строк  50c00b9af0f4cbbd85a76a3f3511fb4f
   R/m1_peaktable.R                       4870 байт     61 строк  7dc56dd61e7a14c9d73bd246aef8b927
   R/m2_m4_quality.R                     10631 байт    130 строк  813872ed729e91a678fe2f96519fe816
   R/m5_m6_impute_correct.R               8435 байт    119 строк  70fda78fa39ce19a25708366f0511627
   R/m7_select.R                         16493 байт    213 строк  fadc3e493f10bb057ff315ff5b026642
   R/m8_visual.R                          5957 байт     71 строк  62889d077a5229b627242abceca360d0
-  R/m9_report.R                         10921 байт    117 строк  38eb249f60f1233048a6055fbf5a83b2
+  R/m9_report.R                         11008 байт    118 строк  b9e633bd2a089869e91639bfcf0496dd
   R/zz_setup.R                           2939 байт     42 строк  dc3852f8b2785f0f9db70714cdf6d9e9
   app/app.R                             19285 байт    185 строк  8d60de7bd589a0de4aa99d326d5a7310
   app/launch.R                           1360 байт     13 строк  1a1ed147f07c35c8443e2c248dd9e98c
-  templates/report.Rmd                    936 байт     31 строк  b15b4b340e3e7935d5bbb1d77d81b245
-  docs/user_guide.md                    16977 байт    109 строк  b20af41e20ad99326177fed04d18a774
+  templates/report.Rmd                    986 байт     32 строк  d27337f02f92f2e97f1e370ed20ba88d
+  docs/user_guide.md                    17190 байт    111 строк  eb0bf806e461c2c2bc7947df089ba53b
   Start_UroMetabR.bat                     931 байт     20 строк  9b9b1b5ed4d7caed4f41ee0db074af71
   start_urometabr.sh                      151 байт      3 строк  02c5405a949566c80ca7381c580b2a11
   Create_desktop_shortcut.vbs             370 байт      8 строк  48dc6ba2e14d48ae09edcef07ab4cfe2
-  Итого: 17 файлов          128623 байт   1537 строк
+  Итого: 17 файлов          129203 байт   1542 строк
   Файлы .bat и .vbs хранятся с концами строк Windows (CR LF); символы CR входят в размер, в листинге не отображаются.
 
 ==================== run_analysis.R ====================
@@ -50,234 +50,235 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
     4  UROMETABR_DATE <- "2026-10-27"
     5  PROGRAM_NAME <- paste("Программный инструмент для неинвазивной вспомогательной диагностики рака",
     6                        "мочеполовой системы на основе анализа мочи методом ВЭЖХ-МС")
-    7  
-    8  MODULES <- data.frame(
-    9    id = 0:9,
-   10    dir = c("00_input", "01_peaktable", "02_qc", "03_filter", "04_samples", "05_impute", "06_correct",
-   11            "07_select", "08_visual", "09_report"),
-   12    title = c("Загрузка и проверка входных данных", "Оптимизация параметров и таблица пиков (xcms)",
-   13              "Контроль качества", "Фильтр устойчивых признаков", "Удаление QC, усреднение повторов, сортировка",
-   14              "Заполнение пропусков", "Коррекция сигнала и логарифмирование", "Статистика и отбор признаков",
-   15              "Визуализация", "База признаков и отчёт"),
-   16    stringsAsFactors = FALSE)
-   17  
-   18  `%||%` <- function(a, b) if (is.null(a) || (length(a) == 1 && is.na(a))) b else a
-   19  
-   20  # ------------------------------------------------------------------ настройки
-   21  default_settings <- function() list(
-   22    project = list(name = "Проект", seed = 20261026, cores = 1),
-   23    input = list(type = "table",                       # table (CSV/TSV/TXT, экспорт MS-DIAL) | raw (mzML/mzXML/CDF)
-   24                 table_file = "", raw_dir = "", metadata_file = "",
-   25                 table_format = "auto",                # auto | wide | msdial
-   26                 id_column = ""),                      # пусто — первый столбец
-   27    xcms = list(ipo = FALSE, ppm = 5, min_peakwidth = 5, max_peakwidth = 30, snthresh = 10, noise = 1000,
-   28                prefilter_k = 3, prefilter_i = 1000, bw = 5, min_fraction = 0.5, mzwid = 0.015,
-   29                obiwarp_binsize = 0.5),
-   30    filter = list(min_qc_detect = 0.8, min_group_detect = 0.5, max_qc_rsd = 0.30, blank_ratio = 5,
-   31                  strict = list(min_all_detect = 1.0, min_qc_detect = 0.8, max_qc_rsd = 0.15),   # профиль базы признаков
-   32                  analysis_profile = "standard",                                                  # standard | strict
-   33                  target_min = 300, target_max = 800),
-   34    samples = list(average_replicates = TRUE, groups = list()),   # пусто — все группы, кроме QC и бланков
-   35    impute = list(method = "rf", maxiter = 10, ntree = 100),      # rf | missForest | halfmin
-   36    correct = list(normalization = "none", log2 = TRUE, method = "eigenms", eigen_perm = 200, eigen_alpha = 0.05),
-   37    select = list(selection_input = "imputed",                    # imputed (без EigenMS, по умолчанию) | corrected (после EigenMS)
-   38                  p_adjust = "holm",                              # holm | BH | none | stage1
-   39                  alpha = 0.05, models = c("knn", "svmRadial", "pls", "rf"), cv_folds = 5, cv_repeats = 3,
-   40                  tune_length = 5, top_n = 50, min_freq = 2, rfe_method = "nb", rfe_folds = 5, rfe_repeats = 3,
-   41                  compare_stages = TRUE, nested_cv = TRUE, nested_folds = 5, nested_repeats = 2,
-   42                  nested_input = "imputed"),                       # imputed (без EigenMS) | corrected
-   43    visual = list(dpi = 600, formats = c("png", "jpeg"), heatmap_top = 50, boxplot_top = 12, vip_top = 20,
-   44                  hca_distance = "manhattan", hca_method = "ward.D2"),
-   45    report = list(database = "features_db", database_profile = "strict", rmarkdown = TRUE),   # strict | standard
-   46    run = list(from = 0, to = 9))
-   47  
-   48  merge_settings <- function(base, over) {
-   49    for (k in names(over)) {
-   50      if (is.list(base[[k]]) && is.list(over[[k]]) && length(over[[k]]) && !is.null(names(over[[k]])))
-   51        base[[k]] <- merge_settings(base[[k]], over[[k]])
-   52      else base[k] <- list(over[[k]])
-   53    }
-   54    base
-   55  }
-   56  
-   57  read_settings <- function(path) {
-   58    if (!file.exists(path)) stop("Файл настроек не найден: ", path)
-   59    s <- merge_settings(default_settings(), yaml::read_yaml(path, fileEncoding = "UTF-8") %||% list())
-   60    s$project$dir <- normalizePath(dirname(path), winslash = "/")
-   61    s$settings_file <- normalizePath(path, winslash = "/")
-   62    check_settings(s)
-   63    s
-   64  }
-   65  
-   66  write_settings <- function(s, path) {
-   67    s$project$dir <- NULL; s$settings_file <- NULL
-   68    s <- rapply(s, function(x) if (all(x == round(x)) && all(abs(x) < 2^31)) as.integer(x) else x, classes = "numeric", how = "replace")
-   69    yaml::write_yaml(s, path, fileEncoding = "UTF-8")
-   70    invisible(path)
-   71  }
-   72  
-   73  # Путь из настроек: абсолютный — как есть, относительный — от папки проекта
-   74  project_path <- function(s, p) {
-   75    if (is.null(p) || !nzchar(p)) return("")
-   76    if (grepl("^(/|[A-Za-z]:|\\\\\\\\)", p)) p else file.path(s$project$dir, p)
-   77  }
-   78  
-   79  check_settings <- function(s) {
-   80    e <- character(0)
-   81    if (!s$input$type %in% c("table", "raw")) e <- c(e, "input$type: table или raw")
-   82    if (!s$impute$method %in% c("rf", "missForest", "halfmin")) e <- c(e, "impute$method: rf, missForest или halfmin")
-   83    if (!s$correct$method %in% c("eigenms", "none")) e <- c(e, "correct$method: eigenms или none")
-   84    if (!s$correct$normalization %in% c("none", "PQN")) e <- c(e, "correct$normalization: none или PQN")
-   85    if (!s$select$p_adjust %in% c("holm", "BH", "none", "stage1")) e <- c(e, "select$p_adjust: holm, BH, none или stage1")
-   86    if (!s$select$rfe_method %in% c("nb", "rf")) e <- c(e, "select$rfe_method: nb или rf")
-   87    if (!s$select$nested_input %in% c("imputed", "corrected")) e <- c(e, "select$nested_input: imputed или corrected")
-   88    if (!s$select$selection_input %in% c("imputed", "corrected")) e <- c(e, "select$selection_input: imputed или corrected")
-   89    if (!s$filter$analysis_profile %in% c("standard", "strict")) e <- c(e, "filter$analysis_profile: standard или strict")
-   90    if (!s$report$database_profile %in% c("standard", "strict")) e <- c(e, "report$database_profile: standard или strict")
-   91    if (s$filter$max_qc_rsd <= 0 || s$filter$min_group_detect < 0 || s$filter$min_group_detect > 1) e <- c(e, "пороги фильтра вне допустимых значений")
-   92    if (length(e)) stop("Ошибки в настройках:\n  ", paste(e, collapse = "\n  "))
-   93    invisible(TRUE)
-   94  }
-   95  
-   96  # ------------------------------------------------------------------ журнал
-   97  .ue <- new.env()
-   98  .ue$log_file <- NULL
-   99  
-  100  log_start <- function(s) {
-  101    d <- file.path(s$project$dir, "logs"); dir.create(d, showWarnings = FALSE, recursive = TRUE)
-  102    .ue$run_id <- format(Sys.time(), "%Y%m%d_%H%M%S")
-  103    .ue$log_file <- file.path(d, paste0("run_", .ue$run_id, ".log"))
-  104    file.create(.ue$log_file)
-  105    .ue$run_id
-  106  }
-  107  
-  108  log_msg <- function(...) {
-  109    s <- paste0(format(Sys.time(), "%H:%M:%S"), "  ", paste0(...))
-  110    cat(s, "\n", sep = "")
-  111    if (!is.null(.ue$log_file)) cat(s, "\n", sep = "", file = .ue$log_file, append = TRUE)
-  112    invisible(s)
-  113  }
-  114  
-  115  # ------------------------------------------------------------------ результаты модулей
-  116  module_dir <- function(s, id) {
-  117    d <- file.path(s$project$dir, MODULES$dir[MODULES$id == id])
-  118    dir.create(d, showWarnings = FALSE, recursive = TRUE)
-  119    d
-  120  }
-  121  save_module <- function(s, id, obj) saveRDS(obj, file.path(module_dir(s, id), "result.rds"))
-  122  load_module <- function(s, id) {
-  123    f <- file.path(s$project$dir, MODULES$dir[MODULES$id == id], "result.rds")
-  124    if (!file.exists(f)) stop(sprintf("Нет результата модуля %d (%s): запустите его раньше", id, MODULES$title[MODULES$id == id]))
-  125    readRDS(f)
-  126  }
-  127  # Последний доступный результат с номером < id (для таблиц модуль 1 пропускается)
-  128  load_previous <- function(s, id) {
-  129    for (k in rev(seq_len(id) - 1)) {
-  130      f <- file.path(s$project$dir, MODULES$dir[MODULES$id == k], "result.rds")
-  131      if (file.exists(f)) return(readRDS(f))
-  132    }
-  133    stop("Нет результатов предыдущих модулей — запустите модуль 0")
-  134  }
-  135  write_csv <- function(x, path) data.table::fwrite(x, path, bom = TRUE)   # BOM — корректная кириллица в Excel
-  136  
-  137  # ------------------------------------------------------------------ запуск конвейера
-  138  MODULE_FUN <- c("module0_input", "module1_peaktable", "module2_qc", "module3_filter", "module4_samples",
-  139                  "module5_impute", "module6_correct", "module7_select", "module8_visual", "module9_report")
-  140  
-  141  run_pipeline <- function(s, from = s$run$from, to = s$run$to) {
-  142    if (is.character(s)) s <- read_settings(s)
-  143    log_start(s)
-  144    log_msg("UroMetabR ", UROMETABR_VERSION, " (", UROMETABR_DATE, "); R ", R.version$major, ".", R.version$minor,
-  145            "; ", utils::sessionInfo()$running)
-  146    log_msg("Проект: ", s$project$dir, "; модули ", from, "–", to, "; seed ", s$project$seed)
-  147    file.copy(s$settings_file %||% "", file.path(s$project$dir, "logs", paste0("settings_", .ue$run_id, ".yaml")))
-  148    status <- data.frame()
-  149    for (id in from:to) {
-  150      if (id == 1 && s$input$type == "table") {
-  151        log_msg("Модуль 1 пропущен: на входе готовая таблица признаков")
-  152        status <- rbind(status, data.frame(module = 1, title = MODULES$title[2], status = "пропущен", time_s = 0, peak_ram_mb = NA))
-  153        next
-  154      }
-  155      log_msg(sprintf("=== Модуль %d. %s", id, MODULES$title[MODULES$id == id]))
-  156      set.seed(s$project$seed + id)                   # единый seed: результат модуля не зависит от предыдущих запусков
-  157      invisible(gc(reset = TRUE)); t0 <- proc.time()[["elapsed"]]
-  158      ok <- tryCatch({ get(MODULE_FUN[id + 1])(s); TRUE }, error = function(e) { log_msg("ОШИБКА: ", conditionMessage(e)); FALSE })
-  159      tm <- proc.time()[["elapsed"]] - t0
-  160      mem <- sum(gc()[, 6])
-  161      log_msg(sprintf("Модуль %d: %s, %.1f с, пиковая память R %.0f МБ", id, if (ok) "выполнен" else "ошибка", tm, mem))
-  162      status <- rbind(status, data.frame(module = id, title = MODULES$title[id + 1], status = if (ok) "выполнен" else "ошибка",
-  163                                         time_s = round(tm, 1), peak_ram_mb = round(mem)))
-  164      write_csv(status, file.path(s$project$dir, "logs", paste0("modules_", .ue$run_id, ".csv")))
-  165      if (!ok) { write_session_info(s); log_msg("Обработка остановлена на модуле ", id); return(invisible(status)) }
-  166    }
-  167    write_session_info(s)
-  168    log_msg("Готово. Отчёт: ", file.path(s$project$dir, "09_report", "report.html"))
-  169    cat("UROMETABR_DONE\n", file = .ue$log_file, append = TRUE)
-  170    invisible(status)
-  171  }
-  172  
-  173  write_session_info <- function(s) {
-  174    f <- file.path(s$project$dir, "logs", paste0("session_info_", .ue$run_id, ".txt"))
-  175    writeLines(c(paste("UroMetabR", UROMETABR_VERSION, UROMETABR_DATE), utils::capture.output(utils::sessionInfo())), f)
-  176    f
-  177  }
-  178  
-  179  # ------------------------------------------------------------------ параллельные вычисления
-  180  # Linux/macOS — fork; Windows — PSOCK-кластер с подгрузкой модулей утилиты
-  181  par_lapply <- function(X, FUN, cores = 1) {
-  182    if (cores <= 1 || length(X) < 2) return(lapply(X, FUN))
-  183    if (.Platform$OS.type == "unix") return(parallel::mclapply(X, FUN, mc.cores = cores))
-  184    cl <- parallel::makeCluster(cores); on.exit(parallel::stopCluster(cl))
-  185    files <- list.files(getOption("urometabr.dir"), pattern = "\\.R$", full.names = TRUE)
-  186    parallel::clusterCall(cl, function(f) for (x in f) source(x, encoding = "UTF-8"), files)
-  187    parallel::parLapply(cl, X, FUN)
-  188  }
-  189  
-  190  # Зерна для caret: воспроизводимость и в параллельном режиме
-  191  caret_seeds <- function(n_resamples, n_tune, seed) {
-  192    set.seed(seed)
-  193    c(lapply(seq_len(n_resamples), function(i) sample.int(1e6, n_tune)), list(sample.int(1e6, 1)))
-  194  }
-  195  
-  196  register_cores <- function(cores) {
-  197    if (cores > 1 && requireNamespace("doParallel", quietly = TRUE)) {
-  198      cl <- parallel::makeCluster(cores)
-  199      parallel::clusterEvalQ(cl, suppressPackageStartupMessages(library(caret)))   # модели caret ищут функции в caret
-  200      doParallel::registerDoParallel(cl); return(cl)
-  201    }
-  202    foreach::registerDoSEQ(); NULL
-  203  }
-  204  stop_cores <- function(cl) { if (!is.null(cl)) parallel::stopCluster(cl); foreach::registerDoSEQ() }
-  205  
-  206  # ------------------------------------------------------------------ графика
-  207  GROUP_PAL <- c("#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442", "#000000")
-  208  group_colors <- function(g) {
-  209    u <- sort(unique(as.character(g))); u <- c(setdiff(u, "QC"), intersect(u, "QC"))
-  210    col <- stats::setNames(GROUP_PAL[seq_along(u)], u); if ("QC" %in% u) col["QC"] <- "#7F7F7F"
-  211    col
-  212  }
-  213  save_fig <- function(s, p, dir, name, w = 17, h = 12) {
-  214    out <- character(0)
-  215    for (fmt in s$visual$formats) {
-  216      f <- file.path(dir, paste0(name, ".", if (fmt == "jpeg") "jpg" else fmt))
-  217      ggplot2::ggsave(f, p, width = w, height = h, units = "cm", dpi = s$visual$dpi, bg = "white")
-  218      out <- c(out, f)
-  219    }
-  220    invisible(out)
-  221  }
-  222  # Графики не-ggplot (дендрограммы, тепловые карты): одна функция рисования — несколько форматов
-  223  save_base_fig <- function(s, draw, dir, name, w = 17, h = 12) {
-  224    for (fmt in s$visual$formats) {
-  225      f <- file.path(dir, paste0(name, ".", if (fmt == "jpeg") "jpg" else fmt))
-  226      dev <- if (fmt == "jpeg") grDevices::jpeg else grDevices::png
-  227      args <- list(f, width = w, height = h, units = "cm", res = s$visual$dpi)
-  228      if (capabilities("cairo")) args$type <- "cairo"
-  229      if (fmt == "jpeg") args$quality <- 95
-  230      do.call(dev, args); try(draw()); grDevices::dev.off()
-  231    }
-  232  }
-  233  theme_um <- function() ggplot2::theme_bw(base_size = 9) +
-  234    ggplot2::theme(panel.grid.minor = ggplot2::element_blank(), legend.position = "top")
+    7  PROGRAM_SUPPORT <- "Программа разработана при поддержке Фонда содействия инновациям в рамках программы „УМНИК“ (договор № 19600ГУ/2025)"
+    8  
+    9  MODULES <- data.frame(
+   10    id = 0:9,
+   11    dir = c("00_input", "01_peaktable", "02_qc", "03_filter", "04_samples", "05_impute", "06_correct",
+   12            "07_select", "08_visual", "09_report"),
+   13    title = c("Загрузка и проверка входных данных", "Оптимизация параметров и таблица пиков (xcms)",
+   14              "Контроль качества", "Фильтр устойчивых признаков", "Удаление QC, усреднение повторов, сортировка",
+   15              "Заполнение пропусков", "Коррекция сигнала и логарифмирование", "Статистика и отбор признаков",
+   16              "Визуализация", "База признаков и отчёт"),
+   17    stringsAsFactors = FALSE)
+   18  
+   19  `%||%` <- function(a, b) if (is.null(a) || (length(a) == 1 && is.na(a))) b else a
+   20  
+   21  # ------------------------------------------------------------------ настройки
+   22  default_settings <- function() list(
+   23    project = list(name = "Проект", seed = 20261026, cores = 1),
+   24    input = list(type = "table",                       # table (CSV/TSV/TXT, экспорт MS-DIAL) | raw (mzML/mzXML/CDF)
+   25                 table_file = "", raw_dir = "", metadata_file = "",
+   26                 table_format = "auto",                # auto | wide | msdial
+   27                 id_column = ""),                      # пусто — первый столбец
+   28    xcms = list(ipo = FALSE, ppm = 5, min_peakwidth = 5, max_peakwidth = 30, snthresh = 10, noise = 1000,
+   29                prefilter_k = 3, prefilter_i = 1000, bw = 5, min_fraction = 0.5, mzwid = 0.015,
+   30                obiwarp_binsize = 0.5),
+   31    filter = list(min_qc_detect = 0.8, min_group_detect = 0.5, max_qc_rsd = 0.30, blank_ratio = 5,
+   32                  strict = list(min_all_detect = 1.0, min_qc_detect = 0.8, max_qc_rsd = 0.15),   # профиль базы признаков
+   33                  analysis_profile = "standard",                                                  # standard | strict
+   34                  target_min = 300, target_max = 800),
+   35    samples = list(average_replicates = TRUE, groups = list()),   # пусто — все группы, кроме QC и бланков
+   36    impute = list(method = "rf", maxiter = 10, ntree = 100),      # rf | missForest | halfmin
+   37    correct = list(normalization = "none", log2 = TRUE, method = "eigenms", eigen_perm = 200, eigen_alpha = 0.05),
+   38    select = list(selection_input = "imputed",                    # imputed (без EigenMS, по умолчанию) | corrected (после EigenMS)
+   39                  p_adjust = "holm",                              # holm | BH | none | stage1
+   40                  alpha = 0.05, models = c("knn", "svmRadial", "pls", "rf"), cv_folds = 5, cv_repeats = 3,
+   41                  tune_length = 5, top_n = 50, min_freq = 2, rfe_method = "nb", rfe_folds = 5, rfe_repeats = 3,
+   42                  compare_stages = TRUE, nested_cv = TRUE, nested_folds = 5, nested_repeats = 2,
+   43                  nested_input = "imputed"),                       # imputed (без EigenMS) | corrected
+   44    visual = list(dpi = 600, formats = c("png", "jpeg"), heatmap_top = 50, boxplot_top = 12, vip_top = 20,
+   45                  hca_distance = "manhattan", hca_method = "ward.D2"),
+   46    report = list(database = "features_db", database_profile = "strict", rmarkdown = TRUE),   # strict | standard
+   47    run = list(from = 0, to = 9))
+   48  
+   49  merge_settings <- function(base, over) {
+   50    for (k in names(over)) {
+   51      if (is.list(base[[k]]) && is.list(over[[k]]) && length(over[[k]]) && !is.null(names(over[[k]])))
+   52        base[[k]] <- merge_settings(base[[k]], over[[k]])
+   53      else base[k] <- list(over[[k]])
+   54    }
+   55    base
+   56  }
+   57  
+   58  read_settings <- function(path) {
+   59    if (!file.exists(path)) stop("Файл настроек не найден: ", path)
+   60    s <- merge_settings(default_settings(), yaml::read_yaml(path, fileEncoding = "UTF-8") %||% list())
+   61    s$project$dir <- normalizePath(dirname(path), winslash = "/")
+   62    s$settings_file <- normalizePath(path, winslash = "/")
+   63    check_settings(s)
+   64    s
+   65  }
+   66  
+   67  write_settings <- function(s, path) {
+   68    s$project$dir <- NULL; s$settings_file <- NULL
+   69    s <- rapply(s, function(x) if (all(x == round(x)) && all(abs(x) < 2^31)) as.integer(x) else x, classes = "numeric", how = "replace")
+   70    yaml::write_yaml(s, path, fileEncoding = "UTF-8")
+   71    invisible(path)
+   72  }
+   73  
+   74  # Путь из настроек: абсолютный — как есть, относительный — от папки проекта
+   75  project_path <- function(s, p) {
+   76    if (is.null(p) || !nzchar(p)) return("")
+   77    if (grepl("^(/|[A-Za-z]:|\\\\\\\\)", p)) p else file.path(s$project$dir, p)
+   78  }
+   79  
+   80  check_settings <- function(s) {
+   81    e <- character(0)
+   82    if (!s$input$type %in% c("table", "raw")) e <- c(e, "input$type: table или raw")
+   83    if (!s$impute$method %in% c("rf", "missForest", "halfmin")) e <- c(e, "impute$method: rf, missForest или halfmin")
+   84    if (!s$correct$method %in% c("eigenms", "none")) e <- c(e, "correct$method: eigenms или none")
+   85    if (!s$correct$normalization %in% c("none", "PQN")) e <- c(e, "correct$normalization: none или PQN")
+   86    if (!s$select$p_adjust %in% c("holm", "BH", "none", "stage1")) e <- c(e, "select$p_adjust: holm, BH, none или stage1")
+   87    if (!s$select$rfe_method %in% c("nb", "rf")) e <- c(e, "select$rfe_method: nb или rf")
+   88    if (!s$select$nested_input %in% c("imputed", "corrected")) e <- c(e, "select$nested_input: imputed или corrected")
+   89    if (!s$select$selection_input %in% c("imputed", "corrected")) e <- c(e, "select$selection_input: imputed или corrected")
+   90    if (!s$filter$analysis_profile %in% c("standard", "strict")) e <- c(e, "filter$analysis_profile: standard или strict")
+   91    if (!s$report$database_profile %in% c("standard", "strict")) e <- c(e, "report$database_profile: standard или strict")
+   92    if (s$filter$max_qc_rsd <= 0 || s$filter$min_group_detect < 0 || s$filter$min_group_detect > 1) e <- c(e, "пороги фильтра вне допустимых значений")
+   93    if (length(e)) stop("Ошибки в настройках:\n  ", paste(e, collapse = "\n  "))
+   94    invisible(TRUE)
+   95  }
+   96  
+   97  # ------------------------------------------------------------------ журнал
+   98  .ue <- new.env()
+   99  .ue$log_file <- NULL
+  100  
+  101  log_start <- function(s) {
+  102    d <- file.path(s$project$dir, "logs"); dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  103    .ue$run_id <- format(Sys.time(), "%Y%m%d_%H%M%S")
+  104    .ue$log_file <- file.path(d, paste0("run_", .ue$run_id, ".log"))
+  105    file.create(.ue$log_file)
+  106    .ue$run_id
+  107  }
+  108  
+  109  log_msg <- function(...) {
+  110    s <- paste0(format(Sys.time(), "%H:%M:%S"), "  ", paste0(...))
+  111    cat(s, "\n", sep = "")
+  112    if (!is.null(.ue$log_file)) cat(s, "\n", sep = "", file = .ue$log_file, append = TRUE)
+  113    invisible(s)
+  114  }
+  115  
+  116  # ------------------------------------------------------------------ результаты модулей
+  117  module_dir <- function(s, id) {
+  118    d <- file.path(s$project$dir, MODULES$dir[MODULES$id == id])
+  119    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  120    d
+  121  }
+  122  save_module <- function(s, id, obj) saveRDS(obj, file.path(module_dir(s, id), "result.rds"))
+  123  load_module <- function(s, id) {
+  124    f <- file.path(s$project$dir, MODULES$dir[MODULES$id == id], "result.rds")
+  125    if (!file.exists(f)) stop(sprintf("Нет результата модуля %d (%s): запустите его раньше", id, MODULES$title[MODULES$id == id]))
+  126    readRDS(f)
+  127  }
+  128  # Последний доступный результат с номером < id (для таблиц модуль 1 пропускается)
+  129  load_previous <- function(s, id) {
+  130    for (k in rev(seq_len(id) - 1)) {
+  131      f <- file.path(s$project$dir, MODULES$dir[MODULES$id == k], "result.rds")
+  132      if (file.exists(f)) return(readRDS(f))
+  133    }
+  134    stop("Нет результатов предыдущих модулей — запустите модуль 0")
+  135  }
+  136  write_csv <- function(x, path) data.table::fwrite(x, path, bom = TRUE)   # BOM — корректная кириллица в Excel
+  137  
+  138  # ------------------------------------------------------------------ запуск конвейера
+  139  MODULE_FUN <- c("module0_input", "module1_peaktable", "module2_qc", "module3_filter", "module4_samples",
+  140                  "module5_impute", "module6_correct", "module7_select", "module8_visual", "module9_report")
+  141  
+  142  run_pipeline <- function(s, from = s$run$from, to = s$run$to) {
+  143    if (is.character(s)) s <- read_settings(s)
+  144    log_start(s)
+  145    log_msg("UroMetabR ", UROMETABR_VERSION, " (", UROMETABR_DATE, "); R ", R.version$major, ".", R.version$minor,
+  146            "; ", utils::sessionInfo()$running)
+  147    log_msg("Проект: ", s$project$dir, "; модули ", from, "–", to, "; seed ", s$project$seed)
+  148    file.copy(s$settings_file %||% "", file.path(s$project$dir, "logs", paste0("settings_", .ue$run_id, ".yaml")))
+  149    status <- data.frame()
+  150    for (id in from:to) {
+  151      if (id == 1 && s$input$type == "table") {
+  152        log_msg("Модуль 1 пропущен: на входе готовая таблица признаков")
+  153        status <- rbind(status, data.frame(module = 1, title = MODULES$title[2], status = "пропущен", time_s = 0, peak_ram_mb = NA))
+  154        next
+  155      }
+  156      log_msg(sprintf("=== Модуль %d. %s", id, MODULES$title[MODULES$id == id]))
+  157      set.seed(s$project$seed + id)                   # единый seed: результат модуля не зависит от предыдущих запусков
+  158      invisible(gc(reset = TRUE)); t0 <- proc.time()[["elapsed"]]
+  159      ok <- tryCatch({ get(MODULE_FUN[id + 1])(s); TRUE }, error = function(e) { log_msg("ОШИБКА: ", conditionMessage(e)); FALSE })
+  160      tm <- proc.time()[["elapsed"]] - t0
+  161      mem <- sum(gc()[, 6])
+  162      log_msg(sprintf("Модуль %d: %s, %.1f с, пиковая память R %.0f МБ", id, if (ok) "выполнен" else "ошибка", tm, mem))
+  163      status <- rbind(status, data.frame(module = id, title = MODULES$title[id + 1], status = if (ok) "выполнен" else "ошибка",
+  164                                         time_s = round(tm, 1), peak_ram_mb = round(mem)))
+  165      write_csv(status, file.path(s$project$dir, "logs", paste0("modules_", .ue$run_id, ".csv")))
+  166      if (!ok) { write_session_info(s); log_msg("Обработка остановлена на модуле ", id); return(invisible(status)) }
+  167    }
+  168    write_session_info(s)
+  169    log_msg("Готово. Отчёт: ", file.path(s$project$dir, "09_report", "report.html"))
+  170    cat("UROMETABR_DONE\n", file = .ue$log_file, append = TRUE)
+  171    invisible(status)
+  172  }
+  173  
+  174  write_session_info <- function(s) {
+  175    f <- file.path(s$project$dir, "logs", paste0("session_info_", .ue$run_id, ".txt"))
+  176    writeLines(c(paste("UroMetabR", UROMETABR_VERSION, UROMETABR_DATE), utils::capture.output(utils::sessionInfo())), f)
+  177    f
+  178  }
+  179  
+  180  # ------------------------------------------------------------------ параллельные вычисления
+  181  # Linux/macOS — fork; Windows — PSOCK-кластер с подгрузкой модулей утилиты
+  182  par_lapply <- function(X, FUN, cores = 1) {
+  183    if (cores <= 1 || length(X) < 2) return(lapply(X, FUN))
+  184    if (.Platform$OS.type == "unix") return(parallel::mclapply(X, FUN, mc.cores = cores))
+  185    cl <- parallel::makeCluster(cores); on.exit(parallel::stopCluster(cl))
+  186    files <- list.files(getOption("urometabr.dir"), pattern = "\\.R$", full.names = TRUE)
+  187    parallel::clusterCall(cl, function(f) for (x in f) source(x, encoding = "UTF-8"), files)
+  188    parallel::parLapply(cl, X, FUN)
+  189  }
+  190  
+  191  # Зерна для caret: воспроизводимость и в параллельном режиме
+  192  caret_seeds <- function(n_resamples, n_tune, seed) {
+  193    set.seed(seed)
+  194    c(lapply(seq_len(n_resamples), function(i) sample.int(1e6, n_tune)), list(sample.int(1e6, 1)))
+  195  }
+  196  
+  197  register_cores <- function(cores) {
+  198    if (cores > 1 && requireNamespace("doParallel", quietly = TRUE)) {
+  199      cl <- parallel::makeCluster(cores)
+  200      parallel::clusterEvalQ(cl, suppressPackageStartupMessages(library(caret)))   # модели caret ищут функции в caret
+  201      doParallel::registerDoParallel(cl); return(cl)
+  202    }
+  203    foreach::registerDoSEQ(); NULL
+  204  }
+  205  stop_cores <- function(cl) { if (!is.null(cl)) parallel::stopCluster(cl); foreach::registerDoSEQ() }
+  206  
+  207  # ------------------------------------------------------------------ графика
+  208  GROUP_PAL <- c("#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442", "#000000")
+  209  group_colors <- function(g) {
+  210    u <- sort(unique(as.character(g))); u <- c(setdiff(u, "QC"), intersect(u, "QC"))
+  211    col <- stats::setNames(GROUP_PAL[seq_along(u)], u); if ("QC" %in% u) col["QC"] <- "#7F7F7F"
+  212    col
+  213  }
+  214  save_fig <- function(s, p, dir, name, w = 17, h = 12) {
+  215    out <- character(0)
+  216    for (fmt in s$visual$formats) {
+  217      f <- file.path(dir, paste0(name, ".", if (fmt == "jpeg") "jpg" else fmt))
+  218      ggplot2::ggsave(f, p, width = w, height = h, units = "cm", dpi = s$visual$dpi, bg = "white")
+  219      out <- c(out, f)
+  220    }
+  221    invisible(out)
+  222  }
+  223  # Графики не-ggplot (дендрограммы, тепловые карты): одна функция рисования — несколько форматов
+  224  save_base_fig <- function(s, draw, dir, name, w = 17, h = 12) {
+  225    for (fmt in s$visual$formats) {
+  226      f <- file.path(dir, paste0(name, ".", if (fmt == "jpeg") "jpg" else fmt))
+  227      dev <- if (fmt == "jpeg") grDevices::jpeg else grDevices::png
+  228      args <- list(f, width = w, height = h, units = "cm", res = s$visual$dpi)
+  229      if (capabilities("cairo")) args$type <- "cairo"
+  230      if (fmt == "jpeg") args$quality <- 95
+  231      do.call(dev, args); try(draw()); grDevices::dev.off()
+  232    }
+  233  }
+  234  theme_um <- function() ggplot2::theme_bw(base_size = 9) +
+  235    ggplot2::theme(panel.grid.minor = ggplot2::element_blank(), legend.position = "top")
 
 ==================== R/m0_input.R ====================
     1  # Модуль 0. Загрузка и проверка входных данных: таблица CSV/TSV/TXT (или экспорт MS-DIAL) либо сырые
@@ -1097,74 +1098,75 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
    47                    if (prof == "strict") "строгий" else "стандартный", nrow(ft), nrow(inten), run_id))
    48    # ---------------- отчёт
    49    sec <- report_sections(s, run_id)
-   50    saveRDS(sec, file.path(out, "report_sections.rds"))
-   51    f <- file.path(out, "report.html")
-   52    rendered <- FALSE
-   53    if (isTRUE(s$report$rmarkdown) && requireNamespace("rmarkdown", quietly = TRUE) && rmarkdown::pandoc_available()) {
-   54      tpl <- file.path(getOption("urometabr.root", "."), "templates", "report.Rmd")
-   55      rendered <- tryCatch({
-   56        rmarkdown::render(tpl, output_file = "report.html", output_dir = out, intermediates_dir = tempdir(),
-   57                          params = list(sections = file.path(out, "report_sections.rds")), quiet = TRUE, envir = new.env())
-   58        TRUE }, error = function(e) { log_msg("  R Markdown недоступен (", conditionMessage(e), ") — встроенный генератор HTML"); FALSE })
-   59    }
-   60    if (!rendered) write_html(sec, f)
-   61    log_msg("  Отчёт: ", f, if (rendered) " (R Markdown)" else " (встроенный генератор)")
-   62    save_module(s, 9, list(report = f, database = db, run_id = run_id))
-   63  }
-   64  
-   65  # Содержание отчёта: список разделов (текст, таблицы, рисунки) — общий для R Markdown и встроенного HTML
-   66  report_sections <- function(s, run_id) {
-   67    P <- function(id, f) file.path(s$project$dir, MODULES$dir[MODULES$id == id], f)
-   68    rd <- function(id, f) if (file.exists(P(id, f))) as.data.frame(data.table::fread(P(id, f), encoding = "UTF-8")) else NULL
-   69    img <- function(id, f) { p <- P(id, paste0(f, ".png")); if (file.exists(p)) p else NULL }
-   70    logs <- file.path(s$project$dir, "logs")
-   71    lastf <- function(pat) { f <- sort(list.files(logs, pattern = pat, full.names = TRUE)); if (length(f)) utils::tail(f, 1) else NULL }
-   72    m7 <- load_module(s, 7)
-   73    sec <- list(
-   74      list(title = "Сведения о прогоне", text = c(sprintf("%s. Версия %s (%s).", PROGRAM_NAME, UROMETABR_VERSION, UROMETABR_DATE),
-   75             sprintf("Проект: %s; папка: %s; прогон %s; seed %s.", s$project$name, s$project$dir, run_id, s$project$seed)),
-   76           tables = list("Время и память по модулям" = if (!is.null(lastf("^modules_"))) as.data.frame(data.table::fread(lastf("^modules_"), encoding = "UTF-8")))),
-   77      list(title = "0. Входные данные", tables = list("Проверки" = rd(0, "input_check.csv"))),
-   78      list(title = "2. Контроль качества", tables = list("Сводка" = rd(2, "qc_summary.csv"), "Пропуски по группам" = rd(2, "missing_by_group.csv")),
-   79           images = c(img(2, "pca_qc"), img(2, "tic_by_order"), img(2, "rsd_qc"))),
-   80      list(title = "3. Фильтр устойчивых признаков", text = "Стандартный профиль — для анализа (модули 4–8); строгий — для базы признаков (модуль 9).",
-   81           tables = list("Шаги фильтрации по профилям" = rd(3, "filter_steps.csv"))),
-   82      list(title = "5. Заполнение пропусков", tables = list(rd(5, "impute_info.csv"))),
-   83      list(title = "6. Коррекция сигнала", tables = list(rd(6, "correct_info.csv")), images = img(6, "distribution_by_sample")),
-   84      list(title = "7. Статистика и отбор признаков",
-   85           text = "Средняя AUROC по этапам — описательная величина (признаки отобраны по тем же данным). Несмещённая оценка — вложенная кросс-валидация.",
-   86           tables = list("Число признаков и средняя AUROC по этапам" = rd(7, "auroc_steps.csv"), "Точность моделей (кросс-валидация)" = rd(7, "model_accuracy.csv"),
-   87                         "Вложенная кросс-валидация" = rd(7, "nested_cv.csv"),
-   88                         "Признаки после РОП" = { x <- rd(7, "uvf_stats.csv"); if (!is.null(x)) x[x$id %in% m7$sel$f_rfe, ] },
-   89                         "ОСФ: 30 признаков с наименьшими p" = utils::head(rd(7, "uvf_stats.csv"), 30),
-   90                         "Модель с поправкой на пол и возраст (30 первых)" = utils::head(rd(7, "covariate_model.csv"), 30))),
-   91      list(title = "8. Визуализация", images = c(img(8, "pca_stages"), img(8, "hca_stages"), img(8, "heatmap"), img(8, "boxplots_metabolites"), img(8, "plsda_vip"))),
-   92      list(title = "9. База признаков", text = sprintf("Записи добавлены в %s (runs_db.csv, features_db.csv, intensities_db.csv).", project_path(s, s$report$database))),
-   93      list(title = "Журнал прогона", pre = if (!is.null(.ue$log_file)) readLines(.ue$log_file, encoding = "UTF-8")),
-   94      list(title = "sessionInfo()", pre = utils::capture.output(utils::sessionInfo())))
-   95    sec
-   96  }
-   97  
-   98  html_esc <- function(x) { x <- gsub("&", "&amp;", x); x <- gsub("<", "&lt;", x); gsub(">", "&gt;", x) }
-   99  html_tab <- function(d) {
-  100    if (is.null(d) || !nrow(d)) return("")
-  101    f <- function(v) if (is.numeric(v)) formatC(v, digits = 4, format = "g") else html_esc(as.character(v))
-  102    rows <- apply(as.data.frame(lapply(d, f)), 1, function(r) paste0("<tr><td>", paste(r, collapse = "</td><td>"), "</td></tr>"))
-  103    paste0("<table><tr><th>", paste(html_esc(names(d)), collapse = "</th><th>"), "</th></tr>", paste(rows, collapse = ""), "</table>")
-  104  }
-  105  write_html <- function(sec, f) {
-  106    body <- vapply(sec, function(x) {
-  107      tb <- if (length(x$tables)) paste(vapply(seq_along(x$tables), function(i) {
-  108        nm <- names(x$tables)[i]; paste0(if (!is.null(nm) && nzchar(nm)) paste0("<h4>", html_esc(nm), "</h4>") else "", html_tab(x$tables[[i]])) }, ""), collapse = "") else ""
-  109      im <- paste(vapply(x$images %||% character(0), function(p)
-  110        sprintf("<img src=\"data:image/png;base64,%s\"/>", jsonlite::base64_enc(readBin(p, "raw", file.info(p)$size))), ""), collapse = "")
-  111      paste0("<h2>", html_esc(x$title), "</h2>", paste0("<p>", html_esc(x$text %||% character(0)), "</p>", collapse = ""), tb, im,
-  112             if (length(x$pre)) paste0("<pre>", html_esc(paste(x$pre, collapse = "\n")), "</pre>") else "")
-  113    }, "")
-  114    css <- "body{font-family:Arial,sans-serif;max-width:1100px;margin:20px auto;padding:0 16px}table{border-collapse:collapse;font-size:12px}td,th{border:1px solid #ccc;padding:2px 6px}th{background:#eee}img{max-width:100%;margin:8px 0}pre{background:#f6f6f6;padding:8px;font-size:11px;white-space:pre-wrap}"
-  115    writeLines(c("<!doctype html><html lang=\"ru\"><head><meta charset=\"utf-8\"><title>Отчёт UroMetabR</title><style>", css, "</style></head><body>",
-  116                 paste0("<h1>Отчёт о прогоне UroMetabR ", UROMETABR_VERSION, "</h1>"), body, "</body></html>"), f, useBytes = TRUE)
-  117  }
+   50    attr(sec, "support") <- PROGRAM_SUPPORT
+   51    saveRDS(sec, file.path(out, "report_sections.rds"))
+   52    f <- file.path(out, "report.html")
+   53    rendered <- FALSE
+   54    if (isTRUE(s$report$rmarkdown) && requireNamespace("rmarkdown", quietly = TRUE) && rmarkdown::pandoc_available()) {
+   55      tpl <- file.path(getOption("urometabr.root", "."), "templates", "report.Rmd")
+   56      rendered <- tryCatch({
+   57        rmarkdown::render(tpl, output_file = "report.html", output_dir = out, intermediates_dir = tempdir(),
+   58                          params = list(sections = file.path(out, "report_sections.rds")), quiet = TRUE, envir = new.env())
+   59        TRUE }, error = function(e) { log_msg("  R Markdown недоступен (", conditionMessage(e), ") — встроенный генератор HTML"); FALSE })
+   60    }
+   61    if (!rendered) write_html(sec, f)
+   62    log_msg("  Отчёт: ", f, if (rendered) " (R Markdown)" else " (встроенный генератор)")
+   63    save_module(s, 9, list(report = f, database = db, run_id = run_id))
+   64  }
+   65  
+   66  # Содержание отчёта: список разделов (текст, таблицы, рисунки) — общий для R Markdown и встроенного HTML
+   67  report_sections <- function(s, run_id) {
+   68    P <- function(id, f) file.path(s$project$dir, MODULES$dir[MODULES$id == id], f)
+   69    rd <- function(id, f) if (file.exists(P(id, f))) as.data.frame(data.table::fread(P(id, f), encoding = "UTF-8")) else NULL
+   70    img <- function(id, f) { p <- P(id, paste0(f, ".png")); if (file.exists(p)) p else NULL }
+   71    logs <- file.path(s$project$dir, "logs")
+   72    lastf <- function(pat) { f <- sort(list.files(logs, pattern = pat, full.names = TRUE)); if (length(f)) utils::tail(f, 1) else NULL }
+   73    m7 <- load_module(s, 7)
+   74    sec <- list(
+   75      list(title = "Сведения о прогоне", text = c(sprintf("%s. Версия %s (%s).", PROGRAM_NAME, UROMETABR_VERSION, UROMETABR_DATE),
+   76             sprintf("Проект: %s; папка: %s; прогон %s; seed %s.", s$project$name, s$project$dir, run_id, s$project$seed)),
+   77           tables = list("Время и память по модулям" = if (!is.null(lastf("^modules_"))) as.data.frame(data.table::fread(lastf("^modules_"), encoding = "UTF-8")))),
+   78      list(title = "0. Входные данные", tables = list("Проверки" = rd(0, "input_check.csv"))),
+   79      list(title = "2. Контроль качества", tables = list("Сводка" = rd(2, "qc_summary.csv"), "Пропуски по группам" = rd(2, "missing_by_group.csv")),
+   80           images = c(img(2, "pca_qc"), img(2, "tic_by_order"), img(2, "rsd_qc"))),
+   81      list(title = "3. Фильтр устойчивых признаков", text = "Стандартный профиль — для анализа (модули 4–8); строгий — для базы признаков (модуль 9).",
+   82           tables = list("Шаги фильтрации по профилям" = rd(3, "filter_steps.csv"))),
+   83      list(title = "5. Заполнение пропусков", tables = list(rd(5, "impute_info.csv"))),
+   84      list(title = "6. Коррекция сигнала", tables = list(rd(6, "correct_info.csv")), images = img(6, "distribution_by_sample")),
+   85      list(title = "7. Статистика и отбор признаков",
+   86           text = "Средняя AUROC по этапам — описательная величина (признаки отобраны по тем же данным). Несмещённая оценка — вложенная кросс-валидация.",
+   87           tables = list("Число признаков и средняя AUROC по этапам" = rd(7, "auroc_steps.csv"), "Точность моделей (кросс-валидация)" = rd(7, "model_accuracy.csv"),
+   88                         "Вложенная кросс-валидация" = rd(7, "nested_cv.csv"),
+   89                         "Признаки после РОП" = { x <- rd(7, "uvf_stats.csv"); if (!is.null(x)) x[x$id %in% m7$sel$f_rfe, ] },
+   90                         "ОСФ: 30 признаков с наименьшими p" = utils::head(rd(7, "uvf_stats.csv"), 30),
+   91                         "Модель с поправкой на пол и возраст (30 первых)" = utils::head(rd(7, "covariate_model.csv"), 30))),
+   92      list(title = "8. Визуализация", images = c(img(8, "pca_stages"), img(8, "hca_stages"), img(8, "heatmap"), img(8, "boxplots_metabolites"), img(8, "plsda_vip"))),
+   93      list(title = "9. База признаков", text = sprintf("Записи добавлены в %s (runs_db.csv, features_db.csv, intensities_db.csv).", project_path(s, s$report$database))),
+   94      list(title = "Журнал прогона", pre = if (!is.null(.ue$log_file)) readLines(.ue$log_file, encoding = "UTF-8")),
+   95      list(title = "sessionInfo()", pre = utils::capture.output(utils::sessionInfo())))
+   96    sec
+   97  }
+   98  
+   99  html_esc <- function(x) { x <- gsub("&", "&amp;", x); x <- gsub("<", "&lt;", x); gsub(">", "&gt;", x) }
+  100  html_tab <- function(d) {
+  101    if (is.null(d) || !nrow(d)) return("")
+  102    f <- function(v) if (is.numeric(v)) formatC(v, digits = 4, format = "g") else html_esc(as.character(v))
+  103    rows <- apply(as.data.frame(lapply(d, f)), 1, function(r) paste0("<tr><td>", paste(r, collapse = "</td><td>"), "</td></tr>"))
+  104    paste0("<table><tr><th>", paste(html_esc(names(d)), collapse = "</th><th>"), "</th></tr>", paste(rows, collapse = ""), "</table>")
+  105  }
+  106  write_html <- function(sec, f) {
+  107    body <- vapply(sec, function(x) {
+  108      tb <- if (length(x$tables)) paste(vapply(seq_along(x$tables), function(i) {
+  109        nm <- names(x$tables)[i]; paste0(if (!is.null(nm) && nzchar(nm)) paste0("<h4>", html_esc(nm), "</h4>") else "", html_tab(x$tables[[i]])) }, ""), collapse = "") else ""
+  110      im <- paste(vapply(x$images %||% character(0), function(p)
+  111        sprintf("<img src=\"data:image/png;base64,%s\"/>", jsonlite::base64_enc(readBin(p, "raw", file.info(p)$size))), ""), collapse = "")
+  112      paste0("<h2>", html_esc(x$title), "</h2>", paste0("<p>", html_esc(x$text %||% character(0)), "</p>", collapse = ""), tb, im,
+  113             if (length(x$pre)) paste0("<pre>", html_esc(paste(x$pre, collapse = "\n")), "</pre>") else "")
+  114    }, "")
+  115    css <- "body{font-family:Arial,sans-serif;max-width:1100px;margin:20px auto;padding:0 16px}table{border-collapse:collapse;font-size:12px}td,th{border:1px solid #ccc;padding:2px 6px}th{background:#eee}img{max-width:100%;margin:8px 0}pre{background:#f6f6f6;padding:8px;font-size:11px;white-space:pre-wrap}"
+  116    writeLines(c("<!doctype html><html lang=\"ru\"><head><meta charset=\"utf-8\"><title>Отчёт UroMetabR</title><style>", css, "</style></head><body>",
+  117                 paste0("<h1>Отчёт о прогоне UroMetabR ", UROMETABR_VERSION, "</h1><p><i>", html_esc(PROGRAM_SUPPORT), "</i></p>"), body, "</body></html>"), f, useBytes = TRUE)
+  118  }
 
 ==================== R/zz_setup.R ====================
     1  # Пакеты и загрузка модулей утилиты.
@@ -1430,131 +1432,134 @@ UroMetabR, версия 1.0.0 от 2026-10-27. Листинг исходного
    15  ```
    16  
    17  ```{r body, results = "asis"}
-   18  for (x in sec) {
-   19    cat("\n\n## ", x$title, "\n\n", sep = "")
-   20    for (t in x$text) cat(t, "\n\n")
-   21    if (length(x$tables)) for (i in seq_along(x$tables)) {
-   22      d <- x$tables[[i]]; nm <- names(x$tables)[i]
-   23      if (is.null(d) || !nrow(d)) next
-   24      if (!is.null(nm) && nzchar(nm)) cat("**", nm, "**\n\n", sep = "")
-   25      print(knitr::kable(d, digits = 4, format = "html", table.attr = "class='table table-condensed' style='font-size:12px'"))
-   26      cat("\n\n")
-   27    }
-   28    for (p in x$images) cat("![](", p, ")\n\n", sep = "")
-   29    if (length(x$pre)) cat("```\n", paste(x$pre, collapse = "\n"), "\n```\n\n", sep = "")
-   30  }
-   31  ```
+   18  cat("*", attr(sec, "support"), "*\n\n", sep = "")
+   19  for (x in sec) {
+   20    cat("\n\n## ", x$title, "\n\n", sep = "")
+   21    for (t in x$text) cat(t, "\n\n")
+   22    if (length(x$tables)) for (i in seq_along(x$tables)) {
+   23      d <- x$tables[[i]]; nm <- names(x$tables)[i]
+   24      if (is.null(d) || !nrow(d)) next
+   25      if (!is.null(nm) && nzchar(nm)) cat("**", nm, "**\n\n", sep = "")
+   26      print(knitr::kable(d, digits = 4, format = "html", table.attr = "class='table table-condensed' style='font-size:12px'"))
+   27      cat("\n\n")
+   28    }
+   29    for (p in x$images) cat("![](", p, ")\n\n", sep = "")
+   30    if (length(x$pre)) cat("```\n", paste(x$pre, collapse = "\n"), "\n```\n\n", sep = "")
+   31  }
+   32  ```
 
 ==================== docs/user_guide.md ====================
-    1  ### Установка (Windows, без навыков программирования)
+    1  *Программа разработана при поддержке Фонда содействия инновациям в рамках программы „УМНИК“ (договор № 19600ГУ/2025).*
     2  
-    3  Понадобится: компьютер с Windows 8 или новее, процессор от 2,5 ГГц, оперативная память от 8 ГБ, 1 ГБ свободного места на диске, подключение к интернету (только при первом запуске), браузер (Edge, Chrome, Firefox или Яндекс Браузер). Права администратора не обязательны.
+    3  ### Установка (Windows, без навыков программирования)
     4  
-    5  **Шаг 1. Установите R** (один раз; если R версии 4.0.0 или новее уже установлен, шаг можно пропустить).
-    6  1. Откройте в браузере https://cran.r-project.org/bin/windows/base/ и нажмите ссылку «Download R-4.x.x for Windows» (x — номер текущей версии). Рекомендуется R 4.2 или новее.
-    7  2. Запустите скачанный файл `R-4.x.x-win.exe`. Если Windows спросит «Разрешить этому приложению вносить изменения?» — нажмите «Да» (если прав администратора нет, нажмите «Нет»: установщик предложит установить R только для вас — это тоже подходит).
-    8  3. Во всех окнах установщика оставьте значения по умолчанию и нажимайте «Далее», в конце — «Завершить».
-    9  
-   10  RStudio для работы программы не нужна.
+    5  Понадобится: компьютер с Windows 8 или новее, процессор от 2,5 ГГц, оперативная память от 8 ГБ, 1 ГБ свободного места на диске, подключение к интернету (только при первом запуске), браузер (Edge, Chrome, Firefox или Яндекс Браузер). Права администратора не обязательны.
+    6  
+    7  **Шаг 1. Установите R** (один раз; если R версии 4.0.0 или новее уже установлен, шаг можно пропустить).
+    8  1. Откройте в браузере https://cran.r-project.org/bin/windows/base/ и нажмите ссылку «Download R-4.x.x for Windows» (x — номер текущей версии). Рекомендуется R 4.2 или новее.
+    9  2. Запустите скачанный файл `R-4.x.x-win.exe`. Если Windows спросит «Разрешить этому приложению вносить изменения?» — нажмите «Да» (если прав администратора нет, нажмите «Нет»: установщик предложит установить R только для вас — это тоже подходит).
+   10  3. Во всех окнах установщика оставьте значения по умолчанию и нажимайте «Далее», в конце — «Завершить».
    11  
-   12  **Шаг 2. Распакуйте архив программы.**
-   13  1. Скопируйте архив `UroMetabR_v1.0.0_2026-10-27.zip` в удобное место, например на диск `C:` или в «Документы».
-   14  2. Щёлкните архив правой кнопкой мыши → «Извлечь все…» → «Извлечь». Запускать файлы прямо из окна архива нельзя — сначала распакуйте.
-   15  3. Рекомендуется папка без русских букв и пробелов в пути, например `C:\UroMetabR`.
-   16  
-   17  **Шаг 3. Первый запуск.**
-   18  1. Откройте распакованную папку, затем папку `r_utility`, и дважды щёлкните файл `Start_UroMetabR.bat` (в Проводнике он может отображаться как `Start_UroMetabR` с типом «Пакетный файл Windows»).
-   19  2. Если появится окно «Система Windows защитила ваш компьютер» — нажмите «Подробнее», затем «Выполнить в любом случае». Это предупреждение появляется для всех файлов, скачанных из интернета.
-   20  3. Откроется чёрное окно (консоль). При первом запуске программа сама скачивает и устанавливает нужные пакеты R — это занимает 5–15 минут, в окне идут строки с названиями пакетов. Дождитесь окончания.
-   21  4. Затем автоматически откроется браузер с окном программы (адрес вида `http://127.0.0.1:…`). Следующие запуски занимают несколько секунд.
-   22  5. **Не закрывайте чёрное окно**, пока работаете с программой: его закрытие завершает работу UroMetabR. Чтобы выйти из программы, закройте вкладку браузера и чёрное окно.
-   23  
-   24  **Шаг 4. Ярлык на рабочем столе (по желанию).** Дважды щёлкните `Create_desktop_shortcut.vbs` в той же папке — на рабочем столе появится ярлык «UroMetabR». Дальше программу можно запускать с него.
+   12  RStudio для работы программы не нужна.
+   13  
+   14  **Шаг 2. Распакуйте архив программы.**
+   15  1. Скопируйте архив `UroMetabR_v1.0.0_2026-10-27.zip` в удобное место, например на диск `C:` или в «Документы».
+   16  2. Щёлкните архив правой кнопкой мыши → «Извлечь все…» → «Извлечь». Запускать файлы прямо из окна архива нельзя — сначала распакуйте.
+   17  3. Рекомендуется папка без русских букв и пробелов в пути, например `C:\UroMetabR`.
+   18  
+   19  **Шаг 3. Первый запуск.**
+   20  1. Откройте распакованную папку, затем папку `r_utility`, и дважды щёлкните файл `Start_UroMetabR.bat` (в Проводнике он может отображаться как `Start_UroMetabR` с типом «Пакетный файл Windows»).
+   21  2. Если появится окно «Система Windows защитила ваш компьютер» — нажмите «Подробнее», затем «Выполнить в любом случае». Это предупреждение появляется для всех файлов, скачанных из интернета.
+   22  3. Откроется чёрное окно (консоль). При первом запуске программа сама скачивает и устанавливает нужные пакеты R — это занимает 5–15 минут, в окне идут строки с названиями пакетов. Дождитесь окончания.
+   23  4. Затем автоматически откроется браузер с окном программы (адрес вида `http://127.0.0.1:…`). Следующие запуски занимают несколько секунд.
+   24  5. **Не закрывайте чёрное окно**, пока работаете с программой: его закрытие завершает работу UroMetabR. Чтобы выйти из программы, закройте вкладку браузера и чёрное окно.
    25  
-   26  **Шаг 5. Только для сырых данных mzML/mzXML/CDF (по желанию).** Для готовых таблиц (CSV, TSV, TXT, экспорт MS-DIAL) этот шаг не нужен.
-   27  1. Откройте меню «Пуск» → «R» → «R 4.x.x» (в старых версиях — «R x64 4.x.x»). Откроется окно R с приглашением `>`.
-   28  2. Скопируйте строку ниже, вставьте её в окно R (правая кнопка мыши → «Вставить» или Ctrl+V) и нажмите Enter:
-   29  
-   30         install.packages("BiocManager"); BiocManager::install(c("xcms", "MSnbase"))
+   26  **Шаг 4. Ярлык на рабочем столе (по желанию).** Дважды щёлкните `Create_desktop_shortcut.vbs` в той же папке — на рабочем столе появится ярлык «UroMetabR». Дальше программу можно запускать с него.
+   27  
+   28  **Шаг 5. Только для сырых данных mzML/mzXML/CDF (по желанию).** Для готовых таблиц (CSV, TSV, TXT, экспорт MS-DIAL) этот шаг не нужен.
+   29  1. Откройте меню «Пуск» → «R» → «R 4.x.x» (в старых версиях — «R x64 4.x.x»). Откроется окно R с приглашением `>`.
+   30  2. Скопируйте строку ниже, вставьте её в окно R (правая кнопка мыши → «Вставить» или Ctrl+V) и нажмите Enter:
    31  
-   32  3. Если R спросит про выбор зеркала — выберите любое (например, первое) и нажмите «ОК». На вопрос `Update all/some/none? [a/s/n]` введите `n` и нажмите Enter. Если спросит «Would you like to use a personal library instead?» — ответьте `yes`.
-   33  4. Установка занимает 10–30 минут. Когда снова появится приглашение `>`, закройте окно R (на вопрос о сохранении рабочего пространства ответьте «Нет»).
-   34  
-   35  ### Проверка установки (чек-лист, испытание 10)
+   32         install.packages("BiocManager"); BiocManager::install(c("xcms", "MSnbase"))
+   33  
+   34  3. Если R спросит про выбор зеркала — выберите любое (например, первое) и нажмите «ОК». На вопрос `Update all/some/none? [a/s/n]` введите `n` и нажмите Enter. Если спросит «Would you like to use a personal library instead?» — ответьте `yes`.
+   35  4. Установка занимает 10–30 минут. Когда снова появится приглашение `>`, закройте окно R (на вопрос о сохранении рабочего пространства ответьте «Нет»).
    36  
-   37  В архиве есть контрольный набор `r_utility/example` (синтетические данные: 106 образцов в двух группах, 8 образцов QC, 600 признаков).
-   38  1. Запустите программу (шаг 3). На вкладке вверху в поле «Папка проекта» введите, например, `C:\UroMetabR_проверка` и нажмите «Открыть / создать проект».
-   39  2. На вкладке «1. Данные» нажмите «Выбрать…» рядом с «Файл таблицы признаков» и выберите `r_utility\example\peak_table.csv`; рядом с «Файл метаданных» — `r_utility\example\metadata.csv`.
-   40  3. Нажмите «Проверить данные (модуль 0)»: должна появиться таблица проверок, в строке «Таблица признаков» — «124 инъекций × 600 признаков».
-   41  4. Перейдите на вкладку «3. Запуск», нажмите «Запустить обработку» и дождитесь надписи «Обработка завершена» (около 5 минут).
-   42  5. На вкладке «4. Результаты» нажмите «Открыть отчёт (HTML)» — отчёт откроется в браузере.
-   43  
-   44  Заполните таблицу (её значения переносятся в протокол испытаний, п. 10):
+   37  ### Проверка установки (чек-лист, испытание 10)
+   38  
+   39  В архиве есть контрольный набор `r_utility/example` (синтетические данные: 106 образцов в двух группах, 8 образцов QC, 600 признаков).
+   40  1. Запустите программу (шаг 3). На вкладке вверху в поле «Папка проекта» введите, например, `C:\UroMetabR_проверка` и нажмите «Открыть / создать проект».
+   41  2. На вкладке «1. Данные» нажмите «Выбрать…» рядом с «Файл таблицы признаков» и выберите `r_utility\example\peak_table.csv`; рядом с «Файл метаданных» — `r_utility\example\metadata.csv`.
+   42  3. Нажмите «Проверить данные (модуль 0)»: должна появиться таблица проверок, в строке «Таблица признаков» — «124 инъекций × 600 признаков».
+   43  4. Перейдите на вкладку «3. Запуск», нажмите «Запустить обработку» и дождитесь надписи «Обработка завершена» (около 5 минут).
+   44  5. На вкладке «4. Результаты» нажмите «Открыть отчёт (HTML)» — отчёт откроется в браузере.
    45  
-   46  | № | Что записать | Как узнать | Значение |
-   47  |---|---|---|---|
-   48  | 1 | Дата и исполнитель | — | |
-   49  | 2 | Версия Windows | Win+R → `winver` → Enter | |
-   50  | 3 | Процессор и оперативная память | «Пуск» → «Параметры» → «Система» → «О системе» | |
-   51  | 4 | Версия R | первая строка отчёта (раздел «sessionInfo()») или имя установщика | |
-   52  | 5 | Время установки R (шаг 1) | по часам | |
-   53  | 6 | Время первого запуска до открытия окна программы (шаг 3) | по часам | |
-   54  | 7 | Были ли предупреждения Windows (SmartScreen, права администратора) и что нажимали | — | |
-   55  | 8 | Проверка данных (п. 3 чек-листа): все строки «ок»? | вкладка «1. Данные» | |
-   56  | 9 | Обработка 0–9 завершена? Общее время | вкладка «3. Запуск», столбец «Время, с» | |
-   57  | 10 | Отчёт открылся, в нём есть рисунки? | вкладка «4. Результаты» | |
-   58  | 11 | Ошибки и сообщения (дословно или снимок экрана) | чёрное окно, вкладка «3. Запуск» | |
-   59  
-   60  Журнал прогона и сведения о версиях пакетов сохраняются в папке проекта, в подпапке `logs` (файлы `run_….log` и `session_info_….txt`) — приложите их к протоколу.
+   46  Заполните таблицу (её значения переносятся в протокол испытаний, п. 10):
+   47  
+   48  | № | Что записать | Как узнать | Значение |
+   49  |---|---|---|---|
+   50  | 1 | Дата и исполнитель | — | |
+   51  | 2 | Версия Windows | Win+R → `winver` → Enter | |
+   52  | 3 | Процессор и оперативная память | «Пуск» → «Параметры» → «Система» → «О системе» | |
+   53  | 4 | Версия R | первая строка отчёта (раздел «sessionInfo()») или имя установщика | |
+   54  | 5 | Время установки R (шаг 1) | по часам | |
+   55  | 6 | Время первого запуска до открытия окна программы (шаг 3) | по часам | |
+   56  | 7 | Были ли предупреждения Windows (SmartScreen, права администратора) и что нажимали | — | |
+   57  | 8 | Проверка данных (п. 3 чек-листа): все строки «ок»? | вкладка «1. Данные» | |
+   58  | 9 | Обработка 0–9 завершена? Общее время | вкладка «3. Запуск», столбец «Время, с» | |
+   59  | 10 | Отчёт открылся, в нём есть рисунки? | вкладка «4. Результаты» | |
+   60  | 11 | Ошибки и сообщения (дословно или снимок экрана) | чёрное окно, вкладка «3. Запуск» | |
    61  
-   62  ### Если при установке что-то не так
+   62  Журнал прогона и сведения о версиях пакетов сохраняются в папке проекта, в подпапке `logs` (файлы `run_….log` и `session_info_….txt`) — приложите их к протоколу.
    63  
-   64  | Сообщение или ситуация | Что делать |
-   65  |---|---|
-   66  | В чёрном окне: «R не найден» | R не установлен или установлен в нестандартную папку — выполните шаг 1 и запустите файл снова |
-   67  | «Не удалось установить пакеты…» | Нет доступа к интернету или его блокирует прокси-сервер организации — подключитесь к другой сети или обратитесь к системному администратору (нужен доступ к https://cloud.r-project.org), затем запустите файл снова |
-   68  | Чёрное окно сразу закрывается | Запустите `Start_UroMetabR.bat` ещё раз и сфотографируйте текст в окне до закрытия; проверьте, что архив распакован (шаг 2) |
-   69  | Браузер не открылся | Найдите в чёрном окне строку `Listening on http://127.0.0.1:…`, скопируйте адрес и вставьте его в адресную строку браузера |
-   70  | Кнопка «Выбрать…» не открывает окно выбора файла | Окно может открыться позади браузера — проверьте панель задач. Можно также нажать «Файл…» в поле «или загрузить» (файл скопируется в папку проекта) или вставить путь к файлу в поле вручную |
-   71  | Отчёт открывается без оформления | Это нормально без RStudio: отчёт формируется встроенным генератором, содержимое то же |
-   72  
-   73  ### Порядок работы
+   64  ### Если при установке что-то не так
+   65  
+   66  | Сообщение или ситуация | Что делать |
+   67  |---|---|
+   68  | В чёрном окне: «R не найден» | R не установлен или установлен в нестандартную папку — выполните шаг 1 и запустите файл снова |
+   69  | «Не удалось установить пакеты…» | Нет доступа к интернету или его блокирует прокси-сервер организации — подключитесь к другой сети или обратитесь к системному администратору (нужен доступ к https://cloud.r-project.org), затем запустите файл снова |
+   70  | Чёрное окно сразу закрывается | Запустите `Start_UroMetabR.bat` ещё раз и сфотографируйте текст в окне до закрытия; проверьте, что архив распакован (шаг 2) |
+   71  | Браузер не открылся | Найдите в чёрном окне строку `Listening on http://127.0.0.1:…`, скопируйте адрес и вставьте его в адресную строку браузера |
+   72  | Кнопка «Выбрать…» не открывает окно выбора файла | Окно может открыться позади браузера — проверьте панель задач. Можно также нажать «Файл…» в поле «или загрузить» (файл скопируется в папку проекта) или вставить путь к файлу в поле вручную |
+   73  | Отчёт открывается без оформления | Это нормально без RStudio: отчёт формируется встроенным генератором, содержимое то же |
    74  
-   75  1. **Папка проекта.** Укажите пустую или существующую папку и нажмите «Открыть / создать проект». В ней появится файл настроек `settings.yaml`; результаты каждого модуля сохраняются в подпапки `00_input` … `09_report`, журналы и сведения о версиях R и пакетов — в `logs`.
-   76  2. **Данные.** Выберите тип входных данных:
-   77     * готовая таблица признаков — CSV, TSV или TXT (строки — инъекции, первый столбец — имя файла/инъекции, остальные — признаки; имена признаков вида `mz / RT`, `RT_mz_имя` или экспорт выравнивания MS-DIAL); модуль 1 при этом пропускается;
-   78     * сырые данные — папка с файлами mzML, mzXML или CDF (нужен Bioconductor-пакет xcms).
-   79  3. **Метаданные** — таблица CSV, по строке на файл (инъекцию):
-   80  
-   81     | столбец | обязательный | содержание |
-   82     |---|---|---|
-   83     | file | да | имя файла или строки таблицы |
-   84     | group | да | группа (например, CG, BC); QC — для образцов контроля качества, Blank — для бланков |
-   85     | sample | нет | код образца; у повторных вводов одного образца он одинаковый (повторы усредняются) |
-   86     | injection_order | нет | порядок ввода |
-   87     | replicate | нет | номер повтора |
-   88     | include | нет | 0 — исключить образец |
-   89     | sex, age | нет | пол (M/F) и возраст — для модели с поправкой на них |
-   90  
-   91  4. Нажмите **«Проверить данные»**: модуль 0 сообщит о несовпадении имён, отсутствующих столбцах, доле пропусков и числе образцов QC.
-   92  5. **Параметры** менять не обязательно: значения по умолчанию соответствуют методике. После изменения нажмите «Сохранить настройки».
-   93  6. **Запуск.** Выберите модули (по умолчанию 0–9) и нажмите «Запустить обработку». Журнал обновляется каждую секунду; таблица показывает время и память по модулям. Модуль можно перезапустить отдельно: предыдущие результаты берутся из папки проекта.
-   94  7. **Результаты.** «Открыть отчёт» — HTML-отчёт со всеми таблицами, рисунками, журналом и версиями пакетов. Таблицы — в CSV (открываются в Excel), рисунки — PNG и JPEG.
-   95  
-   96  ### Как читать результаты
+   75  ### Порядок работы
+   76  
+   77  1. **Папка проекта.** Укажите пустую или существующую папку и нажмите «Открыть / создать проект». В ней появится файл настроек `settings.yaml`; результаты каждого модуля сохраняются в подпапки `00_input` … `09_report`, журналы и сведения о версиях R и пакетов — в `logs`.
+   78  2. **Данные.** Выберите тип входных данных:
+   79     * готовая таблица признаков — CSV, TSV или TXT (строки — инъекции, первый столбец — имя файла/инъекции, остальные — признаки; имена признаков вида `mz / RT`, `RT_mz_имя` или экспорт выравнивания MS-DIAL); модуль 1 при этом пропускается;
+   80     * сырые данные — папка с файлами mzML, mzXML или CDF (нужен Bioconductor-пакет xcms).
+   81  3. **Метаданные** — таблица CSV, по строке на файл (инъекцию):
+   82  
+   83     | столбец | обязательный | содержание |
+   84     |---|---|---|
+   85     | file | да | имя файла или строки таблицы |
+   86     | group | да | группа (например, CG, BC); QC — для образцов контроля качества, Blank — для бланков |
+   87     | sample | нет | код образца; у повторных вводов одного образца он одинаковый (повторы усредняются) |
+   88     | injection_order | нет | порядок ввода |
+   89     | replicate | нет | номер повтора |
+   90     | include | нет | 0 — исключить образец |
+   91     | sex, age | нет | пол (M/F) и возраст — для модели с поправкой на них |
+   92  
+   93  4. Нажмите **«Проверить данные»**: модуль 0 сообщит о несовпадении имён, отсутствующих столбцах, доле пропусков и числе образцов QC.
+   94  5. **Параметры** менять не обязательно: значения по умолчанию соответствуют методике. После изменения нажмите «Сохранить настройки».
+   95  6. **Запуск.** Выберите модули (по умолчанию 0–9) и нажмите «Запустить обработку». Журнал обновляется каждую секунду; таблица показывает время и память по модулям. Модуль можно перезапустить отдельно: предыдущие результаты берутся из папки проекта.
+   96  7. **Результаты.** «Открыть отчёт» — HTML-отчёт со всеми таблицами, рисунками, журналом и версиями пакетов. Таблицы — в CSV (открываются в Excel), рисунки — PNG и JPEG.
    97  
-   98  * **Профили фильтра (модуль 3).** Стандартный (по умолчанию) — для анализа и отбора маркеров: признак должен присутствовать хотя бы в половине образцов одной из групп. Строгий — для базы признаков: сигнал обнаружен во всех образцах и стабилен в QC (RSD ≤ 15 %); такие признаки пригодны для накопления между когортами. Шаги обоих профилей — в `03_filter/filter_steps.csv`.
-   99  * **Данные для отбора (модуль 7).** По умолчанию отбор выполняется на данных после заполнения пропусков и log2, без EigenMS. EigenMS подбирает тренды по тем же меткам групп, поэтому тесты на скорректированных данных занижают p-значения и дают ложные находки (на контрольном наборе В — 9 при поправке Холма и 188 при BH); EigenMS используется для визуализации и доступен как параметр.
-  100  * **ds, ds_d, ds_rfe** — признаки после одномерного фильтра (ОСФ), после отбора по частоте встречаемости в четырёх моделях (СПФ) и после рекурсивного отбора (РОП).
-  101  * **Средняя AUROC по этапам** — описательная величина: признаки отобраны по тем же данным, поэтому она растёт по построению.
-  102  * **Вложенная кросс-валидация** — несмещённая оценка точности: весь отбор повторяется только на обучающей части и проверяется на отложенных образцах.
-  103  * **База признаков** (`features_db`) пополняется при каждом прогоне: `runs_db.csv` — прогоны, `features_db.csv` — признаки с m/z, RT и отметками отбора, `intensities_db.csv` — интенсивности.
-  104  
-  105  ### Если что-то не так
+   98  ### Как читать результаты
+   99  
+  100  * **Профили фильтра (модуль 3).** Стандартный (по умолчанию) — для анализа и отбора маркеров: признак должен присутствовать хотя бы в половине образцов одной из групп. Строгий — для базы признаков: сигнал обнаружен во всех образцах и стабилен в QC (RSD ≤ 15 %); такие признаки пригодны для накопления между когортами. Шаги обоих профилей — в `03_filter/filter_steps.csv`.
+  101  * **Данные для отбора (модуль 7).** По умолчанию отбор выполняется на данных после заполнения пропусков и log2, без EigenMS. EigenMS подбирает тренды по тем же меткам групп, поэтому тесты на скорректированных данных занижают p-значения и дают ложные находки (на контрольном наборе В — 9 при поправке Холма и 188 при BH); EigenMS используется для визуализации и доступен как параметр.
+  102  * **ds, ds_d, ds_rfe** — признаки после одномерного фильтра (ОСФ), после отбора по частоте встречаемости в четырёх моделях (СПФ) и после рекурсивного отбора (РОП).
+  103  * **Средняя AUROC по этапам** — описательная величина: признаки отобраны по тем же данным, поэтому она растёт по построению.
+  104  * **Вложенная кросс-валидация** — несмещённая оценка точности: весь отбор повторяется только на обучающей части и проверяется на отложенных образцах.
+  105  * **База признаков** (`features_db`) пополняется при каждом прогоне: `runs_db.csv` — прогоны, `features_db.csv` — признаки с m/z, RT и отметками отбора, `intensities_db.csv` — интенсивности.
   106  
-  107  * «Не найден файл…» — проверьте путь; пути можно указывать относительно папки проекта.
-  108  * «Слишком мало совпадений имён» — значения столбца `file` метаданных должны совпадать с первым столбцом таблицы (или с именами файлов без расширения).
-  109  * «Меньше двух признаков после ОСФ» — поправка Холма строгая; выберите поправку BH в параметрах.
+  107  ### Если что-то не так
+  108  
+  109  * «Не найден файл…» — проверьте путь; пути можно указывать относительно папки проекта.
+  110  * «Слишком мало совпадений имён» — значения столбца `file` метаданных должны совпадать с первым столбцом таблицы (или с именами файлов без расширения).
+  111  * «Меньше двух признаков после ОСФ» — поправка Холма строгая; выберите поправку BH в параметрах.
 
 ==================== Start_UroMetabR.bat ====================
     1  @echo off
