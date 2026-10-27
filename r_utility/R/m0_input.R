@@ -44,7 +44,7 @@ read_msdial_table <- function(path) {
   hdr <- which(grepl("^\"?Alignment ID", lines))[1]
   sep <- if (grepl("\t", lines[hdr])) "\t" else ","
   top <- data.table::fread(path, sep = sep, nrows = hdr - 1, header = FALSE, data.table = FALSE, fill = TRUE, encoding = "UTF-8")
-  tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8")
+  tab <- data.table::fread(path, sep = sep, skip = hdr - 1, header = TRUE, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", integer64 = "double")
   ft <- trimws(as.character(unlist(top[which(apply(top, 1, function(x) any(trimws(x) == "File type")))[1], ])))
   sc <- which(tolower(ft) %in% c("sample", "qc", "blank", "standard")); sc <- sc[sc <= ncol(tab)]
   X <- t(as.matrix(tab[, sc, drop = FALSE])); storage.mode(X) <- "double"
@@ -61,7 +61,7 @@ read_feature_table <- function(path, md, format = "auto", id_column = "") {
   if (format == "msdial" || (format == "auto" && any(grepl("^\"?Alignment ID", head1)))) {
     r <- read_msdial_table(path); r$format <- "MS-DIAL"; return(r)
   }
-  raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1))
+  raw <- data.table::fread(path, data.table = FALSE, check.names = FALSE, encoding = "UTF-8", colClasses = list(character = 1), integer64 = "double")
   names(raw)[1] <- sub("^﻿", "", names(raw)[1])
   idc <- if (nzchar(id_column)) id_column else names(raw)[1]
   if (!idc %in% names(raw)) stop("В таблице нет столбца идентификатора '", idc, "'")

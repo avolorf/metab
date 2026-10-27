@@ -152,3 +152,10 @@ test_that("отбор по умолчанию — на данных без Eigen
   expect_equal(default_settings()$select$selection_input, "imputed")
   expect_true(any(grepl('Ls <- if \\(sl\\$selection_input == "imputed"\\) d\\$L_raw else d\\$L', code)))
 })
+
+test_that("чтение таблицы: интенсивности больше 2^31 не искажаются (integer64)", {
+  f <- tempfile(fileext = ".csv"); md <- data.frame(file = c("s1", "s2"), group = c("BC", "CG"))
+  writeLines(c("file,F1,F2", "s1,4212240040,10", "s2,892085242,20"), f)
+  X <- read_feature_table(f, md)$X
+  expect_equal(unname(X[, "F1"]), c(4212240040, 892085242))
+})
