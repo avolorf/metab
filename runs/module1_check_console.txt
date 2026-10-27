@@ -1,7 +1,3 @@
 [пройден] Версии: R 4.5.2; xcms 4.8.0; MSnbase 2.36.0
  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 Polarity can not be extracted from netCDF files, please set manually the polarity with the 'polarity' method.
-Error in .writeMSData(object = object, file = file, outformat = outformat,  : 
-  File(s) /work/runs/module1_check/faahKO_mzML/ko15.mzML, /work/runs/module1_check/faahKO_mzML/ko16.mzML, /work/runs/module1_check/faahKO_mzML/ko18.mzML, /work/runs/module1_check/faahKO_mzML/ko19.mzML, /work/runs/module1_check/faahKO_mzML/ko21.mzML, /work/runs/module1_check/faahKO_mzML/ko22.mzML, /work/runs/module1_check/faahKO_mzML/wt15.mzML, /work/runs/module1_check/faahKO_mzML/wt16.mzML, /work/runs/module1_check/faahKO_mzML/wt18.mzML, /work/runs/module1_check/faahKO_mzML/wt19.mzML, /work/runs/module1_check/faahKO_mzML/wt21.mzML, /work/runs/module1_check/faahKO_mzML/wt22.mzML does/do already exist! Please use a different file name.
-Calls: <Anonymous> -> <Anonymous> -> .local -> .writeMSData
-Execution halted
