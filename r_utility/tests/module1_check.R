@@ -32,7 +32,7 @@ add("Версии", TRUE, sprintf("R %s.%s; xcms %s; MSnbase %s", R.version$majo
 cdf <- list.files(system.file("cdf", package = "faahKO"), recursive = TRUE, full.names = TRUE, pattern = "\\.CDF$")
 md <- utils::read.csv(file.path(root, "tests", "module1", "metadata_faahKO.csv"))
 dirs <- c(CDF = file.path(OUT, "faahKO_cdf"), mzML = file.path(OUT, "faahKO_mzML"), mzXML = file.path(OUT, "faahKO_mzXML"))
-for (d in dirs) dir.create(d, showWarnings = FALSE, recursive = TRUE)
+for (d in dirs) { unlink(d, recursive = TRUE); dir.create(d, recursive = TRUE) }   # повторный запуск: файлы конвертации заново
 file.copy(cdf, dirs["CDF"], overwrite = TRUE)
 raw <- MSnbase::readMSData(cdf, mode = "onDisk")
 nm <- tools::file_path_sans_ext(basename(cdf))

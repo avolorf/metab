@@ -87,7 +87,7 @@ make_set_V <- function(table_file, metadata_file, dir, n_spike = 15, effect = c(
 
 write_format_variants <- function(table_file, dir) {
   dir.create(dir, showWarnings = FALSE, recursive = TRUE)
-  tab <- data.table::fread(table_file, data.table = FALSE, check.names = FALSE, colClasses = list(character = 1))
+  tab <- data.table::fread(table_file, data.table = FALSE, check.names = FALSE, colClasses = list(character = 1), integer64 = "double")
   data.table::fwrite(tab, file.path(dir, "table.csv"))
   data.table::fwrite(tab, file.path(dir, "table.tsv"), sep = "\t")
   data.table::fwrite(tab, file.path(dir, "table.txt"), sep = "\t")
