@@ -15,6 +15,7 @@ jsonlite,CRAN,1.8.8,MIT,встраивание рисунков в HTML
 shiny,CRAN,1.8.0,GPL-3,графический интерфейс
 rmarkdown,CRAN,2.25,GPL-3,отчёт HTML
 knitr,CRAN,1.45,GPL,таблицы отчёта
+markdown,CRAN,1.12,MIT + file LICENSE,вкладка «Справка» интерфейса (shiny::includeMarkdown)
 digest,CRAN,0.6.34,GPL (>= 2),контрольные суммы (испытания)
 testthat,CRAN,3.2.1,MIT,модульные тесты
 xcms*,Bioconductor,—,GPL (>= 2),модуль 1: таблица пиков из mzML/mzXML/CDF (необязательно)

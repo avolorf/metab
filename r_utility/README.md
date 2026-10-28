@@ -34,4 +34,4 @@ Rscript tests/ispytaniya.R --out=протокол [--setA=таблица,мет�
 `ispytaniya.R` выполняет 10 пунктов программы испытаний и собирает протокол (`protocol.csv`), журналы и `sessionInfo()` каждого прогона.
 
 ## Зависимости
-CRAN: data.table, yaml, ggplot2, patchwork, pheatmap, caret, e1071, kernlab, randomForest, pls, foreach, doParallel, jsonlite, shiny, rmarkdown, knitr. Для сырых данных — Bioconductor: xcms, MSnbase (и IPO для оптимизации параметров).
+CRAN: data.table, yaml, ggplot2, patchwork, pheatmap, caret, e1071, kernlab, randomForest, pls, foreach, doParallel, jsonlite, shiny, markdown, rmarkdown, knitr. Для сырых данных — Bioconductor: xcms, MSnbase (и IPO для оптимизации параметров).

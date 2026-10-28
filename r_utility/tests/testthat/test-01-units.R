@@ -170,3 +170,12 @@ test_that("средняя AUROC: один признак при трёх гру�
   expect_true(is.finite(v) && v > 0.5 && v <= 1)
   expect_equal(v, mean_auroc(cbind(x, F2 = x[, 1]), g))
 })
+
+test_that("исправление 15: все пакеты, которые вызывает код, устанавливаются автоматически или указаны как необязательные", {
+  expect_true("markdown" %in% REQUIRED_PACKAGES)              # shiny::includeMarkdown (вкладка «Справка») требует markdown
+  cc <- sub("#.*$", "", code)                                # без хвостовых комментариев
+  used <- unique(sub("::.*", "", unlist(regmatches(cc, gregexpr("\\b[A-Za-z][A-Za-z0-9.]*(?=::)", cc, perl = TRUE)))))
+  base <- c("stats", "utils", "tools", "grDevices", "graphics", "parallel", "methods")
+  extra <- c("BiocManager", "Biobase", "BiocParallel")     # модуль 1: ставятся вместе с xcms (инструкция, шаг 5)
+  expect_equal(setdiff(used, c(REQUIRED_PACKAGES, names(OPTIONAL_PACKAGES), base, extra)), character(0))
+})

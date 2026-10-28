@@ -1,7 +1,7 @@
 # Пакеты и загрузка модулей утилиты.
 
 REQUIRED_PACKAGES <- c("data.table", "yaml", "ggplot2", "patchwork", "pheatmap", "caret", "e1071", "kernlab",
-                       "randomForest", "pls", "foreach", "doParallel", "jsonlite", "shiny", "rmarkdown", "knitr")
+                       "randomForest", "pls", "foreach", "doParallel", "jsonlite", "shiny", "markdown", "rmarkdown", "knitr")
 OPTIONAL_PACKAGES <- c(xcms = "Bioconductor: обработка mzML/mzXML/CDF (модуль 1)", MSnbase = "Bioconductor: чтение сырых данных (модуль 1)",
                        IPO = "Bioconductor: оптимизация параметров xcms (модуль 1)", missForest = "CRAN: альтернативная реализация заполнения пропусков")
 
