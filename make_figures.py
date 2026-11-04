@@ -357,6 +357,7 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
     def short_lab(i):
         name, _, tag = nm[i].partition(", m/z")
         name = name.replace(" (putatively 11-oxoetiocholanolone)", "")
+        name = re.sub(r" \((MSI \d|putative)\)", "", name)
         return f"{name[:40]}, m/z{tag}"
     Z.index = [short_lab(i) for i in sel.index]
     age_n = Normalize(meta.age.min(), meta.age.max())
@@ -379,8 +380,9 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
     nb = (meta.loc[order, "group"] == case).sum()
     g.ax_heatmap.axvline(nb if meta.loc[order[0], "group"] == case else len(order) - nb, c="white", lw=1.2)
     h = [Patch(color=COL[x], label=LAB[x]) for x in [case, ref]] + \
-        [Patch(color="#3a3a38", label="Male"), Patch(color="#d2d1cc", label="Female"),
-         Patch(facecolor="white", edgecolor=INK2, lw=0.4, label="Not available")]
+        [Patch(color="#3a3a38", label="Male"), Patch(color="#d2d1cc", label="Female")] + \
+        ([Patch(facecolor="white", edgecolor=INK2, lw=0.4, label="Not available")]
+         if meta.loc[smp, ["sex", "age"]].isna().any().any() or not meta.loc[smp, "sex"].isin(["M", "F"]).all() else [])
     g.ax_heatmap.legend(handles=h, loc="lower left", bbox_to_anchor=(0, 1.13), ncol=5, fontsize=6)
     for i, (cm, lab, nr) in enumerate([(plt.get_cmap("RdBu_r"), "z-score", Normalize(-2.5, 2.5)),
                                        (cmA, "Age (years)", age_n), (cmC, TERM["index"], ci_n)]):
