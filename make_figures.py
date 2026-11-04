@@ -42,7 +42,8 @@ INK, INK2, GRID = "#0b0b0b", "#52514e", "#d9d8d4"
 EXPO_COL = {"contaminant": "#6250d6", "drug": "#e34948", "food": "#eda100", "tobacco": "#52514e"}
 
 plt.rcParams.update({
-    "font.family": "Liberation Sans", "font.size": 7, "axes.titlesize": 7.5, "axes.labelsize": 7,
+    "font.family": "Liberation Sans", "mathtext.fontset": "custom", "mathtext.rm": "Liberation Sans",
+    "mathtext.it": "Liberation Sans:italic", "mathtext.bf": "Liberation Sans:bold", "font.size": 7, "axes.titlesize": 7.5, "axes.labelsize": 7,
     "xtick.labelsize": 6.5, "ytick.labelsize": 6.5, "legend.fontsize": 6.5, "axes.linewidth": 0.6,
     "xtick.major.width": 0.6, "ytick.major.width": 0.6, "xtick.major.size": 2.5, "ytick.major.size": 2.5,
     "axes.spines.top": False, "axes.spines.right": False, "axes.edgecolor": INK2, "axes.labelcolor": INK,
@@ -357,8 +358,14 @@ def fig4_heatmap(out, L, meta, r, nm, case="BC", ref="Control"):
     def short_lab(i):
         name, _, tag = nm[i].partition(", m/z")
         name = name.replace(" (putatively 11-oxoetiocholanolone)", "")
-        name = re.sub(r" \((MSI \d|putative)\)", "", name)
-        return f"{name[:40]}, m/z{tag}"
+        name = re.sub(r" \(MSI \d\)", "", name)
+        mz = r"$\mathit{m/z}$"
+        if name.startswith("unknown"):
+            return f"{mz}{tag}"
+        put = name.endswith(" (putative)")
+        base = name[:-len(" (putative)")] if put else name
+        base = base if len(base) <= 40 else base[:39] + "…"
+        return f"{base}{' (putative)' if put else ''}, {mz}{tag}"
     Z.index = [short_lab(i) for i in sel.index]
     age_n = Normalize(meta.age.min(), meta.age.max())
     ci = meta.loc[meta.study, "contam_index"]
@@ -861,7 +868,7 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 ## Supplementary Materials
 
-**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index.
+**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index. Rows are labelled with the curated annotation where available (putative, MSI level 3) and otherwise by *m/z* and retention time.
 
 **Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
 
