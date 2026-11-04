@@ -16,9 +16,9 @@
 
 ## Supplementary Materials
 
-**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index.
+**Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index. Rows are labelled with the curated annotation where available (putative, MSI level 3) and otherwise by *m/z* and retention time.
 
-**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±5 years).
+**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) Optimal 1:1 matching on age within sex (caliper ±5 years, without replacement).
 
 **Figure S3.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < 0.2. (b) Number of compounds with q < 0.05 under PQN and MSTUS normalization and their overlap.
 

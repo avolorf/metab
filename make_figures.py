@@ -531,7 +531,7 @@ def figS1_age(out, meta, pairs):
     ax.set_xticks(range(3), ["BC vs Control", "BC vs PC", "PC vs Control"])
     ax.set_ylabel("Age (years)")
     ax.set_ylim(18, 92)
-    ax.set_title(f"1:1 nearest-age matching within sex (±{C.MATCH_CALIPER_YEARS} years)")
+    ax.set_title(f"Optimal 1:1 age matching within sex (±{C.MATCH_CALIPER_YEARS} years)")
     panel(ax, "b")
     save(fig, out, "FigureS2_age_and_matching")
 
@@ -870,7 +870,7 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Figure S1.** Heatmap of the 50 bladder-cancer findings with the smallest q (one row per compound; z-scored log2 intensities). Column bars: group, sex, age and exogenous-signal index. Rows are labelled with the curated annotation where available (putative, MSI level 3) and otherwise by *m/z* and retention time.
 
-**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) 1:1 nearest-age matching within sex (caliper ±{cal} years).
+**Figure S2.** (a) Age by group and sex (filled, male; open, female). (b) Optimal 1:1 matching on age within sex (caliper ±{cal} years, without replacement).
 
 **Figure S3.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
 
