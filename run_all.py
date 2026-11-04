@@ -226,6 +226,11 @@ def main():
             mv_rows += rows
             curves.setdefault(name, {}).update(cv)
     sheets["contam_matched_pairs"] = pd.concat(zpairs_all)
+    sel_tabs = [r_["selection"].assign(comparison=r_["comparison"]) for r_ in mv_rows
+                if isinstance(r_.get("selection"), pd.DataFrame)]
+    if sel_tabs:
+        sheets["panel_selection"] = pd.concat(sel_tabs, ignore_index=True)
+    mv_rows = [{k_: v_ for k_, v_ in r_.items() if k_ != "selection"} for r_ in mv_rows]
     mv = pd.DataFrame(mv_rows)
     cols = ["comparison", "set", "model", "n_case", "n_ref", "n_features", "AUC_mean", "AUC_sd", "AUC_p5", "AUC_p95",
             "Q2", "perm_p", "n_perm", "most_selected"]
@@ -340,7 +345,7 @@ def main():
     sheets["log"] = pd.DataFrame({"log": log_lines})
     order = ["log", "demographics", "demographics_tests", "summary_univariate", "findings", "multivariate_CV",
              "replication_summary", "replication_markers", "rt_shift_anchors",
-             "normalization_sensitivity", "candidates_curated", "candidates_mass_mismatch", "low_dilution_samples",
+             "normalization_sensitivity", "panel_selection", "candidates_curated", "candidates_mass_mismatch", "low_dilution_samples",
              "presence_absence", "age_matched_pairs", "contam_matched_pairs", "samples", "contaminant_series"] + \
             [f"stats_{n}" for n in C.COMPARISONS] + ["features", "pathways_appendix", "pathways_settings"]
     with pd.ExcelWriter(out / "results.xlsx") as w:

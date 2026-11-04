@@ -849,9 +849,9 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Figure 1.** Data quality. (a) Total ion intensity of pooled QC samples and study samples versus injection order. (b) Distribution of feature-wise relative standard deviation (RSD) in pooled QC samples; dashed line, the {rsd:.0%} acceptance threshold. (c) PCA score plot of QC and study samples (log2, Pareto scaling; one representative feature per compound; the {nfull} compounds detected in all study samples, i.e., without imputed values).
 
-**Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings, i.e., compounds that met all finding criteria (Section 2.5): q < 0.05 in the adjusted model and p < 0.05 with the same direction of change in age- and sex-matched subsets; in comparisons with controls (a, c), also p < 0.05 with the same direction against controls with a below-median exogenous-signal index and no difference between controls with high and low index (p ≥ 0.05); crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, the homologous exogenous series); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
+**Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings, i.e., compounds that met all finding criteria (Section 2.5): q < 0.05 in the adjusted model and p < 0.05 with the same direction of change in age- and sex-matched pairs (Wilcoxon signed-rank test); in comparisons with controls (a, c), also p < 0.05 with the same direction against controls with a below-median exogenous-signal index and no difference between controls with high and low index (p ≥ 0.05); crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, the homologous exogenous series); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
-**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3), steroid glucuronides first, then other compounds, each ordered by q. log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Mann–Whitney U test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. Findings met all of the following: q < 0.05 in the adjusted model; p < 0.05 in age-matched pairs and against low-index controls, with the same direction of change; and no difference between controls with high and low index (p ≥ 0.05), which excludes compounds whose level itself depends on the index. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST HR-MS/MS) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
+**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3), steroid glucuronides first, then other compounds, each ordered by q. log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Wilcoxon signed-rank test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. Findings met all of the following: q < 0.05 in the adjusted model; p < 0.05 in age-matched pairs and against low-index controls, with the same direction of change; and no difference between controls with high and low index (p ≥ 0.05), which excludes compounds whose level itself depends on the index. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST HR-MS/MS) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
 
 **Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum. q, FDR-adjusted p of the adjusted model (BC vs Control).
 
@@ -874,6 +874,8 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 **Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
 
 **Table S2.** Cross-validated classification for all comparisons and models (AUC mean ± SD over repeats, 5th–95th percentiles, Q², permutation p), including the single-covariate baselines (sex only; exogenous-signal index only).
+
+**Table S2b.** Composition of the cross-validated top-5 panels: number of the 100 training folds (20 repeats × 5 folds) in which each compound was selected, and the five compounds selected by the same rule on all samples of each comparison. Compounds selected in ≥ 10% of folds or included in the all-sample panel are listed.
 
 **Table S3.** Curated candidate annotations: formula, ion, mass error, HMDB/KEGG identifiers, MS-DIAL MS/MS library entry, isomers not excluded, MSI level (same rule as in Table 2), supporting ions, detection by group, and correlation with the exogenous-signal index and the dilution factor; annotations with mass error > {ppm:.0f} ppm are listed separately (S3b). No reference standards were analysed (no MSI level 1).
 
@@ -1021,8 +1023,9 @@ def s6_table(d):
             "annotation": "MS-DIAL annotation", "annotation_conf": "Annotation score (MS-DIAL)", "compound_category": "Category",
             "log2FC": "log2FC (unadjusted)", "AUC": "AUC", "p_MW": "p (Mann–Whitney)", "q_MW": "q (Mann–Whitney)",
             "beta_model": "log2FC (adjusted)", "p_model": "p (adjusted model)", "q_model": "q (adjusted model)",
-            "log2FC_matched": "log2FC (age-matched)", "AUC_matched": "AUC (age-matched)", "p_matched": "p (age-matched)",
-            "q_matched": "q (age-matched)", "log2FC_lowindex": "log2FC (low-contamination controls)",
+            "log2FC_matched": "log2FC (matched pairs, median paired difference)", "AUC_matched": "AUC (age-matched)",
+            "p_matched": "p (matched pairs, Wilcoxon signed-rank)", "q_matched": "q (matched pairs, Wilcoxon signed-rank)",
+            "n_pairs_nonzero": "Pairs with non-zero difference", "p_matched_MW": "p (matched subsets, Mann–Whitney; superseded)", "log2FC_lowindex": "log2FC (low-contamination controls)",
             "p_lowindex": "p (low-contamination controls)", "log2FC_ctrl_hi_vs_lo": "log2FC (controls, high vs low index)",
             "p_ctrl_hi_vs_lo": "p (controls, high vs low index)", "finding": "Finding",
             "det_Control": "Detected, fraction Control", "det_BC": "Detected, fraction BC", "det_PC": "Detected, fraction PC"}
@@ -1180,8 +1183,8 @@ T2C_FOOT = ("* 5α-Isomer (11-oxoandrosterone glucuronide) not excluded; identit
             "† Isomers I and II are chromatographically resolved (11.06 and 10.76 min); allo-tetrahydrocortisone and 3- vs 21-glucuronide not excluded. "
             "Isomers not excluded for the other compounds are listed in Table S3.")
 T2C_CAPTION = ("**Table 2.** Annotated bladder-cancer findings (BC vs Control; MSI levels 2–3). log2FC and q (Benjamini–Hochberg), "
-               "linear model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Mann–Whitney U test "
-               "in age- and sex-matched subsets. Finding criteria are given in Section 2.5; complete statistics are in Table S1 and "
+               "linear model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Wilcoxon signed-rank test "
+               "in 1:1 age- and sex-matched pairs. Finding criteria are given in Section 2.5; complete statistics are in Table S1 and "
                "annotation details in Table S3.")
 
 
@@ -1218,6 +1221,44 @@ def write_table2_compact(tables_dir, supp_xlsx):
     (tables_dir / "Table2_compact.md").write_text("\n".join(md), encoding="utf-8")
 
 
+PANEL_NOTE = ("Selection frequency: number of the 100 training folds (20 repeats × 5 folds) in which the compound was among the "
+              "five with the lowest Mann–Whitney p-values; the panel is re-selected in every fold, so the cross-validated AUC "
+              "(Table S2) refers to the selection procedure, not to one fixed set of compounds. All-sample panel: the five compounds "
+              "selected by the same rule on all samples of the comparison (rank 1–5). Listed: compounds selected in ≥ 10% of folds "
+              "or included in the all-sample panel; the complete counts are in results/tables/panel_selection.csv.")
+
+
+def panel_composition_table(res=C.OUT, min_freq=0.10):
+    """Table S2b: частота попадания соединений в top-5 по обучающим фолдам и панель на всех пробах."""
+    f = Path(res) / "tables" / "panel_selection.csv"
+    if not f.exists():
+        return None
+    d = pd.read_csv(f)
+    d = d[d["set"] == "all"]
+    d = d[(d.selection_frequency >= min_freq) | d.in_all_sample_panel.astype(bool)]
+    ft = pd.read_csv(Path(res) / "tables" / "features.csv", index_col=0)
+    cur = pd.read_csv(Path(res) / "tables" / "candidates_curated.csv", index_col=0)
+    cur = cur.dropna(subset=["feature"]).drop_duplicates("feature").set_index("feature")
+    def nm(x):
+        if x in cur.index:
+            return str(curated_name(cur.loc[x])).replace(" (putative)", "")
+        if x in ft.index and ft.loc[x, "annotation_conf"] == "high":
+            return f"{ft.loc[x, 'annotation']} (library match)"
+        return "unknown"
+    mdl = {"panel": "Top-5 panel", "panel_adj": "Top-5 panel, index-adjusted"}
+    out = pd.DataFrame({
+        "Comparison": d.comparison.str.replace("_vs_", " vs "), "Model": d.method.map(mdl),
+        "Compound": d.feature.map(nm), "m/z": d.feature.map(lambda x: round(float(ft.loc[x, "mz"]), 4)),
+        "RT (min)": d.feature.map(lambda x: round(float(ft.loc[x, "rt_min"]), 2)),
+        "Selected in training folds (of 100)": d.n_selected.astype(int),
+        "Selection frequency, %": (100 * d.selection_frequency).round(0).astype(int),
+        "All-sample panel (rank)": d.rank_all_sample_panel.map(lambda v: "" if pd.isna(v) else int(v)),
+    })
+    order = {"BC vs Control": 0, "BC vs PC": 1, "PC vs Control": 2, "PC vs maleControl": 3}
+    out = out.assign(_o=out.Comparison.map(order), _m=out.Model.map({"Top-5 panel": 0, "Top-5 panel, index-adjusted": 1}))
+    return out.sort_values(["_o", "_m", "Selected in training folds (of 100)"], ascending=[True, True, False]).drop(columns=["_o", "_m"])
+
+
 def v5_package(out, mv):
     """Пакет для подачи: перенумерация таблиц приложения, сноска к Table S2, раскладка по папкам submission_analytica/."""
     from openpyxl import load_workbook
@@ -1233,6 +1274,14 @@ def v5_package(out, mv):
             "and is not interpreted as a PC-specific signal; it is not shown in Figure 4c."
             + (f" (index-adjusted AUC {pc.AUC_mean.iloc[0]:.2f})" if len(pc) else ""))
     ws.cell(row=ws.max_row + 2, column=1, value=note)
+    s2b = panel_composition_table()
+    if s2b is not None:
+        s2b.to_csv(out / "TableS2b_panel_composition.csv", index=False)
+        wsb = wb.create_sheet("S2b_panel_composition", index=wb.sheetnames.index("S2_classification") + 1)
+        wsb.append(list(s2b.columns))
+        for row in s2b.itertuples(index=False):
+            wsb.append([None if (isinstance(v, float) and np.isnan(v)) else v for v in row])
+        wsb.cell(row=wsb.max_row + 2, column=1, value=PANEL_NOTE)
     s8 = exposure_keywords_table()
     s8.to_csv(out / "TableS8_exposure_keywords.csv", index=False)
     ws8 = wb.create_sheet("S8_exposure_keywords")

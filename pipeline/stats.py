@@ -98,6 +98,28 @@ def mw(L, a, b):
     return U.pvalue, U.statistic / (len(a) * len(b)), A.mean(0) - B.mean(0)
 
 
+def wilcoxon_paired(L, a, b):
+    """Критерий Уилкоксона для связанных выборок по подобранным парам (a[i] ↔ b[i]).
+    Нулевые разности (обе пробы с одинаковым импутированным значением) отбрасываются (zero_method='wilcox');
+    точное распределение, если среди ненулевых разностей нет совпадений, иначе нормальное приближение.
+    Возвращает p, медиану парных разностей (log2) и число пар с ненулевой разностью."""
+    n = L.shape[1]
+    p, med, nn = np.full(n, np.nan), np.full(n, np.nan), np.zeros(n, int)
+    if len(a) < C.MIN_PAIRS_TEST:
+        return p, med, nn
+    D = L.loc[a].to_numpy() - L.loc[b].to_numpy()
+    med = np.median(D, axis=0)
+    for j in range(n):
+        d = D[:, j]
+        d = d[d != 0]
+        nn[j] = len(d)
+        if len(d) < C.MIN_PAIRS_TEST:
+            continue
+        exact = len(np.unique(np.abs(d))) == len(d)
+        p[j] = stats.wilcoxon(d, method="exact" if exact else "approx", correction=False).pvalue
+    return p, med, nn
+
+
 def ols_group(L, meta, case, ref, covariates):
     """log2 ~ группа + ковариаты (complete case). Возвращает коэффициент группы, p, n и использованные ковариаты."""
     idx = case + ref
@@ -142,7 +164,9 @@ def run_comparison(L, meta, name, spec, comp_cat):
     pairs.insert(0, "comparison", name)
     a, r = list(pairs.case), list(pairs.ref)
     p, auc, fc = mw(L, a, r)
-    out["log2FC_matched"], out["AUC_matched"], out["p_matched"], out["q_matched"] = fc, auc, p, bh(p)
+    out["AUC_matched"], out["p_matched_MW"] = auc, p          # прежний непарный тест — только для сравнения
+    p, med, nn = wilcoxon_paired(L, a, r)
+    out["log2FC_matched"], out["p_matched"], out["q_matched"], out["n_pairs_nonzero"] = med, p, bh(p), nn
     info["matched_pairs"] = len(pairs)
     # 3. контроли с низким индексом загрязнения (только если референс — контроль)
     if spec["ref"] == "Control":

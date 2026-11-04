@@ -43,6 +43,17 @@ def mw_one(a, b):
     return stats.mannwhitneyu(a, b).pvalue, np.mean(a) - np.mean(b)
 
 
+def wilcoxon_one(a, b):
+    """Связанные выборки: пары, где обе пробы обнаружены; нулевые разности отбрасываются."""
+    m = ~np.isnan(a) & ~np.isnan(b)
+    d = a[m] - b[m]
+    d = d[d != 0]
+    if len(d) < C.MIN_PAIRS_TEST:
+        return np.nan, np.nan
+    exact = len(np.unique(np.abs(d))) == len(d)
+    return stats.wilcoxon(d, method="exact" if exact else "approx", correction=False).pvalue, np.median(d)
+
+
 def complete_case(Lna, meta, spec, pairs, comp_cat):
     case, ref = st.comparison_sets(meta, spec)
     idx = case + ref
@@ -58,7 +69,7 @@ def complete_case(Lna, meta, spec, pairs, comp_cat):
     for f in Lna.columns:
         y = Lna.loc[D.index, f].to_numpy(float)
         b, p = ols_one(y, Dm)
-        pm, fm = mw_one(Lna.loc[list(pairs.case), f].to_numpy(float), Lna.loc[list(pairs.ref), f].to_numpy(float))
+        pm, fm = wilcoxon_one(Lna.loc[list(pairs.case), f].to_numpy(float), Lna.loc[list(pairs.ref), f].to_numpy(float))
         r = dict(beta_model=b, p_model=p, p_matched=pm, log2FC_matched=fm)
         if spec["ref"] == "Control":
             r["p_lowindex"], r["log2FC_lowindex"] = mw_one(Lna.loc[case, f].to_numpy(float), Lna.loc[lo, f].to_numpy(float))

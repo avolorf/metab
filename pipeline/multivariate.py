@@ -97,6 +97,28 @@ def _boot1(y, s, i1, i0, rng):
     return roc_auc_score(y[i], s[i])
 
 
+def panel_selection(X, y, z, method, chosen, pool, names=None):
+    """Состав панели: сколько раз каждое соединение попало в top-k за CV_REPEATS × CV_FOLDS обучающих фолдов,
+    и панель, отобранная тем же правилом на всех пробах (для panel_adj — после поправки на индекс по всем пробам)."""
+    n_folds = C.CV_REPEATS * C.CV_FOLDS
+    cnt = pd.Series(chosen, dtype=int).value_counts()
+    Xa = X
+    if method == "panel_adj":
+        Xa, _ = residualize(X, X[:1], z, z[:1])
+    p_all = stats.mannwhitneyu(Xa[y == 1], Xa[y == 0], axis=0).pvalue
+    top = list(np.argsort(p_all)[:C.PANEL_K])
+    idx = list(dict.fromkeys(list(cnt.index) + top))
+    out = pd.DataFrame({
+        "feature": [pool[i] for i in idx],
+        "compound": [names[pool[i]] if names is not None else pool[i] for i in idx],
+        "n_selected": [int(cnt.get(i, 0)) for i in idx], "n_training_folds": n_folds,
+        "selection_frequency": [cnt.get(i, 0) / n_folds for i in idx],
+        "in_all_sample_panel": [i in top for i in idx],
+        "rank_all_sample_panel": [top.index(i) + 1 if i in top else np.nan for i in idx],
+        "p_MW_all_samples": [p_all[i] for i in idx]})
+    return out.sort_values(["n_selected", "p_MW_all_samples"], ascending=[False, True]).reset_index(drop=True)
+
+
 def evaluate(L, meta, case, ref, pool, label, seed, names=None, n_perm=None):
     """Панель и PLS-DA на наборе case/ref по признакам pool (без экспозиций)."""
     idx = case + ref
@@ -110,13 +132,16 @@ def evaluate(L, meta, case, ref, pool, label, seed, names=None, n_perm=None):
         aucs, tprs, chosen, q2 = repeated_cv(X, y, method, seed, z)
         p, _ = perm_test(X, y, method, aucs.mean(), seed + 1, n_perm or C.N_PERM, z) if (n_perm or C.N_PERM) else (np.nan, None)
         sel = ""
+        if method in ("panel", "panel_adj"):
+            rows_sel = panel_selection(X, y, z, method, chosen, pool, names)
         if len(chosen):
             vc = pd.Series(chosen).value_counts().head(10)
             sel = "; ".join(f"{names[pool[i]] if names is not None else pool[i]} ({n / (C.CV_REPEATS * C.CV_FOLDS):.0%})"
                             for i, n in vc.items())
         rows.append(dict(set=label, model=nm, n_case=len(case), n_ref=len(ref), n_features=len(pool),
                          AUC_mean=aucs.mean(), AUC_sd=aucs.std(), AUC_p5=np.percentile(aucs, 5),
-                         AUC_p95=np.percentile(aucs, 95), Q2=q2, perm_p=p, n_perm=C.N_PERM, most_selected=sel))
+                         AUC_p95=np.percentile(aucs, 95), Q2=q2, perm_p=p, n_perm=C.N_PERM, most_selected=sel,
+                         selection=rows_sel.assign(set=label, method=method) if method in ("panel", "panel_adj") else None))
         curves[(label, method)] = (tprs.mean(0), aucs.mean())
     # базовые модели: только пол / только индекс загрязнения — та же повторная CV и тот же перестановочный тест
     for cov in ["sex", "contam_index"]:
