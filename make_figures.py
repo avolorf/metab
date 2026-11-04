@@ -1286,7 +1286,8 @@ _SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 _SUP = str.maketrans("0123456789+-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻")
 _ION_RE = re.compile(r"\[(\d*M[^\[\]]*)\](\d*)([+-])(?![\w])")
 _FORMULA_RE = re.compile(r"(?<![\w\-./])((?:(?:Cl|Na|Br|C|H|N|O|P|S|K|F|I)\d*){2,})(?![\w])")
-_SPELL = [("labelled", "labeled"), ("labelling", "labeling"), ("analysed", "analyzed"), ("analyse", "analyze"),
+_SPELL = [("labelled", "labeled"), ("labelling", "labeling"), (r"analysed\b", "analyzed"), (r"analysing\b", "analyzing"),
+          (r"analyse\b", "analyze"),          # «analyses» (сущ.) не трогаем
           ("coloured", "colored"), ("colour", "color"), ("normalis", "normaliz"), ("residualis", "residualiz"),
           ("summaris", "summariz"), ("modelled", "modeled"), ("haematuria", "hematuria"), ("behaviour", "behavior"),
           ("centre", "center")]
@@ -1308,7 +1309,7 @@ def _formula(m):
 def us_spelling(t):
     for a, b in _SPELL:
         t = re.sub(a, b, t)
-        t = re.sub(a.capitalize(), b.capitalize(), t)
+        t = re.sub(a[0].upper() + a[1:], b[0].upper() + b[1:], t)
     return t
 
 
@@ -1317,6 +1318,7 @@ def chem_text(t, md=False):
     t = _FORMULA_RE.sub(_formula, _ION_RE.sub(_ion, t))
     t = re.sub(r"(\([^()]*[₀-₉][^()]*\))(\d+)", lambda k: k.group(1) + k.group(2).translate(_SUB), t)   # (C₂H₄O)2 -> (C₂H₄O)₂
     t = us_spelling(t)
+    t = re.sub(r"\blog2(?=\b|FC|-|\s|\))", "log₂", t)
     if md:
         t = re.sub(r"(?<![*\w])m/z(?![*\w])", "*m/z*", t)
     return t

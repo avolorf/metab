@@ -1,4 +1,4 @@
-No.,Compound (MSI level),m/z (ion),"RT, min",log2FC,q,AUC,p (matched)
+No.,Compound (MSI level),m/z (ion),"RT, min",log₂FC,q,AUC,p (matched)
 1,11-Oxoetiocholanolone glucuronide* (3),498.2697 [M+NH₄]⁺,11.05,1.43,0.005,0.81,0.006
 2,"Tetrahydrocortisone glucuronide, isomer I† (3)",541.2642 [M+H]⁺,11.06,1.08,0.018,0.71,0.021
 3,"Tetrahydrocortisone glucuronide, isomer II† (3)",558.2914 [M+NH₄]⁺,10.76,0.81,0.030,0.69,0.033

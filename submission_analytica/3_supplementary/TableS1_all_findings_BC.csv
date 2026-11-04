@@ -1,4 +1,4 @@
-Compound (annotation),m/z,RT (min),Putative library match (low score),Note,Ions in group,MS2 library match,MSI level,log2FC (adjusted),q (adjusted model),AUC (all),p (age-matched),p (low-index controls),"Detected, % Control/BC/PC"
+Compound (annotation),m/z,RT (min),Putative library match (low score),Note,Ions in group,MS2 library match,MSI level,log₂FC (adjusted),q (adjusted model),AUC (all),p (age-matched),p (low-index controls),"Detected, % Control/BC/PC"
 unknown,301.1186,9.94,Salidroside,,2,no,4,0.8,2.0e-04,0.87,0.000,0.000,100/100/100
 unknown,304.1182,10.13,N-(6-methoxypyridin-3-yl)-1-methyl-1H-indole-6-carboxamide,,1,no,4,0.86,5.1e-04,0.88,0.000,0.000,100/100/100
 unknown,287.1969,7.65,"4-Androstene-3,17-dione",,1,no,4,0.96,2.5e-03,0.84,0.000,0.000,100/100/100

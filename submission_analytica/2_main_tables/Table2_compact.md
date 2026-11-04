@@ -1,6 +1,6 @@
-**Table 2.** Annotated bladder-cancer findings (BC vs. controls; MSI levels 2–3). log2FC and q (Benjamini–Hochberg) are from the model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Wilcoxon signed-rank test in age- and sex-matched pairs. Finding criteria and MSI levels are defined in Section 2.5; full data are in Tables S1 and S3.
+**Table 2.** Annotated bladder-cancer findings (BC vs. controls; MSI levels 2–3). log₂FC and q (Benjamini–Hochberg) are from the model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Wilcoxon signed-rank test in age- and sex-matched pairs. Finding criteria and MSI levels are defined in Section 2.5; full data are in Tables S1 and S3.
 
-| No. | Compound (MSI level) | *m/z* (ion) | RT, min | log2FC | q | AUC | p (matched) |
+| No. | Compound (MSI level) | *m/z* (ion) | RT, min | log₂FC | q | AUC | p (matched) |
 |---|---|---|---|---|---|---|---|
 | 1 | 11-Oxoetiocholanolone glucuronide* (3) | 498.2697 [M+NH₄]⁺ | 11.05 | 1.43 | 0.005 | 0.81 | 0.006 |
 | 2 | Tetrahydrocortisone glucuronide, isomer I† (3) | 541.2642 [M+H]⁺ | 11.06 | 1.08 | 0.018 | 0.71 | 0.021 |
