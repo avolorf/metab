@@ -263,7 +263,7 @@ def fig2_contamination(out, meta, series):
     ax.set_xlim(allp.mz.min() - 15, allp.mz.max() + 25)
     adjust_text(texts, x=allp.mz.to_numpy(), y=allp.rt_min.to_numpy(), ax=ax, expand=(1.3, 1.6),
                 arrowprops=dict(arrowstyle="-", color=GRID, lw=0.4))
-    ax.set(xlabel="m/z ([M+H]$^+$)", ylabel="Retention time (min)")
+    ax.set(xlabel="$\\mathit{m/z}$ ([M+H]$^+$)", ylabel="Retention time (min)")
     ax.legend(loc="lower right")
     ax.set_title("Mass increments: +C$_2$H$_4$ 28.031, +O 15.995, +C$_2$H$_4$O 44.026", fontsize=6.5, color=INK2)
     panel(ax, "a", x=-0.12)
@@ -493,7 +493,10 @@ def fig6_box(out, L, meta, r, nm, msi, X_raw=None):
         name = re.sub(r" \((putatively[^)]*|MSI \d|putative)\)", "", name)
         name = "\n".join(textwrap.wrap(name, 24, break_on_hyphens=True)[:2])
         mz, rt = tag.replace("m/z ", "").replace(" min", "").split(" @ ")
-        ax.set_title(f"{name}\nMSI {int(msi[f])} · m/z {mz} · {rt} min\nq = {r.loc[f, 'q_model']:.1e}", fontsize=5.6)
+        if v5():
+            ax.set_title(f"{name}\nMSI {int(msi[f])} · $\\mathit{{m/z}}$ {mz} · {rt} min", fontsize=5.6)
+        else:
+            ax.set_title(f"{name}\nMSI {int(msi[f])} · m/z {mz} · {rt} min\nq = {r.loc[f, 'q_model']:.1e}", fontsize=5.6)
         if k % ncol == 0:
             ax.set_ylabel("log$_2$ normalized intensity")
         panel(ax, "abcdefgh"[k], x=-0.3, y=1.2)
@@ -860,9 +863,9 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Figure 2.** Volcano plots from the adjusted linear model (log2 intensity ~ group + sex + age + exogenous-signal index). Filled circles, findings, i.e., compounds that met all finding criteria (Section 2.5): q < 0.05 in the adjusted model and p < 0.05 with the same direction of change in age- and sex-matched pairs (Wilcoxon signed-rank test); in comparisons with controls (a, c), also p < 0.05 with the same direction against controls with a below-median exogenous-signal index and no difference between controls with high and low index (p ≥ 0.05); crosses, exogenous compounds excluded from marker selection (drugs, food- and tobacco-related compounds, the homologous exogenous series); dashed line, FDR {fdr:.0%}. In (a), circled numbers mark the annotated findings listed in Table 2 (No.).
 
-**Table 2.** Annotated bladder-cancer findings (MSI levels 2–3), steroid glucuronides first, then other compounds, each ordered by q. log2FC and q, adjusted model (sex, age, exogenous-signal index; Benjamini–Hochberg); AUC, all samples; p (age-matched), Wilcoxon signed-rank test in 1:1 age- and sex-matched pairs; p (low-index controls), BC vs controls with an exogenous-signal index below the median. Findings met all of the following: q < 0.05 in the adjusted model; p < 0.05 in age-matched pairs and against low-index controls, with the same direction of change; and no difference between controls with high and low index (p ≥ 0.05), which excludes compounds whose level itself depends on the index. MSI 2, precursor within {ppm:.0f} ppm of the curated formula and an MS/MS library match flagged by MS-DIAL (NIST HR-MS/MS) for the feature itself; MSI 3, formula-consistent annotation without MS/MS confirmation, MS/MS match to several isomers, or MS/MS match without a curated formula. "Isomers not excluded" lists isomers that the MS/MS spectrum does not distinguish. All findings, including MSI level 4, are listed in Table S1.
+**Table 2.** Annotated bladder-cancer findings (BC vs. controls; MSI levels 2–3). log2FC and q (Benjamini–Hochberg) are from the model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Wilcoxon signed-rank test in age- and sex-matched pairs. Finding criteria and MSI levels are defined in Section 2.5; full data are in Tables S1 and S3.
 
-**Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum. q, FDR-adjusted p of the adjusted model (BC vs Control).
+**Figure 3.** Annotated bladder-cancer findings (the compounds of Table 2) across groups (log2 PQN-normalized intensities). Open symbols, values below the detection limit, imputed as half of the feature minimum.
 
 **Figure 4.** Cross-validated ROC curves ({rep}×{fold}-fold CV; top-{k} compounds selected by Mann–Whitney U inside each training fold, logistic regression). Exogenous compounds and compounds correlated with the exogenous-signal index (|ρ| ≥ {rho}) were excluded from the candidate pool before CV. Solid, all samples (shaded band, 10th–90th percentile across repeats); dash-dot (a, b), compounds adjusted for the exogenous-signal index inside each training fold (for PC vs Control, see Table S2 and its note); dashed, 1:1 age- and sex-matched pairs (shown only with ≥ {minp} pairs); dotted, sex-only baseline evaluated with the same CV. AUC, mean ± SD over repeats; p, permutation test ({perm} permutations).
 
@@ -874,11 +877,11 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Figure S3.** (a) PQN versus MSTUS dilution factors; labelled samples have PQN factor < {low}. (b) Number of compounds with q < {fdr} under PQN and MSTUS normalization and their overlap.
 
-**Figure S4.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exogenous features excluded). Coloured bars, Benjamini–Hochberg q < 0.05.
+**Figure S4.** Pathway enrichment (mummichog, positive mode, {ppm:.0f} ppm; exogenous features excluded). No pathway reached Benjamini–Hochberg q < 0.05.
 
 **Figure S5.** Members of the homologous exogenous series in methanol solvent blanks, pooled QC and urine samples (raw peak areas from extracted-ion chromatograms, ± 5 ppm). (a) Peak areas in solvent blanks (n = 7, including two injected before the first sample), pooled QC (n = 6), the two controls with the lowest and the three PC samples with the highest index; † members with solvent-blank area ≥ 10% of the QC median; n.d., not detected. (b, c) Extracted-ion chromatograms of a member present in the blanks (C12) and of one absent from the blanks (C14+O).
 
-**Figure S6.** Homologous exogenous series used for the exogenous-signal index. (a) Members ([M+H]+; mass increments C2H4, O and C2H4O) in the m/z–retention-time plane; open diamonds, co-varying ions not included in the index. (b) Exogenous-signal index (mean z-score of the ten members) by group (Mann–Whitney U test).
+**Figure S6.** Homologous exogenous series used for the exogenous-signal index. (a) Members ([M+H]⁺; mass increments C₂H₄, O and C₂H₄O) in the *m/z*–retention-time plane; open diamonds, co-varying ions not included in the index. (b) Exogenous-signal index (mean z-score of the ten members) by group (Mann–Whitney U test).
 
 **Table S1.** All bladder-cancer findings (BC vs Control), including MSI level 4 features; low-score library matches are listed for transparency only.
 
@@ -890,7 +893,7 @@ CAPTIONS_V5 = """# Figure and table captions — submission version (v5) ("Urina
 
 **Table S4.** Presence/absence features (detection < 50% in one group and ≥ 80% in another) with Fisher's exact tests.
 
-**Table S5.** Compound-level statistics for all comparisons (all models and robustness checks).
+**Table S5.** Compound-level statistics for all comparisons (all models and sensitivity checks).
 
 **Table S6.** Sensitivity analyses: number of compounds with q < 0.05 and of findings under MSTUS instead of PQN normalization, after exclusion of samples with a PQN dilution factor < {low}, with the exogenous-signal index built only from series members absent from solvent blanks, restricted to compounds without imputed values, and with imputed values treated as missing; overlap with the main analysis and cross-validated panel AUC.
 
@@ -1191,10 +1194,7 @@ T2C_NOTE = {"11-Oxoetiocholanolone glucuronide": "*", "Tetrahydrocortisone glucu
 T2C_FOOT = ("* 5α-Isomer (11-oxoandrosterone glucuronide) not excluded; identity assigned from the aglycone MS/MS. "
             "† Isomers I and II are chromatographically resolved (11.06 and 10.76 min); allo-tetrahydrocortisone and 3- vs 21-glucuronide not excluded. "
             "Isomers not excluded for the other compounds are listed in Table S3.")
-T2C_CAPTION = ("**Table 2.** Annotated bladder-cancer findings (BC vs Control; MSI levels 2–3). log2FC and q (Benjamini–Hochberg), "
-               "linear model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Wilcoxon signed-rank test "
-               "in 1:1 age- and sex-matched pairs. Finding criteria are given in Section 2.5; complete statistics are in Table S1 and "
-               "annotation details in Table S3.")
+T2C_CAPTION = ("**Table 2.** Annotated bladder-cancer findings (BC vs. controls; MSI levels 2–3). log2FC and q (Benjamini–Hochberg) are from the model adjusted for sex, age and the exogenous-signal index; AUC, all samples; p (matched), Wilcoxon signed-rank test in age- and sex-matched pairs. Finding criteria and MSI levels are defined in Section 2.5; full data are in Tables S1 and S3.")
 
 
 def _fmt_p(v, nd=3):
@@ -1281,6 +1281,85 @@ def panel_composition_table(res=C.OUT, min_freq=0.10):
     return out.sort_values(["_o", "_m", "Selected in training folds (of 100)"], ascending=[True, True, False]).drop(columns=["_o", "_m"])
 
 
+# ------------------------------------------------------------------ оформление текста в пакете v5
+_SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+_SUP = str.maketrans("0123456789+-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻")
+_ION_RE = re.compile(r"\[(\d*M[^\[\]]*)\](\d*)([+-])(?![\w])")
+_FORMULA_RE = re.compile(r"(?<![\w\-./])((?:(?:Cl|Na|Br|C|H|N|O|P|S|K|F|I)\d*){2,})(?![\w])")
+_SPELL = [("labelled", "labeled"), ("labelling", "labeling"), ("analysed", "analyzed"), ("analyse", "analyze"),
+          ("coloured", "colored"), ("colour", "color"), ("normalis", "normaliz"), ("residualis", "residualiz"),
+          ("summaris", "summariz"), ("modelled", "modeled"), ("haematuria", "hematuria"), ("behaviour", "behavior"),
+          ("centre", "center")]
+_SKIP_COL = re.compile(r"feature|annotation|library|ms-dial|hmdb|kegg|group id|regular expression|match", re.I)
+
+
+def _ion(m):
+    inner = re.sub(r"([A-Za-z\)])(\d+)", lambda k: k.group(1) + k.group(2).translate(_SUB), m.group(1))
+    return f"[{inner}]{(m.group(2) + m.group(3)).translate(_SUP)}"
+
+
+def _formula(m):
+    f = m.group(1)
+    if not re.search(r"\d", f) or len(re.findall(r"Cl|Na|Br|[CHNOPSKFI]", f)) < 2:
+        return f
+    return re.sub(r"(\d+)", lambda k: k.group(1).translate(_SUB), f)
+
+
+def us_spelling(t):
+    for a, b in _SPELL:
+        t = re.sub(a, b, t)
+        t = re.sub(a.capitalize(), b.capitalize(), t)
+    return t
+
+
+def chem_text(t, md=False):
+    """[M+H]+ -> [M+H]⁺, C25H36O9 -> C₂₅H₃₆O₉, американская орфография; в Markdown m/z курсивом."""
+    t = _FORMULA_RE.sub(_formula, _ION_RE.sub(_ion, t))
+    t = re.sub(r"(\([^()]*[₀-₉][^()]*\))(\d+)", lambda k: k.group(1) + k.group(2).translate(_SUB), t)   # (C₂H₄O)2 -> (C₂H₄O)₂
+    t = us_spelling(t)
+    if md:
+        t = re.sub(r"(?<![*\w])m/z(?![*\w])", "*m/z*", t)
+    return t
+
+
+def _rich(v):
+    from openpyxl.cell.rich_text import CellRichText, TextBlock
+    from openpyxl.cell.text import InlineFont
+    parts = re.split(r"(m/z)", v)
+    return CellRichText([TextBlock(InlineFont(i=True), x) if x == "m/z" else x for x in parts if x])
+
+
+def typeset_package(root, dirs):
+    """Ионы/формулы (Unicode-индексы), m/z курсивом (xlsx — rich text, md — *m/z*), US-орфография во всех таблицах и подписях."""
+    from openpyxl import load_workbook
+    for d in [dirs["tables"], dirs["supp"]]:
+        for f in d.glob("*.xlsx"):
+            wb = load_workbook(f, rich_text=True)
+            for ws in wb.worksheets:
+                hdr = {c.column: str(c.value or "") for c in ws[1]}
+                for row in ws.iter_rows():
+                    for c in row:
+                        if not isinstance(c.value, str) or (c.row > 1 and _SKIP_COL.search(hdr.get(c.column, ""))):
+                            continue
+                        v = chem_text(c.value)
+                        c.value = _rich(v) if "m/z" in v else v
+            wb.save(f)
+        for f in d.glob("*.csv"):
+            t = pd.read_csv(f, dtype=str, keep_default_na=False)
+            for col in t.columns:
+                if not _SKIP_COL.search(col):
+                    t[col] = t[col].map(chem_text)
+            t.columns = [chem_text(c) for c in t.columns]
+            t.to_csv(f, index=False)
+        for f in d.glob("*.md"):
+            f.write_text(chem_text(f.read_text(encoding="utf-8"), md=True), encoding="utf-8")
+    for f in [root / "figure_captions.md", root / "table_notes.md"]:
+        if f.exists():
+            paras = f.read_text(encoding="utf-8").split("\n\n")
+            keep = ("**Figure 2.**", "**Figure 4.**")       # короткие подписи этих рисунков ведутся в рукописи
+            f.write_text("\n\n".join(p if p.startswith(keep) else chem_text(p, md=True) for p in paras), encoding="utf-8")
+
+
 def v5_package(out, mv):
     """Пакет для подачи: перенумерация таблиц приложения, сноска к Table S2, раскладка по папкам submission_analytica/."""
     from openpyxl import load_workbook
@@ -1333,6 +1412,7 @@ def v5_package(out, mv):
             shutil.move(str(p_), root / n_)
     out.rmdir()
     write_table2_compact(dirs["tables"], dirs["supp"] / "Supplementary_Tables.xlsx")
+    typeset_package(root, dirs)
 
 
 def v4_retitle(out):
