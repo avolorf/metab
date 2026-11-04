@@ -123,6 +123,16 @@ def load(res):
     return meta, L, info, feat, stats_, mv, series, cur, pairs, demo, demo_t, pw
 
 
+P_MATCHED = "p (matched pairs, Wilcoxon)"
+
+
+def fmt_p(x):
+    """p для таблиц: «< 0.001» вместо 0.000."""
+    if pd.isna(x):
+        return ""
+    return "< 0.001" if x < 0.001 else f"{x:.3f}"
+
+
 ROMAN = {"1": "I", "2": "II", "3": "III"}
 
 
@@ -706,8 +716,8 @@ def tables(out, demo, demo_t, stats_, nm, cur, mv, feat, msi=None, has_ms2=None,
         "MS2 library match": ["yes" if has_ms2 is not None and has_ms2.get(i, False) else "no" for i in f.index],
         "MSI level": [int(msi[i]) for i in f.index],
         "log2FC (adjusted)": f.beta_model.round(2), "q (adjusted model)": f.q_model.map(lambda x: f"{x:.1e}"),
-        "AUC (all)": f.AUC.round(2), "p (age-matched)": f.p_matched.map(lambda x: f"{x:.3f}"),
-        "p (low-contamination controls)": f.p_lowindex.map(lambda x: f"{x:.3f}"),
+        "AUC (all)": f.AUC.round(2), P_MATCHED: f.p_matched.map(fmt_p),
+        "p (low-contamination controls)": f.p_lowindex.map(fmt_p),
         "Detected, % Control/BC/PC": [f"{100 * f.det_Control[i]:.0f}/{100 * f.det_BC[i]:.0f}/{100 * f.det_PC[i]:.0f}" for i in f.index],
     })
     t2 = t2.loc[f.sort_values("q_model").index]          # сортировка по числовому q
@@ -1009,8 +1019,8 @@ def s4_table(df, feat, msi, has_ms2):
              "rho_dilution_controls": "ρ with PQN dilution factor (controls)", "p_dilution_controls": "p (ρ dilution, controls)"}
     for k, v in extra.items():
         if k in df:
-            out[v] = df[k].round(3) if df[k].dtype.kind == "f" else df[k]
-    lab = {"beta_model": "log2FC (adjusted)", "q_model": "q (adjusted)", "p_matched": "p (age-matched)",
+            out[v] = (df[k].map(fmt_p) if k.startswith("p_") else df[k].round(3)) if df[k].dtype.kind == "f" else df[k]
+    lab = {"beta_model": "log2FC (adjusted)", "q_model": "q (adjusted)", "p_matched": P_MATCHED,
            "p_lowindex": "p (low-contamination controls)", "p_ctrl_hi_vs_lo": "p (controls, high vs low index)", "finding": "finding"}
     for c in df.columns:
         if ":" in c:
@@ -1049,7 +1059,7 @@ def supplementary_tables(out, res_dir, t2_full, ts_class, rep, feat, msi, has_ms
     S4 курированные кандидаты (+ несходящаяся масса), S5 признаки «есть/нет», S6 статистика по соединениям."""
     t = res_dir / "tables"
     s4 = s4_table(pd.read_csv(t / "candidates_curated.csv", index_col=0), feat, msi, has_ms2)
-    s4b = s4_table(pd.read_csv(t / "candidates_mass_mismatch.csv"), feat, msi, has_ms2) \
+    s4b = s4_table(pd.read_csv(t / "candidates_mass_mismatch.csv", index_col=0), feat, msi, has_ms2) \
         if (t / "candidates_mass_mismatch.csv").exists() else None
     with pd.ExcelWriter(out / "Supplementary_Tables.xlsx") as w:
         t2_full.to_excel(w, sheet_name="S1_all_findings_BC", index=False)
@@ -1212,7 +1222,7 @@ def table2_compact(t2, s3):
         rows.append({"No.": int(r["No."]), "Compound (MSI level)": f"{name}{T2C_NOTE.get(name, '')} ({int(r['MSI level'])})",
                      "m/z (ion)": f"{r['m/z']:.4f} {m['Ion']}", "RT, min": f"{r['RT (min)']:.2f}",
                      "log2FC": f"{m['BC vs Control: log2FC (adjusted)']:.2f}", "q": _fmt_p(m["BC vs Control: q (adjusted)"]),
-                     "AUC": f"{r['AUC (all)']:.2f}", "p (matched)": _fmt_p(m["BC vs Control: p (age-matched)"])})
+                     "AUC": f"{r['AUC (all)']:.2f}", "p (matched)": _fmt_p(m[f"BC vs Control: {P_MATCHED}"])})
     return pd.DataFrame(rows)
 
 
@@ -1291,7 +1301,7 @@ _SPELL = [("labelled", "labeled"), ("labelling", "labeling"), (r"analysed\b", "a
           ("coloured", "colored"), ("colour", "color"), ("normalis", "normaliz"), ("residualis", "residualiz"),
           ("summaris", "summariz"), ("modelled", "modeled"), ("haematuria", "hematuria"), ("behaviour", "behavior"),
           ("centre", "center")]
-_SKIP_COL = re.compile(r"feature|annotation|library|ms-dial|hmdb|kegg|group id|regular expression|match", re.I)
+_SKIP_COL = re.compile(r"feature|annotation|library|ms-dial|^hmdb$|^kegg$|group id|regular expression|match", re.I)
 
 
 def _ion(m):
@@ -1316,6 +1326,7 @@ def us_spelling(t):
 def chem_text(t, md=False):
     """[M+H]+ -> [M+H]⁺, C25H36O9 -> C₂₅H₃₆O₉, американская орфография; в Markdown m/z курсивом."""
     t = _FORMULA_RE.sub(_formula, _ION_RE.sub(_ion, t))
+    t = re.sub(r"([A-Z][a-z]?[₀-₉]+)([+-])(?=[\s,;)]|$)", lambda k: k.group(1) + k.group(2).translate(_SUP), t)   # C₈H₇O₃+ -> C₈H₇O₃⁺
     t = re.sub(r"(\([^()]*[₀-₉][^()]*\))(\d+)", lambda k: k.group(1) + k.group(2).translate(_SUB), t)   # (C₂H₄O)2 -> (C₂H₄O)₂
     t = us_spelling(t)
     t = re.sub(r"\blog2(?=\b|FC|-|\s|\))", "log₂", t)
