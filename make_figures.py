@@ -1225,7 +1225,19 @@ PANEL_NOTE = ("Selection frequency: number of the 100 training folds (20 repeats
               "five with the lowest Mann–Whitney p-values; the panel is re-selected in every fold, so the cross-validated AUC "
               "(Table S2) refers to the selection procedure, not to one fixed set of compounds. All-sample panel: the five compounds "
               "selected by the same rule on all samples of the comparison (rank 1–5). Listed: compounds selected in ≥ 10% of folds "
-              "or included in the all-sample panel; the complete counts are in results/tables/panel_selection.csv.")
+              "or included in the all-sample panel; the complete counts are in results/tables/panel_selection.csv. Univariate finding: whether the "
+              "compound met all finding criteria (Section 2.5) in the same comparison.")
+
+
+_STATS = {}
+
+
+def finding_of(comp, feature, res=C.OUT):
+    if comp not in _STATS:
+        f = Path(res) / "tables" / f"stats_{comp}.csv"
+        _STATS[comp] = pd.read_csv(f, index_col=0)["finding"] if f.exists() else pd.Series(dtype=bool)
+    v = _STATS[comp].get(feature)
+    return "" if v is None else ("yes" if bool(v) else "no")
 
 
 def panel_composition_table(res=C.OUT, min_freq=0.10):
@@ -1253,6 +1265,7 @@ def panel_composition_table(res=C.OUT, min_freq=0.10):
         "Selected in training folds (of 100)": d.n_selected.astype(int),
         "Selection frequency, %": (100 * d.selection_frequency).round(0).astype(int),
         "All-sample panel (rank)": d.rank_all_sample_panel.map(lambda v: "" if pd.isna(v) else int(v)),
+        "Univariate finding": [finding_of(c, x, res) for c, x in zip(d.comparison, d.feature)],
     })
     order = {"BC vs Control": 0, "BC vs PC": 1, "PC vs Control": 2, "PC vs maleControl": 3}
     out = out.assign(_o=out.Comparison.map(order), _m=out.Model.map({"Top-5 panel": 0, "Top-5 panel, index-adjusted": 1}))

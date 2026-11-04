@@ -33,7 +33,7 @@ Control 45    19      26            0     45            0      53.3    14.6     
 "
 Одномерная статистика (уровень соединений):
        comparison  n_case  n_ref     model_covariates  model_n_case  model_n_ref  matched_pairs  n_ref_lowindex  n_ref_highindex  n_q_model  n_findings
-    BC_vs_Control      29     45 sex+age+contam_index            29           45             20            31.0             14.0        340         210
+    BC_vs_Control      29     45 sex+age+contam_index            29           45             20            31.0             14.0        340         188
          BC_vs_PC      29     20 sex+age+contam_index            29           20             18             NaN              NaN          3           3
     PC_vs_Control      20     45 sex+age+contam_index            20           45             11            31.0             14.0          0           0
 PC_vs_maleControl      20     19     age+contam_index            20           19             11            17.0              2.0          0           0"
@@ -41,9 +41,9 @@ PC_vs_maleControl      20     19     age+contam_index            20           19
 "
 Чувствительность (PQN vs MSTUS; без проб с низким фактором разведения):
        comparison  q<FDR_PQN  q<FDR_MSTUS  overlap  jaccard  findings_PQN  findings_MSTUS  findings_overlap  rho_log2FC  log2FC_shift  q_without_lowdilution  overlap_with_main  findings_without_lowdilution  findings_overlap_main
-    BC_vs_Control        340          244      243     0.71           210             136               125         1.0          0.01                    536                324                           380                    195
+    BC_vs_Control        340          244      243     0.71           188             122               109         1.0          0.01                    536                324                           365                    176
          BC_vs_PC          3            3        3     1.00             3               3                 3         1.0          0.03                     10                  3                            10                      3
-    PC_vs_Control          0            0        0     0.00             0               0                 0         1.0          0.07                     10                  0                             3                      0
+    PC_vs_Control          0            0        0     0.00             0               0                 0         1.0          0.07                     10                  0                             2                      0
 PC_vs_maleControl          0            0        0     0.00             0               0                 0         1.0          0.00                      0                  0                             0                      0"
 "
 Пул для моделей: 5351 соединений (исключены до CV: экспозиции 426, |ρ с индексом загрязнения| ≥ 0.5 ещё 15: unknown 244.1294@1.76*, unknown 246.2428@12.16, unknown 261.0983@0.85*, unknown 277.0931@0.60*, unknown 334.2956@13.77, Erucamide 338.3419@19.65, unknown 349.1393@8.70*, unknown 365.2879@18.64*, unknown 380.1920@11.37*, unknown 386.2387@9.85*, unknown 462.2333@9.56*, unknown 531.2749@18.07*, unknown 533.3411@10.44*, unknown 577.3670@10.59*, unknown 654.3327@18.11*)"
@@ -99,7 +99,7 @@ PC_vs_maleControl        matched                            только contam_
 PC_vs_maleControl contam_matched                                          не оценивается: 5 < 10 на группу       5      5         NaN       NaN     NaN     NaN      NaN    NaN     NaN     NaN"
 "
 Курированные кандидаты: 33 с массой ≤5.0 ppm; 9 вынесены на лист candidates_mass_mismatch"
-"Находки (правило в README): BC_vs_Control 210, BC_vs_PC 3, PC_vs_Control 0, PC_vs_maleControl 0"
+"Находки (правило в README): BC_vs_Control 188, BC_vs_PC 3, PC_vs_Control 0, PC_vs_maleControl 0"
 "
 Сверка с маркерами (m/z ± 5.0 ppm, RT ± 0.5 мин):
 source    comparison  markers  not_detected  below_detection_filter  failed_rsd  quantified  ambiguous_isomers  same_direction_all_candidates  same_direction_any_candidate  nominal_p05_any_candidate  replicated_q05_any_candidate

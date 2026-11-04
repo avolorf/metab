@@ -1,120 +1,120 @@
 pathway	overlap_size	pathway_size	p-value	overlap_EmpiricalCompounds (id)	overlap_features (id)	overlap_features (name)
-C21-steroid hormone biosynthesis and metabolism	16	62	0.03225155879733114	E2503,E2263,E2398,E1116,E1163,E423,E422,E1164,E2269,E2399,E1526,E1768,E1771,E1691,E2457,E2669	CE2211/C05480,C18045/C14497/C18075/C05294/C05139,17ahprgstrn/C03205/C05498/C01176,C05488/C05497/C05477/C02140,C05487/C05475/C05478,dhea/C03772/C01227/C00674/C00535,dhea/C03772/C01227/C00674/C00535,C05487/C05475/C05478,andrstndn/C00280,17ahprgstrn/C03205/C05498/C01176,C00468,C05301/hestratriol/C05141/CE2179,C05301/hestratriol/C05141/CE2179,CE1352,C05472,C05489/C05471/C05474	allopregnanolone/3alpha-Hydroxy-5beta-pregnane-20-one$/6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one//19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one/16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one$17alpha-Hydroxyprogesterone/11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC/11beta-Hydroxyprogesterone/17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone$11-Deoxycortisol; Cortodoxone/21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone/21-Hydroxy-5beta-pregnane-3,11,20-trione/Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H$17alpha,21-Dihydroxypregnenolone/11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione/3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$17alpha,21-Dihydroxypregnenolone/11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione/3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione$Androstenedione/Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione$17alpha-Hydroxyprogesterone/11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC/11beta-Hydroxyprogesterone/17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone$Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one$2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$17alpha-hydroxypregnenolone sulfate$Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one$11beta,17alpha,21-Trihydroxypregnenolone/11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione/3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al
-Methionine and cysteine metabolism	5	14	0.032570881161661146	E26,E29,E2796,E1844,E1345	C00170,C00170,C00021,C00212/C00330,C02291/C00542	5-Methylthioadenosine$5-Methylthioadenosine$S-Adenosyl-L-homocysteine$Adenosine/Deoxyguanosine$L-Cystathionine/Cystathionine
-Tryptophan metabolism	27	120	0.056839380850742006	E2752,E823,E1154,E877,E123,E1438,E760,E691,E2796,E647,E1186,E527,E1138,E1187,E693,E737,E738,E2748,E1735,E651,E696,E705,E2750,E1439,E767,E706,E1436	,,,,,,,,C00021,,,,,,,,,,,,,,,,,,	$$$$$$$$S-Adenosyl-L-homocysteine$$$$$$$$$$$$$$$$$$
-Urea cycle/amino group metabolism	11	43	0.05752844490008571	E143,E26,E148,E29,E1634,E2796,E1411,E412,E1535,E471,E145	,C00170,,C00170,,C00021,,,,,	$5-Methylthioadenosine$$5-Methylthioadenosine$$S-Adenosyl-L-homocysteine$$$$$
-Saturated fatty acids beta-oxidation	1	1	0.06603250365540075	E2345		
-Vitamin B12 (cyanocobalamin) metabolism	1	1	0.06603250365540075	E2796	C00021	S-Adenosyl-L-homocysteine
-Pyrimidine metabolism	5	17	0.0719987899363036	E1514,E1512,E1071,E445,E1039	,,,,	$$$$
-D4&E4-neuroprostanes formation	3	9	0.08186417035007815	E2895,E1408,E569	,,	$$
-Linoleate metabolism	9	37	0.09194803448681535	E92,E2348,E113,E2350,E2738,E2084,E2639,E569,E479	,,,,,,,,	$$$$$$$$
-Biopterin metabolism	5	19	0.10986369976975177	E1459,E1455,E1439,E1735,E288	,,,,	$$$$
-De novo fatty acid biosynthesis	3	10	0.11379640678307927	E2345,E92,E2166	,,	$$
-Limonene and pinene degradation	3	10	0.11379640678307927	E262,E261,E264	,,	$$
-Glutathione Metabolism	1	2	0.1327204584796894	E1074		
-Xenobiotics metabolism	3	11	0.13371203845313523	E2345,E2119,E2409	,,	$$
-Hyaluronan Metabolism	2	7	0.15277054167156853	E2845,E33	,	$
-Putative anti-Inflammatory metabolites formation from EPA	2	7	0.15277054167156853	E975,E2549	,	$
-Vitamin A (retinol) metabolism	4	18	0.1864002285675871	E2485,E2166,E2012,E2513	,,,	$$$
-Porphyrin metabolism	3	13	0.1915093863968673	E569,E2728,E354	,,	$$
-Vitamin B2 (riboflavin) metabolism	2	8	0.19599670593771534	E276,E3036	,	$
-Fatty acid activation	2	8	0.19599670593771534	E2345,E92	,	$
-Glycine, serine, alanine and threonine metabolism	3	14	0.22411388043898423	E2796,E1714,E1239	C00021,,	S-Adenosyl-L-homocysteine$$
-Glycosphingolipid metabolism	3	14	0.22411388043898423	E2345,E3164,E2383	,,	$$
-Pentose phosphate pathway	2	9	0.23562629199509252	E855,E853	,	$
-Fatty Acid Metabolism	1	4	0.259306566276197	E2345		
-Selenoamino acid metabolism	1	4	0.259306566276197	E1844	C00212/C00330	Adenosine/Deoxyguanosine
-Arginine and Proline Metabolism	2	10	0.28098687417018203	E26,E29	C00170,C00170	5-Methylthioadenosine$5-Methylthioadenosine
-Glycerophospholipid metabolism	5	27	0.28915480412093914	E92,E2383,E2796,E2985,E2513	,,C00021,,	$$S-Adenosyl-L-homocysteine$$
-Tyrosine metabolism	28	152	0.29448244567318194	E918,E143,E66,E1598,E412,E1438,E190,E158,E1599,E618,E145,E192,E680,E2796,E1222,E288,E160,E220,E148,E336,E830,E1735,E337,E831,E1439,E569,E1436,E170	,,,,,,,,,,,,,C00021,,,,,,,,,,,,,,	$$$$$$$$$$$$$S-Adenosyl-L-homocysteine$$$$$$$$$$$$$$
-Vitamin B5 - CoA biosynthesis from pantothenate	2	11	0.31967529957479707	E2192,E3007	,	$
-Lysine metabolism	2	11	0.31967529957479707	E2796,E1926	C00021,	S-Adenosyl-L-homocysteine$
-Vitamin B1 (thiamin) metabolism	1	5	0.3215240079998655	E2505		
-Ubiquinone Biosynthesis	3	17	0.32216265272852557	E2796,E831,E830	C00021,,	S-Adenosyl-L-homocysteine$$
-Aspartate and asparagine metabolism	3	17	0.32216265272852557	E471,E1473,E1074	,,	$$
-Hexose phosphorylation	3	18	0.3421959294801768	E830,E831,E784	,,	$$
-Sialic acid metabolism	2	12	0.34380934774205474	E2839,E33	,	$
-Squalene and cholesterol biosynthesis	1	6	0.3573385321255105	E2047		
-Keratan sulfate degradation	1	6	0.3573385321255105	E33		
-Omega-3 fatty acid metabolism	1	6	0.3573385321255105	E92		
-Phosphatidylinositol phosphate metabolism	1	6	0.3573385321255105	E2345		
-Beta-Alanine metabolism	1	6	0.3573385321255105	E1403		
-Galactose metabolism	2	13	0.3706324263457757	E2839,E33	,	$
-Glycosphingolipid biosynthesis - ganglioseries	1	7	0.39737147274835716	E2765		
-CoA Catabolism	1	7	0.39737147274835716	E2192		
-Heparan sulfate degradation	1	7	0.39737147274835716	E33		
-Histidine metabolism	2	14	0.40147224416396365	E2796,E1403	C00021,	S-Adenosyl-L-homocysteine$
-Fructose and mannose metabolism	2	14	0.40147224416396365	E2442,E1452	,	$
-Androgen and estrogen biosynthesis and metabolism	8	51	0.40678307927597857	E2263,E2796,E423,E2269,E1526,E1768,E1771,E422	C18045/C14497/C18075/C05294/C05139,C00021,dhea/C03772/C01227/C00674/C00535,andrstndn/C00280,C00468,C05301/hestratriol/C05141/CE2179,C05301/hestratriol/C05141/CE2179,dhea/C03772/C01227/C00674/C00535	/6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one//19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one/16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one$S-Adenosyl-L-homocysteine$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$Androstenedione/Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione$Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one$2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone
-Carnitine shuttle	4	27	0.4083796910976286	E2859,E3025,E3062,E3005	,,,	$$$
-Drug metabolism - cytochrome P450	6	40	0.4223458429270096	E522,E1274,E2308,E2568,E801,E940	,,,,,	$$$$$
-Ascorbate (Vitamin C) and Aldarate Metabolism	2	15	0.4297406766272836	E569,E1132	,	$
-Leukotriene metabolism	6	41	0.4408665400581503	E975,E989,E1301,E1286,E2899,E1899	,,,,,	$$$$$
-N-Glycan Degradation	1	9	0.4675215542595923	E33		
-Arachidonic acid metabolism	3	24	0.4799751264684627	E975,E92,E2513	,,	$$
-Vitamin B3 (nicotinate and nicotinamide) metabolism	1	10	0.495184954874708	E2796	C00021	S-Adenosyl-L-homocysteine
-TCA cycle	1	10	0.495184954874708	E1132		
-Aminosugars metabolism	1	11	0.5180417135846457	E33		
-Purine metabolism	3	35	0.5885111174602108	E1844,E572,E569	C00212/C00330,,	Adenosine/Deoxyguanosine$$
-Prostaglandin formation from arachidonate	2	29	0.5960908220029916	E975,E569	,	$
-Bile acid biosynthesis	1	22	0.603889010268735	E2942		
-Vitamin D3 (cholecalciferol) metabolism	0	6	0.6130821330733938			
-N-Glycan biosynthesis	0	10	0.6130821330733938			
-Glycolysis and Gluconeogenesis	0	8	0.6130821330733938			
-R Group Synthesis	0	0	0.6130821330733938			
-C5-Branched dibasic acid metabolism	0	2	0.6130821330733938			
-Pyruvate Metabolism	0	1	0.6130821330733938			
-Chondroitin sulfate degradation	0	2	0.6130821330733938			
-Di-unsaturated fatty acid beta-oxidation	0	4	0.6130821330733938			
-Glycerolipid metabolism	0	0	0.6130821330733938			
-3-oxo-10R-octadecatrienoate beta-oxidation	0	7	0.6130821330733938			
-Alkaloid biosynthesis II	0	9	0.6130821330733938			
-Glycosphingolipid biosynthesis - globoseries	0	5	0.6130821330733938			
-Glycosylphosphatidylinositol(GPI)-anchor biosynthesis	0	0	0.6130821330733938			
-Glycosphingolipid biosynthesis - lactoseries	0	3	0.6130821330733938			
-Parathio degradation	0	0	0.6130821330733938			
-Propanoate metabolism	0	5	0.6130821330733938			
-Blood Group Biosynthesis	0	3	0.6130821330733938			
-Electron transport chain	0	3	0.6130821330733938			
-Vitamin H (biotin) metabolism	0	5	0.6130821330733938			
-Vitamin E metabolism	0	5	0.6130821330733938			
-Caffeine metabolism	0	3	0.6130821330733938			
-Lipoate metabolism	0	6	0.6130821330733938			
-Heparan sulfate biosynthesis	0	0	0.6130821330733938			
-Vitamin B9 (folate) metabolism	0	11	0.6130821330733938			
-Glyoxylate and Dicarboxylate Metabolism	0	1	0.6130821330733938			
-Valine, leucine and isoleucine degradation	0	2	0.6130821330733938			
-Glycosaminoglycan degradation	0	0	0.6130821330733938			
-Fatty acid oxidation	0	3	0.6130821330733938			
-ROS Detoxification	0	0	0.6130821330733938			
-Butanoate metabolism	0	10	0.6130821330733938			
-Mono-unsaturated fatty acid beta-oxidation	0	2	0.6130821330733938			
-Glycosphingolipid biosynthesis - neolactoseries	0	3	0.6130821330733938			
-Geraniol degradation	0	0	0.6130821330733938			
-Vitamin D	0	0	0.6130821330733938			
-Dynorphin metabolism	0	0	0.6130821330733938			
-Fatty acid oxidation, peroxisome	0	0	0.6130821330733938			
-Polyunsaturated fatty acid biosynthesis	0	0	0.6130821330733938			
-Alanine and Aspartate Metabolism	0	7	0.6130821330733938			
-Keratan sulfate biosynthesis	0	1	0.6130821330733938			
-3-Chloroacrylic acid degradation	0	0	0.6130821330733938			
-Sphingolipid metabolism	0	0	0.6130821330733938			
-O-Glycan biosynthesis	0	1	0.6130821330733938			
-Proteoglycan biosynthesis	0	0	0.6130821330733938			
-Vitamin K metabolism	0	1	0.6130821330733938			
-Glutamate metabolism	0	1	0.6130821330733938			
-Benzoate degradation via CoA ligation	0	0	0.6130821330733938			
-Dimethyl-branched-chain fatty acid mitochondrial beta-oxidation	0	0	0.6130821330733938			
-Vitamin B6 (pyridoxine) metabolism	0	12	0.6130821330733938			
-Pentose and Glucuronate Interconversions	0	3	0.6130821330733938			
-Atrazine degradation	0	0	0.6130821330733938			
-Carbon fixation	0	0	0.6130821330733938			
-Nucleotide Sugar Metabolism	0	0	0.6130821330733938			
-1- and 2-Methylnaphthalene degradation	0	0	0.6130821330733938			
-Nitrogen metabolism	0	0	0.6130821330733938			
-Drug metabolism - other enzymes	0	5	0.6130821330733938			
-Prostaglandin formation from dihomo gama-linoleic acid	0	3	0.6130821330733938			
-Starch and Sucrose Metabolism	0	3	0.6130821330733938			
-Trihydroxycoprostanoyl-CoA beta-oxidation	0	0	0.6130821330733938			
-Omega-6 fatty acid metabolism	0	3	0.6130821330733938			
-Phytanic acid peroxisomal oxidation	0	2	0.6130821330733938			
+C21-steroid hormone biosynthesis and metabolism	16	62	0.032117107275507976	E1768,E1771,E1691,E2457,E422,E1164,E2669,E2503,E2263,E1116,E2398,E1163,E423,E2269,E2399,E1526	C05301/hestratriol/C05141/CE2179,C05301/hestratriol/C05141/CE2179,CE1352,C05472,dhea/C03772/C01227/C00674/C00535,C05487/C05475/C05478,C05489/C05471/C05474,CE2211/C05480,C18045/C14497/C18075/C05294/C05139,C05488/C05497/C05477/C02140,17ahprgstrn/C03205/C05498/C01176,C05487/C05475/C05478,dhea/C03772/C01227/C00674/C00535,andrstndn/C00280,17ahprgstrn/C03205/C05498/C01176,C00468	2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$17alpha-hydroxypregnenolone sulfate$Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$17alpha,21-Dihydroxypregnenolone/11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione/3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione$11beta,17alpha,21-Trihydroxypregnenolone/11beta,17alpha,21-Trihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,17alpha,21-triol-3,20-dione/3alpha,11beta,21-Trihydroxy-20-oxo-5beta-pregnan-18-al$allopregnanolone/3alpha-Hydroxy-5beta-pregnane-20-one$/6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one//19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one/16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one$11-Deoxycortisol; Cortodoxone/21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone/21-Hydroxy-5beta-pregnane-3,11,20-trione/Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H$17alpha-Hydroxyprogesterone/11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC/11beta-Hydroxyprogesterone/17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone$17alpha,21-Dihydroxypregnenolone/11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione/3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$Androstenedione/Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione$17alpha-Hydroxyprogesterone/11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC/11beta-Hydroxyprogesterone/17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone$Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one
+Methionine and cysteine metabolism	5	14	0.0323692038789264	E2796,E1844,E26,E29,E1345	C00021,C00212/C00330,C00170,C00170,C02291/C00542	S-Adenosyl-L-homocysteine$Adenosine/Deoxyguanosine$5-Methylthioadenosine$5-Methylthioadenosine$L-Cystathionine/Cystathionine
+Tryptophan metabolism	27	120	0.055999058839347235	E1436,E2752,E823,E1154,E877,E1438,E123,E760,E691,E2796,E647,E1186,E527,E1138,E1187,E693,E737,E738,E2748,E1735,E651,E696,E705,E2750,E1439,E767,E706	,,,,,,,,,C00021,,,,,,,,,,,,,,,,,	$$$$$$$$$S-Adenosyl-L-homocysteine$$$$$$$$$$$$$$$$$
+Urea cycle/amino group metabolism	11	43	0.05673854220937463	E1535,E471,E145,E29,E143,E148,E1634,E2796,E1411,E26,E412	,,,C00170,,,,C00021,,C00170,	$$$5-Methylthioadenosine$$$$S-Adenosyl-L-homocysteine$$5-Methylthioadenosine$
+Saturated fatty acids beta-oxidation	1	1	0.06494008504058756	E2345		
+Vitamin B12 (cyanocobalamin) metabolism	1	1	0.06494008504058756	E2796	C00021	S-Adenosyl-L-homocysteine
+Pyrimidine metabolism	5	17	0.06972992050553772	E1071,E445,E1039,E1514,E1512	,,,,	$$$$
+D4&E4-neuroprostanes formation	3	9	0.07925917211475438	E1408,E569,E2895	,,	$$
+Linoleate metabolism	9	37	0.09035142266516528	E569,E479,E92,E2348,E113,E2350,E2738,E2084,E2639	,,,,,,,,	$$$$$$$$
+Biopterin metabolism	5	19	0.10819986218719013	E288,E1735,E1459,E1439,E1455	,,,,	$$$$
+De novo fatty acid biosynthesis	3	10	0.1118972790373271	E2345,E92,E2166	,,	$$
+Limonene and pinene degradation	3	10	0.1118972790373271	E261,E262,E264	,,	$$
+Glutathione Metabolism	1	2	0.13107342733735566	E1074		
+Xenobiotics metabolism	3	11	0.13231710391421994	E2409,E2345,E2119	,,	$$
+Hyaluronan Metabolism	2	7	0.1507873817246769	E33,E2845	,	$
+Putative anti-Inflammatory metabolites formation from EPA	2	7	0.1507873817246769	E2549,E975	,	$
+Vitamin A (retinol) metabolism	4	18	0.18300532764155225	E2513,E2485,E2012,E2166	,,,	$$$
+Porphyrin metabolism	3	13	0.18776155022604663	E354,E569,E2728	,,	$$
+Vitamin B2 (riboflavin) metabolism	2	8	0.1925849985714526	E3036,E276	,	$
+Fatty acid activation	2	8	0.1925849985714526	E2345,E92	,	$
+Glycine, serine, alanine and threonine metabolism	3	14	0.2212735920404699	E2796,E1714,E1239	C00021,,	S-Adenosyl-L-homocysteine$$
+Glycosphingolipid metabolism	3	14	0.2212735920404699	E2383,E2345,E3164	,,	$$
+Pentose phosphate pathway	2	9	0.23273558427589452	E853,E855	,	$
+Fatty Acid Metabolism	1	4	0.25607972975244114	E2345		
+Selenoamino acid metabolism	1	4	0.25607972975244114	E1844	C00212/C00330	Adenosine/Deoxyguanosine
+Arginine and Proline Metabolism	2	10	0.2778104569671098	E26,E29	C00170,C00170	5-Methylthioadenosine$5-Methylthioadenosine
+Glycerophospholipid metabolism	5	27	0.285322935748979	E2985,E2513,E2383,E92,E2796	,,,,C00021	$$$$S-Adenosyl-L-homocysteine
+Tyrosine metabolism	28	152	0.2899951261323339	E66,E569,E1436,E170,E918,E143,E1598,E412,E1438,E190,E1599,E158,E145,E618,E192,E680,E2796,E1222,E288,E160,E220,E148,E336,E830,E1735,E337,E831,E1439	,,,,,,,,,,,,,,,,C00021,,,,,,,,,,,	$$$$$$$$$$$$$$$$S-Adenosyl-L-homocysteine$$$$$$$$$$$
+Vitamin B5 - CoA biosynthesis from pantothenate	2	11	0.3152047864741769	E2192,E3007	,	$
+Lysine metabolism	2	11	0.3152047864741769	E1926,E2796	,C00021	$S-Adenosyl-L-homocysteine
+Vitamin B1 (thiamin) metabolism	1	5	0.3169190433774222	E2505		
+Ubiquinone Biosynthesis	3	17	0.31784339758995644	E831,E830,E2796	,,C00021	$$S-Adenosyl-L-homocysteine
+Aspartate and asparagine metabolism	3	17	0.31784339758995644	E1074,E471,E1473	,,	$$
+Hexose phosphorylation	3	18	0.3387506092334583	E831,E784,E830	,,	$$
+Sialic acid metabolism	2	12	0.3407505756205778	E33,E2839	,	$
+Squalene and cholesterol biosynthesis	1	6	0.3540276634006151	E2047		
+Keratan sulfate degradation	1	6	0.3540276634006151	E33		
+Omega-3 fatty acid metabolism	1	6	0.3540276634006151	E92		
+Phosphatidylinositol phosphate metabolism	1	6	0.3540276634006151	E2345		
+Beta-Alanine metabolism	1	6	0.3540276634006151	E1403		
+Galactose metabolism	2	13	0.3678089443874893	E33,E2839	,	$
+Glycosphingolipid biosynthesis - ganglioseries	1	7	0.3933043142132065	E2765		
+CoA Catabolism	1	7	0.3933043142132065	E2192		
+Heparan sulfate degradation	1	7	0.3933043142132065	E33		
+Histidine metabolism	2	14	0.3972706341069898	E2796,E1403	C00021,	S-Adenosyl-L-homocysteine$
+Fructose and mannose metabolism	2	14	0.3972706341069898	E2442,E1452	,	$
+Androgen and estrogen biosynthesis and metabolism	8	51	0.4016739214466984	E1768,E1771,E422,E2263,E423,E2796,E2269,E1526	C05301/hestratriol/C05141/CE2179,C05301/hestratriol/C05141/CE2179,dhea/C03772/C01227/C00674/C00535,C18045/C14497/C18075/C05294/C05139,dhea/C03772/C01227/C00674/C00535,C00021,andrstndn/C00280,C00468	2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$2-Hydroxyestradiol-17beta; 2-OH-Estradiol/4,17 dihydroxy estradiol/Estriol; 1,3,5(10)-Estratriene-3,16-alpha,17beta-triol/4-hydroxy-17beta-estradiol$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$/6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one//19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one/16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one$Dehydroepiandrosterone/5beta-Androstane-3,17-dione/3beta-Hydroxyandrost-5-en-17-one; Dehydroepiandrosterone; Dehydroisoandrosterone; DHA; DHEA/5alpha-Androstane-3,17-dione; Androstanedione/Testosterone$S-Adenosyl-L-homocysteine$Androstenedione/Androst-4-ene-3,17-dione; Androstenedione; 4-Androstene-3,17-dione$Estrone; 3-Hydroxy-1,3,5(10)-estratrien-17-one
+Carnitine shuttle	4	27	0.40315288818675316	E3025,E3062,E3005,E2859	,,,	$$$
+Drug metabolism - cytochrome P450	6	40	0.41811061998958	E1274,E801,E2308,E940,E522,E2568	,,,,,	$$$$$
+Ascorbate (Vitamin C) and Aldarate Metabolism	2	15	0.42579116317372817	E569,E1132	,	$
+Leukotriene metabolism	6	41	0.4357405757886422	E1899,E975,E989,E1301,E1286,E2899	,,,,,	$$$$$
+N-Glycan Degradation	1	9	0.4628493638762374	E33		
+Arachidonic acid metabolism	3	24	0.474311356111662	E2513,E975,E92	,,	$$
+Vitamin B3 (nicotinate and nicotinamide) metabolism	1	10	0.48886573334901934	E2796	C00021	S-Adenosyl-L-homocysteine
+TCA cycle	1	10	0.48886573334901934	E1132		
+Aminosugars metabolism	1	11	0.5101426866775348	E33		
+Purine metabolism	3	35	0.5816204769667737	E569,E1844,E572	,C00212/C00330,	$Adenosine/Deoxyguanosine$
+Prostaglandin formation from arachidonate	2	29	0.5895026974336566	E569,E975	,	$
+Bile acid biosynthesis	1	22	0.5976538209441858	E2942		
+Vitamin D3 (cholecalciferol) metabolism	0	6	0.607401556276365			
+N-Glycan biosynthesis	0	10	0.607401556276365			
+Glycolysis and Gluconeogenesis	0	8	0.607401556276365			
+R Group Synthesis	0	0	0.607401556276365			
+C5-Branched dibasic acid metabolism	0	2	0.607401556276365			
+Pyruvate Metabolism	0	1	0.607401556276365			
+Chondroitin sulfate degradation	0	2	0.607401556276365			
+Di-unsaturated fatty acid beta-oxidation	0	4	0.607401556276365			
+Glycerolipid metabolism	0	0	0.607401556276365			
+3-oxo-10R-octadecatrienoate beta-oxidation	0	7	0.607401556276365			
+Alkaloid biosynthesis II	0	9	0.607401556276365			
+Glycosphingolipid biosynthesis - globoseries	0	5	0.607401556276365			
+Glycosylphosphatidylinositol(GPI)-anchor biosynthesis	0	0	0.607401556276365			
+Glycosphingolipid biosynthesis - lactoseries	0	3	0.607401556276365			
+Parathio degradation	0	0	0.607401556276365			
+Propanoate metabolism	0	5	0.607401556276365			
+Blood Group Biosynthesis	0	3	0.607401556276365			
+Electron transport chain	0	3	0.607401556276365			
+Vitamin H (biotin) metabolism	0	5	0.607401556276365			
+Vitamin E metabolism	0	5	0.607401556276365			
+Caffeine metabolism	0	3	0.607401556276365			
+Lipoate metabolism	0	6	0.607401556276365			
+Heparan sulfate biosynthesis	0	0	0.607401556276365			
+Vitamin B9 (folate) metabolism	0	11	0.607401556276365			
+Glyoxylate and Dicarboxylate Metabolism	0	1	0.607401556276365			
+Valine, leucine and isoleucine degradation	0	2	0.607401556276365			
+Glycosaminoglycan degradation	0	0	0.607401556276365			
+Fatty acid oxidation	0	3	0.607401556276365			
+ROS Detoxification	0	0	0.607401556276365			
+Butanoate metabolism	0	10	0.607401556276365			
+Mono-unsaturated fatty acid beta-oxidation	0	2	0.607401556276365			
+Glycosphingolipid biosynthesis - neolactoseries	0	3	0.607401556276365			
+Geraniol degradation	0	0	0.607401556276365			
+Vitamin D	0	0	0.607401556276365			
+Dynorphin metabolism	0	0	0.607401556276365			
+Fatty acid oxidation, peroxisome	0	0	0.607401556276365			
+Polyunsaturated fatty acid biosynthesis	0	0	0.607401556276365			
+Alanine and Aspartate Metabolism	0	7	0.607401556276365			
+Keratan sulfate biosynthesis	0	1	0.607401556276365			
+3-Chloroacrylic acid degradation	0	0	0.607401556276365			
+Sphingolipid metabolism	0	0	0.607401556276365			
+O-Glycan biosynthesis	0	1	0.607401556276365			
+Proteoglycan biosynthesis	0	0	0.607401556276365			
+Vitamin K metabolism	0	1	0.607401556276365			
+Glutamate metabolism	0	1	0.607401556276365			
+Benzoate degradation via CoA ligation	0	0	0.607401556276365			
+Dimethyl-branched-chain fatty acid mitochondrial beta-oxidation	0	0	0.607401556276365			
+Vitamin B6 (pyridoxine) metabolism	0	12	0.607401556276365			
+Pentose and Glucuronate Interconversions	0	3	0.607401556276365			
+Atrazine degradation	0	0	0.607401556276365			
+Carbon fixation	0	0	0.607401556276365			
+Nucleotide Sugar Metabolism	0	0	0.607401556276365			
+1- and 2-Methylnaphthalene degradation	0	0	0.607401556276365			
+Nitrogen metabolism	0	0	0.607401556276365			
+Drug metabolism - other enzymes	0	5	0.607401556276365			
+Prostaglandin formation from dihomo gama-linoleic acid	0	3	0.607401556276365			
+Starch and Sucrose Metabolism	0	3	0.607401556276365			
+Trihydroxycoprostanoyl-CoA beta-oxidation	0	0	0.607401556276365			
+Omega-6 fatty acid metabolism	0	3	0.607401556276365			
+Phytanic acid peroxisomal oxidation	0	2	0.607401556276365			
