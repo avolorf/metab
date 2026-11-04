@@ -17,7 +17,7 @@ The whole finding procedure and all sensitivity analyses were recalculated with 
 
 The cross-validated classification results do not depend on this test and are unchanged (BC vs Control: top-5 panel AUC 0.81 ± 0.03, PLS-DA 0.83 ± 0.02). The sensitivity analyses were updated accordingly. With MSTUS normalisation, 109 of the 122 MSTUS findings were also PQN findings. After excluding the most dilute samples, 176 of the 188 findings were kept. An index built only from series members absent from the blanks gave 165 findings, 157 of them shared, and retained all five annotated compounds. All 76 findings among the compounds detected in all samples were retained. When imputed values were treated as missing, 170 findings were obtained, 113 of them shared with the main analysis.
 
-*Changes in the manuscript:* Section 2.5 (description of the matched-pair test); Section 3 (numbers of findings and sensitivity analyses); captions of Table 2 and Figure 2; Tables S1, S5 and S6. Table S5 additionally reports the number of pairs with a non-zero difference and, for reference, the previous Mann–Whitney p-value, labelled as superseded.
+*Changes in the manuscript:* Section 2.5 (description of the matched-pair test); Section 3 (numbers of findings and sensitivity analyses); captions of Table 2 and Figure 2; Tables S1, S5 and S6. Table S5 additionally reports the number of pairs with a non-zero difference for each compound.
 
 ---
 
