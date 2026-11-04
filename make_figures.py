@@ -1037,7 +1037,7 @@ def s6_table(d):
             "beta_model": "log2FC (adjusted)", "p_model": "p (adjusted model)", "q_model": "q (adjusted model)",
             "log2FC_matched": "log2FC (matched pairs, median paired difference)", "AUC_matched": "AUC (age-matched)",
             "p_matched": "p (matched pairs, Wilcoxon signed-rank)", "q_matched": "q (matched pairs, Wilcoxon signed-rank)",
-            "n_pairs_nonzero": "Pairs with non-zero difference", "p_matched_MW": "p (matched subsets, Mann–Whitney; superseded)", "log2FC_lowindex": "log2FC (low-contamination controls)",
+            "n_pairs_nonzero": "Pairs with non-zero difference", "log2FC_lowindex": "log2FC (low-contamination controls)",
             "p_lowindex": "p (low-contamination controls)", "log2FC_ctrl_hi_vs_lo": "log2FC (controls, high vs low index)",
             "p_ctrl_hi_vs_lo": "p (controls, high vs low index)", "finding": "Finding",
             "det_Control": "Detected, fraction Control", "det_BC": "Detected, fraction BC", "det_PC": "Detected, fraction PC"}
