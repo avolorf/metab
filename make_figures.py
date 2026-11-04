@@ -1035,7 +1035,7 @@ def s6_table(d):
             "annotation": "MS-DIAL annotation", "annotation_conf": "Annotation score (MS-DIAL)", "compound_category": "Category",
             "log2FC": "log2FC (unadjusted)", "AUC": "AUC", "p_MW": "p (Mann–Whitney)", "q_MW": "q (Mann–Whitney)",
             "beta_model": "log2FC (adjusted)", "p_model": "p (adjusted model)", "q_model": "q (adjusted model)",
-            "log2FC_matched": "log2FC (matched pairs, median paired difference)", "AUC_matched": "AUC (age-matched)",
+            "log2FC_matched": "log2FC (matched pairs, median paired difference)",
             "p_matched": "p (matched pairs, Wilcoxon signed-rank)", "q_matched": "q (matched pairs, Wilcoxon signed-rank)",
             "n_pairs_nonzero": "Pairs with non-zero difference", "log2FC_lowindex": "log2FC (low-contamination controls)",
             "p_lowindex": "p (low-contamination controls)", "log2FC_ctrl_hi_vs_lo": "log2FC (controls, high vs low index)",
