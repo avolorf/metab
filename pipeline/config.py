@@ -80,3 +80,23 @@ MUMMICHOG_TOP_FRAC = 0.10
 MUMMICHOG_PERM = 500
 
 FIG_DPI = 300
+
+# ---------------------------------------------------------------- второй набор данных (107 проб: РМП и контроль)
+# METAB_DATASET=s107 python run_all.py  — та же обработка для выборки из 107 проб (этап 1, ABC); результаты в results_s107/
+import os as _os
+DATASET = _os.environ.get("METAB_DATASET", "s266")
+if DATASET == "s107":
+    DATA = "data/s107/s107_table.csv"
+    METADATA = "metadata/metadata_s107.csv"
+    OUT = "results_s107"
+    CURATION = "curation_s107/candidates_curated.csv"
+    CONTAMINANT_SERIES = "curation_s107/contaminant_series.csv"   # те же члены ряда, RT сдвинуто на ≈ −0.42 мин
+    MS2_IDENTIFIED = "curation_s107/ms2_identified.csv"           # нет: в экспорте нет признака совпадения MS2
+    PRIOR_MARKERS = "curation_s107/prior_markers_abc.csv"         # 30 маркеров отчёта (Табл. 20) / статьи ABC
+    RT_ANCHORS = "curation_s107/rt_anchors.csv"                   # нет: та же серия измерений, сдвиг RT не нужен
+    PRIOR_RT_TOL = 0.3
+    STUDY_GROUPS = ["Control", "BC"]
+    GROUP_LABELS = {"Control": "Контроль", "BC": "РМП"}
+    COMPARISONS = {"BC_vs_Control": dict(case="BC", ref="Control", sex=None, primary=True)}
+    QC_EVERY = 5                                   # допущение: QC01 перед пробой 1, далее после каждых 5 проб
+    CONTAM_SPLIT = "control_median"                # индекс выше у контролей: граница по медиане контролей (20/20)

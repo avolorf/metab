@@ -125,7 +125,8 @@ def main():
     log(f"\nГруппировка признаков (ΔRT ≤ {C.GROUP_RT_TOL} мин, ρ ≥ {C.GROUP_MIN_CORR}): {L.shape[1]} признаков → "
         f"{len(reps)} соединений; многоионных соединений {(groups.groupby('compound').size() > 1).sum()}")
     series = features.match_series(info)
-    ci, lvl, thr, idx_feats = features.contamination_index(L, series, study)
+    ci, lvl, thr, idx_feats = features.contamination_index(
+        L, series, study, study[meta.loc[study, "group"] == "Control"] if C.CONTAM_SPLIT == "control_median" else None)
     meta["contam_index"], meta["contam_level"] = ci, lvl
     log(f"Индекс загрязнения: {len(idx_feats)} признаков ряда диэтаноламинов; граница high/low = {thr:.2f} (медиана)")
     log("  средний индекс: " + ", ".join(f"{g} {meta.contam_index[study][meta.group[study] == g].mean():+.2f}" for g in C.STUDY_GROUPS))
@@ -239,7 +240,7 @@ def main():
     log("\nМногомерные модели (повторная CV, отбор признаков внутри фолдов):\n" +
         mv.drop(columns=["most_selected"], errors="ignore").round(3).to_string(index=False))
     for m in C.COMPARE_NORMALIZATIONS:
-        for name in ["BC_vs_Control", "BC_vs_PC"]:
+        for name in [n for n in ["BC_vs_Control", "BC_vs_PC"] if n in C.COMPARISONS]:
             case, ref = st.comparison_sets(meta, C.COMPARISONS[name])
             X = norm[m][0].loc[case + ref, pool].to_numpy()
             y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
@@ -302,7 +303,7 @@ def main():
         from pipeline import pathways
         excl = list(feat_table.index[feat_table.kept & feat_table.compound_category.isin(features.EXPOSURE)])
         pws, sets = [], []
-        for k, name in enumerate(["BC_vs_Control", "BC_vs_PC", "PC_vs_Control"]):
+        for k, name in enumerate([n for n in ["BC_vs_Control", "BC_vs_PC", "PC_vs_Control"] if n in C.COMPARISONS]):
             rf, _, _ = st.run_comparison(L.loc[study], meta, name, C.COMPARISONS[name], cats.compound_category)
             pw, s_ = pathways.run(rf, info, name, out / "pathways" / name, excl, C.SEED + k)
             pws.append(pw)
@@ -357,7 +358,8 @@ def main():
     (out / "log.txt").write_text("\n".join(log_lines), encoding="utf-8")
     import subprocess
     import sys
-    subprocess.run([sys.executable, "make_figures.py", "--res", str(out), "--data", a.data], check=True)
+    if C.DATASET == "s266":     # рисунки статьи — только для основной выборки; для s107 — report_s107.py
+        subprocess.run([sys.executable, "make_figures.py", "--res", str(out), "--data", a.data], check=True)
     print(f"\nГотово → {out}")
 
 
@@ -370,6 +372,8 @@ def export_external(L, Lc, meta, res, feat_table, cur, out, cats):
     X = (2 ** Lc[keep]).rename(columns=nm)
     for n, groups in {"BC_vs_Control": ["BC", "Control"], "BC_vs_PC": ["BC", "PC"], "PC_vs_Control": ["PC", "Control"],
                       "BC_PC_Control": ["BC", "PC", "Control"]}.items():
+        if not set(groups) <= set(C.STUDY_GROUPS):
+            continue
         s = study[meta.loc[study, "group"].isin(groups)]
         t = X.loc[s].copy()
         t.insert(0, "Label", meta.loc[s, "group"])
@@ -383,14 +387,14 @@ def export_external(L, Lc, meta, res, feat_table, cur, out, cats):
     pd.DataFrame({"compound_column": nm[keep], "category": cats.loc[keep, "compound_category"]}).to_csv(
         out / "0_compound_categories.csv")
     expo = features.panel_excluded(feat_table.compound_category.fillna(""))
-    for name in ["BC_vs_Control", "BC_vs_PC", "PC_vs_Control"]:
+    for name in [n for n in ["BC_vs_Control", "BC_vs_PC", "PC_vs_Control"] if n in C.COMPARISONS]:
         r, _, _ = st.run_comparison(L.loc[study, feat_table.index[feat_table.kept & ~expo]], meta, name,
                                     C.COMPARISONS[name], feat_table.compound_category)
         pd.DataFrame({"m.z": feat_table.mz[r.index], "p.value": r.p_model,
                       "t.score": np.sign(r.beta_model) * -np.log10(r.p_model),
                       "r.t": feat_table.rt_min[r.index] * 60}).dropna().to_csv(out / f"3_peaks_{name}.txt", sep="\t", index=False)
     endo = cur[cur.category.str.startswith("endogenous")]
-    for focus in ["BC", "PC"]:
+    for focus in [g_ for g_ in ["BC", "PC"] if g_ in C.STUDY_GROUPS]:
         g = endo[endo.focus == focus]
         (out / f"4_compounds_{focus}_HMDB.txt").write_text("\n".join(g.hmdb[g.hmdb != ""].drop_duplicates()))
         (out / f"4_compounds_{focus}_names.txt").write_text("\n".join(g.name_en[g.name_en != ""].drop_duplicates()))

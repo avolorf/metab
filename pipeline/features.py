@@ -92,12 +92,13 @@ def match_series(info, path=C.CONTAMINANT_SERIES):
     return pd.DataFrame(rows).drop_duplicates("feature").set_index("feature")
 
 
-def contamination_index(L, series, study_idx):
+def contamination_index(L, series, study_idx, ref_idx=None):
+    """ref_idx (CONTAM_SPLIT = "control_median"): граница high/low — медиана индекса в контрольной группе."""
     f = series.index[(series.in_index == 1) & series.index.isin(L.columns)]
     Z = L.loc[:, f]
     Z = (Z - Z.loc[study_idx].mean()) / Z.loc[study_idx].std()
     idx = Z.mean(axis=1)
-    thr = idx.loc[study_idx].median()
+    thr = idx.loc[ref_idx if ref_idx is not None else study_idx].median()
     return idx, (idx > thr).map({True: "high", False: "low"}), thr, list(f)
 
 
@@ -119,7 +120,7 @@ def categorize(info, groups, series, curated, kw_cat):
     for f, c in kw_cat.items():
         if c:
             cat[f] = c if info.loc[f, "annotation_conf"] == "high" else f"possible {c} (low score)"
-    cmap = {"food": "food", "drug": "drug", "endogenous": "endogenous", "ambiguous": "ambiguous"}
+    cmap = {"food": "food", "drug": "drug", "tobacco": "tobacco", "endogenous": "endogenous", "ambiguous": "ambiguous"}
     for _, r in curated.iterrows():
         if isinstance(r.feature, str) and r.feature in cat.index:
             for k, v in cmap.items():

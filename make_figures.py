@@ -285,7 +285,7 @@ def fig2_contamination(out, meta, series):
                    boxprops=dict(lw=0.6, color=INK2), whiskerprops=dict(lw=0.6, color=INK2), capprops=dict(lw=0.6, color=INK2))
         ax.scatter(np.random.RandomState(i).normal(i, 0.08, len(v)), v, s=9, c=COL[g], marker=MRK[g], edgecolor="white",
                    lw=0.3, zorder=3)
-    ax.set_xticks(range(3), [f"{LAB[g]}\n(n = {(s.group == g).sum()})" for g in C.STUDY_GROUPS])
+    ax.set_xticks(range(len(C.STUDY_GROUPS)), [f"{LAB[g]}\n(n = {(s.group == g).sum()})" for g in C.STUDY_GROUPS])
     ax.set_ylabel(f"{TERM['index']} (mean z-score)")
     ymax = s.contam_index.max()
     for k, (a, b) in enumerate([("Control", "BC"), ("BC", "PC"), ("Control", "PC")]):
@@ -498,7 +498,7 @@ def fig6_box(out, L, meta, r, nm, msi, X_raw=None):
             ax.scatter(xj[~imp], v[~imp], s=5, c=COL[g], marker=MRK[g], edgecolor="none", alpha=0.85, zorder=3)
             if imp.any():
                 ax.scatter(xj[imp], v[imp], s=6, facecolor="white", edgecolor=COL[g], marker=MRK[g], lw=0.5, zorder=3)
-        ax.set_xticks(range(3), [LAB[g] for g in C.STUDY_GROUPS])
+        ax.set_xticks(range(len(C.STUDY_GROUPS)), [LAB[g] for g in C.STUDY_GROUPS])
         name, tag = nm[f].split(", m/z")[0], "m/z" + nm[f].split(", m/z")[1] if ", m/z" in nm[f] else ""
         name = re.sub(r" \((putatively[^)]*|MSI \d|putative)\)", "", name)
         name = "\n".join(textwrap.wrap(name, 24, break_on_hyphens=True)[:2])
@@ -526,7 +526,7 @@ def figS1_age(out, meta, pairs):
                        edgecolor=COL[g], lw=0.7, marker=mk, zorder=3)
         na = s.age[s.group == g].isna().sum()
         ax.text(i, s.age.min() - 6, f"age n/a: {na}", ha="center", fontsize=5.5, color=INK2)
-    ax.set_xticks(range(3), [LAB[g] for g in C.STUDY_GROUPS])
+    ax.set_xticks(range(len(C.STUDY_GROUPS)), [LAB[g] for g in C.STUDY_GROUPS])
     ax.set_ylabel("Age (years)")
     ax.set_ylim(s.age.min() - 9, s.age.max() + 3)
     ax.legend(handles=[Line2D([], [], marker="o", ls="", mfc=INK2, mec=INK2, ms=4, label="Male"),

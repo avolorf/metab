@@ -90,7 +90,7 @@ def contamination(meta, series, path):
         ax[0].boxplot(v, positions=[i], widths=0.6, showfliers=False)
         ax[0].scatter(np.random.RandomState(i).normal(i, 0.07, len(v)), v, c=GC[g], s=18, edgecolor="k", lw=0.3)
     ax[0].axhline(s.contam_index.median(), ls=":", c="k", lw=0.8)
-    ax[0].set_xticks(range(3), [f"{lab(g)}\n(n={(s.group == g).sum()})" for g in C.STUDY_GROUPS])
+    ax[0].set_xticks(range(len(C.STUDY_GROUPS)), [f"{lab(g)}\n(n={(s.group == g).sum()})" for g in C.STUDY_GROUPS])
     ax[0].set(ylabel="индекс загрязнения (средний z)", title="Индекс загрязнения; пунктир — граница high/low")
     for inx, mk, nm in [(1, "o", "ряд диэтаноламинов (индекс)"), (0, "^", "вне индекса (C24H30O6, аминоспирт)")]:
         d = series[series.in_index == inx]
