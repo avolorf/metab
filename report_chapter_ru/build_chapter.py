@@ -199,7 +199,8 @@ def appendix_files():
     shutil.copy(SUB / "2_main_tables" / "Tables_main.xlsx", APP / "Прил_В2_основные_таблицы_s266.xlsx")
     shutil.copy(REP107 / "Tables_s107.xlsx", APP / "Прил_В3_таблицы_s107_и_проверка_маркеров.xlsx")
     files = ["run_all.py", "make_figures.py", "report_s107.py", "blank_check.py", "sensitivity_index.py",
-             "sensitivity_imputation.py", "requirements.txt", "README.md", "report_chapter_ru/build_chapter.py"]
+             "sensitivity_imputation.py", "requirements.txt", "README.md", "report_chapter_ru/build_chapter.py",
+             "tools/msdial_to_table.py"]
     dirs = ["pipeline", "curation", "curation_s107", "metadata"]
     with zipfile.ZipFile(APP / "Прил_Г_код_фреймворка.zip", "w", zipfile.ZIP_DEFLATED) as z:
         for f in files:
