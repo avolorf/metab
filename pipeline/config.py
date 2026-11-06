@@ -20,6 +20,8 @@ GROUP_LABELS = {"Control": "Контроль", "BC": "РМП", "PC": "РПЖ"}
 QC_PREFIX = "QC"
 BLANK_REGEX = r"^(blank|бланк|blk)"           # пробы, чьё имя или группа совпадает, считаются бланками
 QC_EVERY = 20                                  # QC1 перед образцом 1, далее QC после каждых 20 инъекций
+BATCHES = None                                 # серии измерений: [(первый, последний номер пробы), ...]; None — одна серия
+BATCH_CORRECTION = False                       # коррекция межсерийного сдвига по медианам QC каждой серии
 
 # сравнения: case / reference, ограничение по полу (None = оба пола)
 COMPARISONS = {
@@ -98,5 +100,7 @@ if DATASET == "s107":
     STUDY_GROUPS = ["Control", "BC"]
     GROUP_LABELS = {"Control": "Контроль", "BC": "РМП"}
     COMPARISONS = {"BC_vs_Control": dict(case="BC", ref="Control", sex=None, primary=True)}
-    QC_EVERY = 5                                   # допущение: QC01 перед пробой 1, далее после каждых 5 проб
+    QC_EVERY = 6                                   # в каждой серии: QC в начале, затем после каждых 6 проб и в конце
+    BATCHES = [(1, 36), (37, 72), (73, 107)]       # три серии измерений (по 7 QC в каждой)
+    BATCH_CORRECTION = True
     CONTAM_SPLIT = "control_median"                # индекс выше у контролей: граница по медиане контролей (20/20)

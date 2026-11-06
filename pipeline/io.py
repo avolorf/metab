@@ -66,7 +66,56 @@ def load_metadata(path, kind):
     return meta
 
 
+def batch_of(meta):
+    """Номер серии для проб и QC (C.BATCHES); QC распределяются по сериям по порядку: в каждой серии
+    QC в начале, после каждых QC_EVERY проб и в конце серии (если последний блок неполный)."""
+    if not C.BATCHES:
+        return pd.Series(1, index=meta.index)
+    b = pd.Series(np.nan, index=meta.index)
+    for k, (lo, hi) in enumerate(C.BATCHES, 1):
+        for s in meta.index[meta.kind == "sample"]:
+            n = int(re.sub(r"\D", "", s) or 0)
+            if lo <= n <= hi:
+                b[s] = k
+    qcs = sorted(meta.index[meta.kind == "QC"], key=lambda s: int(re.sub(r"\D", "", s) or 0))
+    it = iter(qcs)
+    for k, (lo, hi) in enumerate(C.BATCHES, 1):
+        nq = 1 + (hi - lo + 1) // C.QC_EVERY + (1 if (hi - lo + 1) % C.QC_EVERY else 0)
+        for _ in range(nq):
+            q = next(it, None)
+            if q is not None:
+                b[q] = k
+    return b
+
+
 def injection_order(meta):
+    if C.BATCHES:
+        return _injection_order_batches(meta)
+    return _injection_order_single(meta)
+
+
+def _injection_order_batches(meta):
+    """Серии подряд; в каждой: QC, затем блоки по QC_EVERY проб, после каждого блока — QC."""
+    b = batch_of(meta)
+    order, pos = {}, 0
+    for k, (lo, hi) in enumerate(C.BATCHES, 1):
+        qcs = iter(sorted(meta.index[(meta.kind == "QC") & (b == k)], key=lambda s: int(re.sub(r"\D", "", s) or 0)))
+        smp = sorted(meta.index[(meta.kind == "sample") & (b == k)], key=lambda s: int(re.sub(r"\D", "", s) or 0))
+        q = next(qcs, None)
+        if q:
+            order[q] = pos; pos += 1
+        for i, s in enumerate(smp, 1):
+            order[s] = pos; pos += 1
+            if i % C.QC_EVERY == 0 or i == len(smp):
+                q = next(qcs, None)
+                if q:
+                    order[q] = pos; pos += 1
+    for x in meta.index[meta.kind == "blank"]:
+        order[x] = np.nan
+    return pd.Series(order).reindex(meta.index)
+
+
+def _injection_order_single(meta):
     """Порядок инъекций: образцы по номеру, QC1 – первым, QC(k+1) – после каждых QC_EVERY образцов.
     Если в metadata.csv есть столбец injection_order, используется он (для образцов)."""
     qcs = sorted(meta.index[meta.kind == "QC"], key=lambda s: int(re.sub(r"\D", "", s) or 0))

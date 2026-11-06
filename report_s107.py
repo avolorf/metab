@@ -63,6 +63,45 @@ def find(feat, mz, rt, tol_rt=0.05, tol_ppm=5):
     return None if not len(d) else (d.rt_min - rt).abs().idxmin()
 
 
+def fig_batch(meta, feat):
+    """Межсерийный сдвиг: PCA проб и QC по признакам, обнаруженным во всех инъекциях, до и после коррекции по QC."""
+    raw = pd.read_csv("data/s107/s107_table.csv", low_memory=False).set_index("Sample")
+    raw.index = raw.index.astype(str)
+    X = raw.drop(columns="Group").astype(float).replace(0, np.nan)
+    kept = feat.index[feat.kept.fillna(False).astype(bool)]
+    ana = meta.index[meta.study | (meta.kind == "QC")]
+    X = X.loc[ana, kept]
+    X = X.loc[:, X.notna().all()]
+    qc = meta.index[meta.kind == "QC"]
+    b = meta.loc[ana, "batch"]
+    Y = X.copy()
+    ref = X.loc[qc].median()
+    for k in sorted(b.unique()):
+        Y.loc[b.index[b == k]] = X.loc[b.index[b == k]] * (ref / X.loc[qc[meta.loc[qc, "batch"] == k]].median())
+    fig, axs = plt.subplots(1, 2, figsize=(17 * CM, 6.5 * CM), gridspec_kw={"wspace": 0.3})
+    bc = {1: "#2a78d6", 2: "#e8673a", 3: "#2ca58d"}
+    for ax, (T, ttl) in zip(axs, [(X, "before correction"), (Y, "after QC-based batch correction")]):
+        Lg = np.log2(T.div(T.median(axis=1), axis=0))
+        mu, sd = Lg.mean(), np.sqrt(Lg.std())
+        p = PCA(2).fit((Lg - mu) / sd)
+        S = pd.DataFrame(p.transform((Lg - mu) / sd), index=Lg.index)
+        for k in (1, 2, 3):
+            m = (b == k)
+            smp = m & (meta.loc[ana, "kind"] == "sample")
+            q = m & (meta.loc[ana, "kind"] == "QC")
+            ax.scatter(S.loc[smp, 0], S.loc[smp, 1], s=8, c=bc[k], alpha=0.55, lw=0, label=f"Batch {k}, samples")
+            ax.scatter(S.loc[q, 0], S.loc[q, 1], s=26, c=bc[k], marker="D", edgecolor="k", lw=0.5, label=f"Batch {k}, QC")
+        v = p.explained_variance_ratio_
+        ax.set(xlabel=f"PC1 ({v[0]:.1%})", ylabel=f"PC2 ({v[1]:.1%})", title=f"{X.shape[1]} features detected in all injections, {ttl}")
+        ax.title.set_fontsize(6.5)
+    axs[0].legend(fontsize=5.5, ncol=2, loc="best")
+    for a, t in zip(axs, "ab"):
+        a.text(-0.16, 1.04, f"({t})", transform=a.transAxes, fontweight="bold", fontsize=9)
+    fig.savefig(OUT / "FigureS107_0_batches.png", bbox_inches="tight")
+    fig.savefig(OUT / "FigureS107_0_batches.pdf", bbox_inches="tight")
+    plt.close(fig)
+
+
 def fig_pca(meta, L, feat):
     reps = feat.index[feat.is_representative.fillna(False).astype(bool)]
     full = [f for f in reps if feat.loc[f, ["det_Control", "det_BC"]].min() >= 1.0]
@@ -81,7 +120,7 @@ def fig_pca(meta, L, feat):
     v = p.explained_variance_ratio_
     ax[0].set(xlabel=f"PC1 ({v[0]:.1%})", ylabel=f"PC2 ({v[1]:.1%})", title=f"PCA, {len(full)} compounds detected in all samples (Pareto)")
     ax[0].legend(loc="best", fontsize=6)
-    ax[1].set(xlabel="Injection order (assumed QC positions)", ylabel=f"PC1 ({v[0]:.1%})")
+    ax[1].set(xlabel="Injection order (3 batches, QC every 6 samples)", ylabel=f"PC1 ({v[0]:.1%})")
     st = meta.index[meta.study]
     auc = roc_auc_score((meta.loc[st, "group"] == "BC").astype(int), S.loc[st, 0])
     rho = stats.spearmanr(S.loc[st, 0], meta.loc[st, "inj_order"]).statistic
@@ -187,6 +226,7 @@ def table_findings(r, feat):
 def main():
     OUT.mkdir(exist_ok=True)
     meta, L, feat, r = load()
+    fig_batch(meta, feat)
     nfull, auc_pc1, rho_pc1, var = fig_pca(meta, L, feat)
     fig_volcano(r)
     # воспроизведение Table 2 (s266) и пептиды

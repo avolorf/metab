@@ -1,5 +1,6 @@
 """Фильтры, коррекция дрейфа (опционально), нормализация (PQN / MSTUS), импутация."""
 import numpy as np
+from scipy import stats
 import pandas as pd
 from statsmodels.nonparametric.smoothers_lowess import lowess
 
@@ -38,6 +39,8 @@ def filter_features(X, meta, log):
     else:
         log("Бланков в экспортированной таблице нет: по методике фильтр по бланкам (проба/бланк ≥ 5) выполнен в MS-DIAL; "
             "повторно не применяется.")
+    if C.BATCHES and C.BATCH_CORRECTION and "batch" in meta:
+        X = batch_correct(X, meta, keep, log)
     det["RSD_QC_raw"] = rsd(X.loc[qc])
     k2 = keep & (det.RSD_QC_raw <= C.MAX_QC_RSD)
     log(f"Фильтр RSD_QC ≤ {C.MAX_QC_RSD:.0%} (без коррекции дрейфа): {keep.sum()} → {k2.sum()}. Медианный RSD в QC: "
@@ -54,7 +57,47 @@ def _trend(xq, yq, xall):
     return np.where(xall > hi, fit[np.argmin(np.abs(xall - hi))], fit)
 
 
-def drift_loo(X, order, qc):
+def batch_correct(X, meta, keep, log):
+    """Межсерийный сдвиг: для каждого признака значения серии k умножаются на (медиана всех QC) / (медиана QC серии k).
+    Оценка до/после: число признаков с различием QC между сериями (Краскел–Уоллис, BH q < 0.05) и RSD QC."""
+    from statsmodels.stats.multitest import multipletests
+    qc = meta.index[meta.kind == "QC"]
+    b = meta.batch
+    feats = X.columns[keep]
+    def n_diff(Y):
+        Q = np.log2(Y.loc[qc, feats])
+        p = []
+        for f in feats:
+            g = [Q.loc[qc[b[qc] == k], f].dropna() for k in sorted(b[qc].dropna().unique())]
+            p.append(stats.kruskal(*g).pvalue if min(len(x) for x in g) >= 3 else np.nan)
+        p = np.nan_to_num(np.array(p), nan=1.0)
+        return int((multipletests(p, method="fdr_bh")[1] < 0.05).sum())
+    before, rsd_b = n_diff(X), rsd(X.loc[qc, feats]).median()
+    Y = X.copy()
+    ref = X.loc[qc].median()
+    for k in sorted(b[qc].dropna().unique()):
+        fac = ref / X.loc[qc[b[qc] == k]].median()
+        rows = meta.index[(b == k) & meta.index.isin(X.index)]
+        Y.loc[rows] = X.loc[rows] * fac.replace([np.inf, -np.inf], np.nan).fillna(1.0)
+    after, rsd_a = n_diff(Y), rsd(Y.loc[qc, feats]).median()
+    log(f"Коррекция межсерийного сдвига по QC ({len(C.BATCHES)} серии): признаков с различием QC между сериями "
+        f"(q < 0.05) {before} → {after} из {len(feats)}; медианный RSD QC {rsd_b:.1%} → {rsd_a:.1%}")
+    return Y
+
+
+def drift_loo(X, order, qc, batch=None):
+    """Если заданы серии, тест выполняется внутри каждой серии (QC той же серии), ошибки объединяются."""
+    if batch is not None and C.BATCHES:
+        errs = {"none": [], "lowess": []}
+        for k in sorted(batch[qc].dropna().unique()):
+            r = _drift_loo_errors(X, order, qc[batch[qc] == k])
+            for m in errs:
+                errs[m] += r[m]
+        return {k: float(np.median(v)) for k, v in errs.items()}
+    return {k: float(np.median(v)) for k, v in _drift_loo_errors(X, order, qc).items()}
+
+
+def _drift_loo_errors(X, order, qc):
     """Leave-one-QC-out: RSD внутренних QC, спрогнозированных без них (none vs lowess)."""
     L = np.log2(X.loc[qc].to_numpy())
     xq = order.loc[qc].to_numpy(float)
@@ -69,7 +112,7 @@ def drift_loo(X, order, qc):
                 continue
             err["none"].append(abs(y[k] - np.median(y[m])))
             err["lowess"].append(abs(y[k] - _trend(xq[m], y[m], np.array([xq[k]]))[0]))
-    return {k: float(np.median(v)) for k, v in err.items()}
+    return err
 
 
 def drift_correct(X, order, qc):

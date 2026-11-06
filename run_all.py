@@ -61,6 +61,7 @@ def main():
     X_all, kind, info_all, ndup = io.load_features(a.data)
     meta = io.load_metadata(a.metadata, kind)
     meta["inj_order"] = io.injection_order(meta)
+    meta["batch"] = io.batch_of(meta)
     study = meta.index[meta.study]
     qc = meta.index[meta.kind == "QC"]
     log(f"Таблица: {len(X_all)} инъекций ({(kind == 'QC').sum()} QC, {(kind == 'blank').sum()} бланков), "
@@ -78,8 +79,8 @@ def main():
     # ------------------------------------------------------------ 2. предобработка
     use = meta.index[meta.study | (meta.kind.isin(["QC", "blank"]))]
     X1, feat_table = preprocess.filter_features(X_all.loc[use], meta.loc[use], log)
-    loo = preprocess.drift_loo(X1, meta.inj_order, qc)
-    log(f"Дрейф: leave-one-QC-out median |Δlog2| без коррекции {loo['none']:.3f}, LOWESS {loo['lowess']:.3f}. "
+    loo = preprocess.drift_loo(X1, meta.inj_order, qc, meta.batch)
+    log(f"Дрейф{' (внутри серий)' if C.BATCHES else ''}: leave-one-QC-out median |Δlog2| без коррекции {loo['none']:.3f}, LOWESS {loo['lowess']:.3f}. "
         f"Коррекция: {C.DRIFT}")
     if C.DRIFT == "lowess":
         X1 = preprocess.drift_correct(X1, meta.inj_order, qc)
