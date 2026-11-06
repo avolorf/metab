@@ -92,7 +92,7 @@ def fig_batch(meta, feat):
             ax.scatter(S.loc[smp, 0], S.loc[smp, 1], s=8, c=bc[k], alpha=0.55, lw=0, label=f"Batch {k}, samples")
             ax.scatter(S.loc[q, 0], S.loc[q, 1], s=26, c=bc[k], marker="D", edgecolor="k", lw=0.5, label=f"Batch {k}, QC")
         v = p.explained_variance_ratio_
-        ax.set(xlabel=f"PC1 ({v[0]:.1%})", ylabel=f"PC2 ({v[1]:.1%})", title=f"{X.shape[1]} features detected in all injections, {ttl}")
+        ax.set(xlabel=f"PC1 ({v[0]:.1%})", ylabel=f"PC2 ({v[1]:.1%})", title=f"{ttl.capitalize()} ({X.shape[1]} features)")
         ax.title.set_fontsize(6.5)
     axs[0].legend(fontsize=5.5, ncol=2, loc="best")
     for a, t in zip(axs, "ab"):
