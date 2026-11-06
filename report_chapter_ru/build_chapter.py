@@ -185,6 +185,7 @@ def copy_figures():
          SUB / "1_main_figures" / "Figure4_ROC_cross_validated.png": "Рис_9_ROC.png",
          SUB / "3_supplementary" / "FigureS3_normalization.png": "Рис_10_нормализация.png",
          SUB / "3_supplementary" / "FigureS4_pathways.png": "Рис_11_пути.png",
+         REP107 / "FigureS107_0_batches.png": "Рис_12a_s107_серии.png",
          REP107 / "FigureS107_1_PCA.png": "Рис_12_s107_PCA.png",
          REP107 / "FigureS107_2_volcano.png": "Рис_13_s107_вулкан.png",
          REP107 / "FigureS107_4_peptides.png": "Рис_14_s107_пептиды.png",

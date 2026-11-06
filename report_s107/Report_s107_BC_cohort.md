@@ -6,48 +6,48 @@
 
 **Samples.** The MS-DIAL export contained 107 urine samples (67 labelled BC, 40 controls) and 21 pooled-QC injections; no solvent blanks were exported. Two BC-labelled samples were excluded because their histology was outside the study design: a ureteral tumour (No. 54) and Brunn's nest hyperplasia without carcinoma (No. 105). Urine was collected before any diagnostic or surgical manipulation; intact urine was aliquoted into 4-mL tubes and immediately stored at −20 °C, and each sample was mixed by pulse-vortexing after thawing. The analysed cohort thus comprised 65 BC patients (56 men, 9 women; age 65.4 ± 13.7 years) and 40 controls (16 men, 24 women; 57.3 ± 14.8 years). Age (p = 0.003, Mann–Whitney U test) and sex (p = 1.2 × 10⁻⁶, Fisher's exact test) differed between the groups. Eighty-two of the 107 samples are part of the 84-sample set analysed in the previous report and in the ABC article.
 
-**Processing.** Feature filtering, PQN normalization (median of the pooled QC as reference), imputation, log₂ transformation, grouping of ions into compounds, the adjusted linear model (group + sex + age + exogenous-signal index), the finding rule, cross-validated classification (20 × 5-fold CV, top-5 panel, PLS-DA, 1,000 permutations) and all sensitivity analyses were identical to the s266 analysis. Three settings were adapted to this dataset:
+**Processing.** Feature filtering, PQN normalization (median of the pooled QC as reference), imputation, log₂ transformation, grouping of ions into compounds, the adjusted linear model (group + sex + age + exogenous-signal index), the finding rule, cross-validated classification (20 × 5-fold CV, top-5 panel, PLS-DA, 1,000 permutations) and all sensitivity analyses were identical to the s266 analysis. The following settings were adapted to this dataset:
 
-- **Injection order.** The order of the study samples was taken from the sample list. The positions of the QC injections were not available. We assumed that QC01 was injected first and then after every five samples. This assumption affects only the drift check, and no drift correction was applied.
+- **Batches.** Samples were analysed in three batches (Nos. 1–36, 37–72 and 73–107). In each batch the pooled QC was injected at the start, after every six samples and at the end (seven QC injections per batch). Solvent blanks were injected but not exported; blank filtering was done in MS-DIAL. The groups were spread similarly over the batches (BC 24/20/21, controls 12/15/13). Before correction, 3,483 of 5,862 features differed between the QC injections of different batches (Kruskal–Wallis test, q < 0.05), and the median QC RSD was 15.6%. Each batch was therefore corrected feature by feature, by multiplying its values by the ratio of the median of all QC injections to the median of the QC injections of that batch. The correction was applied before the RSD filter. After correction, no feature differed between batches, and the median QC RSD fell to 10.4% (Figure S107-0).
 - **Exogenous-signal index.** The index was built from the same homologous series. Five members were detected in this dataset, at retention times about 0.42 min shorter than in s266.
-- **Splitting the index.** Unlike in s266, the index was higher in controls than in BC (mean z-score +0.69 vs −0.42). Splitting at the median of all samples would therefore have left only 8 low-index controls. Controls were instead split into low- and high-index halves (20/20) at the median of the controls.
+- **Splitting the index.** Unlike in s266, the index was higher in controls than in BC (mean z-score +0.69 vs −0.43). Splitting at the median of all samples would therefore have left only 8 low-index controls. Controls were instead split into low- and high-index halves (20/20) at the median of the controls.
 
 **Annotation.** The 30 markers of the previous report (report Table 20, ABC) and the alternative annotations in `res_annotated_2.csv` were linked to features (±5 ppm, ±0.3 min). Each was then checked for agreement between formula, ion and m/z, and assigned a category: endogenous, food, drug or tobacco. As in s266, exogenous compounds could not qualify as findings.
 
 ## 2. Results
 
 **Data quality.**
-- **Features and compounds.** Of 12,930 aligned features, 5,862 passed the detection filter and 4,334 passed the QC RSD filter (median RSD in QC 11.5%). These were grouped into 3,380 compounds, 445 of them multi-ion.
-- **Imputation.** 10.6% of the values were imputed.
-- **Drift.** The leave-one-QC-out test gave a median |Δlog₂| of 0.115 without correction and 0.082 with LOWESS. This is a larger gain than in s266, but it depends on the assumed QC positions, so no correction was applied.
+- **Features and compounds.** Of 12,930 aligned features, 5,862 passed the detection filter and, after the batch correction, 4,713 passed the QC RSD filter (median RSD in QC 8.0%). These were grouped into 3,595 compounds, 480 of them multi-ion.
+- **Imputation.** 10.8% of the values were imputed.
+- **Drift.** Within batches, the leave-one-QC-out test gave a median |Δlog₂| of 0.067 without correction and 0.065 with LOWESS, so no drift correction was applied.
 - **Dilution.** Three samples had a PQN dilution factor < 0.2.
 
 **Univariate analysis.**
-- **Adjusted model.** 855 compounds had q < 0.05 (427 higher and 428 lower in BC). 564 of them met all finding criteria: 293 higher and 271 lower in BC.
+- **Adjusted model.** 927 compounds had q < 0.05 (458 higher and 469 lower in BC). 584 of them met all finding criteria: 287 higher and 297 lower in BC.
 - **Matched pairs.** The pair criterion used 24 pairs matched on age within sex.
-- **Normalization.** With MSTUS instead of PQN, 475 of the 587 MSTUS findings were also PQN findings.
-- **Most dilute samples.** Excluding the three most dilute samples kept 510 of the 564 findings.
-- **Pathways.** No pathway reached q < 0.05 (mummichog; lowest q = 0.07, leukotriene metabolism).
+- **Normalization.** With MSTUS instead of PQN, 509 of the 609 MSTUS findings were also PQN findings.
+- **Most dilute samples.** Excluding the three most dilute samples kept 531 of the 584 findings.
+- **Pathways.** Only leukotriene metabolism reached q < 0.05 (mummichog; q = 0.046). The mummichog result depends on random permutations (q = 0.068 in the run before batch correction), so it is not interpreted.
 
-**Separation of the groups is almost complete.** The cross-validated top-5 panel gave AUC 0.986 ± 0.007 and PLS-DA 1.000 (both p = 0.001). The separation persisted in the subsets that control for the main confounders:
+**Separation of the groups is almost complete.** The cross-validated top-5 panel gave AUC 0.990 ± 0.006 and PLS-DA 1.000 (both p = 0.001). The separation persisted in the subsets that control for the main confounders:
 
 | Subset or model | Panel AUC |
 |---|---|
-| 24 age- and sex-matched pairs | 0.988 |
-| 20 pairs matched on the exogenous-signal index | 0.994 |
-| Compounds adjusted for the index within each training fold | 0.880 |
-| Only the 665 candidate compounds detected in every sample | 0.981 (PLS-DA 0.993) |
+| 24 age- and sex-matched pairs | 0.990 |
+| 20 pairs matched on the exogenous-signal index | 1.000 |
+| Compounds adjusted for the index within each training fold | 0.882 |
+| Only the 690 candidate compounds detected in every sample | 0.981 (PLS-DA 0.991) |
 
-The separation is therefore not produced by imputation or presence/absence patterns. Injection order did not explain it either: in the PCA of the 720 compounds detected in all samples, PC1 separated the groups (AUC 0.79) but did not follow injection order (ρ = −0.16, Figure S107-1).
+The separation is therefore not produced by imputation or presence/absence patterns. Injection order did not explain it either: in the PCA of the 749 compounds detected in all samples, PC1 separated the groups (AUC 0.73) but did not follow injection order (ρ = −0.19, Figure S107-1).
 
 The two baseline models were weaker but not uninformative:
 - **Sex only:** AUC 0.68.
 - **Exogenous-signal index only:** AUC 0.81. The index is higher in controls, the opposite of its behaviour in s266, where it was highest in PC. This again indicates that it reflects sample collection rather than disease.
 
 **Composition of the BC signal.** Short peptides dominated the compounds increased in BC (Figure S107-4):
-- **Enrichment.** Library matches to di- and tripeptides were 3.2-fold enriched among compounds increased in BC (74 of 427 vs 182 of 2,953 other compounds; Fisher's exact test p = 5 × 10⁻¹³).
-- **Strongest signals.** Val-Leu (log₂FC 3.4, AUC 0.98) and m/z 244.1293 at 2.58 min (log₂FC 9.5, AUC 0.98, detected in 98% of BC vs 32% of control samples). The latter is annotated in report Table 20 as N-mevalonylcreatinine; its formula, C₁₀H₁₇N₃O₄, is also that of the dipeptide Gln-Pro, the alternative annotation given for the same feature in `res_annotated_2.csv`.
-- **Other peptides.** Glu-Ile-Val (log₂FC 3.6, AUC 0.86), Thr-Phe and Asn-Phe.
+- **Enrichment.** Library matches to di- and tripeptides were 3.2-fold enriched among compounds increased in BC (78 of 458 vs 200 of 3,137 other compounds; Fisher's exact test p = 8 × 10⁻¹³).
+- **Strongest signals.** Val-Leu (log₂FC 3.3, AUC 0.98) and m/z 244.1293 at 2.58 min (log₂FC 9.3, AUC 0.98, detected in 98% of BC vs 32% of control samples). The latter is annotated in report Table 20 as N-mevalonylcreatinine; its formula, C₁₀H₁₇N₃O₄, is also that of the dipeptide Gln-Pro, the alternative annotation given for the same feature in `res_annotated_2.csv`. Val-Leu formally fails the index criterion (controls with high and low index differ, p = 0.027) and is therefore not counted as a finding.
+- **Other peptides.** Glu-Ile-Val (log₂FC 3.7, AUC 0.86), Thr-Phe and Asn-Phe.
 
 Because urine was collected before any diagnostic or surgical manipulation, cystoscopy, catheterisation and perioperative treatment can be excluded as causes. An almost complete separation carried by peptides that are nearly absent from control urine is nevertheless more consistent with blood or protein in the urine of BC patients than with tumour metabolism: haematuria is the cardinal symptom of BC, and haemoglobin and plasma proteins are substrates for proteolysis. Storage at −20 °C rather than −80 °C does not exclude some proteolysis in frozen samples, and storage times of the two groups are not known. Haematuria and proteinuria were not recorded, so these explanations cannot be separated here. The AUC values of this cohort should therefore not be read as diagnostic accuracy.
 
@@ -55,9 +55,9 @@ Because urine was collected before any diagnostic or surgical manipulation, cyst
 
 | Compound | log₂FC | q | AUC | p (matched pairs) |
 |---|---|---|---|---|
-| 11-Oxoetiocholanolone glucuronide | 0.86 | 0.004 | 0.73 | 0.015 |
-| Tetrahydrocortisone glucuronide, isomer I | 0.92 | 0.005 | 0.75 | 0.029 |
-| Tetrahydrocortisone glucuronide, isomer II | 0.57 | 0.022 | 0.71 | 0.015 |
+| 11-Oxoetiocholanolone glucuronide | 0.83 | 0.005 | 0.74 | 0.015 |
+| Tetrahydrocortisone glucuronide, isomer I | 0.87 | 0.008 | 0.75 | 0.029 |
+| Tetrahydrocortisone glucuronide, isomer II | 0.54 | 0.022 | 0.71 | 0.012 |
 
 Each compound was found as the same group of ions (e.g., m/z 498.2697 with the aglycone ion 287.2007; m/z 541.2642 with its [M+NH₄]⁺ ion 558.2912), 0.30–0.33 min earlier than in s266. The other two s266 findings did not replicate:
 - **Biliverdin** showed no difference (q = 0.38).

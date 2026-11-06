@@ -1,120 +1,120 @@
 comparison,pathway,overlap_size,pathway_size,p-value,overlap_EmpiricalCompounds (id),overlap_features (id),overlap_features (name),q_BH
-BC_vs_Control,Leukotriene metabolism,14,40,0.0005714189677484,"E1870,E1873,E696,E699,E1095,E1901,E831,E1867,E1875,E1167,E701,E1410,E1798,E1801","CE5139,CE3554,CE2054/CE5976,CE2054/CE5976,C05952,CE0955/CE6232/CE5945,CE5140,CE5139,CE3554,C03577,CE2054/CE5976,C00909,CE7114/CE2053/CE5138/CE5661/CE7115/CE7113/CE7112/CE7088,CE5926/CE5930/CE2056/CE5534/CE5533/CE1447","12-oxo-20-dihydroxy-leukotriene B4$20-trihydroxy-leukotriene-B4$20-carboxy-leukotriene-B4/12-oxo-10,11-dihydro-20-COOH-LTB4$20-carboxy-leukotriene-B4/12-oxo-10,11-dihydro-20-COOH-LTB4$Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate$/prostaglandin G1/10,11-dihydro-20-dihydroxy-LTB4$12-oxo-20-trihydroxy-leukotriene B4$12-oxo-20-dihydroxy-leukotriene B4$20-trihydroxy-leukotriene-B4$20-Hydroxyleukotriene E4; 20-OH-LTE4; 20-OH-Leukotriene E4$20-carboxy-leukotriene-B4/12-oxo-10,11-dihydro-20-COOH-LTB4$Leukotriene A4$/20-oxo-leukotriene B4/12-oxo-20-hydroxy-leukotriene B4/15-oxo-lipoxin A4/20-hydroxy-leukotriene B5/15-epi-lipoxin B5/15-epi-lipoxin A5/PGH3$//20-dihydroxyleukotriene B4///11-dehydrothromboxane B2",0.06799885716205961
-BC_vs_Control,TCA cycle,3,4,0.0031596107628443,"E1615,E1275,E1270","C01169,C00399,C00399",S-Succinyldihydrolipoamide$Ubiquinone$Ubiquinone,0.18799684038923586
-BC_vs_Control,Electron transport chain,2,3,0.0148400867212315,"E1275,E1270","C00399,C00399",Ubiquinone$Ubiquinone,0.4227491974924791
-BC_vs_Control,Fatty acid oxidation,2,3,0.0148400867212315,"E1275,E1270","C00399,C00399",Ubiquinone$Ubiquinone,0.4227491974924791
-BC_vs_Control,D4&E4-neuroprostanes formation,2,4,0.0278146585771667,"E813,E1946","CE6429/CE6423/CE6420/CE6426/CE6438/CE6432/CE6435,CE6444/CE6445/CE6446/CE6448/CE6451/CE6450/CE6447/CE6449",//////$///////,0.4227491974924791
-BC_vs_Control,Lysine metabolism,2,5,0.0471084519587906,"E274,E280","C05545,C05545","Histone N6,N6-dimethyl-L-lysine$Histone N6,N6-dimethyl-L-lysine",0.4227491974924791
-BC_vs_Control,Vitamin A (retinol) metabolism,5,21,0.0644863111544343,"E1974,E1567,E2054,E41,E1682",",,,,",$$$$,0.4227491974924791
-BC_vs_Control,Tryptophan metabolism,15,79,0.0676795347977344,"E631,E602,E816,E818,E820,E626,E629,E423,E316,E366,E817,E432,E317,E846,E452",",,,,,,,,,,,,,,",$$$$$$$$$$$$$$,0.4227491974924791
-BC_vs_Control,Linoleate metabolism,7,34,0.0770743348851279,"E1265,E1677,E1527,E1675,E1448,E1431,E1743",",,,,,,",$$$$$$,0.4227491974924791
-BC_vs_Control,Lipoate metabolism,1,2,0.0818641703500781,E1506,,,0.4227491974924791
-BC_vs_Control,Prostaglandin formation from dihomo gama-linoleic acid,1,2,0.0818641703500781,E1901,CE0955/CE6232/CE5945,"/prostaglandin G1/10,11-dihydro-20-dihydroxy-LTB4",0.4227491974924791
-BC_vs_Control,Putative anti-Inflammatory metabolites formation from EPA,2,7,0.0859649417656846,"E1798,E1682","CE7114/CE2053/CE5138/CE5661/CE7115/CE7113/CE7112/CE7088,",/20-oxo-leukotriene B4/12-oxo-20-hydroxy-leukotriene B4/15-oxo-lipoxin A4/20-hydroxy-leukotriene B5/15-epi-lipoxin B5/15-epi-lipoxin A5/PGH3$,0.4227491974924791
-BC_vs_Control,Pyrimidine metabolism,2,7,0.0859649417656846,"E1275,E1270","C00399,C00399",Ubiquinone$Ubiquinone,0.4227491974924791
-BC_vs_Control,C21-steroid hormone biosynthesis and metabolism,10,55,0.1068721534091864,"E1943,E637,E1715,E1497,E1372,E1302,E936,E1191,E638,E1496",",,,,,,,,,",$$$$$$$$$,0.4227491974924791
-BC_vs_Control,Vitamin D3 (cholecalciferol) metabolism,1,3,0.1297457185593519,E1971,,,0.4227491974924791
-BC_vs_Control,Prostaglandin formation from arachidonate,4,21,0.1373254231021327,"E1901,E895,E1682,E1801","CE0955/CE6232/CE5945,,,CE5926/CE5930/CE2056/CE5534/CE5533/CE1447","/prostaglandin G1/10,11-dihydro-20-dihydroxy-LTB4$$$//20-dihydroxyleukotriene B4///11-dehydrothromboxane B2",0.4227491974924791
-BC_vs_Control,Fatty Acid Metabolism,1,4,0.1715601418463555,E1671,,,0.4227491974924791
-BC_vs_Control,Ubiquinone Biosynthesis,2,11,0.1924169341691736,"E1275,E1270","C00399,C00399",Ubiquinone$Ubiquinone,0.4227491974924791
-BC_vs_Control,Glycerophospholipid metabolism,3,18,0.2033579267575334,"E1567,E754,E750",",,",$$,0.4227491974924791
-BC_vs_Control,Omega-3 fatty acid metabolism,1,6,0.2518613132552394,E1434,,,0.4227491974924791
-BC_vs_Control,Vitamin B2 (riboflavin) metabolism,1,7,0.2773734895211845,E770,,,0.4227491974924791
-BC_vs_Control,3-oxo-10R-octadecatrienoate beta-oxidation,1,7,0.2773734895211845,E1111,,,0.4227491974924791
-BC_vs_Control,Androgen and estrogen biosynthesis and metabolism,6,44,0.2855918387926253,"E1943,E1280,E1372,E1302,E936,E1191",",,,,,",$$$$$,0.4227491974924791
-BC_vs_Control,Arachidonic acid metabolism,3,23,0.2927681887699366,"E1567,E1410,E1798",",C00909,CE7114/CE2053/CE5138/CE5661/CE7115/CE7113/CE7112/CE7088",$Leukotriene A4$/20-oxo-leukotriene B4/12-oxo-20-hydroxy-leukotriene B4/15-oxo-lipoxin A4/20-hydroxy-leukotriene B5/15-epi-lipoxin B5/15-epi-lipoxin A5/PGH3,0.4227491974924791
-BC_vs_Control,Alkaloid biosynthesis II,1,8,0.3040116972823986,E187,,,0.4227491974924791
-BC_vs_Control,CoA Catabolism,1,8,0.3040116972823986,E1340,,,0.4227491974924791
-BC_vs_Control,Glycosphingolipid metabolism,1,8,0.3040116972823986,E2154,,,0.4227491974924791
-BC_vs_Control,Porphyrin metabolism,1,8,0.3040116972823986,E915,,,0.4227491974924791
-BC_vs_Control,Aspartate and asparagine metabolism,1,8,0.3040116972823986,E727,,,0.4227491974924791
-BC_vs_Control,Butanoate metabolism,1,9,0.327070133275071,E571,,,0.4227491974924791
-BC_vs_Control,Vitamin B5 - CoA biosynthesis from pantothenate,1,10,0.3484647316851817,E1340,,,0.4227491974924791
-BC_vs_Control,Vitamin B6 (pyridoxine) metabolism,1,10,0.3484647316851817,E33,,,0.4227491974924791
-BC_vs_Control,Bile acid biosynthesis,1,11,0.3643300112603149,E2019,,,0.4227491974924791
-BC_vs_Control,Purine metabolism,1,13,0.385674190349742,E1365,,,0.4227491974924791
-BC_vs_Control,Drug metabolism - cytochrome P450,3,32,0.3890690912757769,"E1909,E432,E447",",,",$$,0.4227491974924791
-BC_vs_Control,Carnitine shuttle,1,18,0.4071024016403086,E686,,,0.4227491974924791
-BC_vs_Control,Urea cycle/amino group metabolism,1,32,0.421488714475387,E930,,,0.4227491974924791
-BC_vs_Control,Tyrosine metabolism,7,108,0.4225475202097444,"E29,E132,E133,E118,E846,E494,E117",",,,,,,",$$$$$$,0.4227491974924791
-BC_vs_Control,Hyaluronan Metabolism,0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,N-Glycan biosynthesis,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycolysis and Gluconeogenesis,0,3,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycosphingolipid biosynthesis - ganglioseries,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,R Group Synthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,C5-Branched dibasic acid metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Pyruvate Metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Sialic acid metabolism,0,9,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Chondroitin sulfate degradation,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Di-unsaturated fatty acid beta-oxidation,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Hexose phosphorylation,0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Squalene and cholesterol biosynthesis,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Galactose metabolism,0,8,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Keratan sulfate degradation,0,5,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycerolipid metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin B1 (thiamin) metabolism,0,2,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycosphingolipid biosynthesis - globoseries,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Histidine metabolism,0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycosylphosphatidylinositol(GPI)-anchor biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycosphingolipid biosynthesis - lactoseries,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Parathio degradation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Propanoate metabolism,0,3,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Blood Group Biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin H (biotin) metabolism,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Biopterin metabolism,0,17,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin E metabolism,0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,"Glycine, serine, alanine and threonine metabolism",0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Caffeine metabolism,0,2,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Heparan sulfate biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin B9 (folate) metabolism,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glyoxylate and Dicarboxylate Metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,De novo fatty acid biosynthesis,0,11,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,"Valine, leucine and isoleucine degradation",0,2,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycosaminoglycan degradation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Fructose and mannose metabolism,0,7,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,ROS Detoxification,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Xenobiotics metabolism,0,3,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Saturated fatty acids beta-oxidation,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Mono-unsaturated fatty acid beta-oxidation,0,2,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glycosphingolipid biosynthesis - neolactoseries,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin B3 (nicotinate and nicotinamide) metabolism,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Ascorbate (Vitamin C) and Aldarate Metabolism,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Geraniol degradation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin D,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Dynorphin metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Heparan sulfate degradation,0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,"Fatty acid oxidation, peroxisome",0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Polyunsaturated fatty acid biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Alanine and Aspartate Metabolism,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glutathione Metabolism,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Keratan sulfate biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,3-Chloroacrylic acid degradation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Sphingolipid metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,O-Glycan biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Limonene and pinene degradation,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Arginine and Proline Metabolism,0,6,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Proteoglycan biosynthesis,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin K metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Glutamate metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Phosphatidylinositol phosphate metabolism,0,4,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Benzoate degradation via CoA ligation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Dimethyl-branched-chain fatty acid mitochondrial beta-oxidation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Pentose and Glucuronate Interconversions,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Atrazine degradation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,N-Glycan Degradation,0,7,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Vitamin B12 (cyanocobalamin) metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Fatty acid activation,0,8,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Carbon fixation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Nucleotide Sugar Metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,1- and 2-Methylnaphthalene degradation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Nitrogen metabolism,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Drug metabolism - other enzymes,0,5,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Aminosugars metabolism,0,8,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Beta-Alanine metabolism,0,2,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Starch and Sucrose Metabolism,0,1,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Trihydroxycoprostanoyl-CoA beta-oxidation,0,0,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Omega-6 fatty acid metabolism,0,3,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Phytanic acid peroxisomal oxidation,0,2,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Pentose phosphate pathway,0,3,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Methionine and cysteine metabolism,0,10,0.4227491974924791,,,,0.4227491974924791
-BC_vs_Control,Selenoamino acid metabolism,0,5,0.4227491974924791,,,,0.4227491974924791
+BC_vs_Control,Leukotriene metabolism,14,40,0.0003865481252415,"E727,E730,E860,E1712,E1955,E1958,E1882,E1885,E1211,E1985,E724,E1144,E1473,E1714","CE2054/CE5976,CE2054/CE5976,CE5140,CE3554,CE5139,CE5139,CE7114/CE2053/CE5138/CE5661/CE7115/CE7113/CE7112/CE7088,CE5926/CE5930/CE2056/CE5534/CE5533/CE1447,C03577,CE0955/CE6232/CE5945,CE2054/CE5976,C05952,C00909,CE3554","20-carboxy-leukotriene-B4/12-oxo-10,11-dihydro-20-COOH-LTB4$20-carboxy-leukotriene-B4/12-oxo-10,11-dihydro-20-COOH-LTB4$12-oxo-20-trihydroxy-leukotriene B4$20-trihydroxy-leukotriene-B4$12-oxo-20-dihydroxy-leukotriene B4$12-oxo-20-dihydroxy-leukotriene B4$/20-oxo-leukotriene B4/12-oxo-20-hydroxy-leukotriene B4/15-oxo-lipoxin A4/20-hydroxy-leukotriene B5/15-epi-lipoxin B5/15-epi-lipoxin A5/PGH3$//20-dihydroxyleukotriene B4///11-dehydrothromboxane B2$20-Hydroxyleukotriene E4; 20-OH-LTE4; 20-OH-Leukotriene E4$/prostaglandin G1/10,11-dihydro-20-dihydroxy-LTB4$20-carboxy-leukotriene-B4/12-oxo-10,11-dihydro-20-COOH-LTB4$Leukotriene E4; LTE4; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyeicosa-7,9,11,14-tetraenoate; (7E,9E,11Z,14Z)-(5S,6R)-6-(Cystein-S-yl)-5-hydroxyicosa-7,9,11,14-tetraenoate$Leukotriene A4$20-trihydroxy-leukotriene-B4",0.045999226903738505
+BC_vs_Control,TCA cycle,3,5,0.0057309961177123,"E1694,E1323,E1318","C01169,C00399,C00399",S-Succinyldihydrolipoamide$Ubiquinone$Ubiquinone,0.3409942690038819
+BC_vs_Control,Electron transport chain,2,3,0.0133611199811767,"E1323,E1318","C00399,C00399",Ubiquinone$Ubiquinone,0.3974933194400068
+BC_vs_Control,Fatty acid oxidation,2,3,0.0133611199811767,"E1323,E1318","C00399,C00399",Ubiquinone$Ubiquinone,0.3974933194400068
+BC_vs_Control,D4&E4-neuroprostanes formation,2,4,0.0250752088200198,"E845,E2042","CE6429/CE6423/CE6420/CE6426/CE6438/CE6432/CE6435,CE6444/CE6445/CE6446/CE6448/CE6451/CE6450/CE6447/CE6449",//////$///////,0.4383623804641939
+BC_vs_Control,Lysine metabolism,2,5,0.0419656812490546,"E283,E289","C05545,C05545","Histone N6,N6-dimethyl-L-lysine$Histone N6,N6-dimethyl-L-lysine",0.4383623804641939
+BC_vs_Control,C21-steroid hormone biosynthesis and metabolism,11,54,0.0465370329910421,"E1563,E663,E968,E1432,E1235,E662,E1564,E1796,E1351,E2038,E1633","17ahprgstrn/C03205/C05498/C01176,C05487/C05475/C05478,C00951,C18045/C14497/C18075/C05294/C05139,andrstrnglc/C11135/C11136/5adtststeroneglc/ahandrostanglc,C05487/C05475/C05478,17ahprgstrn/C03205/C05498/C01176,C05472,CE2186/CE2183/C05302/C05284/C05290/C05140,C05504,C05488/C05497/C05477/C02140","17alpha-Hydroxyprogesterone/11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC/11beta-Hydroxyprogesterone/17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone$17alpha,21-Dihydroxypregnenolone/11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione/3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione$Estradiol-17beta; beta-Estradiol; Estradiol$/6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one//19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one/16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one$androsterone glucuronide/androsterone glucuronide/Etiocholan-3alpha-ol-17-one 3-glucuronide/5alpha-Dihydrotestosterone glucuronide/Etiocholan-3alpha-ol-17-one 3-glucuronide$17alpha,21-Dihydroxypregnenolone/11beta,21-Dihydroxy-5beta-pregnane-3,20-dione; 5beta-Pregnane-11beta,21-diol-3,20-dione/3alpha,21-Dihydroxy-5beta-pregnane-11,20-dione; 5beta-Pregnane-3alpha,21-diol-11,20-dione$17alpha-Hydroxyprogesterone/11-Deoxycorticosterone; Deoxycorticosterone; Cortexone; 21-Hydroxy-4-pregnene-3,20-dione; Desoxycortone; DOC/11beta-Hydroxyprogesterone/17alpha-Hydroxyprogesterone; 17alpha-Hydroxy-4-pregnene-3,20-dione; Pregn-4-ene-3,20-dione-17-ol; 17alpha-Hydroxy-progesterone$Urocortisol; 5beta-Pregnane-3alpha,11beta,17alpha,21-tetrol-20-one$4-methoxy-17beta-estradiol/2-hydroxy-3-methoxy-17beta-estradiol/2-Methoxyestradiol-17beta/11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione/19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione/16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione$16-Glucuronide-estriol; 16alpha,17beta-Estriol 16-(beta-D-glucuronide)$11-Deoxycortisol; Cortodoxone/21-Deoxycortisol; 4-Pregnene-11beta,17alpha-diol-3,20-dione; 11beta,17alpha-Dihydroxyprogesterone/21-Hydroxy-5beta-pregnane-3,11,20-trione/Corticosterone; 11beta,21-Dihydroxy-4-pregnene-3,20-dione; Kendall's compound B; Reichstein's substance H",0.4383623804641939
+BC_vs_Control,Lipoate metabolism,1,2,0.0806541066536696,E1573,,,0.4383623804641939
+BC_vs_Control,Prostaglandin formation from dihomo gama-linoleic acid,1,2,0.0806541066536696,E1985,CE0955/CE6232/CE5945,"/prostaglandin G1/10,11-dihydro-20-dihydroxy-LTB4",0.4383623804641939
+BC_vs_Control,Putative anti-Inflammatory metabolites formation from EPA,2,7,0.0823851699971429,"E1764,E1882",",CE7114/CE2053/CE5138/CE5661/CE7115/CE7113/CE7112/CE7088",$/20-oxo-leukotriene B4/12-oxo-20-hydroxy-leukotriene B4/15-oxo-lipoxin A4/20-hydroxy-leukotriene B5/15-epi-lipoxin B5/15-epi-lipoxin A5/PGH3,0.4383623804641939
+BC_vs_Control,Vitamin A (retinol) metabolism,5,24,0.0843851363842624,"E1538,E1764,E43,E2153,E1641",",,,,",$$$$,0.4383623804641939
+BC_vs_Control,Tryptophan metabolism,14,79,0.0863178770104704,"E331,E848,E313,E435,E446,E430,E875,E849,E852,E651,E656,E470,E330,E623",",,,,,,,,,,,,,",$$$$$$$$$$$$$,0.4383623804641939
+BC_vs_Control,Prostaglandin formation from arachidonate,5,25,0.0978639014470345,"E2068,E924,E1885,E1764,E1985",",,CE5926/CE5930/CE2056/CE5534/CE5533/CE1447,,CE0955/CE6232/CE5945","$$//20-dihydroxyleukotriene B4///11-dehydrothromboxane B2$$/prostaglandin G1/10,11-dihydro-20-dihydroxy-LTB4",0.4383623804641939
+BC_vs_Control,Pyrimidine metabolism,2,9,0.1348212635081763,"E1323,E1318","C00399,C00399",Ubiquinone$Ubiquinone,0.4383623804641939
+BC_vs_Control,Linoleate metabolism,6,34,0.1376615519066906,"E1759,E1824,E1757,E1511,E1494,E1600",",,,,,",$$$$$,0.4383623804641939
+BC_vs_Control,Vitamin D3 (cholecalciferol) metabolism,1,4,0.1670896287457353,E2072,,,0.4383623804641939
+BC_vs_Control,Fatty Acid Metabolism,1,4,0.1670896287457353,E1753,,,0.4383623804641939
+BC_vs_Control,Ubiquinone Biosynthesis,2,11,0.1834927144081612,"E1323,E1318","C00399,C00399",Ubiquinone$Ubiquinone,0.4383623804641939
+BC_vs_Control,Glycerophospholipid metabolism,3,18,0.1912740962336767,"E781,E1641,E785",",,",$$,0.4383623804641939
+BC_vs_Control,Omega-3 fatty acid metabolism,1,6,0.2493235407808272,E1497,,,0.4383623804641939
+BC_vs_Control,Androgen and estrogen biosynthesis and metabolism,6,43,0.2666509806557873,"E968,E1432,E1235,E1351,E1328,E2038","C00951,C18045/C14497/C18075/C05294/C05139,andrstrnglc/C11135/C11136/5adtststeroneglc/ahandrostanglc,CE2186/CE2183/C05302/C05284/C05290/C05140,,C05504","Estradiol-17beta; beta-Estradiol; Estradiol$/6beta-Hydroxytestosterone; 6beta,17beta-Dihydroxyandrost-4-en-3-one//19-Hydroxytestosterone; 17beta,19-Dihydroxyandrost-4-en-3-one/16alpha-Hydroxydehydroepiandrosterone; 5-Androstene-3beta,16alpha-diol-17-one$androsterone glucuronide/androsterone glucuronide/Etiocholan-3alpha-ol-17-one 3-glucuronide/5alpha-Dihydrotestosterone glucuronide/Etiocholan-3alpha-ol-17-one 3-glucuronide$4-methoxy-17beta-estradiol/2-hydroxy-3-methoxy-17beta-estradiol/2-Methoxyestradiol-17beta/11beta-Hydroxyandrost-4-ene-3,17-dione; Androst-4-ene-3,17-dione-11beta-ol; 4-Androsten-11beta-ol-3,17-dione/19-Hydroxyandrost-4-ene-3,17-dione; 19-Hydroxyandrostenedione/16alpha-Hydroxyandrost-4-ene-3,17-dione; 4-Androsten-16alpha-ol-3,17-dione$$16-Glucuronide-estriol; 16alpha,17beta-Estriol 16-(beta-D-glucuronide)",0.4383623804641939
+BC_vs_Control,Vitamin B2 (riboflavin) metabolism,1,7,0.279692778272634,E802,,,0.4383623804641939
+BC_vs_Control,3-oxo-10R-octadecatrienoate beta-oxidation,1,7,0.279692778272634,E1163,,,0.4383623804641939
+BC_vs_Control,Arachidonic acid metabolism,3,24,0.3040789230433102,"E1473,E1641,E1882","C00909,,CE7114/CE2053/CE5138/CE5661/CE7115/CE7113/CE7112/CE7088",Leukotriene A4$$/20-oxo-leukotriene B4/12-oxo-20-hydroxy-leukotriene B4/15-oxo-lipoxin A4/20-hydroxy-leukotriene B5/15-epi-lipoxin B5/15-epi-lipoxin A5/PGH3,0.4383623804641939
+BC_vs_Control,Alkaloid biosynthesis II,1,8,0.3040957294835381,E192,,,0.4383623804641939
+BC_vs_Control,CoA Catabolism,1,8,0.3040957294835381,E1395,,,0.4383623804641939
+BC_vs_Control,Aspartate and asparagine metabolism,1,8,0.3040957294835381,E757,,,0.4383623804641939
+BC_vs_Control,Butanoate metabolism,1,9,0.3272381976773499,E593,,,0.4383623804641939
+BC_vs_Control,Glycosphingolipid metabolism,1,9,0.3272381976773499,E2271,,,0.4383623804641939
+BC_vs_Control,Porphyrin metabolism,1,9,0.3272381976773499,E945,,,0.4383623804641939
+BC_vs_Control,Vitamin B6 (pyridoxine) metabolism,1,10,0.3477252483151544,E35,,,0.4383623804641939
+BC_vs_Control,Vitamin B5 - CoA biosynthesis from pantothenate,1,11,0.3667669450933598,E1395,,,0.4383623804641939
+BC_vs_Control,Bile acid biosynthesis,1,14,0.4066486277541554,E2130,,,0.4383623804641939
+BC_vs_Control,Drug metabolism - cytochrome P450,3,35,0.4138081712912388,"E446,E1994,E461",",,",$$,0.4383623804641939
+BC_vs_Control,Purine metabolism,1,16,0.4157241054772189,E1425,,,0.4383623804641939
+BC_vs_Control,Carnitine shuttle,1,19,0.4230349069763533,E714,,,0.4383623804641939
+BC_vs_Control,Urea cycle/amino group metabolism,2,36,0.4317070301339473,"E641,E960",",",$,0.4383623804641939
+BC_vs_Control,Tyrosine metabolism,8,109,0.4377741550562175,"E29,E136,E875,E121,E30,E137,E120,E512",",,,,,,,",$$$$$$$,0.4383623804641939
+BC_vs_Control,Hyaluronan Metabolism,0,7,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,N-Glycan biosynthesis,0,5,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycolysis and Gluconeogenesis,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycosphingolipid biosynthesis - ganglioseries,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,R Group Synthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,C5-Branched dibasic acid metabolism,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Pyruvate Metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Sialic acid metabolism,0,10,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Chondroitin sulfate degradation,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Di-unsaturated fatty acid beta-oxidation,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Hexose phosphorylation,0,6,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Squalene and cholesterol biosynthesis,0,5,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Galactose metabolism,0,9,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Keratan sulfate degradation,0,6,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycerolipid metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin B1 (thiamin) metabolism,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycosphingolipid biosynthesis - globoseries,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Histidine metabolism,0,6,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycosylphosphatidylinositol(GPI)-anchor biosynthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycosphingolipid biosynthesis - lactoseries,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Parathio degradation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Propanoate metabolism,0,3,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Blood Group Biosynthesis,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin H (biotin) metabolism,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Biopterin metabolism,0,19,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin E metabolism,0,6,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,"Glycine, serine, alanine and threonine metabolism",0,7,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Caffeine metabolism,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Heparan sulfate biosynthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin B9 (folate) metabolism,0,5,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glyoxylate and Dicarboxylate Metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,De novo fatty acid biosynthesis,0,11,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,"Valine, leucine and isoleucine degradation",0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycosaminoglycan degradation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Fructose and mannose metabolism,0,8,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,ROS Detoxification,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Xenobiotics metabolism,0,3,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Saturated fatty acids beta-oxidation,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Mono-unsaturated fatty acid beta-oxidation,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glycosphingolipid biosynthesis - neolactoseries,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin B3 (nicotinate and nicotinamide) metabolism,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Ascorbate (Vitamin C) and Aldarate Metabolism,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Geraniol degradation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin D,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Dynorphin metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Heparan sulfate degradation,0,7,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,"Fatty acid oxidation, peroxisome",0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Polyunsaturated fatty acid biosynthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Alanine and Aspartate Metabolism,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glutathione Metabolism,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Keratan sulfate biosynthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,3-Chloroacrylic acid degradation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Sphingolipid metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,O-Glycan biosynthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Limonene and pinene degradation,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Arginine and Proline Metabolism,0,6,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Proteoglycan biosynthesis,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin K metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Glutamate metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Phosphatidylinositol phosphate metabolism,0,4,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Benzoate degradation via CoA ligation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Dimethyl-branched-chain fatty acid mitochondrial beta-oxidation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Pentose and Glucuronate Interconversions,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Atrazine degradation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,N-Glycan Degradation,0,8,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Vitamin B12 (cyanocobalamin) metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Fatty acid activation,0,8,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Carbon fixation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Nucleotide Sugar Metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,1- and 2-Methylnaphthalene degradation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Nitrogen metabolism,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Drug metabolism - other enzymes,0,5,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Aminosugars metabolism,0,9,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Beta-Alanine metabolism,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Starch and Sucrose Metabolism,0,1,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Trihydroxycoprostanoyl-CoA beta-oxidation,0,0,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Omega-6 fatty acid metabolism,0,3,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Phytanic acid peroxisomal oxidation,0,2,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Pentose phosphate pathway,0,3,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Methionine and cysteine metabolism,0,10,0.4383623804641939,,,,0.4383623804641939
+BC_vs_Control,Selenoamino acid metabolism,0,5,0.4383623804641939,,,,0.4383623804641939
