@@ -1,0 +1,16 @@
+,0
+n_full_compounds_pca,720.0
+pc1_auc,0.7876923076923077
+pc1_rho_order,-0.16091644204851752
+pc1_var,0.12876300569878987
+n_findings,564.0
+n_q05,855.0
+n_up,427.0
+pep_up,74.0
+pep_total,256.0
+n_total,3380.0
+fisher_or,3.1917006506241634
+fisher_p,5.044781448781104e-13
+n_find_up,293.0
+n_find_down,271.0
+n_find_pep,68.0

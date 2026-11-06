@@ -1,0 +1,224 @@
+feature,compound,n_selected,n_training_folds,selection_frequency,in_all_sample_panel,rank_all_sample_panel,p_MW_all_samples,set,method,comparison
+"12.449_249.06613_1H-Indene-1,2,3-trione 2-(phenylhydrazone)","1H-Indene-1,2,3-trione 2-(phenyl 249.0661@12.45",100,100,1.0,True,1.0,1.4637911993645297e-16,all,panel,BC_vs_Control
+8.041_314.17142_low score: Cyclopentolate,unknown 314.1714@8.04*,96,100,0.96,True,2.0,1.1463304081327843e-15,all,panel,BC_vs_Control
+9.139_484.18472_low score: Veronicoside,unknown 484.1847@9.14*,42,100,0.42,True,5.0,5.186464344257974e-14,all,panel,BC_vs_Control
+2.381_322.13254_low score: 2-[[2-(3-Hydroxyanilino)pyrimidin-4-yl]amino]benzamide,unknown 322.1325@2.38*,37,100,0.37,True,3.0,4.404515267554894e-14,all,panel,BC_vs_Control
+9.002_243.08784_low score: (-)-Riboflavin,unknown 243.0878@9.00*,36,100,0.36,True,4.0,4.970981420363949e-14,all,panel,BC_vs_Control
+"13.88_356.27966_low score: Naphtho[2,1-b]furan-4,5-diol, dodecahydro-2-(1-hydroxy-1-methyl-2-propen-1-yl)-3a,6,6,9a-tetramethyl-",unknown 356.2797@13.88*,29,100,0.29,False,,7.095134605414687e-14,all,panel,BC_vs_Control
+15.815_502.2934_low score: Glycerophospho-N-oleoylethanolamine,unknown 502.2934@15.81*,24,100,0.24,False,,1.1132634586855124e-13,all,panel,BC_vs_Control
+3.938_174.05525_low score: Isoquinoline-3-carboxylic acid,unknown 174.0553@3.94*,23,100,0.23,False,,1.1702109990704116e-13,all,panel,BC_vs_Control
+"8.83_328.18671_low score: (1R,3S)-3-(1-Adamantyl)-1-(aminomethyl)isochroman-5,6-diol",unknown 328.1867@8.83*,12,100,0.12,False,,1.4883904548245578e-13,all,panel,BC_vs_Control
+1.996_245.092_low score: Met-Pro,unknown 245.0920@2.00*,12,100,0.12,False,,3.8448798690208116e-13,all,panel,BC_vs_Control
+"2.452_175.12277_Indole, 5-(2-aminopropyl)-","Indole, 5-(2-aminopropyl)- 175.1228@2.45",11,100,0.11,False,,1.6567996109477888e-13,all,panel,BC_vs_Control
+"2.569_360.21317_low score: (3R,6S,6aS,10S,12aS,13aR,14S)-1-Ethyl-12a,14-dihydroxy-6-methoxy-3-methyl-8-oxotetradecahydro-7H-3,6a,13-(epiethane[1,1,2]triyl)-7,10-methanooxepino[3',4':4,5]benzo[1,2-b]azocine",unknown 360.2132@2.57*,10,100,0.1,False,,2.0143741057511663e-13,all,panel,BC_vs_Control
+8.678_332.21835_low score: Thr-Val-Leu,unknown 332.2183@8.68*,10,100,0.1,False,,2.766494587658885e-13,all,panel,BC_vs_Control
+7.716_452.25122_low score: Leukotriene E4 methyl ester,unknown 452.2512@7.72*,7,100,0.07,False,,5.809334126407471e-13,all,panel,BC_vs_Control
+3.026_269.14999_low score: N-.alpha.-(tert-Butoxycarbonyl)-L-lysine,unknown 269.1500@3.03*,7,100,0.07,False,,9.396583303140121e-13,all,panel,BC_vs_Control
+6.336_245.09233_low score: N-Acetyl-D-tryptophan,unknown 245.0923@6.34*,6,100,0.06,False,,6.723014155133489e-13,all,panel,BC_vs_Control
+8.302_731.41943_Unknown,unknown 731.4194@8.30,5,100,0.05,False,,4.3567295819203675e-13,all,panel,BC_vs_Control
+10.995_471.23407_low score: Methyl angolensate,unknown 471.2341@10.99*,4,100,0.04,False,,5.449048913483436e-13,all,panel,BC_vs_Control
+9.796_426.20651_low score: .beta.-Casomorphin (1-3),unknown 426.2065@9.80*,4,100,0.04,False,,7.397428302916878e-12,all,panel,BC_vs_Control
+"2.521_310.09253_low score: N-(5-Phenethyl-[1,3,4]thiadiazol-2-yl)benzamide",unknown 310.0925@2.52*,3,100,0.03,False,,7.869042056450175e-13,all,panel,BC_vs_Control
+8.871_366.20267_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2027@8.87*,3,100,0.03,False,,1.2001845668182936e-12,all,panel,BC_vs_Control
+7.958_261.12344_low score: Guanidinopropionic acid,unknown 261.1234@7.96*,2,100,0.02,False,,1.0240085509437898e-12,all,panel,BC_vs_Control
+"8.133_573.33984_low score: Oleana-1,9(11)-dien-28-amide, 2-cyano-3,12-dioxo-N-(2,2,2-trifluoroethyl)-",unknown 573.3398@8.13*,2,100,0.02,False,,1.2574903218963282e-12,all,panel,BC_vs_Control
+"2.683_320.18234_low score: N-(1,4-Dihydroxy-4-methylpentan-2-yl)-3-hydroxy-5-oxo-6-phenylhexanamide",unknown 320.1823@2.68*,2,100,0.02,False,,1.2637735718352757e-12,all,panel,BC_vs_Control
+"9.352_414.20273_low score: Pyrazino[1',2':1,6]pyrido[3,4-b] indole-3-propanoic acid, 1,2,3,4,6,7,12,12a-octahydro-9-methoxy-6-(2-methylpropyl)- 1,4-dioxo-, 1,1-dimethylethyl ester, (3S,6S,12aS)-",unknown 414.2027@9.35*,2,100,0.02,False,,2.9939703079950053e-12,all,panel,BC_vs_Control
+"12.057_487.19263_low score: Methyl (4aR,4bR,10aR,12aS)-6,10-dihydroxy-3,4b,7,7,10a,12a-hexamethyl-12-methylidene-1,4,5,8-tetraoxo-9,10,10b,11-tetrahydronaphtho[2,1-f]isochromene-4a-carboxylate",unknown 487.1926@12.06*,1,100,0.01,False,,8.247028312179162e-13,all,panel,BC_vs_Control
+"8.873_344.25488_low score: 1,5-Hexanediol, 6-[6-[(1E,3R,5Z)-3-hydroxy-1,5-undecadien-1-yl]-2-pyridinyl]-, (5S)-",unknown 344.2549@8.87*,1,100,0.01,False,,9.90911000823689e-13,all,panel,BC_vs_Control
+"9.51_419.23669_low score: 16,16-Dimethyl-6-ketoprostaglandin E1",unknown 419.2367@9.51*,1,100,0.01,False,,1.69329997011221e-12,all,panel,BC_vs_Control
+11.372_347.23346_low score: 16.beta.-Hydroxyfurazabol,unknown 347.2335@11.37*,1,100,0.01,False,,1.8019407300219931e-12,all,panel,BC_vs_Control
+10.12_646.40643_Unknown,unknown 646.4064@10.12,1,100,0.01,False,,2.6447142495374994e-12,all,panel,BC_vs_Control
+7.726_524.26727_low score: Calcimycin,unknown 524.2673@7.73*,1,100,0.01,False,,3.5594944817445455e-12,all,panel,BC_vs_Control
+"2.747_344.20676_low score: Methanone, [1-(5-fluoropentyl)-6-hydroxy-1H-indol-3-yl](2,2,3,3-tetramethylcyclopropyl)-",unknown 344.2068@2.75*,1,100,0.01,False,,5.0489737190721396e-12,all,panel,BC_vs_Control
+8.895_681.05878_low score: N-(4-Bromo-2-methylphenyl)naphthalene-2-carboxamide,unknown 681.0588@8.89*,1,100,0.01,False,,8.87119472605278e-12,all,panel,BC_vs_Control
+14.364_358.2955_Unknown,unknown 358.2955@14.36,1,100,0.01,False,,1.4416645813154971e-11,all,panel,BC_vs_Control
+"10.479_423.21259_low score: 10-Hydroxy-1,6-dimethyl-9-(propan-2-yl)-5,12-dioxatricyclo[9.1.0.04,6]dodecan-8-yl (2E)-3-phenylprop-2-enoate",unknown 423.2126@10.48*,1,100,0.01,False,,1.7173091720021104e-11,all,panel,BC_vs_Control
+9.958_450.23358_low score: Penigequinolone A,unknown 450.2336@9.96*,1,100,0.01,False,,2.057866086397113e-11,all,panel,BC_vs_Control
+"12.449_249.06613_1H-Indene-1,2,3-trione 2-(phenylhydrazone)","1H-Indene-1,2,3-trione 2-(phenyl 249.0661@12.45",100,100,1.0,True,1.0,7.250257247810054e-12,all,panel_adj,BC_vs_Control
+8.041_314.17142_low score: Cyclopentolate,unknown 314.1714@8.04*,94,100,0.94,True,2.0,4.048086927338891e-10,all,panel_adj,BC_vs_Control
+9.139_484.18472_low score: Veronicoside,unknown 484.1847@9.14*,91,100,0.91,True,3.0,6.70150636190466e-10,all,panel_adj,BC_vs_Control
+"13.88_356.27966_low score: Naphtho[2,1-b]furan-4,5-diol, dodecahydro-2-(1-hydroxy-1-methyl-2-propen-1-yl)-3a,6,6,9a-tetramethyl-",unknown 356.2797@13.88*,45,100,0.45,True,4.0,5.125371131705904e-09,all,panel_adj,BC_vs_Control
+9.002_243.08784_low score: (-)-Riboflavin,unknown 243.0878@9.00*,43,100,0.43,False,,5.547637523391256e-09,all,panel_adj,BC_vs_Control
+15.815_502.2934_low score: Glycerophospho-N-oleoylethanolamine,unknown 502.2934@15.81*,40,100,0.4,True,5.0,5.547637523391256e-09,all,panel_adj,BC_vs_Control
+10.995_471.23407_low score: Methyl angolensate,unknown 471.2341@10.99*,19,100,0.19,False,,1.8518980564437053e-08,all,panel_adj,BC_vs_Control
+"8.133_573.33984_low score: Oleana-1,9(11)-dien-28-amide, 2-cyano-3,12-dioxo-N-(2,2,2-trifluoroethyl)-",unknown 573.3398@8.13*,13,100,0.13,False,,2.6078928745402382e-08,all,panel_adj,BC_vs_Control
+1.996_245.092_low score: Met-Pro,unknown 245.0920@2.00*,11,100,0.11,False,,2.8127152257718595e-08,all,panel_adj,BC_vs_Control
+8.678_332.21835_low score: Thr-Val-Leu,unknown 332.2183@8.68*,9,100,0.09,False,,2.417576120892301e-08,all,panel_adj,BC_vs_Control
+7.716_452.25122_low score: Leukotriene E4 methyl ester,unknown 452.2512@7.72*,7,100,0.07,False,,4.250197347184738e-08,all,panel_adj,BC_vs_Control
+2.381_322.13254_low score: 2-[[2-(3-Hydroxyanilino)pyrimidin-4-yl]amino]benzamide,unknown 322.1325@2.38*,7,100,0.07,False,,5.935280194673577e-08,all,panel_adj,BC_vs_Control
+"8.83_328.18671_low score: (1R,3S)-3-(1-Adamantyl)-1-(aminomethyl)isochroman-5,6-diol",unknown 328.1867@8.83*,6,100,0.06,False,,3.799568319851483e-08,all,panel_adj,BC_vs_Control
+11.062_380.19168_low score: trans-Epoxysuccinyl-L-leucylamido(4-guanidino)butane,unknown 380.1917@11.06*,2,100,0.02,False,,8.26010193834939e-08,all,panel_adj,BC_vs_Control
+"10.617_407.25439_low score: 1H-Indazole-4-carboxamide, N- [(1,2-dihydro-6-methyl-2-oxo-4-propyl-3-pyridinyl)methyl]- 1-(1-methylethyl)-6-[6-[4-(1-methylethyl)-1-piperazinyl]-3- pyridinyl]-",unknown 407.2544@10.62*,2,100,0.02,False,,1.3718946814560767e-07,all,panel_adj,BC_vs_Control
+8.924_370.16501_low score: Fumaricin,unknown 370.1650@8.92*,2,100,0.02,False,,5.39715689288318e-07,all,panel_adj,BC_vs_Control
+"12.057_487.19263_low score: Methyl (4aR,4bR,10aR,12aS)-6,10-dihydroxy-3,4b,7,7,10a,12a-hexamethyl-12-methylidene-1,4,5,8-tetraoxo-9,10,10b,11-tetrahydronaphtho[2,1-f]isochromene-4a-carboxylate",unknown 487.1926@12.06*,1,100,0.01,False,,1.0656208306577307e-07,all,panel_adj,BC_vs_Control
+6.336_245.09233_low score: N-Acetyl-D-tryptophan,unknown 245.0923@6.34*,1,100,0.01,False,,1.5278039566189478e-07,all,panel_adj,BC_vs_Control
+"8.746_442.27197_low score: N-(2-Phosphate-1R-methylethyl)-5Z,8Z,11Z,14Z-eicosatetraenamide",unknown 442.2720@8.75*,1,100,0.01,False,,1.7007850569374156e-07,all,panel_adj,BC_vs_Control
+"2.569_360.21317_low score: (3R,6S,6aS,10S,12aS,13aR,14S)-1-Ethyl-12a,14-dihydroxy-6-methoxy-3-methyl-8-oxotetradecahydro-7H-3,6a,13-(epiethane[1,1,2]triyl)-7,10-methanooxepino[3',4':4,5]benzo[1,2-b]azocine",unknown 360.2132@2.57*,1,100,0.01,False,,2.1812156085060564e-07,all,panel_adj,BC_vs_Control
+8.607_359.22992_low score: Iloprost,unknown 359.2299@8.61*,1,100,0.01,False,,2.3410183690279183e-07,all,panel_adj,BC_vs_Control
+10.264_409.27011_low score: 9(11)-Dehydromanogenin,unknown 409.2701@10.26*,1,100,0.01,False,,3.100964701867198e-07,all,panel_adj,BC_vs_Control
+7.958_261.12344_low score: Guanidinopropionic acid,unknown 261.1234@7.96*,1,100,0.01,False,,3.100964701867198e-07,all,panel_adj,BC_vs_Control
+"8.741_346.23431_low score: 1-Pyrrolidineheptanoic acid, 2-[(1E,3S,4S)-3-hydroxy-4-methyl-1-nonen-6-yn-1-yl]-5-oxo-, (2R)-",unknown 346.2343@8.74*,1,100,0.01,False,,4.2408144726956964e-07,all,panel_adj,BC_vs_Control
+9.048_628.2243_low score: 4-Morpholinopropanesulfonic acid,unknown 628.2243@9.05*,1,100,0.01,False,,2.3435380053395033e-06,all,panel_adj,BC_vs_Control
+15.815_502.2934_low score: Glycerophospho-N-oleoylethanolamine,unknown 502.2934@15.81*,95,100,0.95,True,1.0,4.163822454600055e-09,matched,panel,BC_vs_Control
+"2.569_360.21317_low score: (3R,6S,6aS,10S,12aS,13aR,14S)-1-Ethyl-12a,14-dihydroxy-6-methoxy-3-methyl-8-oxotetradecahydro-7H-3,6a,13-(epiethane[1,1,2]triyl)-7,10-methanooxepino[3',4':4,5]benzo[1,2-b]azocine",unknown 360.2132@2.57*,65,100,0.65,True,2.0,1.0704035458121999e-08,matched,panel,BC_vs_Control
+8.871_366.20267_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2027@8.87*,52,100,0.52,True,3.0,1.784333926343171e-08,matched,panel,BC_vs_Control
+8.607_359.22992_low score: Iloprost,unknown 359.2299@8.61*,50,100,0.5,True,5.0,1.9917337541207927e-08,matched,panel,BC_vs_Control
+"2.683_320.18234_low score: N-(1,4-Dihydroxy-4-methylpentan-2-yl)-3-hydroxy-5-oxo-6-phenylhexanamide",unknown 320.1823@2.68*,46,100,0.46,True,4.0,1.9059794662597122e-08,matched,panel,BC_vs_Control
+7.898_401.28769_low score: Leu-Leu-Arg,unknown 401.2877@7.90*,40,100,0.4,False,,2.170335802799448e-08,matched,panel,BC_vs_Control
+8.678_332.21835_low score: Thr-Val-Leu,unknown 332.2183@8.68*,20,100,0.2,False,,4.3503776228918593e-08,matched,panel,BC_vs_Control
+9.139_484.18472_low score: Veronicoside,unknown 484.1847@9.14*,20,100,0.2,False,,4.745892955840922e-08,matched,panel,BC_vs_Control
+1.996_245.092_low score: Met-Pro,unknown 245.0920@2.00*,18,100,0.18,False,,4.3517829384380635e-08,matched,panel,BC_vs_Control
+"9.51_419.23669_low score: 16,16-Dimethyl-6-ketoprostaglandin E1",unknown 419.2367@9.51*,10,100,0.1,False,,1.1944265030773233e-07,matched,panel,BC_vs_Control
+9.66_878.4845_Unknown,unknown 878.4845@9.66,10,100,0.1,False,,1.2213811775189265e-07,matched,panel,BC_vs_Control
+8.041_314.17142_low score: Cyclopentolate,unknown 314.1714@8.04*,9,100,0.09,False,,1.240410258557864e-07,matched,panel,BC_vs_Control
+6.743_408.73264_Unknown,unknown 408.7326@6.74,6,100,0.06,False,,1.0800034609787881e-07,matched,panel,BC_vs_Control
+"12.449_249.06613_1H-Indene-1,2,3-trione 2-(phenylhydrazone)","1H-Indene-1,2,3-trione 2-(phenyl 249.0661@12.45",6,100,0.06,False,,1.2213811775189265e-07,matched,panel,BC_vs_Control
+9.14_366.203_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2030@9.14*,6,100,0.06,False,,1.918896398708005e-07,matched,panel,BC_vs_Control
+10.995_471.23407_low score: Methyl angolensate,unknown 471.2341@10.99*,6,100,0.06,False,,5.123255598457134e-07,matched,panel,BC_vs_Control
+8.88_615.62799_Unknown,unknown 615.6280@8.88,5,100,0.05,False,,1.0800034609787881e-07,matched,panel,BC_vs_Control
+2.863_399.2128_low score: Resolvin D2,unknown 399.2128@2.86*,5,100,0.05,False,,2.7364034993842113e-07,matched,panel,BC_vs_Control
+8.302_731.41943_Unknown,unknown 731.4194@8.30,3,100,0.03,False,,1.0800034609787881e-07,matched,panel,BC_vs_Control
+6.336_245.09233_low score: N-Acetyl-D-tryptophan,unknown 245.0923@6.34*,3,100,0.03,False,,3.012553372996041e-07,matched,panel,BC_vs_Control
+7.716_452.25122_low score: Leukotriene E4 methyl ester,unknown 452.2512@7.72*,3,100,0.03,False,,3.813584124087731e-07,matched,panel,BC_vs_Control
+5.736_244.11153_low score: Capecitabine,unknown 244.1115@5.74*,3,100,0.03,False,,8.346384398024106e-07,matched,panel,BC_vs_Control
+"8.87_369.2388_low score: 4-Imidazolidineheptanoic acid, 3-[(3S)-3-cyclohexyl-3-hydroxypropyl]-2,5-dioxo-, (4R)-rel-",unknown 369.2388@8.87*,2,100,0.02,False,,1.9247482902536916e-07,matched,panel,BC_vs_Control
+"10.479_423.21259_low score: 10-Hydroxy-1,6-dimethyl-9-(propan-2-yl)-5,12-dioxatricyclo[9.1.0.04,6]dodecan-8-yl (2E)-3-phenylprop-2-enoate",unknown 423.2126@10.48*,2,100,0.02,False,,2.982650919077426e-07,matched,panel,BC_vs_Control
+2.079_203.13913_L-Alanyl-L-norleucine,L-Alanyl-L-norleucine 203.1391@2.08,2,100,0.02,False,,3.3366835070669546e-07,matched,panel,BC_vs_Control
+"12.057_487.19263_low score: Methyl (4aR,4bR,10aR,12aS)-6,10-dihydroxy-3,4b,7,7,10a,12a-hexamethyl-12-methylidene-1,4,5,8-tetraoxo-9,10,10b,11-tetrahydronaphtho[2,1-f]isochromene-4a-carboxylate",unknown 487.1926@12.06*,2,100,0.02,False,,6.961606055234682e-07,matched,panel,BC_vs_Control
+9.225_408.24966_low score: Actinonin,unknown 408.2497@9.22*,1,100,0.01,False,,2.1773428662065398e-07,matched,panel,BC_vs_Control
+9.002_243.08784_low score: (-)-Riboflavin,unknown 243.0878@9.00*,1,100,0.01,False,,2.6609937986177424e-07,matched,panel,BC_vs_Control
+"8.133_573.33984_low score: Oleana-1,9(11)-dien-28-amide, 2-cyano-3,12-dioxo-N-(2,2,2-trifluoroethyl)-",unknown 573.3398@8.13*,1,100,0.01,False,,4.6104107354055264e-07,matched,panel,BC_vs_Control
+"2.521_310.09253_low score: N-(5-Phenethyl-[1,3,4]thiadiazol-2-yl)benzamide",unknown 310.0925@2.52*,1,100,0.01,False,,4.6155451884451475e-07,matched,panel,BC_vs_Control
+1.828_219.13411_Ser-Leu,Ser-Leu 219.1341@1.83,1,100,0.01,False,,5.709036401379162e-07,matched,panel,BC_vs_Control
+8.199_649.8877_Unknown,unknown 649.8877@8.20,1,100,0.01,False,,9.176573845018823e-07,matched,panel,BC_vs_Control
+7.726_524.26727_low score: Calcimycin,unknown 524.2673@7.73*,1,100,0.01,False,,9.53870067993263e-07,matched,panel,BC_vs_Control
+"11.529_407.20438_low score: Cyclopentaneheptanoic acid, 2-[(3R)-4-[(2-fluorophenyl)thio]-3-hydroxybutyl]-3,5-dihydroxy-, methyl ester, (1R,2R,3R,5S)-",unknown 407.2044@11.53*,1,100,0.01,False,,1.0795853129321476e-06,matched,panel,BC_vs_Control
+"13.88_356.27966_low score: Naphtho[2,1-b]furan-4,5-diol, dodecahydro-2-(1-hydroxy-1-methyl-2-propen-1-yl)-3a,6,6,9a-tetramethyl-",unknown 356.2797@13.88*,1,100,0.01,False,,1.4742942149091545e-06,matched,panel,BC_vs_Control
+10.12_646.40643_Unknown,unknown 646.4064@10.12,1,100,0.01,False,,1.7768516778498485e-06,matched,panel,BC_vs_Control
+1.658_238.09378_Sepiapterin,Sepiapterin 238.0938@1.66,1,100,0.01,False,,8.849270861410743e-06,matched,panel,BC_vs_Control
+15.815_502.2934_low score: Glycerophospho-N-oleoylethanolamine,unknown 502.2934@15.81*,79,100,0.79,True,1.0,1.0988989556288946e-07,matched,panel_adj,BC_vs_Control
+8.607_359.22992_low score: Iloprost,unknown 359.2299@8.61*,66,100,0.66,True,4.0,1.9247482902536916e-07,matched,panel_adj,BC_vs_Control
+8.678_332.21835_low score: Thr-Val-Leu,unknown 332.2183@8.68*,61,100,0.61,True,2.0,1.5400851876942904e-07,matched,panel_adj,BC_vs_Control
+8.871_366.20267_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2027@8.87*,61,100,0.61,True,3.0,1.7220623209524726e-07,matched,panel_adj,BC_vs_Control
+9.002_243.08784_low score: (-)-Riboflavin,unknown 243.0878@9.00*,24,100,0.24,False,,5.143384694389768e-07,matched,panel_adj,BC_vs_Control
+"8.87_369.2388_low score: 4-Imidazolidineheptanoic acid, 3-[(3S)-3-cyclohexyl-3-hydroxypropyl]-2,5-dioxo-, (4R)-rel-",unknown 369.2388@8.87*,21,100,0.21,True,5.0,4.6188471508331655e-07,matched,panel_adj,BC_vs_Control
+9.139_484.18472_low score: Veronicoside,unknown 484.1847@9.14*,21,100,0.21,False,,6.370065893774589e-07,matched,panel_adj,BC_vs_Control
+1.996_245.092_low score: Met-Pro,unknown 245.0920@2.00*,17,100,0.17,False,,6.370065893774589e-07,matched,panel_adj,BC_vs_Control
+"8.133_573.33984_low score: Oleana-1,9(11)-dien-28-amide, 2-cyano-3,12-dioxo-N-(2,2,2-trifluoroethyl)-",unknown 573.3398@8.13*,13,100,0.13,False,,2.0058910372077837e-06,matched,panel_adj,BC_vs_Control
+2.863_399.2128_low score: Resolvin D2,unknown 399.2128@2.86*,12,100,0.12,False,,1.6343185778530127e-06,matched,panel_adj,BC_vs_Control
+"2.683_320.18234_low score: N-(1,4-Dihydroxy-4-methylpentan-2-yl)-3-hydroxy-5-oxo-6-phenylhexanamide",unknown 320.1823@2.68*,10,100,0.1,False,,2.0058910372077837e-06,matched,panel_adj,BC_vs_Control
+7.716_452.25122_low score: Leukotriene E4 methyl ester,unknown 452.2512@7.72*,10,100,0.1,False,,2.0058910372077837e-06,matched,panel_adj,BC_vs_Control
+8.041_314.17142_low score: Cyclopentolate,unknown 314.1714@8.04*,9,100,0.09,False,,1.6343185778530127e-06,matched,panel_adj,BC_vs_Control
+"2.569_360.21317_low score: (3R,6S,6aS,10S,12aS,13aR,14S)-1-Ethyl-12a,14-dihydroxy-6-methoxy-3-methyl-8-oxotetradecahydro-7H-3,6a,13-(epiethane[1,1,2]triyl)-7,10-methanooxepino[3',4':4,5]benzo[1,2-b]azocine",unknown 360.2132@2.57*,9,100,0.09,False,,3.3236721937291334e-06,matched,panel_adj,BC_vs_Control
+7.898_401.28769_low score: Leu-Leu-Arg,unknown 401.2877@7.90*,8,100,0.08,False,,1.6343185778530127e-06,matched,panel_adj,BC_vs_Control
+9.66_878.4845_Unknown,unknown 878.4845@9.66,8,100,0.08,False,,2.719115971350221e-06,matched,panel_adj,BC_vs_Control
+"12.449_249.06613_1H-Indene-1,2,3-trione 2-(phenylhydrazone)","1H-Indene-1,2,3-trione 2-(phenyl 249.0661@12.45",7,100,0.07,False,,1.4742942149091545e-06,matched,panel_adj,BC_vs_Control
+"9.085_470.26117_low score: 4-[(2R,3S,7R,8R,8aS)-2,3,4'-Trihydroxy-4,4,7,8a-tetramethyl-6'-oxospiro[2,3,4a,5,6,7-hexahydro-1H-naphthalene-8,2'-3,8-dihydrofuro[2,3-e]isoindole]-7'-yl]butanoic acid",unknown 470.2612@9.09*,7,100,0.07,False,,1.6343185778530127e-06,matched,panel_adj,BC_vs_Control
+9.14_366.203_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2030@9.14*,7,100,0.07,False,,2.2208820495261538e-06,matched,panel_adj,BC_vs_Control
+10.233_365.19302_low score: Ser-Met-Lys,unknown 365.1930@10.23*,7,100,0.07,False,,3.672371527798871e-06,matched,panel_adj,BC_vs_Control
+10.995_471.23407_low score: Methyl angolensate,unknown 471.2341@10.99*,6,100,0.06,False,,4.941573855125697e-06,matched,panel_adj,BC_vs_Control
+"9.51_419.23669_low score: 16,16-Dimethyl-6-ketoprostaglandin E1",unknown 419.2367@9.51*,4,100,0.04,False,,2.719115971350221e-06,matched,panel_adj,BC_vs_Control
+2.079_203.13913_L-Alanyl-L-norleucine,L-Alanyl-L-norleucine 203.1391@2.08,4,100,0.04,False,,7.299111542450259e-06,matched,panel_adj,BC_vs_Control
+"12.057_487.19263_low score: Methyl (4aR,4bR,10aR,12aS)-6,10-dihydroxy-3,4b,7,7,10a,12a-hexamethyl-12-methylidene-1,4,5,8-tetraoxo-9,10,10b,11-tetrahydronaphtho[2,1-f]isochromene-4a-carboxylate",unknown 487.1926@12.06*,3,100,0.03,False,,1.1776977265325071e-05,matched,panel_adj,BC_vs_Control
+"13.88_356.27966_low score: Naphtho[2,1-b]furan-4,5-diol, dodecahydro-2-(1-hydroxy-1-methyl-2-propen-1-yl)-3a,6,6,9a-tetramethyl-",unknown 356.2797@13.88*,2,100,0.02,False,,4.477855916866232e-06,matched,panel_adj,BC_vs_Control
+9.983_332.24356_low score: Cyclohexyl(phenyl)[3-(piperidin-1-yl)propyl]silanol,unknown 332.2436@9.98*,2,100,0.02,False,,4.941573855125697e-06,matched,panel_adj,BC_vs_Control
+9.225_408.24966_low score: Actinonin,unknown 408.2497@9.22*,2,100,0.02,False,,6.010668007730692e-06,matched,panel_adj,BC_vs_Control
+5.736_244.11153_low score: Capecitabine,unknown 244.1115@5.74*,2,100,0.02,False,,9.737785441998759e-06,matched,panel_adj,BC_vs_Control
+6.336_245.09233_low score: N-Acetyl-D-tryptophan,unknown 245.0923@6.34*,1,100,0.01,False,,4.477855916866232e-06,matched,panel_adj,BC_vs_Control
+9.915_505.29437_Unknown,unknown 505.2944@9.91,1,100,0.01,False,,4.941573855125697e-06,matched,panel_adj,BC_vs_Control
+"2.521_310.09253_low score: N-(5-Phenethyl-[1,3,4]thiadiazol-2-yl)benzamide",unknown 310.0925@2.52*,1,100,0.01,False,,6.010668007730692e-06,matched,panel_adj,BC_vs_Control
+7.279_425.22787_low score: 6.beta.-Hydroxymedroxyprogesterone 17-acetate,unknown 425.2279@7.28*,1,100,0.01,False,,6.010668007730692e-06,matched,panel_adj,BC_vs_Control
+8.895_681.05878_low score: N-(4-Bromo-2-methylphenyl)naphthalene-2-carboxamide,unknown 681.0588@8.89*,1,100,0.01,False,,6.624988343983656e-06,matched,panel_adj,BC_vs_Control
+"11.529_407.20438_low score: Cyclopentaneheptanoic acid, 2-[(3R)-4-[(2-fluorophenyl)thio]-3-hydroxybutyl]-3,5-dihydroxy-, methyl ester, (1R,2R,3R,5S)-",unknown 407.2044@11.53*,1,100,0.01,False,,1.1776977265325071e-05,matched,panel_adj,BC_vs_Control
+13.551_485.26825_low score: 2-Despiperidyl-2-(5-carboxypentylamine)repaglinide,unknown 485.2683@13.55*,1,100,0.01,False,,1.2943593626932324e-05,matched,panel_adj,BC_vs_Control
+11.5_318.13412_low score: Piperlongumine,unknown 318.1341@11.50*,1,100,0.01,False,,1.4219973496541848e-05,matched,panel_adj,BC_vs_Control
+8.843_558.28888_Unknown,unknown 558.2889@8.84,1,100,0.01,False,,1.4219973496541848e-05,matched,panel_adj,BC_vs_Control
+7.828_245.18599_Ile-Ile,Ile-Ile 245.1860@7.83,1,100,0.01,False,,1.8809117362480813e-05,matched,panel_adj,BC_vs_Control
+11.372_347.23346_low score: 16.beta.-Hydroxyfurazabol,unknown 347.2335@11.37*,1,100,0.01,False,,1.8809117362480813e-05,matched,panel_adj,BC_vs_Control
+7.958_261.12344_low score: Guanidinopropionic acid,unknown 261.1234@7.96*,1,100,0.01,False,,2.0630247802504916e-05,matched,panel_adj,BC_vs_Control
+1.658_238.09378_Sepiapterin,Sepiapterin 238.0938@1.66,1,100,0.01,False,,2.4788262264360555e-05,matched,panel_adj,BC_vs_Control
+11.243_211.13315_trans-Traumatic acid,trans-Traumatic acid 211.1332@11.24,1,100,0.01,False,,3.254868128014749e-05,matched,panel_adj,BC_vs_Control
+"10.617_407.25439_low score: 1H-Indazole-4-carboxamide, N- [(1,2-dihydro-6-methyl-2-oxo-4-propyl-3-pyridinyl)methyl]- 1-(1-methylethyl)-6-[6-[4-(1-methylethyl)-1-piperazinyl]-3- pyridinyl]-",unknown 407.2544@10.62*,1,100,0.01,False,,4.653490422623316e-05,matched,panel_adj,BC_vs_Control
+"8.741_346.23431_low score: 1-Pyrrolidineheptanoic acid, 2-[(1E,3S,4S)-3-hydroxy-4-methyl-1-nonen-6-yn-1-yl]-5-oxo-, (2R)-",unknown 346.2343@8.74*,1,100,0.01,False,,5.5506480390752467e-05,matched,panel_adj,BC_vs_Control
+9.958_450.23358_low score: Penigequinolone A,unknown 450.2336@9.96*,1,100,0.01,False,,8.563961802983584e-05,matched,panel_adj,BC_vs_Control
+"8.333_573.32446_low score: Oleana-1,9(11)-dien-28-amide, 2-cyano-3,12-dioxo-N-(2,2,2-trifluoroethyl)-",unknown 573.3245@8.33*,1,100,0.01,False,,0.0012510612291407744,matched,panel_adj,BC_vs_Control
+1.996_245.092_low score: Met-Pro,unknown 245.0920@2.00*,100,100,1.0,True,1.0,5.7720636255072465e-08,contam_matched,panel,BC_vs_Control
+9.002_243.08784_low score: (-)-Riboflavin,unknown 243.0878@9.00*,78,100,0.78,True,2.0,1.8926222729781956e-07,contam_matched,panel,BC_vs_Control
+9.139_484.18472_low score: Veronicoside,unknown 484.1847@9.14*,60,100,0.6,True,3.0,2.191743808718851e-07,contam_matched,panel,BC_vs_Control
+"12.449_249.06613_1H-Indene-1,2,3-trione 2-(phenylhydrazone)","1H-Indene-1,2,3-trione 2-(phenyl 249.0661@12.45",53,100,0.53,True,4.0,2.3167183029655508e-07,contam_matched,panel,BC_vs_Control
+7.958_261.12344_low score: Guanidinopropionic acid,unknown 261.1234@7.96*,42,100,0.42,True,5.0,2.559643056089799e-07,contam_matched,panel,BC_vs_Control
+8.041_314.17142_low score: Cyclopentolate,unknown 314.1714@8.04*,40,100,0.4,False,,2.728009131020757e-07,contam_matched,panel,BC_vs_Control
+"8.83_328.18671_low score: (1R,3S)-3-(1-Adamantyl)-1-(aminomethyl)isochroman-5,6-diol",unknown 328.1867@8.83*,17,100,0.17,False,,4.538972188186947e-07,contam_matched,panel,BC_vs_Control
+"9.352_414.20273_low score: Pyrazino[1',2':1,6]pyrido[3,4-b] indole-3-propanoic acid, 1,2,3,4,6,7,12,12a-octahydro-9-methoxy-6-(2-methylpropyl)- 1,4-dioxo-, 1,1-dimethylethyl ester, (3S,6S,12aS)-",unknown 414.2027@9.35*,14,100,0.14,False,,1.0472741665207472e-06,contam_matched,panel,BC_vs_Control
+10.995_471.23407_low score: Methyl angolensate,unknown 471.2341@10.99*,14,100,0.14,False,,1.8448620747420495e-06,contam_matched,panel,BC_vs_Control
+15.815_502.2934_low score: Glycerophospho-N-oleoylethanolamine,unknown 502.2934@15.81*,13,100,0.13,False,,1.1200959998972881e-06,contam_matched,panel,BC_vs_Control
+9.983_332.24356_low score: Cyclohexyl(phenyl)[3-(piperidin-1-yl)propyl]silanol,unknown 332.2436@9.98*,11,100,0.11,False,,6.916583488077116e-07,contam_matched,panel,BC_vs_Control
+7.716_452.25122_low score: Leukotriene E4 methyl ester,unknown 452.2512@7.72*,11,100,0.11,False,,9.853301018148264e-07,contam_matched,panel,BC_vs_Control
+10.12_646.40643_Unknown,unknown 646.4064@10.12,7,100,0.07,False,,5.836327656533858e-06,contam_matched,panel,BC_vs_Control
+2.381_322.13254_low score: 2-[[2-(3-Hydroxyanilino)pyrimidin-4-yl]amino]benzamide,unknown 322.1325@2.38*,5,100,0.05,False,,5.753011376877738e-06,contam_matched,panel,BC_vs_Control
+6.336_245.09233_low score: N-Acetyl-D-tryptophan,unknown 245.0923@6.34*,4,100,0.04,False,,3.079812953021503e-06,contam_matched,panel,BC_vs_Control
+3.026_269.14999_low score: N-.alpha.-(tert-Butoxycarbonyl)-L-lysine,unknown 269.1500@3.03*,3,100,0.03,False,,2.624479139296207e-06,contam_matched,panel,BC_vs_Control
+8.871_366.20267_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2027@8.87*,3,100,0.03,False,,4.284513407066164e-06,contam_matched,panel,BC_vs_Control
+8.572_670.3197_Unknown,unknown 670.3197@8.57,2,100,0.02,False,,2.559539163140322e-06,contam_matched,panel,BC_vs_Control
+7.898_401.28769_low score: Leu-Leu-Arg,unknown 401.2877@7.90*,2,100,0.02,False,,2.559539163140322e-06,contam_matched,panel,BC_vs_Control
+"9.179_267.13391_low score: 3-[(E)-3,4-Dihydroxy-3,5-dimethylhept-1-enyl]-7,8-dihydroxy-7-methyl-8,8a-dihydro-1H-isochromen-6-one",unknown 267.1339@9.18*,2,100,0.02,False,,3.069100921857103e-06,contam_matched,panel,BC_vs_Control
+8.114_435.27164_low score: Ile-Phe-Arg,unknown 435.2716@8.11*,2,100,0.02,False,,5.547946517208686e-06,contam_matched,panel,BC_vs_Control
+"10.617_407.25439_low score: 1H-Indazole-4-carboxamide, N- [(1,2-dihydro-6-methyl-2-oxo-4-propyl-3-pyridinyl)methyl]- 1-(1-methylethyl)-6-[6-[4-(1-methylethyl)-1-piperazinyl]-3- pyridinyl]-",unknown 407.2544@10.62*,2,100,0.02,False,,5.5501895147460985e-06,contam_matched,panel,BC_vs_Control
+2.39_209.12863_low score: Aminocarb,unknown 209.1286@2.39*,2,100,0.02,False,,2.0388899014975384e-05,contam_matched,panel,BC_vs_Control
+"2.452_175.12277_Indole, 5-(2-aminopropyl)-","Indole, 5-(2-aminopropyl)- 175.1228@2.45",1,100,0.01,False,,2.355659136230732e-06,contam_matched,panel,BC_vs_Control
+"13.88_356.27966_low score: Naphtho[2,1-b]furan-4,5-diol, dodecahydro-2-(1-hydroxy-1-methyl-2-propen-1-yl)-3a,6,6,9a-tetramethyl-",unknown 356.2797@13.88*,1,100,0.01,False,,2.68976868945904e-06,contam_matched,panel,BC_vs_Control
+"7.818_359.13501_low score: 1-(.beta.-D-Glucopyranosyloxy)-7-methyl-1,4a,5,6,7,7a-hexahydrocyclopenta[c]pyran-4-carboxylic acid",unknown 359.1350@7.82*,1,100,0.01,False,,2.8046043444622457e-06,contam_matched,panel,BC_vs_Control
+11.062_380.19168_low score: trans-Epoxysuccinyl-L-leucylamido(4-guanidino)butane,unknown 380.1917@11.06*,1,100,0.01,False,,3.4264181102202868e-06,contam_matched,panel,BC_vs_Control
+9.626_428.18344_Unknown,unknown 428.1834@9.63,1,100,0.01,False,,5.1657788244971414e-06,contam_matched,panel,BC_vs_Control
+"2.683_320.18234_low score: N-(1,4-Dihydroxy-4-methylpentan-2-yl)-3-hydroxy-5-oxo-6-phenylhexanamide",unknown 320.1823@2.68*,1,100,0.01,False,,9.464200192435062e-06,contam_matched,panel,BC_vs_Control
+5.76_263.10272_low score: Gliotoxin,unknown 263.1027@5.76*,1,100,0.01,False,,1.2505163702974243e-05,contam_matched,panel,BC_vs_Control
+"8.746_442.27197_low score: N-(2-Phosphate-1R-methylethyl)-5Z,8Z,11Z,14Z-eicosatetraenamide",unknown 442.2720@8.75*,1,100,0.01,False,,1.4907839949999319e-05,contam_matched,panel,BC_vs_Control
+3.938_174.05525_low score: Isoquinoline-3-carboxylic acid,unknown 174.0553@3.94*,1,100,0.01,False,,1.8074477738835562e-05,contam_matched,panel,BC_vs_Control
+"9.268_305.18625_low score: 2,4,6-Tris(4-morpholinylmethyl)phenol",unknown 305.1862@9.27*,1,100,0.01,False,,1.8364036741426002e-05,contam_matched,panel,BC_vs_Control
+11.372_347.23346_low score: 16.beta.-Hydroxyfurazabol,unknown 347.2335@11.37*,1,100,0.01,False,,3.077303650797529e-05,contam_matched,panel,BC_vs_Control
+1.658_238.09378_Sepiapterin,Sepiapterin 238.0938@1.66,1,100,0.01,False,,4.16576035126058e-05,contam_matched,panel,BC_vs_Control
+9.576_358.27072_Unknown,unknown 358.2707@9.58,1,100,0.01,False,,6.859654547255052e-05,contam_matched,panel,BC_vs_Control
+1.996_245.092_low score: Met-Pro,unknown 245.0920@2.00*,99,100,0.99,True,1.0,7.898033666674663e-08,contam_matched,panel_adj,BC_vs_Control
+9.002_243.08784_low score: (-)-Riboflavin,unknown 243.0878@9.00*,96,100,0.96,True,2.0,1.6570792933858787e-07,contam_matched,panel_adj,BC_vs_Control
+9.139_484.18472_low score: Veronicoside,unknown 484.1847@9.14*,61,100,0.61,True,3.0,2.562945863395653e-07,contam_matched,panel_adj,BC_vs_Control
+7.958_261.12344_low score: Guanidinopropionic acid,unknown 261.1234@7.96*,44,100,0.44,True,4.0,2.959753733675675e-07,contam_matched,panel_adj,BC_vs_Control
+"12.449_249.06613_1H-Indene-1,2,3-trione 2-(phenylhydrazone)","1H-Indene-1,2,3-trione 2-(phenyl 249.0661@12.45",29,100,0.29,True,5.0,3.415575693503718e-07,contam_matched,panel_adj,BC_vs_Control
+8.041_314.17142_low score: Cyclopentolate,unknown 314.1714@8.04*,26,100,0.26,False,,6.014797005320149e-07,contam_matched,panel_adj,BC_vs_Control
+9.983_332.24356_low score: Cyclohexyl(phenyl)[3-(piperidin-1-yl)propyl]silanol,unknown 332.2436@9.98*,20,100,0.2,False,,7.947947908822899e-07,contam_matched,panel_adj,BC_vs_Control
+"9.352_414.20273_low score: Pyrazino[1',2':1,6]pyrido[3,4-b] indole-3-propanoic acid, 1,2,3,4,6,7,12,12a-octahydro-9-methoxy-6-(2-methylpropyl)- 1,4-dioxo-, 1,1-dimethylethyl ester, (3S,6S,12aS)-",unknown 414.2027@9.35*,18,100,0.18,False,,7.947947908822899e-07,contam_matched,panel_adj,BC_vs_Control
+"8.83_328.18671_low score: (1R,3S)-3-(1-Adamantyl)-1-(aminomethyl)isochroman-5,6-diol",unknown 328.1867@8.83*,16,100,0.16,False,,9.126646630193904e-07,contam_matched,panel_adj,BC_vs_Control
+10.995_471.23407_low score: Methyl angolensate,unknown 471.2341@10.99*,14,100,0.14,False,,1.8029691721083094e-06,contam_matched,panel_adj,BC_vs_Control
+6.336_245.09233_low score: N-Acetyl-D-tryptophan,unknown 245.0923@6.34*,8,100,0.08,False,,2.355659136230732e-06,contam_matched,panel_adj,BC_vs_Control
+7.716_452.25122_low score: Leukotriene E4 methyl ester,unknown 452.2512@7.72*,7,100,0.07,False,,1.3760616388700263e-06,contam_matched,panel_adj,BC_vs_Control
+"9.179_267.13391_low score: 3-[(E)-3,4-Dihydroxy-3,5-dimethylhept-1-enyl]-7,8-dihydroxy-7-methyl-8,8a-dihydro-1H-isochromen-6-one",unknown 267.1339@9.18*,6,100,0.06,False,,3.069100921857103e-06,contam_matched,panel_adj,BC_vs_Control
+"13.88_356.27966_low score: Naphtho[2,1-b]furan-4,5-diol, dodecahydro-2-(1-hydroxy-1-methyl-2-propen-1-yl)-3a,6,6,9a-tetramethyl-",unknown 356.2797@13.88*,5,100,0.05,False,,2.0615962041044736e-06,contam_matched,panel_adj,BC_vs_Control
+8.871_366.20267_low score: N-Acetyl-S-farnesyl-L-cysteine,unknown 366.2027@8.87*,5,100,0.05,False,,2.68976868945904e-06,contam_matched,panel_adj,BC_vs_Control
+8.114_435.27164_low score: Ile-Phe-Arg,unknown 435.2716@8.11*,4,100,0.04,False,,3.987358896156635e-06,contam_matched,panel_adj,BC_vs_Control
+3.026_269.14999_low score: N-.alpha.-(tert-Butoxycarbonyl)-L-lysine,unknown 269.1500@3.03*,4,100,0.04,False,,3.987358896156635e-06,contam_matched,panel_adj,BC_vs_Control
+2.381_322.13254_low score: 2-[[2-(3-Hydroxyanilino)pyrimidin-4-yl]amino]benzamide,unknown 322.1325@2.38*,4,100,0.04,False,,7.577381059726264e-06,contam_matched,panel_adj,BC_vs_Control
+8.572_670.3197_Unknown,unknown 670.3197@8.57,3,100,0.03,False,,1.8029691721083094e-06,contam_matched,panel_adj,BC_vs_Control
+"2.452_175.12277_Indole, 5-(2-aminopropyl)-","Indole, 5-(2-aminopropyl)- 175.1228@2.45",3,100,0.03,False,,2.355659136230732e-06,contam_matched,panel_adj,BC_vs_Control
+"7.818_359.13501_low score: 1-(.beta.-D-Glucopyranosyloxy)-7-methyl-1,4a,5,6,7,7a-hexahydrocyclopenta[c]pyran-4-carboxylic acid",unknown 359.1350@7.82*,2,100,0.02,False,,2.355659136230732e-06,contam_matched,panel_adj,BC_vs_Control
+"8.87_369.2388_low score: 4-Imidazolidineheptanoic acid, 3-[(3S)-3-cyclohexyl-3-hydroxypropyl]-2,5-dioxo-, (4R)-rel-",unknown 369.2388@8.87*,2,100,0.02,False,,4.540079639937965e-06,contam_matched,panel_adj,BC_vs_Control
+10.12_646.40643_Unknown,unknown 646.4064@10.12,2,100,0.02,False,,1.414879700842589e-05,contam_matched,panel_adj,BC_vs_Control
+2.39_209.12863_low score: Aminocarb,unknown 209.1286@2.39*,2,100,0.02,False,,1.8074477738835562e-05,contam_matched,panel_adj,BC_vs_Control
+11.372_347.23346_low score: 16.beta.-Hydroxyfurazabol,unknown 347.2335@11.37*,2,100,0.02,False,,2.3024709881112628e-05,contam_matched,panel_adj,BC_vs_Control
+9.626_428.18344_Unknown,unknown 428.1834@9.63,1,100,0.01,False,,2.68976868945904e-06,contam_matched,panel_adj,BC_vs_Control
+8.302_731.41943_Unknown,unknown 731.4194@8.30,1,100,0.01,False,,3.069100921857103e-06,contam_matched,panel_adj,BC_vs_Control
+11.062_380.19168_low score: trans-Epoxysuccinyl-L-leucylamido(4-guanidino)butane,unknown 380.1917@11.06*,1,100,0.01,False,,4.540079639937965e-06,contam_matched,panel_adj,BC_vs_Control
+9.225_408.24966_low score: Actinonin,unknown 408.2497@9.22*,1,100,0.01,False,,6.6736514304002175e-06,contam_matched,panel_adj,BC_vs_Control
+15.815_502.2934_low score: Glycerophospho-N-oleoylethanolamine,unknown 502.2934@15.81*,1,100,0.01,False,,7.577381059726264e-06,contam_matched,panel_adj,BC_vs_Control
+"7.938_361.21643_low score: 1H-Indazole-3-carboxamide, N-[1-(aminocarbonyl)-2,2-dimethylpropyl]-1-(5-hydroxypentyl)-",unknown 361.2164@7.94*,1,100,0.01,False,,8.597444817571517e-06,contam_matched,panel_adj,BC_vs_Control
+"8.746_442.27197_low score: N-(2-Phosphate-1R-methylethyl)-5Z,8Z,11Z,14Z-eicosatetraenamide",unknown 442.2720@8.75*,1,100,0.01,False,,1.2505163702974243e-05,contam_matched,panel_adj,BC_vs_Control
+14.364_358.2955_Unknown,unknown 358.2955@14.36,1,100,0.01,False,,1.414879700842589e-05,contam_matched,panel_adj,BC_vs_Control
+"9.268_305.18625_low score: 2,4,6-Tris(4-morpholinylmethyl)phenol",unknown 305.1862@9.27*,1,100,0.01,False,,1.5997235246344776e-05,contam_matched,panel_adj,BC_vs_Control
+9.312_540.28094_Unknown,unknown 540.2809@9.31,1,100,0.01,False,,1.8074477738835562e-05,contam_matched,panel_adj,BC_vs_Control
+2.863_399.2128_low score: Resolvin D2,unknown 399.2128@2.86*,1,100,0.01,False,,2.3024709881112628e-05,contam_matched,panel_adj,BC_vs_Control
+1.658_238.09378_Sepiapterin,Sepiapterin 238.0938@1.66,1,100,0.01,False,,3.705115970562938e-05,contam_matched,panel_adj,BC_vs_Control
+"8.792_335.16071_low score: 9H-Carbazole, 2-[(2E)-2-(1-azabicyclo[2.2.2]oct-3-ylidene)-2-fluoroethoxy]-",unknown 335.1607@8.79*,1,100,0.01,False,,6.610446488702155e-05,contam_matched,panel_adj,BC_vs_Control
+9.576_358.27072_Unknown,unknown 358.2707@9.58,1,100,0.01,False,,8.292416774489331e-05,contam_matched,panel_adj,BC_vs_Control
+"10.899_261.14883_low score: 2,5,7,8-Tetramethyl-2-(.beta.-carboxyethyl)-6-hydroxychroman",unknown 261.1488@10.90*,1,100,0.01,False,,8.292416774489331e-05,contam_matched,panel_adj,BC_vs_Control
+1.851_288.14429_low score: 3-Methylglutarylcarnitine,unknown 288.1443@1.85*,1,100,0.01,False,,0.00011590114146772004,contam_matched,panel_adj,BC_vs_Control
+11.192_413.17218_low score: 2-(Cyclohexylamino)ethanesulfonic acid,unknown 413.1722@11.19*,1,100,0.01,False,,0.00011590114146772004,contam_matched,panel_adj,BC_vs_Control
+9.52_460.21768_low score: (Desmethyl)hydroxycerivastatin,unknown 460.2177@9.52*,1,100,0.01,False,,0.00011590114146772004,contam_matched,panel_adj,BC_vs_Control

@@ -79,7 +79,7 @@ def fig_pca(meta, L, feat):
                       label=f"{LAB[g]} (n = {int(m.sum())})")
         ax[1].scatter(meta.loc[S.index[m], "inj_order"], S.loc[m, 0], s=12, c=COL[g], marker=MRK[g], edgecolor="white", lw=0.3)
     v = p.explained_variance_ratio_
-    ax[0].set(xlabel=f"PC1 ({v[0]:.1%})", ylabel=f"PC2 ({v[1]:.1%})")
+    ax[0].set(xlabel=f"PC1 ({v[0]:.1%})", ylabel=f"PC2 ({v[1]:.1%})", title=f"PCA, {len(full)} compounds detected in all samples (Pareto)")
     ax[0].legend(loc="best", fontsize=6)
     ax[1].set(xlabel="Injection order (assumed QC positions)", ylabel=f"PC1 ({v[0]:.1%})")
     st = meta.index[meta.study]
@@ -171,7 +171,8 @@ def table_abc(r, feat):
         "Formula": rep.formula, "Formula vs m/z, ppm": rep.apply(ppm_formula, axis=1).round(1),
         "Category (this analysis)": rep.category, "log2FC (adjusted)": rep.beta_model if "beta_model" in rep else rep.log2FC,
         "q (adjusted)": rep.q_model, "p (matched pairs, Wilcoxon)": rep.p_matched, "AUC": rep.AUC,
-        "Same direction": rep.same_direction, "Finding (all criteria)": rep.finding_this_study})
+        "Same direction (adjusted)": np.sign(rep.beta_model) == rep.direction.map({"up": 1, "down": -1}),
+        "Finding (all criteria)": rep.finding_this_study})
     return out
 
 

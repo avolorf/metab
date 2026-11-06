@@ -128,7 +128,7 @@ def main():
     ci, lvl, thr, idx_feats = features.contamination_index(
         L, series, study, study[meta.loc[study, "group"] == "Control"] if C.CONTAM_SPLIT == "control_median" else None)
     meta["contam_index"], meta["contam_level"] = ci, lvl
-    log(f"Индекс загрязнения: {len(idx_feats)} признаков ряда диэтаноламинов; граница high/low = {thr:.2f} (медиана)")
+    log(f"Индекс загрязнения: {len(idx_feats)} признаков ряда диэтаноламинов; граница high/low = {thr:.2f} (медиана {'контролей' if C.CONTAM_SPLIT == 'control_median' else 'всех проб'})")
     log("  средний индекс: " + ", ".join(f"{g} {meta.contam_index[study][meta.group[study] == g].mean():+.2f}" for g in C.STUDY_GROUPS))
     cur_raw = pd.read_csv(C.CURATION)
     cur_raw["feature"] = [next(iter(info[((info.mz - r.mz).abs() < 0.002) & ((info.rt_min - r.rt_min).abs() < 0.02)].index), None)
