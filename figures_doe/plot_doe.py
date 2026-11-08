@@ -13,7 +13,7 @@ from PIL import Image
 from scipy.stats import norm
 
 sys.path.insert(0, str(Path(__file__).parent))
-from doe_data import F, PB, FF, VLEV, V_ORG, V_EVAP, ORG_EVAP, V
+from doe_data import F, PB, FF, VLEV, V, INTER, MAIN, MAIN_LEVELS
 
 BAR, SIG, NS, CRIT, INK = "#6f9fd8", "#b5262b", "#2a5cb8", "#c4402b", "#222222"
 plt.rcParams.update({"font.family": "Liberation Sans", "font.size": 8.5, "axes.linewidth": 0.7,
@@ -82,7 +82,11 @@ def letter(ax, t):
     ax.text(-0.02, 1.02, f"({t})", transform=ax.transAxes, ha="right", va="bottom", fontsize=11, fontweight="bold")
 
 
-def interactions():
+def interactions(name, cfg):
+    sc = cfg["scale"]
+    V_ORG = {k: [x / sc for x in v] for k, v in cfg["V_ORG"].items()}
+    V_EVAP = {k: [x / sc for x in v] for k, v in cfg["V_EVAP"].items()}
+    ORG_EVAP = {k: [x / sc for x in v] for k, v in cfg["ORG_EVAP"].items()}
     C = ["#2a5cb8", "#b5262b", "#2e9a4f", "#8e44ad"]
     M = ["o", "s", "D", "^"]
     fig, axs = plt.subplots(3, 3, figsize=(17 / 2.54, 15 / 2.54), sharey=True, gridspec_kw={"hspace": 0.55, "wspace": 0.35})
@@ -119,18 +123,50 @@ def interactions():
         axs[i, i].legend(h, l, title="Линии ряда:\n" + ttl, loc="center", fontsize=7.5, title_fontsize=7.8, frameon=False)
     for ax in (axs[0, 1], axs[1, 2]):
         ax.tick_params(labelleft=True)
-        ax.set_ylabel("Число пиков")
+        ax.set_ylabel(cfg["ylab"])
     for ax in axs.ravel():
-        ax.set_ylim(2000, 9200)
+        ax.set_ylim(*cfg["ylim"])
         ax.grid(axis="y", color="#ececec", lw=0.5)
         ax.margins(x=0.15)
     axs[2, 0].set_xlabel(V)
     axs[2, 1].set_xlabel("% орг. р-ля")
     axs[1, 2].set_xlabel("упаривание")
     for i in range(3):
-        axs[i, 0].set_ylabel("Число пиков")
-    fig.suptitle("Графики взаимодействия эффектов\n(отклик: число пиков; средние значения)", fontsize=10, y=1.0)
-    save(fig, "Рисунок_5")
+        axs[i, 0].set_ylabel(cfg["ylab"])
+    fig.suptitle(f"Графики взаимодействия эффектов\n(отклик: {cfg['resp']}; средние значения)", fontsize=10, y=1.0)
+    save(fig, name)
+
+
+def main_effects():
+    """Рисунок 8: графики главных эффектов (Main Effects Plot for Means), панели А, Б, В."""
+    fig = plt.figure(figsize=(17 / 2.54, 16 / 2.54))
+    outer = fig.add_gridspec(3, 1, hspace=0.62)
+    facs = list(MAIN_LEVELS)
+    for r, (lab, cfg) in enumerate(MAIN.items()):
+        sub = outer[r].subgridspec(1, 4, wspace=0.0)
+        sc = cfg["scale"]
+        grand = np.mean([np.mean(cfg["v"][f]) for f in facs]) / sc
+        axs = [fig.add_subplot(sub[0, j]) for j in range(4)]
+        for j, (ax, f) in enumerate(zip(axs, facs)):
+            y = np.array(cfg["v"][f]) / sc
+            ax.axhline(grand, color="#9a9a9a", ls="--", lw=0.8)
+            ax.plot(range(4), y, color="#5b8fd0", lw=1.3, marker="o", ms=4.5, mfc="#1f4f99", mec="#1f4f99")
+            ax.set_xticks(range(4), [str(v) for v in MAIN_LEVELS[f]], fontsize=7)
+            ax.set_xlim(-0.4, 3.4)
+            ax.set_ylim(*cfg["ylim"])
+            ax.set_title(f, fontsize=8, pad=3, bbox=dict(fc="#eeeeee", ec="#9a9a9a", lw=0.6, boxstyle="square,pad=0.25"))
+            ax.grid(color="#ececec", lw=0.5)
+            ax.spines["right"].set_visible(True); ax.spines["top"].set_visible(True)
+            for sp in ax.spines.values():
+                sp.set_color("#9a9a9a"); sp.set_linewidth(0.6)
+            if j:
+                ax.tick_params(labelleft=False, left=False)
+            else:
+                ax.set_ylabel(cfg["ylab"], fontsize=8)
+                ax.tick_params(axis="y", labelsize=7)
+        axs[0].text(-0.42, 1.08, lab, transform=axs[0].transAxes, fontsize=12, fontweight="bold", va="bottom")
+    fig.suptitle("Main Effects Plot for Means\nData Means", fontsize=10, y=0.99)
+    save(fig, "Рисунок_8")
 
 
 def main():
@@ -145,7 +181,9 @@ def main():
     fig, ax = plt.subplots(figsize=(14 / 2.54, 8.5 / 2.54))
     pareto(ax, items, crit, resp)
     save(fig, "Рисунок_4")
-    interactions()
+    for name, cfg in INTER.items():
+        interactions(name, cfg)
+    main_effects()
     print("готово:", OUT)
 
 

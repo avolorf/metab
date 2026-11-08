@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="418.776979pt" height="420.557248pt" viewBox="0 0 418.776979 420.557248" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-08T16:36:43.533355</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 420.557248 
+L 418.776979 420.557248 
+L 418.776979 0 
+L -0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="legend_1">
+    <g id="text_1">
+     <text style="font-size: 7.8px; font-family: 'Liberation Sans'" transform="translate(66.48405 73.99043)">Линии ряда:</text>
+     <!-- $V_{\mathrm{общ}}/V_{\mathrm{мочи}}$ -->
+     <g transform="translate(66.48405 82.495173)">
+      <text>
+       <tspan x="0" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+       <tspan x="18.224745" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+       <tspan x="5.200455" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+       <tspan x="8.235835" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">б</tspan>
+       <tspan x="11.361824" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">щ</tspan>
+       <tspan x="23.4252" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">м</tspan>
+       <tspan x="27.177446" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+       <tspan x="30.212827" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">ч</tspan>
+       <tspan x="33.056331" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">и</tspan>
+       <tspan x="16.058516" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">/</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="line2d_1">
+     <path d="M 73.909894 92.004997 
+L 81.409894 92.004997 
+L 88.909894 92.004997 
+" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+     <defs>
+      <path id="m44b39640eb" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #2a5cb8"/>
+     </defs>
+     <g>
+      <use xlink:href="#m44b39640eb" x="81.409894" y="92.004997" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     </g>
+    </g>
+    <g id="text_2">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="94.909894" y="94.629997" transform="rotate(-0 94.909894 94.629997)">2</text>
+    </g>
+    <g id="line2d_2">
+     <path d="M 73.909894 102.793571 
+L 81.409894 102.793571 
+L 88.909894 102.793571 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+     <defs>
+      <path id="m160eb576a1" d="M -2.25 2.25 
+L 2.25 2.25 
+L 2.25 -2.25 
+L -2.25 -2.25 
+z
+" style="stroke: #b5262b; stroke-linejoin: miter"/>
+     </defs>
+     <g>
+      <use xlink:href="#m160eb576a1" x="81.409894" y="102.793571" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_3">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="94.909894" y="105.418571" transform="rotate(-0 94.909894 105.418571)">5</text>
+    </g>
+    <g id="line2d_3">
+     <path d="M 73.909894 113.582145 
+L 81.409894 113.582145 
+L 88.909894 113.582145 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #2e9a4f; stroke-width: 1.2"/>
+     <defs>
+      <path id="md6f5a6cd32" d="M -0 3.181981 
+L 3.181981 0 
+L 0 -3.181981 
+L -3.181981 -0 
+z
+" style="stroke: #2e9a4f; stroke-linejoin: miter"/>
+     </defs>
+     <g>
+      <use xlink:href="#md6f5a6cd32" x="81.409894" y="113.582145" style="fill: #2e9a4f; stroke: #2e9a4f; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="94.909894" y="116.207145" transform="rotate(-0 94.909894 116.207145)">10</text>
+    </g>
+    <g id="line2d_4">
+     <path d="M 73.909894 124.37072 
+L 81.409894 124.37072 
+L 88.909894 124.37072 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #8e44ad; stroke-width: 1.2"/>
+     <defs>
+      <path id="md111ab410b" d="M 0 -2.25 
+L -2.25 2.25 
+L 2.25 2.25 
+z
+" style="stroke: #8e44ad; stroke-linejoin: miter"/>
+     </defs>
+     <g>
+      <use xlink:href="#md111ab410b" x="81.409894" y="124.37072" style="fill: #8e44ad; stroke: #8e44ad; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="94.909894" y="126.99572" transform="rotate(-0 94.909894 126.99572)">20</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_2">
+    <path d="M 174.376511 138.077665 
+L 275.31288 138.077665 
+L 275.31288 58.223622 
+L 174.376511 58.223622 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_5">
+      <defs>
+       <path id="m9517874e49" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9517874e49" x="186.023015" y="138.077665" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="186.023015" y="151.265897" transform="rotate(-0 186.023015 151.265897)">50</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m9517874e49" x="263.666376" y="138.077665" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="263.666376" y="151.265897" transform="rotate(-0 263.666376 151.265897)">100</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <path d="M 174.376511 138.077665 
+L 275.31288 138.077665 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m8d830e9eed" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m8d830e9eed" x="174.376511" y="138.077665" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="167.376511" y="141.171781" transform="rotate(-0 167.376511 141.171781)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <path d="M 174.376511 107.364571 
+L 275.31288 107.364571 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="174.376511" y="107.364571" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="167.376511" y="110.458688" transform="rotate(-0 167.376511 110.458688)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <path d="M 174.376511 76.651478 
+L 275.31288 76.651478 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="174.376511" y="76.651478" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="167.376511" y="79.745594" transform="rotate(-0 167.376511 79.745594)">1.0</text>
+     </g>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="149.772692" y="98.150643" transform="rotate(-90 149.772692 98.150643)">Сумма площадей, ×10⁹</text>
+    </g>
+   </g>
+   <g id="line2d_13">
+    <path d="M 186.023015 80.951311 
+L 263.666376 86.479668 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#p10d12a9ae0)">
+     <use xlink:href="#m44b39640eb" x="186.023015" y="80.951311" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="263.666376" y="86.479668" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+    </g>
+   </g>
+   <g id="line2d_14">
+    <path d="M 186.023015 122.721118 
+L 263.666376 109.821619 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+    <g clip-path="url(#p10d12a9ae0)">
+     <use xlink:href="#m160eb576a1" x="186.023015" y="122.721118" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="263.666376" y="109.821619" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_15">
+    <path d="M 186.023015 128.863737 
+L 263.666376 117.192761 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #2e9a4f; stroke-width: 1.2"/>
+    <g clip-path="url(#p10d12a9ae0)">
+     <use xlink:href="#md6f5a6cd32" x="186.023015" y="128.863737" style="fill: #2e9a4f; stroke: #2e9a4f; stroke-linejoin: miter"/>
+     <use xlink:href="#md6f5a6cd32" x="263.666376" y="117.192761" style="fill: #2e9a4f; stroke: #2e9a4f; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_16">
+    <path d="M 186.023015 132.856439 
+L 263.666376 125.792427 
+" clip-path="url(#p10d12a9ae0)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #8e44ad; stroke-width: 1.2"/>
+    <g clip-path="url(#p10d12a9ae0)">
+     <use xlink:href="#md111ab410b" x="186.023015" y="132.856439" style="fill: #8e44ad; stroke: #8e44ad; stroke-linejoin: miter"/>
+     <use xlink:href="#md111ab410b" x="263.666376" y="125.792427" style="fill: #8e44ad; stroke: #8e44ad; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 174.376511 138.077665 
+L 174.376511 58.223622 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 174.376511 138.077665 
+L 275.31288 138.077665 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <!-- % орг. р-ля × $V_{\mathrm{общ}}/V_{\mathrm{мочи}}$ -->
+    <g transform="translate(182.412696 52.223622)">
+     <text>
+      <tspan x="0" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">%</tspan>
+      <tspan x="6.932678" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="9.098907" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="13.435165" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">р</tspan>
+      <tspan x="17.771423" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">г</tspan>
+      <tspan x="20.615311" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">.</tspan>
+      <tspan x="22.78154" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="24.947769" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">р</tspan>
+      <tspan x="29.284027" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">-</tspan>
+      <tspan x="31.880447" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">л</tspan>
+      <tspan x="36.429901" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">я</tspan>
+      <tspan x="40.651947" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="42.818176" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">×</tspan>
+      <tspan x="47.371429" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="65.596175" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">/</tspan>
+      <tspan x="49.537659" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="67.762404" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="54.738113" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="57.773494" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">б</tspan>
+      <tspan x="60.899483" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">щ</tspan>
+      <tspan x="72.962859" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">м</tspan>
+      <tspan x="76.715105" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="79.750485" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">ч</tspan>
+      <tspan x="82.59399" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">и</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_5">
+    <path d="M 310.64061 138.077665 
+L 411.576979 138.077665 
+L 411.576979 58.223622 
+L 310.64061 58.223622 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_3">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m9517874e49" x="322.287114" y="138.077665" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="322.287114" y="151.265897" transform="rotate(-0 322.287114 151.265897)">+</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m9517874e49" x="399.930475" y="138.077665" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="399.930475" y="151.265897" transform="rotate(-0 399.930475 151.265897)">−</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_4">
+     <g id="line2d_19">
+      <path d="M 310.64061 138.077665 
+L 411.576979 138.077665 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="310.64061" y="138.077665" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_21">
+      <path d="M 310.64061 107.364571 
+L 411.576979 107.364571 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="310.64061" y="107.364571" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_23">
+      <path d="M 310.64061 76.651478 
+L 411.576979 76.651478 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="310.64061" y="76.651478" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_25">
+    <path d="M 322.287114 65.594764 
+L 399.930475 102.450476 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#pd90a2c6b04)">
+     <use xlink:href="#m44b39640eb" x="322.287114" y="65.594764" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="399.930475" y="102.450476" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+    </g>
+   </g>
+   <g id="line2d_26">
+    <path d="M 322.287114 107.978833 
+L 399.930475 122.413987 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+    <g clip-path="url(#pd90a2c6b04)">
+     <use xlink:href="#m160eb576a1" x="322.287114" y="107.978833" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="399.930475" y="122.413987" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 322.287114 113.50719 
+L 399.930475 129.785129 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #2e9a4f; stroke-width: 1.2"/>
+    <g clip-path="url(#pd90a2c6b04)">
+     <use xlink:href="#md6f5a6cd32" x="322.287114" y="113.50719" style="fill: #2e9a4f; stroke: #2e9a4f; stroke-linejoin: miter"/>
+     <use xlink:href="#md6f5a6cd32" x="399.930475" y="129.785129" style="fill: #2e9a4f; stroke: #2e9a4f; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_28">
+    <path d="M 322.287114 124.563904 
+L 399.930475 133.777832 
+" clip-path="url(#pd90a2c6b04)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #8e44ad; stroke-width: 1.2"/>
+    <g clip-path="url(#pd90a2c6b04)">
+     <use xlink:href="#md111ab410b" x="322.287114" y="124.563904" style="fill: #8e44ad; stroke: #8e44ad; stroke-linejoin: miter"/>
+     <use xlink:href="#md111ab410b" x="399.930475" y="133.777832" style="fill: #8e44ad; stroke: #8e44ad; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 310.64061 138.077665 
+L 310.64061 58.223622 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 310.64061 138.077665 
+L 411.576979 138.077665 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <!-- упаривание × $V_{\mathrm{общ}}/V_{\mathrm{мочи}}$ -->
+    <g transform="translate(317.272794 52.223622)">
+     <text>
+      <tspan x="0" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">у</tspan>
+      <tspan x="3.898438" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">п</tspan>
+      <tspan x="8.120483" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">а</tspan>
+      <tspan x="12.456741" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">р</tspan>
+      <tspan x="16.792999" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">и</tspan>
+      <tspan x="21.148285" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">в</tspan>
+      <tspan x="25.290375" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">а</tspan>
+      <tspan x="29.626633" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">н</tspan>
+      <tspan x="33.932434" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">и</tspan>
+      <tspan x="38.28772" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">е</tspan>
+      <tspan x="42.623978" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="44.790207" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">×</tspan>
+      <tspan x="49.34346" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="67.568205" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">/</tspan>
+      <tspan x="51.509689" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="69.734435" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="56.710144" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="59.745525" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">б</tspan>
+      <tspan x="62.871513" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">щ</tspan>
+      <tspan x="74.934889" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">м</tspan>
+      <tspan x="78.687135" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="81.722516" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">ч</tspan>
+      <tspan x="84.56602" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">и</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_4">
+   <g id="patch_8">
+    <path d="M 38.112412 261.851431 
+L 139.048782 261.851431 
+L 139.048782 181.997388 
+L 38.112412 181.997388 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_5">
+    <g id="xtick_5">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#m9517874e49" x="49.758916" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="49.758916" y="275.039663" transform="rotate(-0 49.758916 275.039663)">2</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m9517874e49" x="75.640037" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="75.640037" y="275.039663" transform="rotate(-0 75.640037 275.039663)">5</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m9517874e49" x="101.521157" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="101.521157" y="275.039663" transform="rotate(-0 101.521157 275.039663)">10</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m9517874e49" x="127.402277" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="127.402277" y="275.039663" transform="rotate(-0 127.402277 275.039663)">20</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_6">
+    <g id="ytick_7">
+     <g id="line2d_33">
+      <path d="M 38.112412 261.851431 
+L 139.048782 261.851431 
+" clip-path="url(#p07c5dd8ecb)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="38.112412" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="31.112412" y="264.945547" transform="rotate(-0 31.112412 264.945547)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_35">
+      <path d="M 38.112412 231.138337 
+L 139.048782 231.138337 
+" clip-path="url(#p07c5dd8ecb)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="38.112412" y="231.138337" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="31.112412" y="234.232454" transform="rotate(-0 31.112412 234.232454)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_37">
+      <path d="M 38.112412 200.425244 
+L 139.048782 200.425244 
+" clip-path="url(#p07c5dd8ecb)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="38.112412" y="200.425244" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="31.112412" y="203.51936" transform="rotate(-0 31.112412 203.51936)">1.0</text>
+     </g>
+    </g>
+    <g id="text_23">
+     <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="13.508594" y="221.924409" transform="rotate(-90 13.508594 221.924409)">Сумма площадей, ×10⁹</text>
+    </g>
+   </g>
+   <g id="line2d_39">
+    <path d="M 49.758916 204.725077 
+L 75.640037 246.494884 
+L 101.521157 252.637503 
+L 127.402277 256.630205 
+" clip-path="url(#p07c5dd8ecb)" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#p07c5dd8ecb)">
+     <use xlink:href="#m44b39640eb" x="49.758916" y="204.725077" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="75.640037" y="246.494884" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="101.521157" y="252.637503" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="127.402277" y="256.630205" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+    </g>
+   </g>
+   <g id="line2d_40">
+    <path d="M 49.758916 210.253434 
+L 75.640037 233.595385 
+L 101.521157 240.966527 
+L 127.402277 249.566193 
+" clip-path="url(#p07c5dd8ecb)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+    <g clip-path="url(#p07c5dd8ecb)">
+     <use xlink:href="#m160eb576a1" x="49.758916" y="210.253434" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="75.640037" y="233.595385" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="101.521157" y="240.966527" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="127.402277" y="249.566193" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 38.112412 261.851431 
+L 38.112412 181.997388 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 38.112412 261.851431 
+L 139.048782 261.851431 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_24">
+    <!-- $V_{\mathrm{общ}}/V_{\mathrm{мочи}}$ × % орг. р-ля -->
+    <g transform="translate(46.148597 175.997388)">
+     <text>
+      <tspan x="0" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="18.224745" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="5.200455" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="8.235835" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">б</tspan>
+      <tspan x="11.361824" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">щ</tspan>
+      <tspan x="23.4252" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">м</tspan>
+      <tspan x="27.177446" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="30.212827" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">ч</tspan>
+      <tspan x="33.056331" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">и</tspan>
+      <tspan x="16.058516" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">/</tspan>
+      <tspan x="36.311281" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="38.47751" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">×</tspan>
+      <tspan x="43.030763" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="45.196992" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">%</tspan>
+      <tspan x="52.129671" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="54.2959" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="58.632158" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">р</tspan>
+      <tspan x="62.968416" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">г</tspan>
+      <tspan x="65.812303" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">.</tspan>
+      <tspan x="67.978532" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="70.144762" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">р</tspan>
+      <tspan x="74.48102" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">-</tspan>
+      <tspan x="77.07744" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">л</tspan>
+      <tspan x="81.626894" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">я</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_5">
+   <g id="legend_2">
+    <g id="text_25">
+     <text style="font-size: 7.8px; font-family: 'Liberation Sans'" transform="translate(202.748149 208.909712)">Линии ряда:</text>
+     <text style="font-size: 7.8px; font-family: 'Liberation Sans'" transform="translate(202.748149 217.399068)">% орг. р-ля</text>
+    </g>
+    <g id="line2d_41">
+     <path d="M 208.088641 226.210396 
+L 215.588641 226.210396 
+L 223.088641 226.210396 
+" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m44b39640eb" x="215.588641" y="226.210396" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="229.088641" y="228.835396" transform="rotate(-0 229.088641 228.835396)">50</text>
+    </g>
+    <g id="line2d_42">
+     <path d="M 208.088641 236.99897 
+L 215.588641 236.99897 
+L 223.088641 236.99897 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+     <g>
+      <use xlink:href="#m160eb576a1" x="215.588641" y="236.99897" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_27">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="229.088641" y="239.62397" transform="rotate(-0 229.088641 239.62397)">100</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_6">
+   <g id="patch_11">
+    <path d="M 310.64061 261.851431 
+L 411.576979 261.851431 
+L 411.576979 181.997388 
+L 310.64061 181.997388 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_7">
+    <g id="xtick_9">
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#m9517874e49" x="322.287114" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="322.287114" y="275.039663" transform="rotate(-0 322.287114 275.039663)">+</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#m9517874e49" x="399.930475" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="399.930475" y="275.039663" transform="rotate(-0 399.930475 275.039663)">−</text>
+     </g>
+    </g>
+    <g id="text_30">
+     <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="361.108794" y="287.016714" transform="rotate(-0 361.108794 287.016714)">упаривание</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_8">
+    <g id="ytick_10">
+     <g id="line2d_45">
+      <path d="M 310.64061 261.851431 
+L 411.576979 261.851431 
+" clip-path="url(#p03fa93b82c)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="310.64061" y="261.851431" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="303.64061" y="264.945547" transform="rotate(-0 303.64061 264.945547)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_47">
+      <path d="M 310.64061 231.138337 
+L 411.576979 231.138337 
+" clip-path="url(#p03fa93b82c)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="310.64061" y="231.138337" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="303.64061" y="234.232454" transform="rotate(-0 303.64061 234.232454)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_49">
+      <path d="M 310.64061 200.425244 
+L 411.576979 200.425244 
+" clip-path="url(#p03fa93b82c)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="310.64061" y="200.425244" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="303.64061" y="203.51936" transform="rotate(-0 303.64061 203.51936)">1.0</text>
+     </g>
+    </g>
+    <g id="text_34">
+     <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="286.036791" y="221.924409" transform="rotate(-90 286.036791 221.924409)">Сумма площадей, ×10⁹</text>
+    </g>
+   </g>
+   <g id="line2d_51">
+    <path d="M 322.287114 231.138337 
+L 399.930475 247.416277 
+" clip-path="url(#p03fa93b82c)" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#p03fa93b82c)">
+     <use xlink:href="#m44b39640eb" x="322.287114" y="231.138337" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="399.930475" y="247.416277" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+    </g>
+   </g>
+   <g id="line2d_52">
+    <path d="M 322.287114 221.924409 
+L 399.930475 244.037837 
+" clip-path="url(#p03fa93b82c)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+    <g clip-path="url(#p03fa93b82c)">
+     <use xlink:href="#m160eb576a1" x="322.287114" y="221.924409" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="399.930475" y="244.037837" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 310.64061 261.851431 
+L 310.64061 181.997388 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 310.64061 261.851431 
+L 411.576979 261.851431 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 7.8px; font-family: 'Liberation Sans'; text-anchor: middle" x="361.108794" y="175.997388" transform="rotate(-0 361.108794 175.997388)">упаривание × % орг. р-ля</text>
+   </g>
+  </g>
+  <g id="axes_7">
+   <g id="patch_14">
+    <path d="M 38.112412 385.625197 
+L 139.048782 385.625197 
+L 139.048782 305.771154 
+L 38.112412 305.771154 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_9">
+    <g id="xtick_11">
+     <g id="line2d_53">
+      <g>
+       <use xlink:href="#m9517874e49" x="49.758916" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_36">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="49.758916" y="398.813429" transform="rotate(-0 49.758916 398.813429)">2</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_54">
+      <g>
+       <use xlink:href="#m9517874e49" x="75.640037" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_37">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="75.640037" y="398.813429" transform="rotate(-0 75.640037 398.813429)">5</text>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_55">
+      <g>
+       <use xlink:href="#m9517874e49" x="101.521157" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_38">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="101.521157" y="398.813429" transform="rotate(-0 101.521157 398.813429)">10</text>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_56">
+      <g>
+       <use xlink:href="#m9517874e49" x="127.402277" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_39">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="127.402277" y="398.813429" transform="rotate(-0 127.402277 398.813429)">20</text>
+     </g>
+    </g>
+    <g id="text_40">
+     <!-- $V_{\mathrm{общ}}/V_{\mathrm{мочи}}$ -->
+     <g transform="translate(68.818097 410.807248)">
+      <text>
+       <tspan x="0" y="-0.84375" style="font-style: italic; font-size: 8.5px; font-family: 'Liberation Sans'">V</tspan>
+       <tspan x="19.867603" y="-0.84375" style="font-style: italic; font-size: 8.5px; font-family: 'Liberation Sans'">V</tspan>
+       <tspan x="5.669434" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">о</tspan>
+       <tspan x="8.97854" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">б</tspan>
+       <tspan x="12.386426" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">щ</tspan>
+       <tspan x="25.537036" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">м</tspan>
+       <tspan x="29.627661" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">о</tspan>
+       <tspan x="32.936768" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">ч</tspan>
+       <tspan x="36.036694" y="0.501563" style="font-size: 5.95px; font-family: 'Liberation Sans'">и</tspan>
+       <tspan x="17.50603" y="-0.84375" style="font-size: 8.5px; font-family: 'Liberation Sans'">/</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_10">
+    <g id="ytick_13">
+     <g id="line2d_57">
+      <path d="M 38.112412 385.625197 
+L 139.048782 385.625197 
+" clip-path="url(#p1a5bde05a1)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_58">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="38.112412" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_41">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="31.112412" y="388.719313" transform="rotate(-0 31.112412 388.719313)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_59">
+      <path d="M 38.112412 354.912104 
+L 139.048782 354.912104 
+" clip-path="url(#p1a5bde05a1)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_60">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="38.112412" y="354.912104" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_42">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="31.112412" y="358.00622" transform="rotate(-0 31.112412 358.00622)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_61">
+      <path d="M 38.112412 324.19901 
+L 139.048782 324.19901 
+" clip-path="url(#p1a5bde05a1)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_62">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="38.112412" y="324.19901" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_43">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: end" x="31.112412" y="327.293126" transform="rotate(-0 31.112412 327.293126)">1.0</text>
+     </g>
+    </g>
+    <g id="text_44">
+     <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="13.508594" y="345.698176" transform="rotate(-90 13.508594 345.698176)">Сумма площадей, ×10⁹</text>
+    </g>
+   </g>
+   <g id="line2d_63">
+    <path d="M 49.758916 313.142297 
+L 75.640037 355.526365 
+L 101.521157 361.054722 
+L 127.402277 372.111436 
+" clip-path="url(#p1a5bde05a1)" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#p1a5bde05a1)">
+     <use xlink:href="#m44b39640eb" x="49.758916" y="313.142297" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="75.640037" y="355.526365" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="101.521157" y="361.054722" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="127.402277" y="372.111436" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+    </g>
+   </g>
+   <g id="line2d_64">
+    <path d="M 49.758916 349.998009 
+L 75.640037 369.961519 
+L 101.521157 377.332662 
+L 127.402277 381.325364 
+" clip-path="url(#p1a5bde05a1)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+    <g clip-path="url(#p1a5bde05a1)">
+     <use xlink:href="#m160eb576a1" x="49.758916" y="349.998009" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="75.640037" y="369.961519" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="101.521157" y="377.332662" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="127.402277" y="381.325364" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 38.112412 385.625197 
+L 38.112412 305.771154 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 38.112412 385.625197 
+L 139.048782 385.625197 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_45">
+    <!-- $V_{\mathrm{общ}}/V_{\mathrm{мочи}}$ × упаривание -->
+    <g transform="translate(44.744597 299.771154)">
+     <text>
+      <tspan x="0" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="18.224745" y="-0.34375" style="font-style: italic; font-size: 7.8px; font-family: 'Liberation Sans'">V</tspan>
+      <tspan x="5.200455" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="8.235835" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">б</tspan>
+      <tspan x="11.361824" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">щ</tspan>
+      <tspan x="23.4252" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">м</tspan>
+      <tspan x="27.177446" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">о</tspan>
+      <tspan x="30.212827" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">ч</tspan>
+      <tspan x="33.056331" y="0.89375" style="font-size: 5.46px; font-family: 'Liberation Sans'">и</tspan>
+      <tspan x="16.058516" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">/</tspan>
+      <tspan x="36.311281" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="38.47751" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">×</tspan>
+      <tspan x="43.030763" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'"> </tspan>
+      <tspan x="45.196992" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">у</tspan>
+      <tspan x="49.09543" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">п</tspan>
+      <tspan x="53.317476" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">а</tspan>
+      <tspan x="57.653734" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">р</tspan>
+      <tspan x="61.989992" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">и</tspan>
+      <tspan x="66.345277" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">в</tspan>
+      <tspan x="70.487367" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">а</tspan>
+      <tspan x="74.823625" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">н</tspan>
+      <tspan x="79.129427" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">и</tspan>
+      <tspan x="83.484712" y="-0.34375" style="font-size: 7.8px; font-family: 'Liberation Sans'">е</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_8">
+   <g id="patch_17">
+    <path d="M 174.376511 385.625197 
+L 275.31288 385.625197 
+L 275.31288 305.771154 
+L 174.376511 305.771154 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_11">
+    <g id="xtick_15">
+     <g id="line2d_65">
+      <g>
+       <use xlink:href="#m9517874e49" x="186.023015" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_46">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="186.023015" y="398.813429" transform="rotate(-0 186.023015 398.813429)">50</text>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_66">
+      <g>
+       <use xlink:href="#m9517874e49" x="263.666376" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_47">
+      <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="263.666376" y="398.813429" transform="rotate(-0 263.666376 398.813429)">100</text>
+     </g>
+    </g>
+    <g id="text_48">
+     <text style="font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle" x="224.844696" y="410.79048" transform="rotate(-0 224.844696 410.79048)">% орг. р-ля</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_12">
+    <g id="ytick_16">
+     <g id="line2d_67">
+      <path d="M 174.376511 385.625197 
+L 275.31288 385.625197 
+" clip-path="url(#pc7155f9ebd)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_68">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="174.376511" y="385.625197" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_69">
+      <path d="M 174.376511 354.912104 
+L 275.31288 354.912104 
+" clip-path="url(#pc7155f9ebd)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_70">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="174.376511" y="354.912104" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_71">
+      <path d="M 174.376511 324.19901 
+L 275.31288 324.19901 
+" clip-path="url(#pc7155f9ebd)" style="fill: none; stroke: #ececec; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_72">
+      <g>
+       <use xlink:href="#m8d830e9eed" x="174.376511" y="324.19901" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_73">
+    <path d="M 186.023015 354.912104 
+L 263.666376 345.698176 
+" clip-path="url(#pc7155f9ebd)" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#pc7155f9ebd)">
+     <use xlink:href="#m44b39640eb" x="186.023015" y="354.912104" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     <use xlink:href="#m44b39640eb" x="263.666376" y="345.698176" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+    </g>
+   </g>
+   <g id="line2d_74">
+    <path d="M 186.023015 371.190043 
+L 263.666376 367.811603 
+" clip-path="url(#pc7155f9ebd)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+    <g clip-path="url(#pc7155f9ebd)">
+     <use xlink:href="#m160eb576a1" x="186.023015" y="371.190043" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     <use xlink:href="#m160eb576a1" x="263.666376" y="367.811603" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_18">
+    <path d="M 174.376511 385.625197 
+L 174.376511 305.771154 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 174.376511 385.625197 
+L 275.31288 385.625197 
+" style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_49">
+    <text style="font-size: 7.8px; font-family: 'Liberation Sans'; text-anchor: middle" x="224.844696" y="299.771154" transform="rotate(-0 224.844696 299.771154)">% орг. р-ля × упаривание</text>
+   </g>
+  </g>
+  <g id="axes_9">
+   <g id="legend_3">
+    <g id="text_50">
+     <text style="font-size: 7.8px; font-family: 'Liberation Sans'" transform="translate(339.012247 332.683478)">Линии ряда:</text>
+     <text style="font-size: 7.8px; font-family: 'Liberation Sans'" transform="translate(339.012247 341.172834)">упаривание</text>
+    </g>
+    <g id="line2d_75">
+     <path d="M 348.41856 349.984162 
+L 355.91856 349.984162 
+L 363.41856 349.984162 
+" style="fill: none; stroke: #2a5cb8; stroke-width: 1.2; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m44b39640eb" x="355.91856" y="349.984162" style="fill: #2a5cb8; stroke: #2a5cb8"/>
+     </g>
+    </g>
+    <g id="text_51">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="369.41856" y="352.609162" transform="rotate(-0 369.41856 352.609162)">+</text>
+    </g>
+    <g id="line2d_76">
+     <path d="M 348.41856 360.772736 
+L 355.91856 360.772736 
+L 363.41856 360.772736 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #b5262b; stroke-width: 1.2"/>
+     <g>
+      <use xlink:href="#m160eb576a1" x="355.91856" y="360.772736" style="fill: #b5262b; stroke: #b5262b; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_52">
+     <text style="font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start" x="369.41856" y="363.397736" transform="rotate(-0 369.41856 363.397736)">−</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_53">
+   <text style="font-size: 10px; font-family: 'Liberation Sans'" transform="translate(134.682011 15.371387)">Графики взаимодействия эффектов</text>
+   <text style="font-size: 10px; font-family: 'Liberation Sans'" transform="translate(98.466386 26.396777)">(отклик: сумма площадей пиков; средние значения)</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p10d12a9ae0">
+   <rect x="174.376511" y="58.223622" width="100.936369" height="79.854043"/>
+  </clipPath>
+  <clipPath id="pd90a2c6b04">
+   <rect x="310.64061" y="58.223622" width="100.936369" height="79.854043"/>
+  </clipPath>
+  <clipPath id="p07c5dd8ecb">
+   <rect x="38.112412" y="181.997388" width="100.936369" height="79.854043"/>
+  </clipPath>
+  <clipPath id="p03fa93b82c">
+   <rect x="310.64061" y="181.997388" width="100.936369" height="79.854043"/>
+  </clipPath>
+  <clipPath id="p1a5bde05a1">
+   <rect x="38.112412" y="305.771154" width="100.936369" height="79.854043"/>
+  </clipPath>
+  <clipPath id="pc7155f9ebd">
+   <rect x="174.376511" y="305.771154" width="100.936369" height="79.854043"/>
+  </clipPath>
+ </defs>
+</svg>
