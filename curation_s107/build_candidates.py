@@ -28,6 +28,15 @@ CAT = {"Nepetazide": "food: vegetable glycoside", "5-Methylmyosmine": "tobacco",
        "N-acetylcysteinyl-2, 6-diisopropylphenol": "drug: propofol–N-acetylcysteine adduct"}
 
 
+# Категория из отчёта сохраняется, только если она подтверждается данными: аннотация MS-DIAL того же признака
+# (в т. ч. low score) называет то же соединение (синонимы указаны). Остальные категории отчёта не подтверждены
+# (MS-DIAL предлагает другое соединение или масса не соответствует формуле) -> «ambiguous»; исходная категория — в comment.
+CONFIRMED_BY_DATA = {"Acetylcysteine": "N-Acetyl-L-cysteine",
+                     "4-hydroxy-3-(2-hydroxyethyl)acetophenone": "4-Hydroxy-3-(2-hydroxyethyl)acetophenone",
+                     "Isoferulic acid": "3-Hydroxy-4-methoxycinnamic acid", "Venlafaxine": "Venlafaxine (low score)",
+                     "Threonyl-phenylalanine (Thr-Phe)": "Thr-Phe", "Asparaginyl-phenylalanine (Asn-Phe)": "Asn-Phe"}
+
+
 def snap(info, mz, rt, rt_tol=0.3):
     d = info[(ppm(info.mz, mz).abs() <= 5) & ((info.rt_min - rt).abs() <= rt_tol)]
     if not len(d):
@@ -50,9 +59,16 @@ def main():
         if f is None:
             log.append(f"ABC {r.No} {r.Compound}: нет признака ±5 ppm/±0.3 мин")
             continue
+        cat = CAT.get(r.Compound, "ambiguous")
+        msd = f.split("_", 2)[2]
+        if r.Compound in CONFIRMED_BY_DATA:
+            note = f"category confirmed by data: MS-DIAL annotation of this feature = {CONFIRMED_BY_DATA[r.Compound]}"
+        else:
+            note = f"report category '{cat}' not confirmed by data (MS-DIAL annotation of this feature: {msd}) -> ambiguous"
+            cat = "ambiguous"
         rows.append(dict(rt_min=info.loc[f, "rt_min"], mz=info.loc[f, "mz"], focus="BC", name=f"ABC{r.No}: {r.Compound}",
                          name_en=r.Compound, formula=r.Molecular_formula, ion=ion, hmdb="", kegg="",
-                         category=CAT.get(r.Compound, "ambiguous"), comment=f"Report Table 20 / ABC No. {r.No}: {r.Notes}",
+                         category=cat, comment=f"Report Table 20 / ABC No. {r.No}: {r.Notes}; {note}",
                          ms2_library="", standard_confirmed="", isomer_ambiguous="", isomers_note=""))
     a = pd.read_csv("data/s107/res_annotated_2.csv", index_col=0)
     for _, r in a.iterrows():
@@ -67,8 +83,9 @@ def main():
                 if abs(x["mz"] - info.loc[f, "mz"]) < 0.002 and abs(x["rt_min"] - info.loc[f, "rt_min"]) < 0.02:
                     x["comment"] += f"; alternative annotation (res_annotated_2): {name}, {r['elemental composition']}"
             continue
-        cat = "endogenous: peptide" if re.search(r"^[A-Z][a-z]{2}(-[A-Za-z]{3})+|proline|tryptophan", name, re.I) else \
-              "drug" if "omeprazole" in name.lower() else "ambiguous"
+        # пептиды — эндогенные; 5-гидроксиомепразол (m/z на 22 ppm от формулы, MS-DIAL — безафибрат) и
+        # N-ацетилтриптофан (m/z не соответствует формуле) по данным не подтверждены -> ambiguous
+        cat = "endogenous: peptide" if re.search(r"^[A-Z][a-z]{2}(-[A-Za-z]{3})+|proline", name, re.I) else "ambiguous"
         rows.append(dict(rt_min=info.loc[f, "rt_min"], mz=info.loc[f, "mz"], focus="BC", name=f"res_annotated: {name}",
                          name_en=name, formula=r["elemental composition"], ion="[M+H]+", hmdb="", kegg="", category=cat,
                          comment=f"res_annotated_2.csv; MS-DIAL: {r.x}", ms2_library="", standard_confirmed="",

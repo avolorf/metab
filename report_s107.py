@@ -7,6 +7,7 @@
 Таблицы: демография, 30 маркеров отчёта (Табл. 20 / ABC) в полной выборке, воспроизведение находок выборки s266
 (Table 2) в s107, сверка маркеров РПЖ старой обработки (Табл. 22/28/29 отчёта) с обработкой s266, находки s107.
 """
+import shutil
 import re
 from pathlib import Path
 
@@ -39,6 +40,9 @@ S266_T2 = [("11-Oxoetiocholanolone glucuronide", 498.2697, 11.05, 10.73),
            ("Tetrahydrocortisone glucuronide, isomer II", 558.2914, 10.76, 10.43),
            ("Biliverdin", 583.2553, 13.48, 13.13),
            ("LysoPC(16:0)", 496.3397, 16.71, None)]
+
+
+VERSION, VERSION_DATE = "v2", "2026-11-08"
 
 
 def load():
@@ -219,7 +223,8 @@ def table_findings(r, feat):
     f = r[r.finding.astype(bool)].copy()
     f["peptide_library_match"] = f.annotation.astype(str).str.contains(PEP)
     cols = ["rt_min", "mz", "annotation", "annotation_conf", "compound_category", "beta_model", "q_model", "p_matched",
-            "p_lowindex", "AUC", "det_Control", "det_BC", "peptide_library_match"]
+            "p_lowindex", "p_ctrl_hi_vs_lo", "finding_via_ctrl_not_detected", "AUC", "det_Control", "det_BC",
+            "peptide_library_match"]
     return f[[c for c in cols if c in f]].sort_values("q_model")
 
 
@@ -256,7 +261,15 @@ def main():
     ct = [[int((pep & up).sum()), int((~pep & up).sum())], [int((pep & ~up).sum()), int((~pep & ~up).sum())]]
     fisher = stats.fisher_exact(ct)
     mv = pd.read_csv(RES / "multivariate_CV.csv")
+    version = pd.DataFrame({"field": ["version", "date", "changes vs v1"], "value": [
+        VERSION, VERSION_DATE,
+        "1) Finding rule: if a compound is not detected in any control, the comparison of high- vs low-index controls is "
+        "undefined (p = NaN) and the criterion is considered met (column finding_via_ctrl_not_detected); "
+        "2) categories transferred from report Table 20 / ABC annotations are kept only when confirmed by data "
+        "(MS-DIAL annotation of the same feature names the same compound); otherwise 'ambiguous' "
+        "(incl. 269.0880 @ 2.02 min and 5-hydroxyomeprazole)."]})
     with pd.ExcelWriter(OUT / "Tables_s107.xlsx") as w:
+        version.to_excel(w, sheet_name="Version", index=False)
         abc.to_excel(w, sheet_name="T1_report_markers_in_s107", index=False)
         t2.to_excel(w, sheet_name="T2_s266_Table2_in_s107", index=False)
         pc_old.to_excel(w, sheet_name="T3_old_PC_markers_vs_s266", index=False)
@@ -270,6 +283,7 @@ def main():
                 n_find_down=int((r.finding.astype(bool) & (r.beta_model < 0)).sum()),
                 n_find_pep=int((r.finding.astype(bool) & pep).sum()))
     pd.Series(summ).to_csv(OUT / "summary_numbers.csv")
+    shutil.copy(OUT / "Tables_s107.xlsx", OUT / f"Tables_s107_{VERSION}.xlsx")
     print(pd.Series(summ).to_string())
 
 

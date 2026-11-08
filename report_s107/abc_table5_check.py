@@ -140,22 +140,58 @@ RU = {1: "Val-Leu", 2: "Glu-Ile-Val", 3: "Phe-Ile-Arg", 4: "Leu-Leu-Arg", 5: "Le
       7: "Leu-Thr-Ser", 8: "N-Ацетилтриптофан", 9: "LysoPE(20:4/0:0)", 10: "Изомер инозина",
       11: "5-Гидроксиомепразол", 12: "2-Иминобиотин", 13: "(3S)-3-[(2S)-2-Амино-3-гидроксибутил]пирролидин-2-он",
       14: "2-Амино-3-{[2-(пиридин-4-ил)этил]сульфанил}пропановая кислота"}
-REASON = {
-    1: "Не находка: различие между контролями с высоким и низким индексом загрязнения (p = {hl:.3f}; "
-       "уровень выше у контролей с низким индексом, log2FC = {hlfc:.2f}); остальные критерии выполнены",
-    2: "Не находка формально: в контролях не обнаружен (0/40), поэтому сравнение контролей с высоким и низким "
-       "индексом не определено (p = NaN) и правило отбрасывает признак; по существу критерий выполнен",
-    8: "Признак удалён фильтром RSD QC ≤ 30 % (RSD {rsd:.1%}); статистика рассчитана отдельно той же цепочкой. "
-       "В табл. 5 опечатка: m/z 249.0923 → 245.0923 (исходная таблица res_annotated_2); 245.0923 не является [M+H]+ "
-       "C13H14N2O3 (247.1077), аннотация MS-DIAL низкой достоверности",
-    10: "Не находка: категория «пищевое» присвоена при курации по аннотации отчёта (C10H20O4S2, продукт метионина); "
-        "формула ABC (C10H12N4O5, −0.2 ppm) и MS-DIAL (рибозид аллопуринола, тот же состав) не исключены; "
-        "по статистике все критерии выполнены",
-    11: "Не находка: категория «лекарственное» (экзогенное); m/z на 21.8 ppm расходится с [M+H]+ C17H19N3O4S; "
-        "MS-DIAL — безафибрат (низкая достоверность)",
+
+
+def reason(no, x):
+    """Почему соединение не стало находкой (по фактическим значениям критериев)."""
+    if no == 8:
+        return (f"Признак удалён фильтром RSD QC ≤ 30 % (RSD {x.RSD_QC:.1%}); статистика рассчитана отдельно той же "
+                "цепочкой; 245.0923 не является [M+H]+ C13H14N2O3 (247.1077) -> MSI 4")
+    if x.finding is True or x.finding == 1:
+        if pd.isna(x.p_ctrl_hi_vs_lo):
+            return "Находка; не обнаружен ни в одном контроле — критерий «контроли high vs low» выполнен по правилу ctrl_not_detected"
+        return ""
+    why = []
+    if x.category in ("contaminant", "drug", "tobacco", "food"):
+        why.append(f"категория «{x.category}» (экзогенное)")
+    if not x.q_model < 0.05:
+        why.append(f"q = {x.q_model:.2g}")
+    if not x.p_matched < 0.05:
+        why.append(f"p_matched = {x.p_matched:.2g}")
+    if not x.p_lowindex < 0.05:
+        why.append(f"p против контролей с низким индексом = {x.p_lowindex:.2g}")
+    if x.p_ctrl_hi_vs_lo < 0.05:
+        why.append(f"различие между контролями с высоким и низким индексом загрязнения (p = {x.p_ctrl_hi_vs_lo:.3f}, "
+                   f"log2FC = {x.log2FC_ctrl_hi_vs_lo:.2f})")
+    return "Не находка: " + "; ".join(why)
+
+
+EXTRA_NOTE = {
+    10: "Категория: в прежней версии «пищевое» (перенесена из аннотации отчёта, C10H20O4S2); по данным не подтверждена "
+        "(MS/MS и MS1-спектров для этого признака нет, проверить M+2 и фрагмент m/z 137.0458 нельзя) -> «неоднозначное»; "
+        "состав C10H12N4O5 (ABC, −0.2 ppm) и C10H20O4S2 (отчёт, 1.5 ppm) не различены",
+    11: "Категория: в прежней версии «лекарственное» (аннотация ABC); по данным не подтверждена (m/z на 21.8 ppm от [M+H]+ "
+        "C17H19N3O4S, MS-DIAL — безафибрат, low score) -> «неоднозначное»",
 }
+MSI = pd.read_csv(T / "candidates_curated.csv")
+MSI = pd.concat([MSI, pd.read_csv(T / "candidates_mass_mismatch.csv")])
+
+
+def msi_level(no, x):
+    if no == 8:
+        return 4
+    m = MSI[((MSI.mz - x.mz_s107).abs() < 0.002) & ((MSI.rt_min - x.rt_s107).abs() < 0.02)]
+    return int(m.MSI_level.iloc[0]) if len(m) and pd.notna(m.MSI_level.iloc[0]) else 4
+
+
 # исправленные/дополненные столбцы M–T исходного файла
-t1.loc[t1.index[7], "m/z"] = t1.loc[t1.index[7], "m/z"]                       # исходные столбцы A–K не меняются
+# N-ацетилтриптофан: m/z исправлен на 245.0923 (опечатка в табл. 5), ppm пересчитан от опубликованной формулы
+from pipeline.features import formula_mass, ADDUCTS
+t1["m/z"] = t1["m/z"].astype(float)
+t1.loc[t1.index[7], "m/z"] = 245.0923
+_th = formula_mass("C13H14N2O3") + ADDUCTS["[M+H]+"]
+t1.loc[t1.index[7], "Formula vs m/z, ppm"] = round((245.0923 - _th) / _th * 1e6, 1)
+t1.insert(t1.columns.get_loc("Category (this analysis)") + 1, "MSI (this analysis)", [msi_level(int(r.iloc[0]), R.loc[int(r.iloc[0])]) for _, r in t1.iterrows()])
 cols = {"Category (this analysis)": "category", "log2FC (adjusted)": "beta_model", "q (adjusted)": "q_model",
         "p (matched pairs)": "p_matched", "AUC": "AUC"}
 chk_rows = []
@@ -177,11 +213,10 @@ for i, (_, r) in enumerate(t1.iterrows()):
     t1.loc[t1.index[i], "Finding (all criteria)"] = "yes" if x.finding is True or x.finding == 1 else "no"
     chk_rows.append(dict(no=no, prefilled="подтверждено" if not diffs else
                          ("заполнено" if pd.isna(r["log2FC (adjusted)"]) else "исправлено: " + ", ".join(diffs))))
-    note = REASON.get(no, "")
-    if no == 1:
-        note = note.format(hl=x.p_ctrl_hi_vs_lo, hlfc=x.log2FC_ctrl_hi_vs_lo)
+    note = "; ".join(v for v in [reason(no, x), EXTRA_NOTE.get(no, "")] if v)
     if no == 8:
-        note = note.format(rsd=x.RSD_QC)
+        r = r.copy(); r["Note"] = ("m/z corrected: 249.0923 in Table 5 is a typo for 245.0923 (source table res_annotated_2); "
+                                "ppm recalculated for 245.0923")
     old_note = r["Note"] if pd.notna(r["Note"]) else ""
     t1.loc[t1.index[i], "Note"] = "; ".join(s for s in [old_note, note] if s)
 chk = pd.DataFrame(chk_rows).set_index("no")
@@ -205,14 +240,16 @@ notes = [
     "использовался; пересчёт не требуется. Минимально возможное точное p при 24 парах = 2·2^-24 ≈ 1.2e-7.",
     "AUC — по всем пробам (65 против 40).",
     "Критерии находки: q < 0.05; p_matched < 0.05 в том же направлении; p против контролей с низким индексом < 0.05 "
-    "в том же направлении; нет различия между контролями с высоким и низким индексом (p ≥ 0.05); соединение не "
-    "экзогенное (контаминант, лекарство, табак, пища).",
+    "в том же направлении; нет различия между контролями с высоким и низким индексом (p ≥ 0.05; если соединение не "
+    "обнаружено ни в одном контроле, сравнение не определено и критерий считается выполненным — столбец "
+    "finding_via_ctrl_not_detected); соединение не экзогенное (контаминант, лекарство, табак, пища).",
     "Leu-Val (3.01 мин) и 360.2129 (7.95 мин) — отдельные хроматографические пики, а не сдвиг RT: признаки при RT "
     "статьи (4.15 и 2.57 мин) присутствуют в той же таблице; разница RT 1.1 и 5.4 мин при воспроизводимости RT "
     "в серии < 0.02 мин. См. лист Isomers.",
-    "269.0880 / 2.02 мин: в экспорте MS-DIAL изотопные пики свёрнуты в один признак (других ионов m/z 269–272 "
-    "при 2.02 мин нет), поэтому соотношение M+2 (два атома S в C10H20O4S2: ≈10 % от M при m/z 271.084, против ≈1.5 % для C10H12N4O5) "
-    "можно проверить только по спектру MS1 в MS-DIAL/Xcalibur.",
+    "269.0880 / 2.02 мин: в экспорте MS-DIAL изотопные пики свёрнуты в один признак, спектров MS/MS и MS1 этой выборки "
+    "в распоряжении нет (имеющиеся mzML — только MS1 s266, 9–19 мин), поэтому ни фрагмент m/z 137.0458 (гипоксантин/"
+    "аллопуринол, C10H12N4O5), ни пик M+2 (≈10 % для C10H20O4S2 против ≈1.5 %) проверить нельзя -> категория "
+    "«неоднозначное».",
     "N-ацетилтриптофан: статистика признака 245.0923 / 6.34 мин рассчитана вне фильтров (RSD QC 31 % > 30 %); "
     "q — BH по всем соединениям основной обработки плюс этот признак. Результат следует приводить с оговоркой "
     "о воспроизводимости в QC.",
@@ -285,8 +322,7 @@ def panel(ax, no, letter):
     ax.set_ylim(lo_, hi_ + 0.12 * (hi_ - lo_))
     ax.grid(axis="y", color="#efefef", lw=0.5)
     ax.set_axisbelow(True)
-    name = "\n".join(textwrap.wrap(f"{no}. {RU[no]}", 40)[:2])
-    ax.set_title(f"{name}\n$\\mathit{{m/z}}$ {x.mz_s107:.4f} {ION.get(no, '[M+H]$^+$')} · {x.rt_s107:.2f} мин",
+    ax.set_title(f"№ {no}\n$\\mathit{{m/z}}$ {x.mz_s107:.4f} {ION.get(no, '[M+H]$^+$')} · {x.rt_s107:.2f} мин",
                  fontsize=7, loc="left", pad=4)
     ax.text(0.98, 0.98, f"AUC {x.AUC:.2f}", transform=ax.transAxes, ha="right", va="top", fontsize=6.3,
             color="#555555")
@@ -314,4 +350,23 @@ fnd = [n for n in R.index if R.loc[n, "finding"] is True or R.loc[n, "finding"] 
 rest = [n for n in R.index if n not in fnd]
 figure(fnd, "Рисунок_ABC_табл5_находки")
 figure(rest, "Рисунок_ABC_табл5_не_находки")
+
+
+def caption(nos, head):
+    parts = []
+    for k, no in enumerate(nos):
+        x = R.loc[no]
+        extra = " (признак удалён фильтром RSD QC; m/z исправлен с 249.0923, MSI 4)" if no == 8 else ""
+        parts.append(f"{'абвгдежзиклмн'[k]} — № {no}, {RU[no]}{extra}")
+    return (head + " Номера соответствуют табл. 5 статьи ABC: " + "; ".join(parts) + ". Показаны log2-интенсивности "
+            "после коррекции серий по QC и нормализации PQN; открытые символы — значения, не обнаруженные MS-DIAL и "
+            "заполненные ½ минимума признака; ящик — медиана и квартили, усы — 5–95-й процентили; РМП n = 65, "
+            "контроль n = 40. В правом верхнем углу — AUC по всем пробам.")
+
+
+with open(OUT / "Подписи_к_рисункам.txt", "w", encoding="utf-8") as fh:
+    fh.write("Рисунок_ABC_табл5_находки\n" + caption(fnd, "Соединения табл. 5 статьи ABC, подтверждённые в выборке "
+             "107 проб как находки (все критерии выполнены).") + "\n\n")
+    fh.write("Рисунок_ABC_табл5_не_находки\n" + caption(rest, "Соединения табл. 5 статьи ABC, обнаруженные в выборке "
+             "107 проб, но не вошедшие в находки (причины — в табл. T1).") + "\n")
 print("находки:", fnd, "остальные:", rest, "->", OUT)

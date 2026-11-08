@@ -29,39 +29,39 @@ Control 40    16      24            0     40            0      57.3    14.8     
 Группировка признаков (ΔRT ≤ 0.02 мин, ρ ≥ 0.8): 4713 признаков → 3595 соединений; многоионных соединений 480"
 Индекс загрязнения: 5 признаков ряда диэтаноламинов; граница high/low = 0.68 (медиана контролей)
 "  средний индекс: Control +0.69, BC -0.43"
-"Категории соединений: putative (low score) 2697, annotated (high score) 322, unknown 262, possible drug (low score) 147, drug 56, possible food (low score) 45, food 37, endogenous 17, contaminant 5, ambiguous 4, possible tobacco (low score) 2, tobacco 1"
+"Категории соединений: putative (low score) 2697, annotated (high score) 322, unknown 262, possible drug (low score) 147, drug 51, possible food (low score) 45, food 30, ambiguous 26, endogenous 8, contaminant 5, possible tobacco (low score) 2"
 "
 Одномерная статистика (уровень соединений):
    comparison  n_case  n_ref     model_covariates  model_n_case  model_n_ref  matched_pairs  n_ref_lowindex  n_ref_highindex  n_q_model  n_findings
-BC_vs_Control      65     40 sex+age+contam_index            65           40             24              20               20        927         584"
+BC_vs_Control      65     40 sex+age+contam_index            65           40             24              20               20        927         618"
 Признаки «есть/нет» (детекция <50% в одной группе и ≥80% в другой): 58
 "
 Чувствительность (PQN vs MSTUS; без проб с низким фактором разведения):
    comparison  q<FDR_PQN  q<FDR_MSTUS  overlap  jaccard  findings_PQN  findings_MSTUS  findings_overlap  rho_log2FC  log2FC_shift  q_without_lowdilution  overlap_with_main  findings_without_lowdilution  findings_overlap_main
-BC_vs_Control        927         1016      820     0.73           584             609               509         1.0         -0.23                    844                806                           582                    531"
+BC_vs_Control        927         1016      820     0.73           618             645               543         1.0         -0.23                    844                806                           624                    565"
 "
-Пул для моделей: 3329 соединений (исключены до CV: экспозиции 248, |ρ с индексом загрязнения| ≥ 0.5 ещё 18: unknown 172.0699@10.32*, unknown 218.2116@9.96, unknown 222.1490@12.04*, unknown 223.0966@9.02*, Val-Leu 231.1701@4.14, unknown 242.1139@1.67*, unknown 244.1293@2.58*, unknown 244.1295@2.02*, unknown 244.1299@3.37*, unknown 246.2430@11.74, unknown 309.1338@12.18*, unknown 330.1667@7.49*, unknown 330.3373@15.84, unknown 344.2438@10.79*, unknown 348.7233@9.25, unknown 354.2644@13.18, unknown 434.2625@8.20*, unknown 535.2737@8.64*)"
+Пул для моделей: 3342 соединений (исключены до CV: экспозиции 235, |ρ с индексом загрязнения| ≥ 0.5 ещё 18: unknown 172.0699@10.32*, unknown 218.2116@9.96, unknown 222.1490@12.04*, unknown 223.0966@9.02*, Val-Leu 231.1701@4.14, unknown 242.1139@1.67*, unknown 244.1293@2.58*, unknown 244.1295@2.02*, unknown 244.1299@3.37*, unknown 246.2430@11.74, unknown 309.1338@12.18*, unknown 330.1667@7.49*, unknown 330.3373@15.84, unknown 344.2438@10.79*, unknown 348.7233@9.25, unknown 354.2644@13.18, unknown 434.2625@8.20*, unknown 535.2737@8.64*)"
 "
 Многомерные модели (повторная CV, отбор признаков внутри фолдов):
    comparison            set                                                                     model  n_case  n_ref  n_features  AUC_mean  AUC_sd  AUC_p5  AUC_p95     Q2  perm_p  n_perm
-BC_vs_Control            all                  панель top-5 + логистическая регрессия (отбор внутри CV)      65     40        3329     0.990   0.006   0.975    0.998  0.845   0.001    1000
-BC_vs_Control            all панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      65     40        3329     0.882   0.017   0.861    0.904  0.482   0.001    1000
-BC_vs_Control            all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      65     40        3329     1.000   0.000   1.000    1.000  0.825   0.001    1000
+BC_vs_Control            all                  панель top-5 + логистическая регрессия (отбор внутри CV)      65     40        3342     0.990   0.006   0.981    0.997  0.849   0.001    1000
+BC_vs_Control            all панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      65     40        3342     0.881   0.014   0.856    0.899  0.487   0.001    1000
+BC_vs_Control            all                        PLS-DA, 2 компоненты (все признаки без экспозиций)      65     40        3342     1.000   0.000   1.000    1.000  0.828   0.001    1000
 BC_vs_Control            all                                     только sex (базовая модель, та же CV)      65     40           1     0.681   0.014   0.658    0.703  0.211   0.001    1000
 BC_vs_Control            all                            только contam_index (базовая модель, та же CV)      65     40           1     0.807   0.007   0.795    0.817  0.315   0.001    1000
-BC_vs_Control        matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      24     24        3329     0.990   0.008   0.974    1.000  0.799   0.001    1000
-BC_vs_Control        matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      24     24        3329     0.920   0.024   0.880    0.951  0.525   0.001    1000
-BC_vs_Control        matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      24     24        3329     0.999   0.001   0.997    1.000  0.756   0.001    1000
+BC_vs_Control        matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      24     24        3342     0.988   0.010   0.970    0.998  0.788   0.001    1000
+BC_vs_Control        matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      24     24        3342     0.914   0.023   0.877    0.947  0.507   0.001    1000
+BC_vs_Control        matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      24     24        3342     0.999   0.001   0.997    1.000  0.759   0.001    1000
 BC_vs_Control        matched                                     только sex (базовая модель, та же CV)      24     24           1     0.354   0.045   0.279    0.410 -0.043   0.829    1000
 BC_vs_Control        matched                            только contam_index (базовая модель, та же CV)      24     24           1     0.642   0.015   0.619    0.665  0.083   0.037    1000
-BC_vs_Control contam_matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      19     19        3329     1.000   0.000   1.000    1.000  0.946   0.001    1000
-BC_vs_Control contam_matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      19     19        3329     1.000   0.001   1.000    1.000  0.955   0.001    1000
-BC_vs_Control contam_matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      19     19        3329     1.000   0.000   1.000    1.000  0.761   0.001    1000
+BC_vs_Control contam_matched                  панель top-5 + логистическая регрессия (отбор внутри CV)      19     19        3342     1.000   0.000   1.000    1.000  0.953   0.001    1000
+BC_vs_Control contam_matched панель top-5, признаки скорректированы на индекс загрязнения внутри фолда      19     19        3342     1.000   0.000   1.000    1.000  0.974   0.001    1000
+BC_vs_Control contam_matched                        PLS-DA, 2 компоненты (все признаки без экспозиций)      19     19        3342     1.000   0.000   1.000    1.000  0.764   0.001    1000
 BC_vs_Control contam_matched                                     только sex (базовая модель, та же CV)      19     19           1     0.327   0.053   0.259    0.383 -0.059   0.856    1000
 BC_vs_Control contam_matched                            только contam_index (базовая модель, та же CV)      19     19           1     0.335   0.053   0.265    0.408 -0.072   0.861    1000"
 "
 Курированные кандидаты: 35 с массой ≤5.0 ppm; 6 вынесены на лист candidates_mass_mismatch"
-Находки (правило в README): BC_vs_Control 584
+Находки (правило в README): BC_vs_Control 618
 "
 Сверка с маркерами (m/z ± 5.0 ppm, RT ± 0.3 мин):
 source    comparison  markers  not_detected  below_detection_filter  failed_rsd  quantified  ambiguous_isomers  same_direction_all_candidates  same_direction_any_candidate  nominal_p05_any_candidate  replicated_q05_any_candidate
@@ -71,4 +71,4 @@ source    comparison  markers  not_detected  below_detection_filter  failed_rsd 
 "
 Пути (mummichog, без экспозиций, BH по путям):
    comparison  n_features  n_significant  p_cutoff  excluded_exposure_features  permutations  n_pathways_p05  n_pathways_q05
-BC_vs_Control        4548            455  0.000131                         165           500               7               1"
+BC_vs_Control        4572            458  0.000127                         141           500               6               1"

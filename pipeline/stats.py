@@ -176,9 +176,15 @@ def run_comparison(L, meta, name, spec, comp_cat):
         out["log2FC_lowindex"], out["p_lowindex"] = fc, p
         p, _, fc = mw(L, hi, lo)
         out["log2FC_ctrl_hi_vs_lo"], out["p_ctrl_hi_vs_lo"] = fc, p
+        # не обнаружено ни в одном контроле: после импутации у всех контролей одно и то же значение (½ минимума),
+        # сравнение контролей с высоким и низким индексом не определено (p = NaN) — критерий считается выполненным
+        out["ctrl_not_detected"] = (L.loc[ref].nunique() == 1).to_numpy()
         info.update(n_ref_lowindex=len(lo), n_ref_highindex=len(hi))
     out["compound_category"] = comp_cat.reindex(out.index)
     out["finding"] = finding_rule(out, spec)
+    if "ctrl_not_detected" in out:
+        # находки, прошедшие критерий «контроли high vs low» только по правилу «не обнаружено в контролях»
+        out["finding_via_ctrl_not_detected"] = out.finding & out.p_ctrl_hi_vs_lo.isna() & out.ctrl_not_detected
     info["n_q_model"] = int((out.q_model < C.FDR).sum())
     info["n_findings"] = int(out.finding.sum())
     return out, info, pairs
@@ -187,12 +193,15 @@ def run_comparison(L, meta, name, spec, comp_cat):
 def finding_rule(r, spec):
     """Находка: q(модель с ковариатами) < FDR И p(подбор по возрасту) < CONFIRM_P в том же направлении;
     для сравнений с контролем дополнительно: p(против контролей с низким индексом) < CONFIRM_P в том же
-    направлении И нет различия между контролями с высоким и низким индексом (p ≥ CTRL_INDEX_P).
+    направлении И нет различия между контролями с высоким и низким индексом (p ≥ CTRL_INDEX_P); если соединение не
+    обнаружено ни в одном контроле (ctrl_not_detected), это сравнение не определено и критерий считается выполненным.
     Экспозиции (контаминанты, пища, лекарства) находками не считаются."""
     sgn = np.sign(r.beta_model)
     ok = (r.q_model < C.FDR) & (r.p_matched < C.CONFIRM_P) & (np.sign(r.log2FC_matched) == sgn)
     if "p_lowindex" in r:
-        ok &= (r.p_lowindex < C.CONFIRM_P) & (np.sign(r.log2FC_lowindex) == sgn) & (r.p_ctrl_hi_vs_lo >= C.CTRL_INDEX_P)
+        absent = r["ctrl_not_detected"].fillna(False).astype(bool) if "ctrl_not_detected" in r else False
+        ok &= (r.p_lowindex < C.CONFIRM_P) & (np.sign(r.log2FC_lowindex) == sgn) & \
+              ((r.p_ctrl_hi_vs_lo >= C.CTRL_INDEX_P) | (r.p_ctrl_hi_vs_lo.isna() & absent))
     from .features import EXPOSURE
     ok &= ~r.compound_category.isin(EXPOSURE)
     return ok.fillna(False)
