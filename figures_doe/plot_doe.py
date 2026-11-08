@@ -138,34 +138,46 @@ def interactions(name, cfg):
 
 
 def main_effects():
-    """Рисунок 8: графики главных эффектов (Main Effects Plot for Means), панели А, Б, В."""
-    fig = plt.figure(figsize=(17 / 2.54, 16 / 2.54))
-    outer = fig.add_gridspec(3, 1, hspace=0.62)
-    facs = list(MAIN_LEVELS)
-    for r, (lab, cfg) in enumerate(MAIN.items()):
-        sub = outer[r].subgridspec(1, 4, wspace=0.0)
-        sc = cfg["scale"]
-        grand = np.mean([np.mean(cfg["v"][f]) for f in facs]) / sc
-        axs = [fig.add_subplot(sub[0, j]) for j in range(4)]
-        for j, (ax, f) in enumerate(zip(axs, facs)):
-            y = np.array(cfg["v"][f]) / sc
-            ax.axhline(grand, color="#9a9a9a", ls="--", lw=0.8)
-            ax.plot(range(4), y, color="#5b8fd0", lw=1.3, marker="o", ms=4.5, mfc="#1f4f99", mec="#1f4f99")
-            ax.set_xticks(range(4), [str(v) for v in MAIN_LEVELS[f]], fontsize=7)
-            ax.set_xlim(-0.4, 3.4)
-            ax.set_ylim(*cfg["ylim"])
-            ax.set_title(f, fontsize=8, pad=3, bbox=dict(fc="#eeeeee", ec="#9a9a9a", lw=0.6, boxstyle="square,pad=0.25"))
-            ax.grid(color="#ececec", lw=0.5)
-            ax.spines["right"].set_visible(True); ax.spines["top"].set_visible(True)
+    """Рисунок 8: главные эффекты плана Тагучи L16 по точным данным отчёта (таблицы 12 и 13 → figures_doe/taguchi.csv).
+    Компоновка исходного рисунка: панели А и Б в верхнем ряду, В — по центру нижнего."""
+    import pandas as pd
+    d = pd.read_csv(Path(__file__).parent / "taguchi.csv")
+    d["voltage_kV"] = d.voltage_V / 1000
+    facs = [("t_gradient", "Время изм.\nПФ, мин"), ("mz_limit", "Предел\n$\\mathit{m/z}$"),
+            ("resolution_k", "Разрешение,\nтыс."), ("voltage_kV", "Напряжение,\nкВ")]
+    resp = [("А", "n_peaks", 1, "Число пиков"), ("Б", "n_identified", 1, "Число идентифицированных\nпиков"),
+            ("В", "sum_area", 1e8, "Сумма площадей пиков,\n×10$^8$")]
+    W, H = 8.2, 6.0                                          # размер одной панели, см (как на исходном рисунке)
+    fig = plt.figure(figsize=(17.4 / 2.54, (2 * H + 1.2) / 2.54))
+    pos = {"А": (0.0, 0.5), "Б": (0.5, 0.5), "В": (0.25, 0.0)}
+    for lab, col, sc, ylab in resp:
+        x0, y0 = pos[lab]
+        grand = d[col].mean() / sc
+        means = [d.groupby(f)[col].mean() / sc for f, _ in facs]
+        lo = min(m.min() for m in means); hi = max(m.max() for m in means); pad = (hi - lo) * 0.12
+        gs = fig.add_gridspec(1, 4, left=x0 + 0.085, right=x0 + 0.485, bottom=y0 + 0.10, top=y0 + 0.39, wspace=0.0)
+        fig.text(x0 + 0.005, y0 + 0.47, lab, fontsize=12, fontweight="bold", va="top")
+        for k, ((f, fname), m) in enumerate(zip(facs, means)):
+            ax = fig.add_subplot(gs[0, k])
+            ax.axhline(grand, color="#9a9a9a", ls="--", lw=0.7)
+            ax.plot(range(4), m.values, color="#5b8fd0", lw=1.2, marker="o", ms=3.8, mfc="#1f4f99", mec="#1f4f99")
+            tl = [f"{v:g}" for v in m.index]
+            ax.set_xticks(range(4), tl, fontsize=6, rotation=90 if f == "mz_limit" else 0)
+            ax.set_xlim(-0.45, 3.45)
+            ax.set_ylim(lo - pad, hi + pad)
+            ax.grid(color="#ececec", lw=0.4)
+            for sp in ("top", "right"):
+                ax.spines[sp].set_visible(True)
             for sp in ax.spines.values():
-                sp.set_color("#9a9a9a"); sp.set_linewidth(0.6)
-            if j:
+                sp.set_color("#8a8a8a"); sp.set_linewidth(0.6)
+            ax.text(0.5, 1.02, fname, transform=ax.transAxes, ha="center", va="bottom", fontsize=6.2, linespacing=1.1,
+                    bbox=dict(fc="#eeeeee", ec="#8a8a8a", lw=0.5, boxstyle="square,pad=0.25"))
+            if k:
                 ax.tick_params(labelleft=False, left=False)
             else:
-                ax.set_ylabel(cfg["ylab"], fontsize=8)
-                ax.tick_params(axis="y", labelsize=7)
-        axs[0].text(-0.42, 1.08, lab, transform=axs[0].transAxes, fontsize=12, fontweight="bold", va="bottom")
-    fig.suptitle("Main Effects Plot for Means\nData Means", fontsize=10, y=0.99)
+                ax.set_ylabel(ylab, fontsize=7)
+                ax.tick_params(axis="y", labelsize=6.3)
+
     save(fig, "Рисунок_8")
 
 
