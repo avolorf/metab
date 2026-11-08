@@ -27,7 +27,13 @@ RU = ["Непетазид", "5-Метилмиосмин", "Ацетилцист�
       "D-Глюкуронид γ-CEHC", "12-D-Глюкуронид 9Z-12,13-дигидроксиоктадеценовой кислоты",
       "Тауринил-(9Z)-3-гидроксидодеценоилкарнитин", "N-Ацетилцистеинил-2,6-диизопропилфенол"]
 COL = {"BC": "#2a5cb8", "Control": "#b5262b"}
-BOX = {"BC": "#c7d8ef", "Control": "#efc7c4"}
+DARK = {"BC": "#1d3f80", "Control": "#7e1a1e"}
+BOX = {"BC": "#dbe6f5", "Control": "#f5dcda"}
+# уточнённые аннотации (проверка формулы и иона, альтернативные аннотации того же признака)
+FIX = {2: "5-Метилмиосмин (не подтверждено: Δm 63 ppm)",
+       7: "Gln-Pro (в отчёте — N-мевалонилкреатинин)",
+       24: "Пептид (в отчёте — EFTPAVAH; формула не соответствует m/z)",
+       25: "Не установлено (в отчёте — грейанотоксин I; формула не соответствует m/z)"}
 LAB = {"BC": "РМП", "Control": "Контроль"}
 plt.rcParams.update({"font.family": "Liberation Sans", "font.size": 7.5, "axes.linewidth": 0.6, "pdf.fonttype": 42,
                      "svg.fonttype": "none", "axes.spines.top": False, "axes.spines.right": False,
@@ -55,25 +61,33 @@ def ion_tex(ion):
 
 
 def panel(ax, t, m):
-    y = t[m["feature"]].astype(float)
+    """Логарифмическая шкала; не обнаружено (площадь 0) — открытые символы на уровне «н.о.» под минимумом."""
+    y = t[m["feature"]].astype(float).fillna(0)
     grp = t["Group"]
+    pos = y[y > 0]
+    lo, hi = np.log10(pos.min()), np.log10(pos.max())
+    nd = lo - 0.45                                         # уровень «не обнаружено»
     for i, g in enumerate(["BC", "Control"]):
         v = y[grp == g].to_numpy()
-        ax.boxplot(v, positions=[i], widths=0.55, showfliers=False, patch_artist=True,
-                   boxprops=dict(facecolor=BOX[g], edgecolor="#333", lw=0.6), medianprops=dict(color="#111", lw=1.1),
-                   whiskerprops=dict(color="#333", lw=0.6), capprops=dict(color="#333", lw=0.6))
-        xj = np.random.RandomState(m["no"] * 10 + i).normal(i, 0.07, len(v))
-        ax.scatter(xj, v, s=9, c=COL[g], alpha=0.8, lw=0, zorder=3)
+        lv = np.where(v > 0, np.log10(np.where(v > 0, v, 1)), nd)
+        ax.boxplot(lv, positions=[i], widths=0.5, showfliers=False, patch_artist=True, whis=(5, 95),
+                   boxprops=dict(facecolor=BOX[g], edgecolor=COL[g], lw=0.8),
+                   medianprops=dict(color=DARK[g], lw=1.6), whiskerprops=dict(color=COL[g], lw=0.8),
+                   capprops=dict(color=COL[g], lw=0.8))
+        xj = np.random.RandomState(m["no"] * 10 + i).normal(i, 0.08, len(v))
+        det = v > 0
+        ax.scatter(xj[det], lv[det], s=9, c=COL[g], alpha=0.75, lw=0.3, edgecolors="white", zorder=3)
+        ax.scatter(xj[~det], lv[~det], s=9, facecolors="none", edgecolors=COL[g], lw=0.6, alpha=0.8, zorder=3)
     ax.set_xticks([0, 1], [f"{LAB[g]} (n = {(grp == g).sum()})" for g in ["BC", "Control"]], fontsize=7)
     ax.set_xlim(-0.6, 1.6)
-    ax.set_ylim(bottom=0)
-    f = ScalarFormatter(useMathText=True)
-    f.set_powerlimits((-3, 4))
-    ax.yaxis.set_major_formatter(f)
-    ax.yaxis.get_offset_text().set_fontsize(6.5)
-    ax.grid(axis="y", color="#ececec", lw=0.5)
+    ax.set_ylim(nd - 0.35, hi + 0.35)
+    ticks = list(range(int(np.ceil(lo)), int(np.floor(hi)) + 1))
+    ax.set_yticks([nd] + ticks, ["н.о."] + [f"$10^{{{k}}}$" for k in ticks], fontsize=6.8)
+    ax.axhline(nd + 0.22, color="#cfcfcf", lw=0.5, ls=":")
+    ax.grid(axis="y", color="#efefef", lw=0.5)
     ax.set_axisbelow(True)
-    name = "\n".join(textwrap.wrap(m["name"], 52)[:2])
+    title = FIX.get(m["no"], m["name"])
+    name = "\n".join(textwrap.wrap(title, 52)[:2])
     ax.set_title(f"{m['no']}. {name}\n$\\mathit{{m/z}}$ {m['mz']:.4f} {ion_tex(m['ion'])} · {m['rt']:.1f} мин",
                  fontsize=7, loc="left", pad=4)
 
