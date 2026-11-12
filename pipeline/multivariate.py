@@ -129,6 +129,8 @@ def evaluate(L, meta, case, ref, pool, label, seed, names=None, n_perm=None):
     for method, nm in [("panel", f"панель top-{C.PANEL_K} + логистическая регрессия (отбор внутри CV)"),
                        ("panel_adj", f"панель top-{C.PANEL_K}, признаки скорректированы на индекс загрязнения внутри фолда"),
                        ("plsda", "PLS-DA, 2 компоненты (все признаки без экспозиций)")]:
+        if method == "panel_adj" and not np.nanstd(z) > 0:
+            continue                                  # индекс не используется — поправка на него невозможна
         aucs, tprs, chosen, q2 = repeated_cv(X, y, method, seed, z)
         p, _ = perm_test(X, y, method, aucs.mean(), seed + 1, n_perm or C.N_PERM, z) if (n_perm or C.N_PERM) else (np.nan, None)
         sel = ""

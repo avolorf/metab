@@ -75,15 +75,22 @@ def demographics(meta):
                          male_age_ge60=int(((d.sex == "M") & (d.age >= 60)).sum())))
     tab = pd.DataFrame(rows)
     ages = [s.age[(s.group == g)].dropna() for g in C.STUDY_GROUPS]
-    tests = [dict(test="возраст, Краскел–Уоллис (3 группы)", p=stats.kruskal(*ages).pvalue)]
-    for a, b in [("BC", "Control"), ("PC", "Control"), ("BC", "PC")]:
+    tests = []
+    if len(ages) >= 2 and all(len(a) > 1 for a in ages):
+        tests.append(dict(test=f"возраст, Краскел–Уоллис ({len(ages)} группы)", p=stats.kruskal(*ages).pvalue))
+    gs = list(C.STUDY_GROUPS)
+    for a, b in [(a, b) for i, a in enumerate(gs) for b in gs[i + 1:]]:
+        if "Control" in (a, b) and b != "Control":
+            a, b = b, a                        # пациенты vs контроль
         x, y = s.age[s.group == a].dropna(), s.age[s.group == b].dropna()
+        if len(x) < 2 or len(y) < 2:
+            continue
         tests.append(dict(test=f"возраст {a} vs {b}, Манн–Уитни", p=stats.mannwhitneyu(x, y).pvalue))
         ct = pd.crosstab(s.group[s.group.isin([a, b]) & s.sex.isin(["M", "F"])], s.sex)
         tests.append(dict(test=f"пол {a} vs {b}, точный тест Фишера", p=stats.fisher_exact(ct.to_numpy()).pvalue))
     xm = s.age[(s.group == "PC") & (s.sex == "M")].dropna()
     ym = s.age[(s.group == "Control") & (s.sex == "M")].dropna()
-    if len(ym) > 1:
+    if len(ym) > 1 and len(xm) > 1:
         tests.append(dict(test="возраст PC vs мужчины-контроли, Манн–Уитни", p=stats.mannwhitneyu(xm, ym).pvalue))
     return tab, pd.DataFrame(tests)
 
@@ -169,7 +176,7 @@ def run_comparison(L, meta, name, spec, comp_cat):
     out["log2FC_matched"], out["p_matched"], out["q_matched"], out["n_pairs_nonzero"] = med, p, bh(p), nn
     info["matched_pairs"] = len(pairs)
     # 3. контроли с низким индексом загрязнения (только если референс — контроль)
-    if spec["ref"] == "Control":
+    if spec["ref"] == "Control" and C.USE_CONTAM_INDEX:
         lo = [s for s in ref if meta.contam_level[s] == "low"]
         hi = [s for s in ref if meta.contam_level[s] == "high"]
         p, _, fc = mw(L, case, lo)

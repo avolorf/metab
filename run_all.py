@@ -126,11 +126,21 @@ def main():
     log(f"\nГруппировка признаков (ΔRT ≤ {C.GROUP_RT_TOL} мин, ρ ≥ {C.GROUP_MIN_CORR}): {L.shape[1]} признаков → "
         f"{len(reps)} соединений; многоионных соединений {(groups.groupby('compound').size() > 1).sum()}")
     series = features.match_series(info)
-    ci, lvl, thr, idx_feats = features.contamination_index(
-        L, series, study, study[meta.loc[study, "group"] == "Control"] if C.CONTAM_SPLIT == "control_median" else None)
-    meta["contam_index"], meta["contam_level"] = ci, lvl
-    log(f"Индекс загрязнения: {len(idx_feats)} признаков ряда диэтаноламинов; граница high/low = {thr:.2f} (медиана {'контролей' if C.CONTAM_SPLIT == 'control_median' else 'всех проб'})")
-    log("  средний индекс: " + ", ".join(f"{g} {meta.contam_index[study][meta.group[study] == g].mean():+.2f}" for g in C.STUDY_GROUPS))
+    n_idx = int(((series.in_index == 1) & series.index.isin(L.columns)).sum())
+    if C.USE_CONTAM_INDEX and n_idx < 2:
+        log(f"ВНИМАНИЕ: в данных найдено {n_idx} членов ряда диэтаноламинов (нужно ≥ 2) — индекс экзогенного сигнала "
+            "не строится; модель без индекса, критерии «контроли с низким индексом» и «high vs low» не применяются")
+        C.USE_CONTAM_INDEX = False
+        C.COVARIATES = [c for c in C.COVARIATES if c != "contam_index"]
+    if C.USE_CONTAM_INDEX:
+        ci, lvl, thr, idx_feats = features.contamination_index(
+            L, series, study, study[meta.loc[study, "group"] == "Control"] if C.CONTAM_SPLIT == "control_median" else None)
+        meta["contam_index"], meta["contam_level"] = ci, lvl
+        log(f"Индекс загрязнения: {len(idx_feats)} признаков ряда диэтаноламинов; граница high/low = {thr:.2f} (медиана {'контролей' if C.CONTAM_SPLIT == 'control_median' else 'всех проб'})")
+        log("  средний индекс: " + ", ".join(f"{g} {meta.contam_index[study][meta.group[study] == g].mean():+.2f}" for g in C.STUDY_GROUPS))
+    else:
+        meta["contam_index"], meta["contam_level"] = 0.0, "low"
+        log("Индекс экзогенного сигнала не используется (USE_CONTAM_INDEX = False)")
     cur_raw = pd.read_csv(C.CURATION)
     cur_raw["feature"] = [next(iter(info[((info.mz - r.mz).abs() < 0.002) & ((info.rt_min - r.rt_min).abs() < 0.02)].index), None)
                           for _, r in cur_raw.iterrows()]
@@ -216,6 +226,8 @@ def main():
         zpairs_all.append(zp)
         sets_ = {"all": (case, ref), "matched": (list(pr.case), list(pr.ref)),
                  "contam_matched": (list(zp.case), list(zp.ref))}
+        if not C.USE_CONTAM_INDEX:
+            sets_.pop("contam_matched")
         for label, (cs, rf) in sets_.items():
             need = C.MIN_PAIRS_CV if label != "all" else C.CV_FOLDS
             if min(len(cs), len(rf)) < need:
@@ -319,7 +331,8 @@ def main():
                       pd.DataFrame({"PQN": meta.dilution_PQN, "MSTUS": meta.dilution_MSTUS}), fig / "01_qc_overview")
     S, var = multivariate.pca_scores(L.loc[:, reps])
     plots.pca_panels(S, var, meta, meta.inj_order, fig / "02_pca")
-    plots.contamination(meta, series, fig / "03_contamination_index")
+    if C.USE_CONTAM_INDEX:
+        plots.contamination(meta, series, fig / "03_contamination_index")
     for k, (name, spec) in enumerate(C.COMPARISONS.items()):
         r = res[name]
         plots.volcano(r, name, names, fig / f"04_volcano_{name}")
@@ -371,8 +384,10 @@ def export_external(L, Lc, meta, res, feat_table, cur, out, cats):
     iqr = Lc.loc[study, keep].quantile(0.75) - Lc.loc[study, keep].quantile(0.25)
     keep = iqr.sort_values(ascending=False).index[:5000]   # лимит MetaboAnalyst; отбор без учёта групп
     X = (2 ** Lc[keep]).rename(columns=nm)
-    for n, groups in {"BC_vs_Control": ["BC", "Control"], "BC_vs_PC": ["BC", "PC"], "PC_vs_Control": ["PC", "Control"],
-                      "BC_PC_Control": ["BC", "PC", "Control"]}.items():
+    sets_ext = {n: [sp["case"], sp["ref"]] for n, sp in C.COMPARISONS.items() if sp.get("sex") is None}
+    if len(C.STUDY_GROUPS) > 2:
+        sets_ext["_".join([g for g in C.STUDY_GROUPS if g != "Control"] + ["Control"])] = list(C.STUDY_GROUPS)
+    for n, groups in sets_ext.items():
         if not set(groups) <= set(C.STUDY_GROUPS):
             continue
         s = study[meta.loc[study, "group"].isin(groups)]
@@ -388,14 +403,14 @@ def export_external(L, Lc, meta, res, feat_table, cur, out, cats):
     pd.DataFrame({"compound_column": nm[keep], "category": cats.loc[keep, "compound_category"]}).to_csv(
         out / "0_compound_categories.csv")
     expo = features.panel_excluded(feat_table.compound_category.fillna(""))
-    for name in [n for n in ["BC_vs_Control", "BC_vs_PC", "PC_vs_Control"] if n in C.COMPARISONS]:
+    for name in [n for n, sp in C.COMPARISONS.items() if sp.get("sex") is None]:
         r, _, _ = st.run_comparison(L.loc[study, feat_table.index[feat_table.kept & ~expo]], meta, name,
                                     C.COMPARISONS[name], feat_table.compound_category)
         pd.DataFrame({"m.z": feat_table.mz[r.index], "p.value": r.p_model,
                       "t.score": np.sign(r.beta_model) * -np.log10(r.p_model),
                       "r.t": feat_table.rt_min[r.index] * 60}).dropna().to_csv(out / f"3_peaks_{name}.txt", sep="\t", index=False)
     endo = cur[cur.category.str.startswith("endogenous")]
-    for focus in [g_ for g_ in ["BC", "PC"] if g_ in C.STUDY_GROUPS]:
+    for focus in [g_ for g_ in C.STUDY_GROUPS if g_ != "Control"]:
         g = endo[endo.focus == focus]
         (out / f"4_compounds_{focus}_HMDB.txt").write_text("\n".join(g.hmdb[g.hmdb != ""].drop_duplicates()))
         (out / f"4_compounds_{focus}_names.txt").write_text("\n".join(g.name_en[g.name_en != ""].drop_duplicates()))

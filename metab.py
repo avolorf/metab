@@ -11,6 +11,9 @@
     python metab.py run s107 --quick           быстрый пробный прогон (в results_quick_s107/, основные результаты не трогаются)
     python metab.py chapter                    пересобрать главу диссертации (docx) по готовым результатам
     python metab.py all                        s266 -> s107 -> глава (полный цикл)
+    python metab.py new s300 --export ЭКСПОРТ.txt
+                                               новая выборка: таблица, заготовка метаданных, настройки datasets/s300.json
+    python metab.py run s300                   обработка новой выборки (после заполнения metadata/metadata_s300.csv)
 
 Журналы каждого шага пишутся в logs/ (имя файла = дата_время_шаг.log).
 """
@@ -124,6 +127,22 @@ def need(ds):
 
 # ------------------------------------------------------------------ run
 def run(ds, quick=False):
+    if ds not in DATASETS:
+        js = ROOT / "datasets" / f"{ds}.json"
+        if not js.exists():
+            say(f"Неизвестная выборка {ds}. Известные: {', '.join(list(DATASETS) + custom_datasets())}")
+            sys.exit(1)
+        import json
+        st = json.loads(js.read_text(encoding="utf-8"))
+        for f in (st["DATA"], st["METADATA"]):
+            if not (ROOT / f).exists():
+                say(f"Нет файла {f}")
+                sys.exit(1)
+        env = {"METAB_DATASET": ds, "METAB_SETTINGS": str(js)}
+        out = f"results_quick_{ds}" if quick else st["OUT"]
+        step(f"{ds}_run_all", ["run_all.py", "--out", out] + (["--quick"] if quick else []), env)
+        say(f"\nВыборка {ds} обработана. Результаты: {out}/ (results.xlsx, tables/, figures/, log.txt)")
+        return
     need(ds)
     env = {"METAB_DATASET": ds}
     if quick:
@@ -165,6 +184,132 @@ def convert(export, out, pattern=None):
     step("convert", cmd)
 
 
+# ------------------------------------------------------------------ новая выборка
+def custom_datasets():
+    d = ROOT / "datasets"
+    return sorted(p.stem for p in d.glob("*.json")) if d.exists() else []
+
+
+CONTROL_WORDS = ("control", "контрол", "healthy", "здоров", "norm", "кг")
+
+
+def new(name, export=None, table=None, control=None, sample_pattern=None, qc_every=None, batches=None):
+    """Подготовить новую выборку: таблица, метаданные, курация, настройки datasets/ИМЯ.json."""
+    import json
+    import re
+    import shutil
+    import pandas as pd
+    sys.path.insert(0, str(ROOT))
+    if not re.fullmatch(r"[A-Za-z0-9_]+", name) or name in DATASETS:
+        say("Имя выборки — латиница, цифры и «_», не s266/s107 (например s300)")
+        sys.exit(1)
+    ddir = ROOT / "data" / name
+    ddir.mkdir(parents=True, exist_ok=True)
+    tab = ddir / f"{name}_table.csv"
+    if export:
+        convert(export, str(tab.relative_to(ROOT)), sample_pattern)
+    elif table:
+        shutil.copy(table, tab)
+    if not tab.exists():
+        say(f"Нет таблицы {tab.relative_to(ROOT)}: укажите --export (экспорт MS-DIAL) или --table")
+        sys.exit(1)
+    stem = tab.with_suffix("")
+    inj_p = Path(f"{stem}_injections.csv")
+    inj = pd.read_csv(inj_p, dtype=str) if inj_p.exists() else None
+
+    # метаданные: заготовка из конвертера, контрольная группа -> Control
+    md_p = ROOT / "metadata" / f"metadata_{name}.csv"
+    tpl_p = Path(f"{stem}_metadata_template.csv")
+    if md_p.exists():
+        md = pd.read_csv(md_p, dtype={"sample": str})
+        say(f"metadata/{md_p.name} уже есть — не перезаписываю (группы беру из него)")
+    else:
+        if tpl_p.exists():
+            md = pd.read_csv(tpl_p, dtype={"sample": str})
+        else:
+            t = pd.read_csv(tab, usecols=["Sample", "Group"], dtype=str)
+            t = t[~t.Group.str.lower().isin(["qc", "blank"])]
+            md = pd.DataFrame({"sample": t.Sample, "group": t.Group, "sex": "", "age": "", "include": 1,
+                               "exclude_reason": "", "comment": ""})
+        cls = md["group"].fillna("").astype(str).str.strip()
+        ctrl = control or next((c for c in cls.unique() if c and c.lower().startswith(CONTROL_WORDS)), None)
+        if not ctrl:
+            say("Не удалось определить контрольную группу: укажите --control ИМЯ_КЛАССА (как в MS-DIAL). "
+                f"Найдены классы: {sorted(set(cls))}")
+            sys.exit(1)
+        md["group"] = [("Control" if c == ctrl else re.sub(r"\W+", "_", c).strip("_")) for c in cls]
+        md.to_csv(md_p, index=False)
+        say(f"metadata/{md_p.name}: заготовка создана (контроль = класс «{ctrl}»). ЗАПОЛНИТЕ пол (M/F), возраст, "
+            "include (1/0) и exclude_reason")
+    groups = [g for g in md.loc[md.include.astype(str) == "1", "group"].dropna().astype(str).unique() if g]
+    if "Control" not in groups:
+        say("В метаданных нет группы Control — переименуйте контрольную группу в Control")
+        sys.exit(1)
+    cases = sorted(g for g in groups if g != "Control")
+    comps = {f"{g}_vs_Control": dict(case=g, ref="Control", sex=None, primary=True) for g in cases}
+    comps.update({f"{a}_vs_{b}": dict(case=a, ref=b, sex=None, primary=True)
+                  for i, a in enumerate(cases) for b in cases[i + 1:]})
+
+    # курация: пустой список кандидатов, MS2-совпадения из MS-DIAL, экзогенный ряд с выравниванием RT
+    cdir = ROOT / f"curation_{name}"
+    cdir.mkdir(exist_ok=True)
+    cur = cdir / "candidates_curated.csv"
+    if not cur.exists():
+        cols = pd.read_csv(ROOT / "curation_s107" / "candidates_curated.csv", nrows=0).columns
+        pd.DataFrame(columns=cols).to_csv(cur, index=False)
+    ms2_p = Path(f"{stem}_ms2.csv")
+    if ms2_p.exists():
+        m = pd.read_csv(ms2_p, dtype=str)
+        if "MS/MS matched" in m:
+            m[m["MS/MS matched"].str.lower() == "true"][["feature"]].to_csv(cdir / "ms2_identified.csv", index=False)
+    from pipeline.features import ADDUCTS, formula_mass
+    from pipeline.io import parse_features
+    info = parse_features(list(pd.read_csv(tab, nrows=0).columns.drop(["Sample", "Group"], errors="ignore")))
+    ser = pd.read_csv(ROOT / "curation" / "contaminant_series.csv")
+    shifts = []
+    for _, r in ser.iterrows():
+        th = formula_mass(r.formula) + ADDUCTS[r.ion]
+        d = info[((info.mz - th).abs() / th * 1e6 <= 5) & ((info.rt_min - r.rt_min).abs() <= 2.0)]
+        if len(d):
+            shifts.append(float((d.rt_min - r.rt_min).iloc[(d.rt_min - r.rt_min).abs().argmin()]))
+    shift = float(pd.Series(shifts).median()) if shifts else 0.0
+    n_ok = sum(abs(x - shift) <= 0.1 for x in shifts)
+    ser2 = ser.copy()
+    ser2["rt_min"] = (ser2.rt_min + shift).round(3)
+    ser2["comment"] = ser2.comment.fillna("").astype(str) + f" RT сдвинуто на {shift:+.2f} мин (metab.py new)"
+    ser2.to_csv(cdir / "contaminant_series.csv", index=False)
+    use_idx = n_ok >= 2
+    say(f"Экзогенный ряд: найдено {n_ok} членов (сдвиг RT {shift:+.2f} мин относительно s266)"
+        + ("" if use_idx else " — меньше 2, индекс экзогенного сигнала использоваться не будет"))
+
+    # серии и порядок инъекций
+    settings = {"_comment": f"Настройки выборки {name}; создано metab.py new {datetime.now():%Y-%m-%d}. "
+                            "Можно править вручную (ключи — параметры pipeline/config.py).",
+                "DATA": str(tab.relative_to(ROOT)), "METADATA": str(md_p.relative_to(ROOT)), "OUT": f"results_{name}",
+                "CURATION": str(cur.relative_to(ROOT)), "CONTAMINANT_SERIES": f"curation_{name}/contaminant_series.csv",
+                "MS2_IDENTIFIED": f"curation_{name}/ms2_identified.csv", "PRIOR_MARKERS": f"curation_{name}/prior_markers.csv",
+                "RT_ANCHORS": f"curation_{name}/rt_anchors.csv", "STUDY_GROUPS": ["Control"] + cases,
+                "GROUP_LABELS": {"Control": "Контроль", **{g: g for g in cases}}, "COMPARISONS": comps,
+                "CONTAM_SPLIT": "control_median", "USE_CONTAM_INDEX": use_idx}
+    if inj is not None and inj["injection_order"].fillna("").str.strip().ne("").all():
+        settings["INJECTIONS"] = str(inj_p.relative_to(ROOT))
+        b = sorted(inj["batch"].dropna().astype(str).str.strip().replace("", pd.NA).dropna().unique())
+        settings["BATCHES"] = b if len(b) > 1 else None
+        settings["BATCH_CORRECTION"] = len(b) > 1
+        say(f"Порядок инъекций и серии — из проекта MS-DIAL ({len(b) or 1} сер.)")
+    else:
+        if batches:
+            settings["BATCHES"] = [[int(x) for x in part.split("-")] for part in batches.split(",")]
+            settings["BATCH_CORRECTION"] = len(settings["BATCHES"]) > 1
+        settings["QC_EVERY"] = qc_every or 6
+        say("Порядок инъекций восстанавливается по номерам проб: QC в начале серии и после каждых "
+            f"{settings['QC_EVERY']} проб" + (f"; серии {batches}" if batches else "; одна серия"))
+    (ROOT / "datasets").mkdir(exist_ok=True)
+    (ROOT / "datasets" / f"{name}.json").write_text(json.dumps(settings, ensure_ascii=False, indent=2), encoding="utf-8")
+    say(f"\nГотово: datasets/{name}.json. Группы: Control + {', '.join(cases)}; сравнения: {', '.join(comps)}.")
+    say(f"Дальше: 1) заполните metadata/{md_p.name}; 2) python metab.py run {name}  (или пункт меню)")
+
+
 # ------------------------------------------------------------------ меню
 def menu():
     items = [("Проверить установку и исходные файлы", lambda: check()),
@@ -173,7 +318,9 @@ def menu():
              ("Быстрый пробный прогон s107 (несколько минут)", lambda: run("s107", quick=True)),
              ("Пересобрать главу диссертации", chapter),
              ("Полный цикл: s266 -> s107 -> глава", lambda: confirm("results/, results_s107/, report_s107/") and full()),
-             ("Конвертировать экспорт MS-DIAL в таблицу", ask_convert)]
+             ("Конвертировать экспорт MS-DIAL в таблицу", ask_convert),
+             ("Новая выборка: подготовить из экспорта MS-DIAL", ask_new),
+             ("Обработать новую выборку", ask_run_custom)]
     while True:
         say("\n" + "=" * 60 + "\n  Обработка ВЭЖХ-МСВР данных — меню\n" + "=" * 60)
         for i, (t, _) in enumerate(items, 1):
@@ -202,6 +349,25 @@ def ask_convert():
     convert(exp, out, pat)
 
 
+def ask_new():
+    name = input("Имя новой выборки (латиницей, например s300): ").strip()
+    exp = input("Путь к файлу экспорта MS-DIAL (.txt): ").strip().strip('"')
+    ctrl = input("Имя класса контрольной группы в MS-DIAL (Enter — определить автоматически): ").strip() or None
+    pat = input("Шаблон номера пробы в имени файла (Enter — не использовать; пример (\\d+)$): ").strip() or None
+    new(name, export=exp, control=ctrl, sample_pattern=pat)
+
+
+def ask_run_custom():
+    ds = custom_datasets()
+    if not ds:
+        say("Новых выборок нет — сначала пункт «Новая выборка»")
+        return
+    say("Выборки: " + ", ".join(ds))
+    name = input("Какую обработать: ").strip()
+    if confirm(f"results_{name}/"):
+        run(name)
+
+
 def full():
     run("s266")
     run("s107")
@@ -216,9 +382,17 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("check", help="проверить установку и исходные файлы")
     r = sub.add_parser("run", help="обработать выборку")
-    r.add_argument("dataset", choices=list(DATASETS))
+    r.add_argument("dataset", help="s266, s107 или имя новой выборки (datasets/ИМЯ.json)")
     r.add_argument("--quick", action="store_true", help="быстрый пробный прогон в отдельную папку")
     sub.add_parser("chapter", help="пересобрать главу")
+    n = sub.add_parser("new", help="подготовить новую выборку из экспорта MS-DIAL")
+    n.add_argument("name", help="имя выборки латиницей, например s300")
+    n.add_argument("--export", help="файл экспорта выравнивания MS-DIAL (.txt)")
+    n.add_argument("--table", help="или уже готовая таблица (.csv: Sample, Group, признаки)")
+    n.add_argument("--control", help="имя класса контрольной группы в MS-DIAL (если не распознаётся само)")
+    n.add_argument("--sample-pattern", default=None, help="номер пробы из имени файла, например (\\d+)$")
+    n.add_argument("--qc-every", type=int, help="QC после каждых N проб (если в проекте нет порядка инъекций)")
+    n.add_argument("--batches", help="серии по номерам проб, например 1-36,37-72 (если в проекте нет Batch ID)")
     sub.add_parser("all", help="s266 -> s107 -> глава")
     c = sub.add_parser("convert", help="экспорт MS-DIAL -> таблица для фреймворка")
     c.add_argument("export")
@@ -233,6 +407,8 @@ def main():
         chapter()
     elif a.cmd == "all":
         full()
+    elif a.cmd == "new":
+        new(a.name, a.export, a.table, a.control, a.sample_pattern, a.qc_every, a.batches)
     elif a.cmd == "convert":
         convert(a.export, a.out, a.sample_pattern)
 

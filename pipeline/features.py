@@ -89,7 +89,8 @@ def match_series(info, path=C.CONTAMINANT_SERIES):
         for f, x in d.iterrows():
             rows.append(dict(feature=f, label=r.label, formula=r.formula, ion=r.ion, rt_min=x.rt_min, mz=x.mz,
                              ppm=round(ppm(x.mz, theo), 2), in_index=int(r.in_index)))
-    return pd.DataFrame(rows).drop_duplicates("feature").set_index("feature")
+    cols = ["feature", "label", "formula", "ion", "rt_min", "mz", "ppm", "in_index"]
+    return pd.DataFrame(rows, columns=cols).drop_duplicates("feature").set_index("feature")
 
 
 def contamination_index(L, series, study_idx, ref_idx=None):

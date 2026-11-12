@@ -31,7 +31,22 @@ def load_features(path=C.DATA):
     kind[X.index.str.upper().str.startswith(C.QC_PREFIX)] = "QC"
     is_blank = X.index.str.contains(C.BLANK_REGEX, flags=re.I, regex=True) | grp.str.contains(C.BLANK_REGEX, flags=re.I, regex=True)
     kind[is_blank] = "blank"
+    inj = injections()
+    if inj is not None:                        # тип инъекции из журнала MS-DIAL надёжнее, чем имя файла
+        t = inj.set_index("sample")["type"].str.lower().map({"qc": "QC", "blank": "blank", "sample": "sample"})
+        kind = t.reindex(kind.index).fillna(kind)
     return X, kind, parse_features(feat_cols), int(n_dup)
+
+
+def injections():
+    """Журнал инъекций (C.INJECTIONS: file, sample, type, batch, injection_order), если задан и существует."""
+    from pathlib import Path
+    p = getattr(C, "INJECTIONS", None)
+    if not p or not Path(p).exists():
+        return None
+    inj = pd.read_csv(p, dtype={"sample": str})
+    inj["sample"] = inj["sample"].astype(str)
+    return inj
 
 
 def load_metadata(path, kind):
@@ -69,6 +84,11 @@ def load_metadata(path, kind):
 def batch_of(meta):
     """Номер серии для проб и QC (C.BATCHES); QC распределяются по сериям по порядку: в каждой серии
     QC в начале, после каждых QC_EVERY проб и в конце серии (если последний блок неполный)."""
+    inj = injections()
+    if inj is not None and inj["batch"].notna().any():
+        codes = {v: i for i, v in enumerate(sorted(inj["batch"].dropna().astype(str).unique()), 1)}
+        b = inj.set_index("sample")["batch"].astype(str).map(codes)
+        return b.reindex(meta.index).astype(float).where(meta.kind != "blank")
     if not C.BATCHES:
         return pd.Series(1, index=meta.index)
     b = pd.Series(np.nan, index=meta.index)
@@ -89,6 +109,10 @@ def batch_of(meta):
 
 
 def injection_order(meta):
+    inj = injections()
+    if inj is not None and pd.to_numeric(inj["injection_order"], errors="coerce").notna().all():
+        o = pd.to_numeric(inj.set_index("sample")["injection_order"], errors="coerce")
+        return o.reindex(meta.index).where(meta.kind != "blank")
     if C.BATCHES:
         return _injection_order_batches(meta)
     return _injection_order_single(meta)

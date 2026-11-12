@@ -104,3 +104,20 @@ if DATASET == "s107":
     BATCHES = [(1, 36), (37, 72), (73, 107)]       # три серии измерений (по 7 QC в каждой)
     BATCH_CORRECTION = True
     CONTAM_SPLIT = "control_median"                # индекс выше у контролей: граница по медиане контролей (20/20)
+
+# ---------------------------------------------------------------- любая другая выборка (python metab.py new ИМЯ ...)
+# Настройки выборки хранятся в datasets/ИМЯ.json (создаётся командой `metab.py new`); путь передаётся через METAB_SETTINGS.
+# Ключи JSON — имена параметров этого файла (DATA, METADATA, OUT, STUDY_GROUPS, COMPARISONS, BATCHES, ...).
+INJECTIONS = None                              # журнал инъекций (file, sample, type, batch, injection_order) из msdial_to_table
+USE_CONTAM_INDEX = True                        # False — индекс экзогенного сигнала не строится (ряд не найден в данных)
+_settings = _os.environ.get("METAB_SETTINGS")
+if _settings:
+    import json as _json
+    for _k, _v in _json.load(open(_settings, encoding="utf-8")).items():
+        if _k.startswith("_"):
+            continue                           # комментарии в JSON
+        globals()[_k] = _v
+    if isinstance(globals().get("BATCHES"), list) and BATCHES and isinstance(BATCHES[0], list):
+        BATCHES = [tuple(b) for b in BATCHES]
+    if not USE_CONTAM_INDEX:
+        COVARIATES = [c for c in COVARIATES if c != "contam_index"]

@@ -92,6 +92,9 @@ def curate(path, info_all, info, Lraw_all, L, meta, groups, feat_table):
                     x[f"rho_{lab}_controls"], x[f"p_{lab}_controls"] = rho.statistic, rho.pvalue
         rows.append(x)
     df = pd.DataFrame(rows)
-    ok = df[df.mass_ok]
-    bad = df[~df.mass_ok]
+    if df.empty:                              # новая выборка: курированных кандидатов пока нет
+        df = pd.DataFrame(columns=list(cur.columns) + ["feature", "theo_mz", "ppm", "mass_ok", "MSI_level"])
+        return df, df.copy()
+    ok = df[df.mass_ok.astype(bool)]
+    bad = df[~df.mass_ok.astype(bool)]
     return ok, bad

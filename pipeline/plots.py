@@ -13,6 +13,8 @@ from . import config as C
 from .multivariate import FPR
 
 GC = {"QC": "#7f7f7f", "Control": "#2b7bba", "BC": "#d7301f", "PC": "#fc8d59"}
+for _i, _g in enumerate([g for g in C.STUDY_GROUPS if g not in GC]):   # другие группы новой выборки
+    GC[_g] = ["#984ea3", "#4daf4a", "#a65628", "#f781bf", "#999999", "#e6ab02"][_i % 6]
 SEXC = {"M": "#404040", "F": "#f4a6d7", "": "#ffffff"}
 CATC = {"contaminant": "#e7298a", "drug": "#7570b3", "food": "#d95f02", "tobacco": "#8c510a",
         "endogenous": "#1b9e77", "ambiguous": "#999999", "annotated (high score)": "#a6d854",
