@@ -23,7 +23,14 @@ def hmdb_alternatives(mz, tol=3.0, top=6):
 
 def msi_level(r):
     """1 — стандарт; 2 — масса ≤ PPM и совпадение MS2 с библиотекой без изомерной неоднозначности;
-    3 — формула/масса без MS2 или изомеры неразличимы; 4 — масса не сходится."""
+    3 — формула/масса без MS2 или изомеры неразличимы; 4 — масса не сходится.
+    Столбец курации msi_override (если заполнен) задаёт уровень вручную — например, 4, когда проверка спектров
+    опровергает предложенный состав (обоснование — в comment)."""
+    try:
+        if str(r.get("msi_override", "")).strip() not in {"", "nan"}:
+            return int(float(r.get("msi_override")))
+    except (TypeError, ValueError):
+        pass
     if str(r.get("standard_confirmed", "")).strip().lower() in {"1", "yes", "да", "true"}:
         return 1
     if not r["mass_ok"]:

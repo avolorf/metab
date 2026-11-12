@@ -300,7 +300,7 @@ plt.rcParams.update({"font.family": "Liberation Sans", "font.size": 7.5, "axes.l
                      "mathtext.it": "Liberation Sans:italic"})
 raw = X_all.loc[study]
 grp = meta.loc[study, "group"]
-ION = {14: "[M+Na]$^+$"}
+ION = {14: "[M+Na]$^+$", 8: "", 10: ""}      # № 8 и № 10: ион не установлен (MSI 4) — только m/z и RT
 
 
 def panel(ax, no, letter):
@@ -325,7 +325,8 @@ def panel(ax, no, letter):
     ax.set_ylim(lo_, hi_ + 0.12 * (hi_ - lo_))
     ax.grid(axis="y", color="#efefef", lw=0.5)
     ax.set_axisbelow(True)
-    ax.set_title(f"№ {no}\n$\\mathit{{m/z}}$ {x.mz_s107:.4f} {ION.get(no, '[M+H]$^+$')} · {x.rt_s107:.2f} мин",
+    ion = ION.get(no, "[M+H]$^+$")
+    ax.set_title(f"№ {no}\n$\\mathit{{m/z}}$ {x.mz_s107:.4f}{' ' + ion if ion else ''} · {x.rt_s107:.2f} мин",
                  fontsize=7, loc="left", pad=4)
     ax.text(0.98, 0.98, f"AUC {x.AUC:.2f}", transform=ax.transAxes, ha="right", va="top", fontsize=6.3,
             color="#555555")

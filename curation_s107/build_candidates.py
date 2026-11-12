@@ -68,11 +68,12 @@ def main():
             if r.No == 10:
                 note += ("; spectra checked in FreeStyle (samples 4, 56, QC17, Blank15): absent in blank, no fragment "
                          "m/z 137.0458 in sample or QC, inconsistent isotope pattern (charge assigned z = 16) -> "
-                         "annotation not confirmed")
+                         "annotation not confirmed (MSI 4)")
             cat = "ambiguous"
         rows.append(dict(rt_min=info.loc[f, "rt_min"], mz=info.loc[f, "mz"], focus="BC", name=f"ABC{r.No}: {r.Compound}",
                          name_en=r.Compound, formula=r.Molecular_formula, ion=ion, hmdb="", kegg="",
                          category=cat, comment=f"Report Table 20 / ABC No. {r.No}: {r.Notes}; {note}",
+                         msi_override=4 if r.No == 10 else "",
                          ms2_library="", standard_confirmed="", isomer_ambiguous="", isomers_note=""))
     a = pd.read_csv("data/s107/res_annotated_2.csv", index_col=0)
     for _, r in a.iterrows():
@@ -95,7 +96,7 @@ def main():
                  if "omeprazole" in name.lower() else "")
         rows.append(dict(rt_min=info.loc[f, "rt_min"], mz=info.loc[f, "mz"], focus="BC", name=f"res_annotated: {name}",
                          name_en=name, formula=r["elemental composition"], ion="[M+H]+", hmdb="", kegg="", category=cat,
-                         comment=f"res_annotated_2.csv; MS-DIAL: {r.x}{extra}", ms2_library="", standard_confirmed="",
+                         comment=f"res_annotated_2.csv; MS-DIAL: {r.x}{extra}", msi_override="", ms2_library="", standard_confirmed="",
                          isomer_ambiguous="", isomers_note=""))
     pd.DataFrame(rows).to_csv("curation_s107/candidates_curated.csv", index=False)
     print(f"{len(rows)} кандидатов"); print("\n".join(log))
