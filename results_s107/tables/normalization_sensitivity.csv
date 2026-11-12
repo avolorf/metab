@@ -1,2 +1,2 @@
 comparison,q<FDR_PQN,q<FDR_MSTUS,overlap,jaccard,findings_PQN,findings_MSTUS,findings_overlap,rho_log2FC,log2FC_shift,q_without_lowdilution,overlap_with_main,findings_without_lowdilution,findings_overlap_main,panel_AUC_PQN,panel_AUC_MSTUS,n_without_lowdilution,panel_AUC_without_lowdilution
-BC_vs_Control,927,1016,820,0.730186999109528,618,645,543,0.9991568711475359,-0.22803966434764855,844,806,624,565,0.9901538461538463,0.9905384615384618,62/40,0.9877419354838711
+BC_vs_Control,918,997,807,0.7283393501805054,582,607,503,0.9991609703996465,-0.22313617790189955,839,801,603,534,0.99296875,0.991953125,61/40,0.9910040983606556

@@ -42,7 +42,7 @@ S266_T2 = [("11-Oxoetiocholanolone glucuronide", 498.2697, 11.05, 10.73),
            ("LysoPC(16:0)", 496.3397, 16.71, None)]
 
 
-VERSION, VERSION_DATE = "v2", "2026-11-08"
+VERSION, VERSION_DATE = "v2", "2026-11-12"
 
 
 def load():
@@ -267,7 +267,9 @@ def main():
         "undefined (p = NaN) and the criterion is considered met (column finding_via_ctrl_not_detected); "
         "2) categories transferred from report Table 20 / ABC annotations are kept only when confirmed by data "
         "(MS-DIAL annotation of the same feature names the same compound); otherwise 'ambiguous' "
-        "(incl. 269.0880 @ 2.02 min and 5-hydroxyomeprazole)."]})
+        "(incl. 269.0880 @ 2.02 min and 5-hydroxyomeprazole; both checked in FreeStyle, not confirmed); "
+        "3) sample 32 (bladder leukoplakia) excluded: 64 BC / 40 controls; "
+        "4) sex of samples 35 (26T) and 86 (1T) corrected to F from the primary table (BC 54 M / 10 F, controls 16 M / 24 F)."]})
     with pd.ExcelWriter(OUT / "Tables_s107.xlsx") as w:
         version.to_excel(w, sheet_name="Version", index=False)
         abc.to_excel(w, sheet_name="T1_report_markers_in_s107", index=False)

@@ -5,10 +5,10 @@ BC_vs_Control,14,80,M,70.0,70.0,0.0
 BC_vs_Control,20,22,M,63.0,63.0,0.0
 BC_vs_Control,21,95,M,65.0,65.0,0.0
 BC_vs_Control,28,69,M,62.0,62.0,0.0
-BC_vs_Control,35,31,M,79.0,79.0,0.0
 BC_vs_Control,37,5,M,58.0,56.0,2.0
 BC_vs_Control,48,38,M,73.0,73.0,0.0
 BC_vs_Control,53,17,M,58.0,56.0,2.0
+BC_vs_Control,61,31,M,78.0,79.0,1.0
 BC_vs_Control,70,19,M,66.0,66.0,0.0
 BC_vs_Control,71,99,M,69.0,69.0,0.0
 BC_vs_Control,77,59,M,73.0,73.0,0.0
@@ -17,9 +17,8 @@ BC_vs_Control,104,93,M,66.0,66.0,0.0
 BC_vs_Control,1,55,F,67.0,62.0,5.0
 BC_vs_Control,9,96,F,67.0,63.0,4.0
 BC_vs_Control,15,88,F,74.0,69.0,5.0
-BC_vs_Control,32,98,F,40.0,43.0,3.0
 BC_vs_Control,34,41,F,69.0,67.0,2.0
+BC_vs_Control,35,25,F,79.0,78.0,1.0
 BC_vs_Control,74,64,F,75.0,71.0,4.0
 BC_vs_Control,78,49,F,60.0,60.0,0.0
 BC_vs_Control,83,39,F,53.0,52.0,1.0
-BC_vs_Control,100,25,F,83.0,78.0,5.0

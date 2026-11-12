@@ -1,2 +1,2 @@
 comparison,n_case,n_ref,model_covariates,model_n_case,model_n_ref,matched_pairs,n_ref_lowindex,n_ref_highindex,n_q_model,n_findings
-BC_vs_Control,65,40,sex+age+contam_index,65,40,24,20,20,927,618
+BC_vs_Control,64,40,sex+age+contam_index,64,40,23,20,20,918,582

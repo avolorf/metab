@@ -65,6 +65,10 @@ def main():
             note = f"category confirmed by data: MS-DIAL annotation of this feature = {CONFIRMED_BY_DATA[r.Compound]}"
         else:
             note = f"report category '{cat}' not confirmed by data (MS-DIAL annotation of this feature: {msd}) -> ambiguous"
+            if r.No == 10:
+                note += ("; spectra checked in FreeStyle (samples 4, 56, QC17, Blank15): absent in blank, no fragment "
+                         "m/z 137.0458 in sample or QC, inconsistent isotope pattern (charge assigned z = 16) -> "
+                         "annotation not confirmed")
             cat = "ambiguous"
         rows.append(dict(rt_min=info.loc[f, "rt_min"], mz=info.loc[f, "mz"], focus="BC", name=f"ABC{r.No}: {r.Compound}",
                          name_en=r.Compound, formula=r.Molecular_formula, ion=ion, hmdb="", kegg="",
@@ -86,9 +90,12 @@ def main():
         # пептиды — эндогенные; 5-гидроксиомепразол (m/z на 22 ppm от формулы, MS-DIAL — безафибрат) и
         # N-ацетилтриптофан (m/z не соответствует формуле) по данным не подтверждены -> ambiguous
         cat = "endogenous: peptide" if re.search(r"^[A-Z][a-z]{2}(-[A-Za-z]{3})+|proline", name, re.I) else "ambiguous"
+        extra = ("; spectra checked in FreeStyle (samples 4, 56, QC17, Blank15): weak peak, no Cl isotope (364.1219) "
+                 "at this RT, no MS/MS for precursor 362.12 (362.1512 at 8.2-8.3 min is another compound) -> ambiguous"
+                 if "omeprazole" in name.lower() else "")
         rows.append(dict(rt_min=info.loc[f, "rt_min"], mz=info.loc[f, "mz"], focus="BC", name=f"res_annotated: {name}",
                          name_en=name, formula=r["elemental composition"], ion="[M+H]+", hmdb="", kegg="", category=cat,
-                         comment=f"res_annotated_2.csv; MS-DIAL: {r.x}", ms2_library="", standard_confirmed="",
+                         comment=f"res_annotated_2.csv; MS-DIAL: {r.x}{extra}", ms2_library="", standard_confirmed="",
                          isomer_ambiguous="", isomers_note=""))
     pd.DataFrame(rows).to_csv("curation_s107/candidates_curated.csv", index=False)
     print(f"{len(rows)} кандидатов"); print("\n".join(log))
