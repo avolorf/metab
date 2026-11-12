@@ -354,7 +354,10 @@ def ask_new():
     exp = input("Путь к файлу экспорта MS-DIAL (.txt): ").strip().strip('"')
     ctrl = input("Имя класса контрольной группы в MS-DIAL (Enter — определить автоматически): ").strip() or None
     pat = input("Шаблон номера пробы в имени файла (Enter — не использовать; пример (\\d+)$): ").strip() or None
-    new(name, export=exp, control=ctrl, sample_pattern=pat)
+    q = input("QC вводился после каждых N проб — N (Enter — 6; нужно, только если в MS-DIAL не заполнен "
+              "Analytical order): ").strip()
+    bt = input("Серии по номерам проб, например 1-40,41-80 (Enter — взять из MS-DIAL или одна серия): ").strip() or None
+    new(name, export=exp, control=ctrl, sample_pattern=pat, qc_every=int(q) if q.isdigit() else None, batches=bt)
 
 
 def ask_run_custom():
