@@ -1,6 +1,8 @@
 """mummichog (приложение): без экспозиций, p из основной модели, поправка BH по путям."""
+import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -20,10 +22,14 @@ def run(stats_feat, info, comp, outdir, exclude, seed):
     outdir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         tab.to_csv(Path(tmp) / "input.txt", sep="\t", index=False)
-        np.random.seed(seed)
-        subprocess.run(["mummichog", "-f", "input.txt", "-o", comp, "-m", "positive", "-u", str(C.PPM),
-                        "-c", f"{cutoff:.3g}", "-p", str(C.MUMMICHOG_PERM)], cwd=tmp, check=True,
-                       capture_output=True)
+        # mummichog выбирает случайные наборы признаков модулем random в отдельном процессе: начальное значение
+        # задаётся внутри этого процесса, а PYTHONHASHSEED фиксирует порядок множеств -> результат воспроизводим
+        args = ["-f", "input.txt", "-o", comp, "-m", "positive", "-u", str(C.PPM), "-c", f"{cutoff:.3g}",
+                "-p", str(C.MUMMICHOG_PERM)]
+        code = ("import random, sys, numpy; random.seed(%d); numpy.random.seed(%d); "
+                "from mummichog.command_line import main; sys.argv = ['mummichog'] + %r; main()") % (seed, seed, args)
+        env = dict(os.environ, PYTHONHASHSEED="0")
+        subprocess.run([sys.executable, "-c", code], cwd=tmp, check=True, capture_output=True, env=env)
         res = next(p for p in Path(tmp).iterdir() if p.is_dir())
         shutil.rmtree(outdir)
         shutil.copytree(res / "tables", outdir)
