@@ -177,10 +177,11 @@ def jonckheere(groups, rng, n_perm, n_boot=0):
 
 
 # ---------------------------------------------------------------- классификация S1 (вложенная CV)
-def _fit_predict(Xtr, ytr, Xte, method, k):
+def _fit_predict(Xtr, ytr, Xte, method, k, order=None):
     if method == "panel":
-        p = stats.mannwhitneyu(Xtr[ytr == 1], Xtr[ytr == 0], axis=0).pvalue
-        sel = np.argsort(p)[:k]
+        if order is None:                     # ранжирование по Манн–Уитни на обучающих пробах
+            order = np.argsort(stats.mannwhitneyu(Xtr[ytr == 1], Xtr[ytr == 0], axis=0).pvalue, kind="stable")
+        sel = order[:k]
         mu, sd = Xtr[:, sel].mean(0), Xtr[:, sel].std(0) + 1e-9
         m = LogisticRegression(C=1.0, max_iter=2000).fit((Xtr[:, sel] - mu) / sd, ytr)
         return m.predict_proba((Xte[:, sel] - mu) / sd)[:, 1], sel
@@ -198,11 +199,14 @@ def _inner_choice(Xtr, ytr, method, grid, seed):
     if len(grid) == 1:
         return grid[0]
     skf = StratifiedKFold(P["inner_folds"], shuffle=True, random_state=seed)
+    folds = list(skf.split(Xtr, ytr))
+    orders = [np.argsort(stats.mannwhitneyu(Xtr[a][ytr[a] == 1], Xtr[a][ytr[a] == 0], axis=0).pvalue, kind="stable")
+              if method == "panel" else None for a, _ in folds]      # один раз на блок для всех k
     best, best_auc = grid[0], -1
     for k in grid:
         pred = np.zeros(len(ytr))
-        for a, b in skf.split(Xtr, ytr):
-            pred[b], _ = _fit_predict(Xtr[a], ytr[a], Xtr[b], method, k)
+        for (a, b), o in zip(folds, orders):
+            pred[b], _ = _fit_predict(Xtr[a], ytr[a], Xtr[b], method, k, o)
         auc = roc_auc_score(ytr, pred)
         if auc > best_auc + 1e-12:
             best, best_auc = k, auc
@@ -272,6 +276,14 @@ def subgroup_sets(meta, study):
 def analyses(meta, pick):
     """Варианты модели: (имя, S, case, ref, ковариаты, дополнительный столбец, описание)."""
     stage_ind = meta["stage_group"].map({"T1": 1.0, "Ta": 0.0}).rename("stage_T1")
+    # S2 с поправкой на стадию: основной вариант — возраст ограниченным кубическим сплайном (HG старше LG на ~11 лет);
+    # узлы — 10/50/90-й процентили возраста проб Ta/T1 с LG или HG
+    s2s = [s for s in pick("grade_group", "HG") + pick("grade_group", "LG") if meta.loc[s, "stage_group"] in ("Ta", "T1")]
+    age = meta.loc[s2s, "age"].astype(float)
+    knots = np.percentile(age, [10, 50, 90])
+    P["S2_stage_adj_age_spline_knots"] = [round(float(k), 1) for k in knots]
+    spl = stage_ind.loc[s2s].to_frame().join(pd.DataFrame({"age": age, "age_rcs": rcs_basis(age.to_numpy(), knots)}, index=s2s))
+    kn = "/".join(f"{k:.0f}" for k in knots)
     return [
         ("S1", S1, pick("stage_group", "T1"), pick("stage_group", "Ta"), P["covariates"], None,
          "T1 vs Ta: подгруппа + пол + возраст + индекс"),
@@ -280,13 +292,13 @@ def analyses(meta, pick):
         ("S2", S2, pick("grade_group", "HG"), pick("grade_group", "LG"), P["covariates"], None,
          "HG vs LG: подгруппа + пол + возраст + индекс"),
         ("S2_stage_adj", S2, [s for s in pick("grade_group", "HG") if meta.loc[s, "stage_group"] in ("Ta", "T1")],
-         [s for s in pick("grade_group", "LG") if meta.loc[s, "stage_group"] in ("Ta", "T1")], P["covariates"],
-         stage_ind.to_frame(), "HG vs LG, пробы Ta/T1: подгруппа + стадия (T1 vs Ta) + пол + возраст + индекс"),
+         [s for s in pick("grade_group", "LG") if meta.loc[s, "stage_group"] in ("Ta", "T1")], ["sex", "contam_index"],
+         spl, f"HG vs LG, пробы Ta/T1: подгруппа + стадия (T1 vs Ta) + пол + возраст (сплайн, узлы {kn} лет) + индекс"),
         ("S2_men", S2, pick("grade_group", "HG", True), pick("grade_group", "LG", True), P["covariates_men"], None,
          "HG vs LG, только мужчины: подгруппа + возраст + индекс"),
         ("S2_stage_adj_men", S2, [s for s in pick("grade_group", "HG", True) if meta.loc[s, "stage_group"] in ("Ta", "T1")],
-         [s for s in pick("grade_group", "LG", True) if meta.loc[s, "stage_group"] in ("Ta", "T1")], P["covariates_men"],
-         stage_ind.to_frame(), "HG vs LG, пробы Ta/T1, только мужчины: подгруппа + стадия + возраст + индекс"),
+         [s for s in pick("grade_group", "LG", True) if meta.loc[s, "stage_group"] in ("Ta", "T1")], ["contam_index"],
+         spl, f"HG vs LG, пробы Ta/T1, только мужчины: подгруппа + стадия + возраст (сплайн, узлы {kn} лет) + индекс"),
     ]
 
 
@@ -308,29 +320,29 @@ def adjusted_auc(y_case, y_ref, Dcov, rng, n_boot):
 
 
 def s2_stage_sensitivity(meta, L, ster, variants, rng):
-    """11-оксоэтиохоланолон-глюкуронид и изомер II глюкуронида тетрагидрокортизона, HG vs LG (пробы Ta/T1),
-    поправка на стадию: возраст линейно (основная), без возраста, сплайн, категории; только мужчины."""
+    """11-оксоэтиохоланолон-глюкуронид и изомер II глюкуронида тетрагидрокортизона, HG vs LG (пробы Ta/T1) с поправкой
+    на стадию. Основной вариант — возраст сплайном; чувствительность: возраст линейно, без возраста, категориями;
+    только мужчины (сплайн и линейно)."""
     v = {x[0]: x for x in variants}
     _, _, case, ref, cov, extra, _ = v["S2_stage_adj"]
     _, _, case_m, ref_m, cov_m, extra_m, _ = v["S2_stage_adj_men"]
     idx = case + ref
     age = meta.loc[idx, "age"].astype(float)
-    knots = np.percentile(age, [10, 50, 90])
-    spl = pd.DataFrame({"age": age, "age_rcs": rcs_basis(age.to_numpy(), knots)}, index=idx)
+    stage = extra[["stage_T1"]]
     cats = pd.cut(age, [0, 59, 69, 79, 200], labels=["<60", "60–69", "70–79", "≥80"])
     dummies = pd.get_dummies(cats, prefix="age", drop_first=True, dtype=float)
-    stage = extra
+    kn = "/".join(f"{k:.0f}" for k in P["S2_stage_adj_age_spline_knots"])
     models = [
-        ("возраст линейно (основная)", case, ref, ["sex", "age", "contam_index"], stage),
-        ("без поправки на возраст", case, ref, ["sex", "contam_index"], stage),
-        (f"возраст — сплайн (RCS, узлы {knots[0]:.0f}/{knots[1]:.0f}/{knots[2]:.0f} лет)", case, ref, ["sex", "contam_index"], stage.join(spl, how="inner")),
-        ("возраст — категории <60, 60–69, 70–79, ≥80", case, ref, ["sex", "contam_index"], stage.join(dummies, how="inner")),
-        ("только мужчины, возраст линейно", case_m, ref_m, cov_m, extra_m),
-        ("только мужчины, возраст — сплайн", case_m, ref_m, ["contam_index"], stage.join(spl, how="inner")),
+        ("основной", f"возраст — сплайн (RCS, узлы {kn} лет)", case, ref, cov, extra),
+        ("чувствительность", "возраст линейно", case, ref, ["sex", "age", "contam_index"], stage),
+        ("чувствительность", "без поправки на возраст", case, ref, ["sex", "contam_index"], stage),
+        ("чувствительность", "возраст — категории <60, 60–69, 70–79, ≥80", case, ref, ["sex", "contam_index"], stage.join(dummies, how="inner")),
+        ("чувствительность", "только мужчины, возраст — сплайн", case_m, ref_m, cov_m, extra_m),
+        ("чувствительность", "только мужчины, возраст линейно", case_m, ref_m, ["age", "contam_index"], stage),
     ]
     rows = []
     for s in [x for x in ster if not x["name"].endswith("isomer I")]:
-        for nm, cs, rf, cv, ex in models:
+        for role, nm, cs, rf, cv, ex in models:
             r, used = ols(L[[s["rep"]]], meta, cs, rf, cv, ex)
             x = r.iloc[0]
             auc, lo, hi = auc_ci(L.loc[cs, s["rep"]].to_numpy(), L.loc[rf, s["rep"]].to_numpy(), rng, P["auc_bootstrap"])
@@ -338,7 +350,7 @@ def s2_stage_sensitivity(meta, L, ster, variants, rng):
             Dc = D.drop(columns="group")
             aa, alo, ahi = adjusted_auc(L.loc[D.index[D.group == 1], s["rep"]].to_numpy(), L.loc[D.index[D.group == 0], s["rep"]].to_numpy(),
                                         np.r_[Dc[D.group == 1].to_numpy(), Dc[D.group == 0].to_numpy()], rng, P["auc_bootstrap"])
-            rows.append({"compound": s["name"], "model": nm, "covariates": "+".join(used), "n_case": int(x.n_case), "n_ref": int(x.n_ref),
+            rows.append({"compound": s["name"], "role": role, "model": nm, "covariates": "+".join(used), "n_case": int(x.n_case), "n_ref": int(x.n_ref),
                          "log2FC": x.log2FC, "CI95_low": x.CI_low, "CI95_high": x.CI_high, "p": x.p,
                          "AUC_crude": auc, "AUC_crude_CI95_low": lo, "AUC_crude_CI95_high": hi,
                          "AUC_adjusted": aa, "AUC_adj_CI95_low": alo, "AUC_adj_CI95_high": ahi})
@@ -346,6 +358,113 @@ def s2_stage_sensitivity(meta, L, ster, variants, rng):
     ages = pd.DataFrame({"grade": ["HG"] * len(case) + ["LG"] * len(ref), "age_cat": cats.to_numpy()})
     out.attrs["age_table"] = pd.crosstab(ages.grade, ages.age_cat).reindex(columns=["<60", "60–69", "70–79", "≥80"], fill_value=0)
     return out
+
+
+# ---------------------------------------------------------------- блок А: итоговая таблица и рисунок
+ROLE = {"S1": "основной", "S1_men": "чувствительность (только мужчины)", "S2": "основной",
+        "S2_men": "чувствительность (только мужчины)", "S2_stage_adj": "основной (поправка на стадию, возраст — сплайн)",
+        "S2_stage_adj_men": "чувствительность (поправка на стадию, только мужчины, возраст — сплайн)"}
+
+
+def ci(x, lo, hi, d=2, sign=True):
+    f = f"{{:{'+' if sign else ''}.{d}f}}"
+    return f"{f.format(x)} [{f.format(lo)}; {f.format(hi)}]"
+
+
+def block_a_final(meta, L, ster, tabA, jt, sens, ions, desc, variants, dA):
+    """Итог блока А: основной вариант и анализы чувствительности в одной таблице (csv и xlsx) и рисунок для
+    11-оксоэтиохоланолон-глюкуронида и изомера II глюкуронида тетрагидрокортизона."""
+    rows = []
+    for _, r in tabA.iterrows():
+        rows.append({"соединение": r.compound, "сравнение": r.comparison, "вариант": r.analysis, "роль": ROLE[r.analysis],
+                     "модель": r.model, "n (case/ref)": f"{r.n_case}/{r.n_ref}", "log2FC [95 % ДИ]": ci(r.log2FC, r.CI95_low, r.CI95_high),
+                     "p": fmt_p(r.p), "q (BH, 3 глюкуронида)": fmt_p(r.q_BH_3_glucuronides),
+                     "AUC [95 % ДИ]": ci(r.AUC, r.AUC_CI95_low, r.AUC_CI95_high, sign=False)})
+    for _, r in sens[sens.role != "основной"].iterrows():
+        rows.append({"соединение": r.compound, "сравнение": "HG vs LG", "вариант": "S2_stage_adj: " + r.model,
+                     "роль": "чувствительность (поправка на стадию)", "модель": r.covariates, "n (case/ref)": f"{r.n_case}/{r.n_ref}",
+                     "log2FC [95 % ДИ]": ci(r.log2FC, r.CI95_low, r.CI95_high), "p": fmt_p(r.p), "q (BH, 3 глюкуронида)": "",
+                     "AUC [95 % ДИ]": ci(r.AUC_crude, r.AUC_crude_CI95_low, r.AUC_crude_CI95_high, sign=False),
+                     "AUC с поправкой на ковариаты [95 % ДИ]": ci(r.AUC_adjusted, r.AUC_adj_CI95_low, r.AUC_adj_CI95_high, sign=False)})
+    for _, r in jt.iterrows():
+        rows.append({"соединение": r.compound, "сравнение": "тренд Контроль → Ta → T1 (Йонкхир)",
+                     "вариант": "тренд" + (", только мужчины" if r.subset != "все" else ""),
+                     "роль": "основной" if r.subset == "все" else "чувствительность (только мужчины)", "модель": "ранговый, без поправок",
+                     "n (case/ref)": r.n, "доля согласованных пар [95 % ДИ]": ci(r.concordance, r.concordance_CI95_low, r.concordance_CI95_high, sign=False),
+                     "p": fmt_p(r.p_permutation)})
+    order = {s["name"]: i for i, s in enumerate(ster)}
+    fin = pd.DataFrame(rows)
+    fin["_o"] = fin["соединение"].map(order)
+    fin = fin.sort_values(["_o", "сравнение"], kind="stable").drop(columns="_o")
+    fin.to_csv(dA / "Block_A_final_table.csv", index=False, encoding="utf-8-sig")
+    with pd.ExcelWriter(dA / "Block_A_final_tables.xlsx") as w:
+        fin.to_excel(w, sheet_name="Итог", index=False)
+        sens.to_excel(w, sheet_name="S2+стадия чувствительность", index=False)
+        sens.attrs["age_table"].to_excel(w, sheet_name="S2+стадия возраст по категориям")
+        tabA.to_excel(w, sheet_name="Модели (числа)", index=False)
+        jt.to_excel(w, sheet_name="Тренд", index=False)
+        ions.to_excel(w, sheet_name="Ионы агликонов (проверка)", index=False)
+        desc.to_excel(w, sheet_name="Описательно по подгруппам", index=False)
+    # рисунок: два глюкуронида × (Контроль / Ta / T1 | LG / HG внутри Ta+T1)
+    v = {x[0]: x for x in variants}
+    hg, lg = v["S2_stage_adj"][2], v["S2_stage_adj"][3]
+    sets_l = {"Control": list(meta.index[meta.group == "Control"]),
+              "Ta": list(meta.index[(meta.group == "BC") & (meta.stage_group == "Ta")]),
+              "T1": list(meta.index[(meta.group == "BC") & (meta.stage_group == "T1")])}
+    t2 = list(meta.index[(meta.group == "BC") & (meta.stage_group == "T2plus")])
+    two = [x for x in ster if not x["name"].endswith("isomer I")]
+    fig, axes = plt.subplots(2, 2, figsize=(9.2, 7.6), gridspec_kw=dict(width_ratios=[3.4, 2]))
+    rng = np.random.RandomState(0)
+    for row, s in enumerate(two):
+        y = L[s["rep"]]
+        for col, (sets, labs) in enumerate([(sets_l, ["Control", "Ta", "T1"]), ({"LG": lg, "HG": hg}, ["LG", "HG"])]):
+            ax = axes[row, col]
+            data = [y[sets[k]].to_numpy() for k in labs]
+            bp = ax.boxplot(data, positions=range(len(labs)), widths=0.55, showfliers=False, patch_artist=True)
+            for patch, k in zip(bp["boxes"], labs):
+                patch.set_facecolor(COL[k])
+                patch.set_alpha(0.35)
+            for i, (k, d) in enumerate(zip(labs, data)):
+                ax.scatter(i + rng.uniform(-0.17, 0.17, len(d)), d, s=10, color=COL[k], lw=0, zorder=3)
+            ticks = [f"{LAB[k]}\n(n={len(d)})" for k, d in zip(labs, data)]
+            if col == 0:
+                ax.scatter(np.full(len(t2), 3.0), y[t2], s=36, marker="D", facecolor="white", edgecolor="black", zorder=4)
+                ticks.append(f"T2+\n(n={len(t2)})")
+                r = tabA[(tabA.compound == s["name"]) & (tabA.analysis == "S1")].iloc[0]
+                j = jt[(jt.compound == s["name"]) & (jt.subset == "все")].iloc[0]
+                note = (f"T1 vs Ta: log2FC {ci(r.log2FC, r.CI95_low, r.CI95_high)}, p = {fmt_p(r.p)}\n"
+                        f"тренд К→Ta→T1: {ci(j.concordance, j.concordance_CI95_low, j.concordance_CI95_high, sign=False)}, p = {fmt_p(j.p_permutation)}")
+                ax.set_ylabel(f"{s['name']}\nlog2-интенсивность (PQN)", fontsize=8)
+            else:
+                m = sens[(sens.compound == s["name"]) & (sens.role == "основной")].iloc[0]
+                note = (f"HG vs LG, поправка на стадию,\nвозраст — сплайн:\nlog2FC {ci(m.log2FC, m.CI95_low, m.CI95_high)}, p = {fmt_p(m.p)}")
+            ax.set_xticks(range(len(ticks)))
+            ax.set_xticklabels(ticks, fontsize=8)
+            lo_, hi_ = ax.get_ylim()
+            ax.set_ylim(lo_, hi_ + 0.32 * (hi_ - lo_))
+            ax.text(0.03, 0.97, note, transform=ax.transAxes, va="top", fontsize=7,
+                    bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5))
+            ax.tick_params(axis="y", labelsize=8)
+            if row == 0:
+                ax.set_title("Контроль, стадия Ta и T1" if col == 0 else "Степень: LG и HG (пробы Ta + T1)", fontsize=9)
+    fig.tight_layout()
+    save(fig, dA / "Figure_Block_A_two_glucuronides")
+
+
+# ---------------------------------------------------------------- блок Б: файл для коллег
+def block_b_workbook(dB):
+    """Все таблицы блока Б в одной книге (без стероидов)."""
+    sheets = [("Описательная", "descriptive_subgroups.csv"), ("Описательная, тесты", "descriptive_tests.csv"),
+              ("Стадия × степень", "stage_by_grade.csv"), ("Пептидная оценка", "peptide_score_S1_S2_models.csv"),
+              ("Пептидная оценка, тренд", "peptide_score_trend_jonckheere.csv"),
+              ("Пептидная оценка, описат.", "peptide_score_descriptive.csv"), ("Пептиды оценки", "peptide_score_compounds.csv"),
+              ("Ненаправл., сводка", "untargeted_summary.csv"), ("S1 топ", "untargeted_S1_top.csv"), ("S2 топ", "untargeted_S2_top.csv"),
+              ("Классификация S1", "classification_S1_nested_cv.csv"),
+              ("Классификация S1, отбор", "classification_S1_panel_selection_frequency.csv")]
+    with pd.ExcelWriter(dB / "Block_B_tables.xlsx") as w:
+        for nm, f in sheets:
+            if (dB / f).exists():
+                pd.read_csv(dB / f, encoding="utf-8-sig").to_excel(w, sheet_name=nm[:31], index=False)
 
 
 # ---------------------------------------------------------------- описательная таблица
@@ -436,8 +555,11 @@ def fig_volcano(res, path, title):
     save(fig, path)
 
 
-def classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log):
-    """Классификация S1 (T1 vs Ta): вложенная CV, перестановочный тест, базовая модель «пол + возраст»."""
+def classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log, methods=("panel", "plsda", "covariate"), cache=None):
+    """Классификация S1 (T1 vs Ta): вложенная CV, перестановочный тест, базовая модель «пол + возраст».
+    Результат каждой модели сохраняется в cache (pickle): модели можно считать отдельными запусками
+    (--class_methods), итоговые таблица и рисунок собираются, когда готовы все три."""
+    import pickle
     case, ref = pick("stage_group", "T1"), pick("stage_group", "Ta")
     idx = case + ref
     y = np.r_[np.ones(len(case)), np.zeros(len(ref))].astype(int)
@@ -449,12 +571,24 @@ def classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log):
     X = LB.loc[idx, pool].to_numpy()
     Z = np.column_stack([meta.loc[idx, "sex"].map({"M": 1.0, "F": 0.0}).to_numpy(float), meta.loc[idx, "age"].to_numpy(float)])
     crow, curves, sel_rows = [], {}, None
+    all_m = []
     for k, (method, Xm, nm) in enumerate([
             ("panel", X, f"панель: top-k по Манн–Уитни внутри обучающего блока + логистическая регрессия; k ∈ {P['panel_k_grid']} — внутренняя CV"),
             ("plsda", X, f"PLS-DA (все соединения пула); число компонент ∈ {P['plsda_comp_grid']} — внутренняя CV"),
             ("covariate", Z, "базовая модель: пол + возраст (логистическая регрессия)")]):
-        aucs, tprs, chosen, ks = nested_cv(Xm, y, method, P["seed"] + 10 * k)
-        p_perm, null = perm_test(Xm, y, method, aucs.mean(), P["seed"] + 10 * k + 1, P["n_perm"]) if P["n_perm"] else (np.nan, None)
+        all_m.append(method)
+        cf = cache / f"classification_{method}_nperm{P['n_perm']}.pkl" if cache else None
+        if cf is not None and cf.exists():
+            aucs, tprs, chosen, ks, p_perm = pickle.load(open(cf, "rb"))
+        elif method in methods:
+            aucs, tprs, chosen, ks = nested_cv(Xm, y, method, P["seed"] + 10 * k)
+            p_perm, null = perm_test(Xm, y, method, aucs.mean(), P["seed"] + 10 * k + 1, P["n_perm"]) if P["n_perm"] else (np.nan, None)
+            if cf is not None:
+                cf.parent.mkdir(parents=True, exist_ok=True)
+                pickle.dump((aucs, tprs, chosen, ks, p_perm), open(cf, "wb"))
+        else:
+            log(f"  {method}: ещё не рассчитана (нет {cf.name if cf else 'кэша'})")
+            continue
         crow.append({"model": nm, "n_T1": len(case), "n_Ta": len(ref), "n_features": Xm.shape[1],
                      "AUC_mean": aucs.mean(), "AUC_sd": aucs.std(), "AUC_p2.5": np.percentile(aucs, 2.5),
                      "AUC_p97.5": np.percentile(aucs, 97.5), "perm_p": p_perm, "n_perm": P["n_perm"],
@@ -467,6 +601,9 @@ def classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log):
                                      "n_selected": cnt.to_numpy(), "selection_frequency": cnt.to_numpy() / n_f})
         log(f"  {nm}: AUC {aucs.mean():.3f} (2,5–97,5 %: {np.percentile(aucs, 2.5):.3f}–{np.percentile(aucs, 97.5):.3f}), "
             f"перестановочный p = {fmt_p(p_perm)}")
+    if len(curves) < len(all_m):
+        log("  Итоговая таблица классификации не собрана: рассчитаны не все модели")
+        return
     pd.DataFrame(crow).to_csv(dB / "classification_S1_nested_cv.csv", index=False, encoding="utf-8-sig")
     sel_rows.to_csv(dB / "classification_S1_panel_selection_frequency.csv", index=False, encoding="utf-8-sig")
     fig, ax = plt.subplots(figsize=(4.8, 4.6))
@@ -542,6 +679,8 @@ def main():
     ap.add_argument("--peptide_list", default=None, help="согласованный список соединений «пептидной» оценки (csv, столбец compound)")
     ap.add_argument("--n_perm", type=int, default=P["n_perm"])
     ap.add_argument("--skip_classification", action="store_true", help="не пересчитывать классификацию S1 (файлы остаются)")
+    ap.add_argument("--class_methods", default="panel,plsda,covariate",
+                    help="какие модели классификации считать в этом запуске; готовые берутся из кэша")
     a = ap.parse_args()
     a.clinical = str((CWD / a.clinical).resolve())
     a.out = str((CWD / a.out).resolve())
@@ -670,6 +809,7 @@ def main():
         drows.append({"compound": s["name"], "variable": "group", "subgroup": "Control", "n": len(ctrl), "median_log2": x.median(),
                       "q25": x.quantile(.25), "q75": x.quantile(.75), "min": x.min(), "max": x.max()})
     pd.DataFrame(drows).to_csv(dA / "steroids_descriptive_by_subgroup.csv", index=False, encoding="utf-8-sig")
+    block_a_final(meta.loc[study], L, ster, tabA, jt, sens, pd.DataFrame(rows_ion), pd.DataFrame(drows), variants, dA)
     items = []
     for s in ster:
         r1 = tabA[(tabA.compound == s["name"]) & (tabA.analysis == "S1")].iloc[0]
@@ -732,12 +872,13 @@ def main():
         sel = sig if len(sig) else tab.head(P["top_n_if_no_q"])
         sel.assign(selection=f"q < {P['fdr']}" if len(sig) else f"нет q < {P['fdr']}: первые {P['top_n_if_no_q']} по p") \
             .to_csv(dB / f"untargeted_{Sname}_top.csv", encoding="utf-8-sig", index_label="compound")
-        fig_volcano(r, dB / f"Figure_volcano_{Sname}", f"{S1['label'] if Sname == 'S1' else S2['label']} (РМП; без стероидов)")
+        fig_volcano(r, dB / f"Figure_volcano_{Sname}", f"{S1['label'] if Sname == 'S1' else S2['label']} (РМП)")
         log(f"{Sname}: q < {P['fdr']} — {len(sig)}; в таблицу: {'соединения с q < 0.05' if len(sig) else 'первые 50 по p'}")
 
     # ------------------------------------------------------------ блок Б: классификация S1 (вложенная CV)
     if not a.skip_classification:
-        classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log)
+        classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log, tuple(a.class_methods.split(",")),
+                       out / "cache_classification")
 
 
     # ------------------------------------------------------------ блок Б: «пептидная» оценка
@@ -745,6 +886,8 @@ def main():
         peptide_score(a.peptide_list, meta, L, names, groups, ster, excl_comp, variants, ctrl, pick, study, rng, dB, log)
     else:
         log("\n«Пептидная» оценка не рассчитана: список соединений не задан (--peptide_list)")
+
+    block_b_workbook(dB)
 
     # ------------------------------------------------------------ параметры и журнал
     params = dict(P, run_at=datetime.now().isoformat(timespec="seconds"), pipeline_commit=M["pipeline_commit"],

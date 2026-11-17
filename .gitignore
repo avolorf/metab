@@ -8,3 +8,4 @@ runs/*/input/
 runs/*/*/
 !runs/*/logs/
 !runs/*/summary/
+results_s107_clinical/cache_classification/
