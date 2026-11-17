@@ -1,4 +1,4 @@
-"""Кандидаты в «кровяную» оценку (для согласования до расчёта): соединения основного анализа s107 (РМП vs контроль),
+"""Кандидаты в «пептидную» оценку (список согласован: 54 пептида — peptide_score_list.csv): соединения основного анализа s107 (РМП vs контроль),
 вероятно поступающие с кровью, — пептиды, повышенные при РМП, плюс биливердин и LysoPC.
 
 Пептид: библиотечная аннотация представителя — ди-/трипептид (то же правило PEP, что в report_s107.py) или пептид по
@@ -46,7 +46,7 @@ out["proposed"] = out.finding.astype(bool) | (out.kind == "желчный пиг
 cols = ["kind", "label", "rt_min", "mz", "annotation", "annotation_conf", "beta_model", "q_model", "AUC", "finding", "proposed"]
 out = out[cols].rename(columns={"beta_model": "log2FC_BC_vs_Control", "q_model": "q_BC_vs_Control", "AUC": "AUC_BC_vs_Control",
                                 "finding": "finding_main_analysis"}).sort_values(["kind", "q_BC_vs_Control"])
-dest = CWD / (sys.argv[1] if len(sys.argv) > 1 else "../results_s107_clinical/blood_score_candidates.csv")
+dest = CWD / (sys.argv[1] if len(sys.argv) > 1 else "../results_s107_clinical/peptide_score_candidates.csv")
 dest.parent.mkdir(parents=True, exist_ok=True)
 out.to_csv(dest, encoding="utf-8-sig", index_label="compound")
 print(f"исключено как стероиды: {int((pep & up & ~not_steroid).sum())}; пептидов, повышенных при РМП (q < 0,05): {len(t)}; из них находок: {int(t.finding.sum())}; "

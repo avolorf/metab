@@ -9,13 +9,13 @@
 возраст + индекс).
 
 Блок А (results_s107_clinical/steroids/) — три глюкуронида стероидов и ионы их агликонов.
-Блок Б (results_s107_clinical/clinical/) — без стероидов: «кровяная» оценка (после согласования списка),
+Блок Б (results_s107_clinical/clinical/) — без стероидов: «пептидная» оценка,
 ненаправленное сравнение S1 и S2, классификация S1 (вложенная CV 5 × 20, перестановочный тест, базовая модель
 «пол + возраст»).
 
 Запуск (из этой папки):
   S107_PIPELINE=<копия ветки основного анализа> python run_clinical.py --clinical <s107_clinical_groups.xlsx> \
-      [--blood_list blood_score_list.csv] [--n_perm 1000]
+      [--peptide_list peptide_score_list.csv] [--n_perm 1000]
 """
 import argparse
 import json
@@ -58,7 +58,7 @@ P = dict(
     n_perm=1000,                         # перестановки классификации (вся процедура CV на каждую перестановку)
     pool_max_abs_rho_index=C.PANEL_MAX_ABS_RHO_CONTAM,
     top_n_if_no_q=50,
-    blood_z_reference="все 104 пробы основного анализа (среднее и SD каждого соединения)",
+    peptide_z_reference="все 104 пробы основного анализа (среднее и SD каждого соединения)",
 )
 S1 = dict(name="S1_stage", col="stage_group", case="T1", ref="Ta", label="T1 vs Ta",
           descriptive_only=["T2plus", "ambiguous", "unknown", "PUNLMP_uncertain"])
@@ -144,9 +144,10 @@ def auc_fast(L, case, ref):
     return pd.Series((A[:n1].sum(0) - n1 * (n1 + 1) / 2) / (n1 * n0), index=L.columns)
 
 
-def jonckheere(groups, rng, n_perm):
+def jonckheere(groups, rng, n_perm, n_boot=0):
     """Критерий Йонкхира–Терпстры для упорядоченных групп (возрастающий тренд); p двусторонний —
-    асимптотический (с поправкой на связи) и перестановочный."""
+    асимптотический (с поправкой на связи) и перестановочный. Мера эффекта — доля согласованных пар
+    JT / Σ n_i·n_j (0,5 — нет тренда, 1 — все пары по возрастанию) с 95 % ДИ (бутстрэп внутри групп)."""
     def jt_stat(gs):
         s = 0.0
         for i in range(len(gs)):
@@ -168,7 +169,11 @@ def jonckheere(groups, rng, n_perm):
     cuts = np.cumsum(n)[:-1]
     null = np.array([jt_stat(np.split(rng.permutation(allv), cuts)) for _ in range(n_perm)])
     p_perm = (np.sum(np.abs(null - mean) >= abs(J - mean)) + 1) / (n_perm + 1)
-    return J, z, 2 * stats.norm.sf(abs(z)), p_perm
+    pairs = sum(n[i] * n[j] for i in range(len(n)) for j in range(i + 1, len(n)))
+    boot = [jt_stat([g[rng.randint(0, len(g), len(g))] for g in gs]) / pairs for _ in range(n_boot)]
+    lo, hi = (np.percentile(boot, 2.5), np.percentile(boot, 97.5)) if n_boot else (np.nan, np.nan)
+    return dict(JT=J, z=z, p_asymptotic=2 * stats.norm.sf(abs(z)), p_permutation=p_perm,
+                concordance=J / pairs, concordance_CI95_low=lo, concordance_CI95_high=hi)
 
 
 # ---------------------------------------------------------------- классификация S1 (вложенная CV)
@@ -279,7 +284,68 @@ def analyses(meta, pick):
          stage_ind.to_frame(), "HG vs LG, пробы Ta/T1: подгруппа + стадия (T1 vs Ta) + пол + возраст + индекс"),
         ("S2_men", S2, pick("grade_group", "HG", True), pick("grade_group", "LG", True), P["covariates_men"], None,
          "HG vs LG, только мужчины: подгруппа + возраст + индекс"),
+        ("S2_stage_adj_men", S2, [s for s in pick("grade_group", "HG", True) if meta.loc[s, "stage_group"] in ("Ta", "T1")],
+         [s for s in pick("grade_group", "LG", True) if meta.loc[s, "stage_group"] in ("Ta", "T1")], P["covariates_men"],
+         stage_ind.to_frame(), "HG vs LG, пробы Ta/T1, только мужчины: подгруппа + стадия + возраст + индекс"),
     ]
+
+
+# ---------------------------------------------------------------- S2 с поправкой на стадию: модели возраста
+def rcs_basis(x, knots):
+    """Ограниченный кубический сплайн (Harrell), 3 узла: один нелинейный член в дополнение к линейному."""
+    k1, k2, k3 = knots
+    pos = lambda v: np.clip(v, 0, None) ** 3
+    return (pos(x - k1) - pos(x - k2) * (k3 - k1) / (k3 - k2) + pos(x - k3) * (k2 - k1) / (k3 - k2)) / (k3 - k1) ** 2
+
+
+def adjusted_auc(y_case, y_ref, Dcov, rng, n_boot):
+    """AUC после поправки: остатки log2 от регрессии на ковариаты (без подгруппы) в той же выборке; ДИ — бутстрэп
+    остатков внутри подгрупп (ковариатная регрессия фиксирована)."""
+    yv = np.r_[y_case, y_ref]
+    X = np.column_stack([np.ones(len(yv)), Dcov])
+    res = yv - X @ np.linalg.lstsq(X, yv, rcond=None)[0]
+    return auc_ci(res[:len(y_case)], res[len(y_case):], rng, n_boot)
+
+
+def s2_stage_sensitivity(meta, L, ster, variants, rng):
+    """11-оксоэтиохоланолон-глюкуронид и изомер II глюкуронида тетрагидрокортизона, HG vs LG (пробы Ta/T1),
+    поправка на стадию: возраст линейно (основная), без возраста, сплайн, категории; только мужчины."""
+    v = {x[0]: x for x in variants}
+    _, _, case, ref, cov, extra, _ = v["S2_stage_adj"]
+    _, _, case_m, ref_m, cov_m, extra_m, _ = v["S2_stage_adj_men"]
+    idx = case + ref
+    age = meta.loc[idx, "age"].astype(float)
+    knots = np.percentile(age, [10, 50, 90])
+    spl = pd.DataFrame({"age": age, "age_rcs": rcs_basis(age.to_numpy(), knots)}, index=idx)
+    cats = pd.cut(age, [0, 59, 69, 79, 200], labels=["<60", "60–69", "70–79", "≥80"])
+    dummies = pd.get_dummies(cats, prefix="age", drop_first=True, dtype=float)
+    stage = extra
+    models = [
+        ("возраст линейно (основная)", case, ref, ["sex", "age", "contam_index"], stage),
+        ("без поправки на возраст", case, ref, ["sex", "contam_index"], stage),
+        (f"возраст — сплайн (RCS, узлы {knots[0]:.0f}/{knots[1]:.0f}/{knots[2]:.0f} лет)", case, ref, ["sex", "contam_index"], stage.join(spl, how="inner")),
+        ("возраст — категории <60, 60–69, 70–79, ≥80", case, ref, ["sex", "contam_index"], stage.join(dummies, how="inner")),
+        ("только мужчины, возраст линейно", case_m, ref_m, cov_m, extra_m),
+        ("только мужчины, возраст — сплайн", case_m, ref_m, ["contam_index"], stage.join(spl, how="inner")),
+    ]
+    rows = []
+    for s in [x for x in ster if not x["name"].endswith("isomer I")]:
+        for nm, cs, rf, cv, ex in models:
+            r, used = ols(L[[s["rep"]]], meta, cs, rf, cv, ex)
+            x = r.iloc[0]
+            auc, lo, hi = auc_ci(L.loc[cs, s["rep"]].to_numpy(), L.loc[rf, s["rep"]].to_numpy(), rng, P["auc_bootstrap"])
+            D, _ = design(meta, cs, rf, cv, ex)
+            Dc = D.drop(columns="group")
+            aa, alo, ahi = adjusted_auc(L.loc[D.index[D.group == 1], s["rep"]].to_numpy(), L.loc[D.index[D.group == 0], s["rep"]].to_numpy(),
+                                        np.r_[Dc[D.group == 1].to_numpy(), Dc[D.group == 0].to_numpy()], rng, P["auc_bootstrap"])
+            rows.append({"compound": s["name"], "model": nm, "covariates": "+".join(used), "n_case": int(x.n_case), "n_ref": int(x.n_ref),
+                         "log2FC": x.log2FC, "CI95_low": x.CI_low, "CI95_high": x.CI_high, "p": x.p,
+                         "AUC_crude": auc, "AUC_crude_CI95_low": lo, "AUC_crude_CI95_high": hi,
+                         "AUC_adjusted": aa, "AUC_adj_CI95_low": alo, "AUC_adj_CI95_high": ahi})
+    out = pd.DataFrame(rows)
+    ages = pd.DataFrame({"grade": ["HG"] * len(case) + ["LG"] * len(ref), "age_cat": cats.to_numpy()})
+    out.attrs["age_table"] = pd.crosstab(ages.grade, ages.age_cat).reindex(columns=["<60", "60–69", "70–79", "≥80"], fill_value=0)
+    return out
 
 
 # ---------------------------------------------------------------- описательная таблица
@@ -415,18 +481,71 @@ def classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log):
     save(fig, dB / "Figure_classification_S1_ROC")
 
 
+def peptide_score(path, meta, L, names, groups, ster, excl_comp, variants, ctrl, pick, study, rng, dB, log):
+    """«Пептидная» оценка: среднее z-оценок согласованного списка пептидов (z по всем 104 пробам основного анализа).
+    Анализ тот же, что в блоке А: все варианты модели (95 % ДИ разности, AUC с ДИ), тренд Контроль → Ta → T1."""
+    pl = pd.read_csv(path)
+    comps = [c for c in pl.compound if c in L.columns]
+    miss = set(pl.compound) - set(comps)
+    if miss:
+        raise SystemExit(f"Соединения списка не найдены в матрице: {miss}")
+    if any(groups.loc[c, "compound"] in excl_comp for c in comps):
+        raise SystemExit("В списке «пептидной» оценки есть стероиды")
+    Z = (L[comps] - L[comps].mean()) / L[comps].std()
+    score = Z.mean(axis=1).rename("peptide_score")
+    Ls = score.to_frame()
+    rows = []
+    for vname, S, case, ref, cov, extra, desc_v in variants:
+        r, used = ols(Ls, meta, case, ref, cov, extra)
+        auc, lo, hi = auc_ci(score[case].to_numpy(), score[ref].to_numpy(), rng, P["auc_bootstrap"])
+        x = r.iloc[0]
+        rows.append({"analysis": vname, "comparison": S["label"], "model": desc_v, "covariates": "+".join(used),
+                     "n_case": int(x.n_case), "n_ref": int(x.n_ref), "difference_z": x.log2FC,
+                     "CI95_low": x.CI_low, "CI95_high": x.CI_high, "p": x.p, "AUC": auc, "AUC_CI95_low": lo, "AUC_CI95_high": hi})
+    tab = pd.DataFrame(rows)
+    tab.to_csv(dB / "peptide_score_S1_S2_models.csv", index=False, encoding="utf-8-sig")
+    jts = []
+    for men in (False, True):
+        sx = (lambda s: meta.loc[s, "sex"] == "M") if men else (lambda s: True)
+        grp = [[s for s in ctrl if sx(s)], [s for s in pick("stage_group", "Ta") if sx(s)], [s for s in pick("stage_group", "T1") if sx(s)]]
+        r = jonckheere([score[g].to_numpy() for g in grp], rng, P["jt_permutations"], P["auc_bootstrap"])
+        jts.append({"subset": "только мужчины" if men else "все", "order": "Контроль < Ta < T1", "n": "/".join(str(len(g)) for g in grp), **r})
+    jts = pd.DataFrame(jts)
+    jts.to_csv(dB / "peptide_score_trend_jonckheere.csv", index=False, encoding="utf-8-sig")
+    pl.assign(name=[names.get(c, c) for c in pl.compound]).to_csv(dB / "peptide_score_compounds.csv", index=False, encoding="utf-8-sig")
+    desc = []
+    for lab, ids in [("Контроль", ctrl), ("Ta", pick("stage_group", "Ta")), ("T1", pick("stage_group", "T1")),
+                     ("T2plus", pick("stage_group", "T2plus")), ("LG", pick("grade_group", "LG")), ("HG", pick("grade_group", "HG"))]:
+        v = score[ids]
+        desc.append({"subgroup": lab, "n": len(ids), "mean": v.mean(), "sd": v.std(), "median": v.median(),
+                     "q25": v.quantile(.25), "q75": v.quantile(.75)})
+    pd.DataFrame(desc).to_csv(dB / "peptide_score_descriptive.csv", index=False, encoding="utf-8-sig")
+    r1, r2 = tab[tab.analysis == "S1"].iloc[0], tab[tab.analysis == "S2"].iloc[0]
+    r3 = tab[tab.analysis == "S2_stage_adj"].iloc[0]
+    fig_groups(meta.loc[study], Ls, [("«Пептидная» оценка", "peptide_score",
+                                      f"S1: {r1.difference_z:+.2f} [{r1.CI95_low:+.2f}; {r1.CI95_high:+.2f}], p = {fmt_p(r1.p)}\n"
+                                      f"S2: {r2.difference_z:+.2f} [{r2.CI95_low:+.2f}; {r2.CI95_high:+.2f}], p = {fmt_p(r2.p)}\n"
+                                      f"S2 + стадия: {r3.difference_z:+.2f}, p = {fmt_p(r3.p)}\n"
+                                      f"тренд К→Ta→T1: p = {fmt_p(jts.p_permutation.iloc[0])}")],
+               dB / "Figure_peptide_score_by_subgroup", f"«Пептидная» оценка ({len(comps)} пептидов): среднее z-оценок",
+               ylab="средняя z-оценка")
+    log(f"\n«Пептидная» оценка ({len(comps)} пептидов):\n" + tab[["analysis", "n_case", "n_ref", "difference_z", "CI95_low", "CI95_high",
+                                                                     "p", "AUC", "AUC_CI95_low", "AUC_CI95_high"]].round(3).to_string(index=False))
+    log(jts.drop(columns="order").round(4).to_string(index=False))
+
+
 # ---------------------------------------------------------------- основная программа
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--clinical", required=True, help="s107_clinical_groups.xlsx")
     ap.add_argument("--out", default=str(HERE.parent / "results_s107_clinical"))
-    ap.add_argument("--blood_list", default=None, help="согласованный список соединений «кровяной» оценки (csv, столбец compound)")
+    ap.add_argument("--peptide_list", default=None, help="согласованный список соединений «пептидной» оценки (csv, столбец compound)")
     ap.add_argument("--n_perm", type=int, default=P["n_perm"])
     ap.add_argument("--skip_classification", action="store_true", help="не пересчитывать классификацию S1 (файлы остаются)")
     a = ap.parse_args()
     a.clinical = str((CWD / a.clinical).resolve())
     a.out = str((CWD / a.out).resolve())
-    a.blood_list = str((CWD / a.blood_list).resolve()) if a.blood_list else None
+    a.peptide_list = str((CWD / a.peptide_list).resolve()) if a.peptide_list else None
     P["n_perm"] = a.n_perm
     out = Path(a.out)
     dA, dB = out / "steroids", out / "clinical"
@@ -524,13 +643,18 @@ def main():
         sx = (lambda s: meta.loc[s, "sex"] == "M") if men else (lambda s: True)
         grp = [[s for s in ctrl if sx(s)], [s for s in pick("stage_group", "Ta") if sx(s)], [s for s in pick("stage_group", "T1") if sx(s)]]
         for s in ster:
-            J, z, p_as, p_perm = jonckheere([L.loc[g, s["rep"]].to_numpy() for g in grp], rng, P["jt_permutations"])
+            r = jonckheere([L.loc[g, s["rep"]].to_numpy() for g in grp], rng, P["jt_permutations"], P["auc_bootstrap"])
             jt.append({"compound": s["name"], "subset": "только мужчины" if men else "все", "order": "Контроль < Ta < T1",
-                       "n": "/".join(str(len(g)) for g in grp), "JT": J, "z": z, "p_asymptotic": p_as, "p_permutation": p_perm,
-                       "direction": "возрастающий" if z > 0 else "убывающий"})
+                       "n": "/".join(str(len(g)) for g in grp), **r, "direction": "возрастающий" if r["z"] > 0 else "убывающий"})
     jt = pd.DataFrame(jt)
     jt.to_csv(dA / "steroids_trend_jonckheere.csv", index=False, encoding="utf-8-sig")
     log("\nТренд Контроль → Ta → T1 (Йонкхир):\n" + jt.drop(columns="order").round(4).to_string(index=False))
+    sens = s2_stage_sensitivity(meta, L, ster, variants, rng)
+    sens.to_csv(dA / "steroids_S2_stage_adj_sensitivity.csv", index=False, encoding="utf-8-sig")
+    sens.attrs["age_table"].to_csv(dA / "steroids_S2_stage_adj_age_categories.csv", encoding="utf-8-sig")
+    log("\nS2 с поправкой на стадию — чувствительность к модели возраста и вариант по мужчинам:\n" +
+        sens[["compound", "model", "n_case", "n_ref", "log2FC", "CI95_low", "CI95_high", "p", "AUC_adjusted",
+              "AUC_adj_CI95_low", "AUC_adj_CI95_high"]].round(3).to_string(index=False))
     # описательно: подгруппы вне S1/S2
     drows = []
     for col, vals in [("stage_group", ["Ta", "T1", "T2plus", "ambiguous", "unknown", "PUNLMP_uncertain"]),
@@ -616,52 +740,17 @@ def main():
         classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log)
 
 
-    # ------------------------------------------------------------ блок Б: «кровяная» оценка
-    if a.blood_list:
-        bl = pd.read_csv(a.blood_list)
-        comps = [c for c in bl.compound if c in L.columns]
-        miss = set(bl.compound) - set(comps)
-        if miss:
-            raise SystemExit(f"Соединения списка не найдены в матрице: {miss}")
-        if set(comps) & {r for s in ster for r in s["members"]} or any(groups.loc[c, "compound"] in excl_comp for c in comps):
-            raise SystemExit("В списке «кровяной» оценки есть стероиды")
-        Zs = (L[comps] - L[comps].mean()) / L[comps].std()
-        score = Zs.mean(axis=1).rename("blood_score")
-        Ls = score.to_frame()
-        rowsS = []
-        for vname, S, case, ref, cov, extra, desc_v in variants:
-            r, used = ols(Ls, meta, case, ref, cov, extra)
-            auc, lo, hi = auc_ci(score[case].to_numpy(), score[ref].to_numpy(), rng, P["auc_bootstrap"])
-            x = r.iloc[0]
-            rowsS.append({"analysis": vname, "comparison": S["label"], "model": desc_v, "covariates": "+".join(used),
-                          "n_case": int(x.n_case), "n_ref": int(x.n_ref), "difference_SD_units": x.log2FC,
-                          "CI95_low": x.CI_low, "CI95_high": x.CI_high, "p": x.p, "AUC": auc, "AUC_CI95_low": lo, "AUC_CI95_high": hi})
-        tabS = pd.DataFrame(rowsS)
-        tabS.to_csv(dB / "blood_score_S1_S2_models.csv", index=False, encoding="utf-8-sig")
-        jts = []
-        for men in (False, True):
-            sx = (lambda s: meta.loc[s, "sex"] == "M") if men else (lambda s: True)
-            grp = [[s for s in ctrl if sx(s)], [s for s in pick("stage_group", "Ta") if sx(s)], [s for s in pick("stage_group", "T1") if sx(s)]]
-            J, z, p_as, p_perm = jonckheere([score[g].to_numpy() for g in grp], rng, P["jt_permutations"])
-            jts.append({"subset": "только мужчины" if men else "все", "order": "Контроль < Ta < T1", "n": "/".join(str(len(g)) for g in grp),
-                        "JT": J, "z": z, "p_asymptotic": p_as, "p_permutation": p_perm})
-        pd.DataFrame(jts).to_csv(dB / "blood_score_trend_jonckheere.csv", index=False, encoding="utf-8-sig")
-        bl.assign(name=[names.get(c, c) for c in bl.compound]).to_csv(dB / "blood_score_compounds.csv", index=False, encoding="utf-8-sig")
-        r1, r2 = tabS[tabS.analysis == "S1"].iloc[0], tabS[tabS.analysis == "S2"].iloc[0]
-        fig_groups(meta.loc[study], Ls, [("«Кровяная» оценка", "blood_score",
-                                          f"S1: {r1.difference_SD_units:+.2f} SD, p = {fmt_p(r1.p)}\nS2: {r2.difference_SD_units:+.2f} SD, p = {fmt_p(r2.p)}\n"
-                                          f"тренд К→Ta→T1: p = {fmt_p(jts[0]['p_permutation'])}")],
-                   dB / "Figure_blood_score_by_subgroup", f"«Кровяная» оценка ({len(comps)} соединений): среднее z-оценок",
-                   ylab="средняя z-оценка")
-        log("\n«Кровяная» оценка:\n" + tabS[["analysis", "n_case", "n_ref", "difference_SD_units", "CI95_low", "CI95_high", "p", "AUC"]].round(3).to_string(index=False))
+    # ------------------------------------------------------------ блок Б: «пептидная» оценка
+    if a.peptide_list:
+        peptide_score(a.peptide_list, meta, L, names, groups, ster, excl_comp, variants, ctrl, pick, study, rng, dB, log)
     else:
-        log("\n«Кровяная» оценка не рассчитана: список соединений ещё не согласован (--blood_list)")
+        log("\n«Пептидная» оценка не рассчитана: список соединений не задан (--peptide_list)")
 
     # ------------------------------------------------------------ параметры и журнал
     params = dict(P, run_at=datetime.now().isoformat(timespec="seconds"), pipeline_commit=M["pipeline_commit"],
                   matrix_check=M["check"].to_dict(), clinical_file=Path(a.clinical).name,
                   variants={v[0]: dict(description=v[6], n_case=len(v[2]), n_ref=len(v[3])) for v in variants},
-                  steroid_regex=STEROID_RE.pattern, blood_list=Path(a.blood_list).name if a.blood_list else None,
+                  steroid_regex=STEROID_RE.pattern, peptide_list=Path(a.peptide_list).name if a.peptide_list else None,
                   sex_source="метаданные основного анализа s107 (v2)")
     for d in (out, dA, dB):
         fn = "parameters.json"
