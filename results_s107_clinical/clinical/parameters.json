@@ -1,0 +1,107 @@
+{
+  "seed": 20261013,
+  "fdr": 0.05,
+  "covariates": [
+    "sex",
+    "age",
+    "contam_index"
+  ],
+  "covariates_men": [
+    "age",
+    "contam_index"
+  ],
+  "auc_bootstrap": 2000,
+  "jt_permutations": 10000,
+  "cv_folds": 5,
+  "cv_repeats": 20,
+  "inner_folds": 5,
+  "panel_k_grid": [
+    3,
+    5,
+    10,
+    20
+  ],
+  "plsda_comp_grid": [
+    1,
+    2,
+    3
+  ],
+  "n_perm": 1000,
+  "pool_max_abs_rho_index": 0.5,
+  "top_n_if_no_q": 50,
+  "peptide_z_reference": "все 104 пробы основного анализа (среднее и SD каждого соединения)",
+  "S2_stage_adj_age_spline_knots": [
+    44.6,
+    67.0,
+    82.0
+  ],
+  "run_at": "2026-11-17T19:36:53",
+  "pipeline_commit": "97dffcb",
+  "matrix_check": {
+    "expected": {
+      "injections": 128,
+      "features": 12930,
+      "after_detection": 5887,
+      "after_rsd": 4730,
+      "compounds": 3603,
+      "study": 104,
+      "q_model": 918,
+      "findings": 582
+    },
+    "reproduced": {
+      "injections": 128,
+      "features": 12930,
+      "after_detection": 5887,
+      "after_rsd": 4730,
+      "compounds": 3603,
+      "study": 104,
+      "q_model": 918,
+      "findings": 582
+    },
+    "match": {
+      "injections": true,
+      "features": true,
+      "after_detection": true,
+      "after_rsd": true,
+      "compounds": true,
+      "study": true,
+      "q_model": true,
+      "findings": true
+    }
+  },
+  "clinical_file": "s107_clinical_groups.xlsx",
+  "variants": {
+    "S1": {
+      "description": "T1 vs Ta: подгруппа + пол + возраст + индекс",
+      "n_case": 28,
+      "n_ref": 22
+    },
+    "S1_men": {
+      "description": "T1 vs Ta, только мужчины: подгруппа + возраст + индекс",
+      "n_case": 23,
+      "n_ref": 18
+    },
+    "S2": {
+      "description": "HG vs LG: подгруппа + пол + возраст + индекс",
+      "n_case": 21,
+      "n_ref": 34
+    },
+    "S2_stage_adj": {
+      "description": "HG vs LG, пробы Ta/T1: подгруппа + стадия (T1 vs Ta) + пол + возраст (сплайн, узлы 45/67/82 лет) + индекс",
+      "n_case": 12,
+      "n_ref": 33
+    },
+    "S2_men": {
+      "description": "HG vs LG, только мужчины: подгруппа + возраст + индекс",
+      "n_case": 17,
+      "n_ref": 29
+    },
+    "S2_stage_adj_men": {
+      "description": "HG vs LG, пробы Ta/T1, только мужчины: подгруппа + стадия + возраст (сплайн, узлы 45/67/82 лет) + индекс",
+      "n_case": 9,
+      "n_ref": 28
+    }
+  },
+  "peptide_list": "peptide_score_list.csv",
+  "sex_source": "метаданные основного анализа s107 (v2)"
+}

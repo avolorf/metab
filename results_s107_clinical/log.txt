@@ -1,0 +1,116 @@
+  Фильтр детекции (QC ≥ 80%, ≥ 50% хотя бы в одной группе): 12930 → 5887
+  Бланков в экспортированной таблице нет: по методике фильтр по бланкам (проба/бланк ≥ 5) выполнен в MS-DIAL; повторно не применяется.
+  Коррекция межсерийного сдвига по QC (3 серии): признаков с различием QC между сериями (q < 0.05) 3497 → 0 из 5887; медианный RSD QC 15.7% → 10.4%
+  Фильтр RSD_QC ≤ 30% (без коррекции дрейфа): 5887 → 4730. Медианный RSD в QC: 10.4% до RSD-фильтра, 8.1% после
+                 expected  reproduced  match
+injections            128         128   True
+features            12930       12930   True
+after_detection      5887        5887   True
+after_rsd            4730        4730   True
+compounds            3603        3603   True
+study                 104         104   True
+q_model               918         918   True
+findings              582         582   True
+
+Сопоставление по sample_no: 104 проб основного анализа; шифр (code), группа и возраст совпадают у всех.
+Пол расходится у проб 35 (файл: M, основной анализ s107 v2: F), 86 (файл: M, основной анализ s107 v2: F) — используется пол основного анализа (исправлен в версии v2 после сверки)
+Варианты модели: S1 — 28/22; S1_men — 23/18; S2 — 21/34; S2_stage_adj — 12/33; S2_men — 17/29; S2_stage_adj_men — 9/28
+
+Описательная таблица:
+               подгруппа  n  мужчины  женщины  мужчины, % возраст, M ± SD возраст, Me [min–max] индекс, M ± SD     индекс, Me [IQR]
+                Контроль 40       16       24        40.0     57.3 ± 14.8            60 [18–79]   +0.68 ± 1.06 +0.68 [-0.29; +1.77]
+                РМП, все 64       54       10        84.4     65.8 ± 13.4            68 [26–87]   -0.43 ± 0.50 -0.55 [-0.73; -0.32]
+               стадия Ta 22       18        4        81.8     62.8 ± 15.8            66 [26–86]   -0.41 ± 0.45 -0.49 [-0.70; -0.34]
+               стадия T1 28       23        5        82.1     67.8 ± 10.8            68 [39–85]   -0.42 ± 0.58 -0.62 [-0.78; -0.32]
+           стадия T2plus  2        2        0       100.0     74.0 ± 14.1            74 [64–84]   -0.09 ± 0.72 -0.09 [-0.35; +0.16]
+        стадия ambiguous  3        3        0       100.0      81.7 ± 5.5            82 [76–87]   -0.56 ± 0.77 -0.78 [-0.99; -0.24]
+          стадия unknown  7        6        1        85.7      60.4 ± 9.3            60 [49–75]   -0.54 ± 0.22 -0.44 [-0.71; -0.42]
+ стадия PUNLMP_uncertain  2        2        0       100.0     57.5 ± 23.3            58 [41–74]   -0.40 ± 0.41 -0.40 [-0.54; -0.26]
+              степень LG 34       29        5        85.3     61.6 ± 13.5            64 [26–86]   -0.50 ± 0.42 -0.60 [-0.73; -0.40]
+              степень HG 21       17        4        81.0     72.5 ± 10.6            75 [50–87]   -0.38 ± 0.54 -0.46 [-0.63; -0.26]
+         степень G2_1973  5        4        1        80.0     68.4 ± 13.9            69 [49–82]   +0.04 ± 0.74 -0.25 [-0.39; +0.74]
+      степень not_stated  2        2        0       100.0      68.0 ± 1.4            68 [67–69]   -0.87 ± 0.22 -0.87 [-0.94; -0.79]
+степень PUNLMP_uncertain  2        2        0       100.0     57.5 ± 23.3            58 [41–74]   -0.40 ± 0.41 -0.40 [-0.54; -0.26]
+   сравнение                 переменная           критерий     p
+S1: Ta vs T1                    возраст         Манн–Уитни 0.384
+S1: Ta vs T1                        пол точный тест Фишера 1.000
+S1: Ta vs T1 индекс экзогенного сигнала         Манн–Уитни 0.488
+S2: LG vs HG                    возраст         Манн–Уитни 0.004
+S2: LG vs HG                        пол точный тест Фишера 0.719
+S2: LG vs HG индекс экзогенного сигнала         Манн–Уитни 0.279
+
+Блок А — глюкурониды стероидов:
+                                  compound         analysis  n_case  n_ref  log2FC  CI95_low  CI95_high     p  q_BH_3_glucuronides   AUC
+         11-Oxoetiocholanolone glucuronide               S1      28     22  -0.544    -1.149      0.062 0.077                0.232 0.383
+ Tetrahydrocortisone glucuronide, isomer I               S1      28     22  -0.026    -0.521      0.469 0.917                0.917 0.429
+Tetrahydrocortisone glucuronide, isomer II               S1      28     22   0.155    -0.139      0.448 0.295                0.442 0.519
+         11-Oxoetiocholanolone glucuronide           S1_men      23     18  -0.699    -1.383     -0.014 0.046                0.137 0.331
+ Tetrahydrocortisone glucuronide, isomer I           S1_men      23     18  -0.099    -0.609      0.410 0.695                0.695 0.413
+Tetrahydrocortisone glucuronide, isomer II           S1_men      23     18   0.127    -0.201      0.455 0.437                0.656 0.517
+         11-Oxoetiocholanolone glucuronide               S2      21     34   0.485    -0.116      1.085 0.111                0.167 0.634
+ Tetrahydrocortisone glucuronide, isomer I               S2      21     34   0.049    -0.461      0.559 0.848                0.848 0.410
+Tetrahydrocortisone glucuronide, isomer II               S2      21     34   0.326    -0.014      0.666 0.060                0.167 0.602
+         11-Oxoetiocholanolone glucuronide     S2_stage_adj      12     33   1.105     0.257      1.953 0.012                0.018 0.672
+ Tetrahydrocortisone glucuronide, isomer I     S2_stage_adj      12     33   0.331    -0.386      1.048 0.355                0.355 0.424
+Tetrahydrocortisone glucuronide, isomer II     S2_stage_adj      12     33   0.684     0.305      1.063 0.001                0.002 0.717
+         11-Oxoetiocholanolone glucuronide           S2_men      17     29   0.454    -0.241      1.148 0.194                0.291 0.637
+ Tetrahydrocortisone glucuronide, isomer I           S2_men      17     29   0.118    -0.353      0.589 0.616                0.616 0.371
+Tetrahydrocortisone glucuronide, isomer II           S2_men      17     29   0.447     0.137      0.756 0.006                0.017 0.586
+         11-Oxoetiocholanolone glucuronide S2_stage_adj_men       9     28   1.014    -0.003      2.030 0.051                0.076 0.690
+ Tetrahydrocortisone glucuronide, isomer I S2_stage_adj_men       9     28   0.232    -0.474      0.937 0.508                0.508 0.329
+Tetrahydrocortisone glucuronide, isomer II S2_stage_adj_men       9     28   0.695     0.257      1.132 0.003                0.009 0.651
+
+Тренд Контроль → Ta → T1 (Йонкхир):
+                                  compound         subset        n     JT      z  p_asymptotic  p_permutation  concordance  concordance_CI95_low  concordance_CI95_high    direction
+         11-Oxoetiocholanolone glucuronide            все 40/22/28 1635.0 2.4520        0.0142         0.0131       0.6250                0.5405                 0.7099 возрастающий
+ Tetrahydrocortisone glucuronide, isomer I            все 40/22/28 1732.0 3.1794        0.0015         0.0013       0.6621                0.5684                 0.7512 возрастающий
+Tetrahydrocortisone glucuronide, isomer II            все 40/22/28 1730.0 3.1644        0.0016         0.0019       0.6613                0.5619                 0.7561 возрастающий
+         11-Oxoetiocholanolone glucuronide только мужчины 16/18/23  590.0 0.8092        0.4184         0.4246       0.5514                0.4402                 0.6607 возрастающий
+ Tetrahydrocortisone glucuronide, isomer I только мужчины 16/18/23  632.0 1.4271        0.1535         0.1551       0.5907                0.4673                 0.7084 возрастающий
+Tetrahydrocortisone glucuronide, isomer II только мужчины 16/18/23  673.0 2.0304        0.0423         0.0456       0.6290                0.5037                 0.7542 возрастающий
+
+S2 с поправкой на стадию — чувствительность к модели возраста и вариант по мужчинам:
+                                  compound                                      model  n_case  n_ref  log2FC  CI95_low  CI95_high     p  AUC_adjusted  AUC_adj_CI95_low  AUC_adj_CI95_high
+         11-Oxoetiocholanolone glucuronide  возраст — сплайн (RCS, узлы 45/67/82 лет)      12     33   1.105     0.257      1.953 0.012         0.702             0.508              0.874
+         11-Oxoetiocholanolone glucuronide                            возраст линейно      12     33   1.036     0.255      1.817 0.011         0.717             0.535              0.879
+         11-Oxoetiocholanolone glucuronide                    без поправки на возраст      12     33   0.983     0.271      1.694 0.008         0.742             0.563              0.886
+         11-Oxoetiocholanolone glucuronide возраст — категории <60, 60–69, 70–79, ≥80      12     33   1.212     0.340      2.085 0.008         0.715             0.525              0.889
+         11-Oxoetiocholanolone glucuronide           только мужчины, возраст — сплайн       9     28   1.014    -0.003      2.030 0.051         0.659             0.429              0.873
+         11-Oxoetiocholanolone glucuronide            только мужчины, возраст линейно       9     28   1.008     0.093      1.922 0.032         0.714             0.500              0.897
+Tetrahydrocortisone glucuronide, isomer II  возраст — сплайн (RCS, узлы 45/67/82 лет)      12     33   0.684     0.305      1.063 0.001         0.722             0.548              0.874
+Tetrahydrocortisone glucuronide, isomer II                            возраст линейно      12     33   0.677     0.329      1.026 0.000         0.775             0.614              0.917
+Tetrahydrocortisone glucuronide, isomer II                    без поправки на возраст      12     33   0.437     0.072      0.803 0.020         0.687             0.513              0.838
+Tetrahydrocortisone glucuronide, isomer II возраст — категории <60, 60–69, 70–79, ≥80      12     33   0.653     0.265      1.040 0.002         0.705             0.533              0.856
+Tetrahydrocortisone glucuronide, isomer II           только мужчины, возраст — сплайн       9     28   0.695     0.257      1.132 0.003         0.710             0.504              0.893
+Tetrahydrocortisone glucuronide, isomer II            только мужчины, возраст линейно       9     28   0.672     0.277      1.066 0.002         0.770             0.583              0.921
+
+Блок Б: исключено соединений 122 (признаков 280); осталось 3481 из 3603
+
+Ненаправленное сравнение (BH по всем соединениям блока Б):
+        analysis                            covariates  n_case  n_ref  compounds  q<0.05  p<0.05    min_q
+              S1                  sex+age+contam_index      28     22       3481       0     223 0.355034
+          S1_men                      age+contam_index      23     18       3481       0     285 0.103291
+              S2                  sex+age+contam_index      21     34       3481       0     363 0.089349
+    S2_stage_adj sex+contam_index+stage_T1+age+age_rcs      12     33       3481       0     181 0.754790
+          S2_men                      age+contam_index      17     29       3481       0     218 0.667212
+S2_stage_adj_men     contam_index+stage_T1+age+age_rcs       9     28       3481       0     168 0.425278
+S1: q < 0.05 — 0; в таблицу: первые 50 по p
+S2: q < 0.05 — 0; в таблицу: первые 50 по p
+
+Классификация S1: 28 T1 / 22 Ta; пул 3236 соединений (без стероидов, экспозиций 230 и |ρ с индексом| ≥ 0.5)
+  панель: top-k по Манн–Уитни внутри обучающего блока + логистическая регрессия; k ∈ [3, 5, 10, 20] — внутренняя CV: AUC 0.514 (2,5–97,5 %: 0.440–0.594), перестановочный p = 0.373
+  plsda: ещё не рассчитана (нет classification_plsda_nperm1000.pkl)
+  covariate: ещё не рассчитана (нет classification_covariate_nperm1000.pkl)
+  Итоговая таблица классификации не собрана: рассчитаны не все модели
+
+«Пептидная» оценка (54 пептидов):
+        analysis  n_case  n_ref  difference_z  CI95_low  CI95_high     p   AUC  AUC_CI95_low  AUC_CI95_high
+              S1      28     22         0.099    -0.230      0.428 0.548 0.627         0.455          0.783
+          S1_men      23     18         0.050    -0.330      0.429 0.793 0.609         0.415          0.792
+              S2      21     34         0.525     0.147      0.902 0.007 0.761         0.625          0.880
+    S2_stage_adj      12     33         0.220    -0.283      0.722 0.382 0.705         0.525          0.871
+          S2_men      17     29         0.415    -0.007      0.837 0.054 0.722         0.572          0.866
+S2_stage_adj_men       9     28         0.209    -0.404      0.822 0.493 0.655         0.444          0.849
+        subset        n     JT      z  p_asymptotic  p_permutation  concordance  concordance_CI95_low  concordance_CI95_high
+           все 40/22/28 2338.0 7.7235           0.0         0.0001       0.8937                0.8551                 0.9331
+только мужчины 16/18/23  904.0 5.4290           0.0         0.0001       0.8449                0.7729                 0.9168
