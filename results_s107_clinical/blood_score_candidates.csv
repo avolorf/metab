@@ -1,0 +1,80 @@
+﻿compound,kind,label,rt_min,mz,annotation,annotation_conf,log2FC_BC_vs_Control,q_BC_vs_Control,AUC_BC_vs_Control,finding_main_analysis,proposed
+13.134_583.25574_low score: Biliverdin,желчный пигмент,Biliverdin,13.134,583.25574,Biliverdin,low,-0.7269968972283267,0.4530293294245217,0.5126953125,False,True
+2.578_244.12926_low score: 4-[3-(Trifluoromethyl)benzyl]piperidine,пептид,Gln-Pro (отчёт: N-mevalonylcreatinine),2.578,244.12926,4-[3-(Trifluoromethyl)benzyl]piperidine,low,9.327108850973207,4.971384671889557e-29,0.9826171875,True,True
+1.668_242.11385_low score: Gln-Pro,пептид,Gln-Pro,1.668,242.11385,Gln-Pro,low,5.4929278578505265,2.2684666245348458e-14,0.952734375,True,True
+1.996_245.092_low score: Met-Pro,пептид,Met-Pro,1.996,245.092,Met-Pro,low,5.971127766959991,5.246244076574359e-11,0.9169921875,True,True
+8.678_332.21835_low score: Thr-Val-Leu,пептид,Thr-Val-Leu,8.678,332.21835,Thr-Val-Leu,low,4.516779764214959,2.0458693299257686e-09,0.9236328125,True,True
+"2.569_360.21317_low score: (3R,6S,6aS,10S,12aS,13aR,14S)-1-Ethyl-12a,14-dihydroxy-6-methoxy-3-methyl-8-oxotetradecahydro-7H-3,6a,13-(epiethane[1,1,2]triyl)-7,10-methanooxepino[3',4':4,5]benzo[1,2-b]azocine",пептид,"Glu-Ile-Val (2,57 мин)",2.569,360.21317,"(3R,6S,6aS,10S,12aS,13aR,14S)-1-Ethyl-12a,14-dihydroxy-6-methoxy-3-methyl-8-oxotetradecahydro-7H-3,6a,13-(epiethane[1,1,2]triyl)-7,10-methanooxepino[3',4':4,5]benzo[1,2-b]azocine",low,6.091561892107412,3.1003667186452407e-09,0.8984375,True,True
+2.999_187.10788_low score: Val-Ala,пептид,Val-Ala,2.999,187.10788,Val-Ala,low,4.169449018427206,9.72556698249713e-09,0.903125,True,True
+8.114_435.27164_low score: Ile-Phe-Arg,пептид,Ile-Phe-Arg,8.114,435.27164,Ile-Phe-Arg,low,4.948555922297494,2.110865478099256e-08,0.894140625,True,True
+7.898_401.28769_low score: Leu-Leu-Arg,пептид,Leu-Leu-Arg,7.898,401.28769,Leu-Leu-Arg,low,4.89435463651729,2.6556863182996188e-08,0.876171875,True,True
+7.486_330.16669_low score: N-Acetylleucylalanylserine,пептид,N-Acetylleucylalanylserine,7.486,330.16669,N-Acetylleucylalanylserine,low,3.7268994799831883,2.6950735052756523e-08,0.8955078125,True,True
+4.145_231.17009_Val-Leu,пептид,Val-Leu,4.145,231.17009,Val-Leu,high,3.3050988880605137,5.0304010876998136e-08,0.9765625,False,False
+"2.683_320.18234_low score: N-(1,4-Dihydroxy-4-methylpentan-2-yl)-3-hydroxy-5-oxo-6-phenylhexanamide",пептид,Leu-Thr-Ser,2.683,320.18234,"N-(1,4-Dihydroxy-4-methylpentan-2-yl)-3-hydroxy-5-oxo-6-phenylhexanamide",low,5.648786559128198,5.3514058783483146e-08,0.8900390625,True,True
+9.225_408.24966_low score: Actinonin,пептид,Leu-Leu-Tyr (neurotensin 11–13),9.225,408.24966,Actinonin,low,5.1752270090346535,8.641938688207905e-08,0.881640625,True,True
+8.857_157.13364_low score: .beta.-Alanylleucine,пептид,.beta.-Alanylleucine,8.857,157.13364,.beta.-Alanylleucine,low,4.089674298372744,7.500484329959629e-07,0.867578125,True,True
+2.127_189.12346_Gly-Leu,пептид,Gly-Leu,2.127,189.12346,Gly-Leu,high,4.202624387801418,8.420743576228927e-07,0.8837890625,True,True
+8.295_371.2403_low score: Pro-Val-Arg,пептид,Pro-Val-Arg,8.295,371.2403,Pro-Val-Arg,low,5.088890580942768,1.0244271777970335e-06,0.8314453125,True,True
+3.369_244.12985_low score: Asn-Leu,пептид,Asn-Leu,3.369,244.12985,Asn-Leu,low,4.258100784277174,1.8297086303134943e-06,0.8802734375,True,True
+8.586_469.25464_low score: Phe-Phe-Arg,пептид,Phe-Phe-Arg,8.586,469.25464,Phe-Phe-Arg,low,4.734070356612841,1.9611385644871798e-06,0.8498046875,True,True
+7.406_332.2182_Thr-Val-Leu,пептид,Thr-Val-Leu,7.406,332.2182,Thr-Val-Leu,high,4.882863680543653,5.838967048193453e-06,0.87734375,False,False
+7.951_360.21289_low score: Asn-Ala-Arg,пептид,Asn-Ala-Arg,7.951,360.21289,Asn-Ala-Arg,low,3.760502668470801,1.0540216813566714e-05,0.8654296875,True,True
+2.079_203.13913_L-Alanyl-L-norleucine,пептид,L-Alanyl-L-norleucine,2.079,203.13913,L-Alanyl-L-norleucine,high,3.0727557963772565,1.5639217569655408e-05,0.901953125,True,True
+3.805_173.09193_low score: Pro-Gly,пептид,Pro-Gly,3.805,173.09193,Pro-Gly,low,5.3983073480930255,1.6123344328362018e-05,0.8630859375,True,True
+2.558_213.15991_low score: Val-Leu,пептид,Val-Leu,2.558,213.15991,Val-Leu,low,2.214505445195606,1.948021386301834e-05,0.84453125,True,True
+9.048_213.16013_low score: Val-Leu,пептид,Val-Leu,9.048,213.16013,Val-Leu,low,4.039580118657804,2.66549707816339e-05,0.811328125,True,True
+1.749_281.14996_Val-Tyr,пептид,Val-Tyr,1.749,281.14996,Val-Tyr,high,3.867003427440856,6.208810249358029e-05,0.8234375,True,True
+1.828_219.13411_Ser-Leu,пептид,Ser-Leu,1.828,219.13411,Ser-Leu,high,2.9412236209833846,0.00010042336346712604,0.88515625,False,False
+7.899_332.21814_low score: Thr-Val-Leu,пептид,Thr-Val-Leu,7.899,332.21814,Thr-Val-Leu,low,4.605999875326644,0.00010088881466438515,0.79765625,True,True
+6.185_245.1864_Ile-Ile,пептид,Ile-Ile,6.185,245.1864,Ile-Ile,high,3.3088049073078616,0.00010800102576620601,0.87734375,False,False
+9.706_410.21115_low score: Carbobenzyloxyglycylglycyl-L-proline benzyl ester,пептид,Carbobenzyloxyglycylglycyl-L-proline benzyl ester,9.706,410.21115,Carbobenzyloxyglycylglycyl-L-proline benzyl ester,low,3.7600000545759147,0.00021822758656585972,0.801171875,True,True
+7.435_201.12349_low score: Leu-Ser,пептид,Leu-Ser,7.435,201.12349,Leu-Ser,low,2.018026765588881,0.00025110681668496674,0.844921875,True,True
+7.244_373.28058_low score: Ile-Leu-Lys,пептид,Ile-Leu-Lys,7.244,373.28058,Ile-Leu-Lys,low,3.948116065449199,0.0002771125987004651,0.7998046875,True,True
+8.777_430.23755_low score: Trp-Pro-Lys,пептид,Trp-Pro-Lys,8.777,430.23755,Trp-Pro-Lys,low,2.225216295960216,0.00028489121537798444,0.66171875,True,True
+1.82_437.25079_low score: Val-Tyr-Arg,пептид,Val-Tyr-Arg,1.82,437.25079,Val-Tyr-Arg,low,3.4814314133187025,0.00028769187207402006,0.796875,True,True
+7.828_245.18599_Ile-Ile,пептид,Ile-Ile,7.828,245.18599,Ile-Ile,high,2.3753968037829223,0.000481182056965855,0.8703125,True,True
+3.008_231.17053_Leu-Val,пептид,Leu-Val,3.008,231.17053,Leu-Val,high,2.7728106263777064,0.0005870545574775746,0.832421875,True,True
+8.494_419.24582_low score: Met-Leu-Arg,пептид,Met-Leu-Arg,8.494,419.24582,Met-Leu-Arg,low,1.4398806154172539,0.0005974347527543301,0.699609375,True,True
+1.759_409.20779_low score: Phe-Asp-Lys,пептид,Phe-Asp-Lys,1.759,409.20779,Phe-Asp-Lys,low,3.9584155957168683,0.00060644778704188,0.8048828125,True,True
+3.552_203.13918_L-Alanyl-L-norleucine,пептид,L-Alanyl-L-norleucine,3.552,203.13918,L-Alanyl-L-norleucine,high,3.25152895636397,0.0006431140661803159,0.747265625,True,True
+4.727_219.11311_low score: .beta.-Ala-Phe,пептид,.beta.-Ala-Phe,4.727,219.11311,.beta.-Ala-Phe,low,3.757240647698126,0.0006597500919355195,0.75703125,True,True
+7.366_401.28745_low score: Leu-Leu-Arg,пептид,Leu-Leu-Arg,7.366,401.28745,Leu-Leu-Arg,low,3.805226822753286,0.0007570729839564126,0.77265625,True,True
+8.6_201.1236_low score: Leu-Ser,пептид,Leu-Ser,8.6,201.1236,Leu-Ser,low,2.746017410216716,0.000783577192100439,0.784375,True,True
+8.872_372.18048_low score: MeOSuc-Ala-Ala-Pro-Val-AMC,пептид,MeOSuc-Ala-Ala-Pro-Val-AMC,8.872,372.18048,MeOSuc-Ala-Ala-Pro-Val-AMC,low,3.6282394619958582,0.0009648985743088014,0.795703125,True,True
+7.883_409.20865_low score: Phe-Asp-Lys,пептид,Phe-Asp-Lys,7.883,409.20865,Phe-Asp-Lys,low,3.3669837987523135,0.0010956012926550765,0.79375,True,True
+2.774_253.11867_Ser-Phe,пептид,Ser-Phe,2.774,253.11867,Ser-Phe,high,2.647850880596157,0.0011147227095353554,0.851171875,False,False
+3.346_237.12343_.beta.-Ala-Phe,пептид,.beta.-Ala-Phe,3.346,237.12343,.beta.-Ala-Phe,high,3.261767229813114,0.001196736146681714,0.8224609375,False,False
+6.417_295.16565_low score: Leu-Tyr,пептид,Leu-Tyr,6.417,295.16565,Leu-Tyr,low,0.6287204590404999,0.0013700006181344752,0.740625,True,True
+7.86_239.65503_low score: Phe-Arg-Arg,пептид,Phe-Arg-Arg,7.86,239.65503,Phe-Arg-Arg,low,3.034970353980703,0.001847138464555015,0.7734375,False,False
+7.194_245.18652_Ile-Ile,пептид,Ile-Ile,7.194,245.18652,Ile-Ile,high,1.9560761851012336,0.0021640184779296635,0.82109375,True,True
+3.37_166.08636_Gly-Gly-Phe,пептид,Gly-Gly-Phe,3.37,166.08636,Gly-Gly-Phe,high,1.607499225044563,0.0024733948976767535,0.8224609375,True,True
+8.029_297.12708_Met-Phe,пептид,Met-Phe,8.029,297.12708,Met-Phe,high,3.287599538196433,0.0024733948976767535,0.79375,True,True
+3.078_332.21844_low score: Thr-Val-Leu,пептид,Thr-Val-Leu,3.078,332.21844,Thr-Val-Leu,low,3.598694281997632,0.002569873104970211,0.744921875,False,False
+1.692_203.13913_L-Alanyl-L-norleucine,пептид,L-Alanyl-L-norleucine,1.692,203.13913,L-Alanyl-L-norleucine,high,2.3941788991418456,0.0033436312304468007,0.755859375,True,True
+1.775_233.1497_Thr-Leu,пептид,Thr-Leu,1.775,233.1497,Thr-Leu,high,2.7204264064469768,0.0038116320536343163,0.7724609375,True,True
+2.891_280.12939_Asn-Phe,пептид,Asn-Phe,2.891,280.12939,Asn-Phe,high,2.4852806921873904,0.0041002977767601225,0.759375,True,True
+3.306_295.16586_Ile-Tyr,пептид,Ile-Tyr,3.306,295.16586,Ile-Tyr,high,2.5197429926082746,0.004433360615777296,0.774609375,False,False
+14.876_245.11739_low score: Asp-Leu,пептид,Asp-Leu,14.876,245.11739,Asp-Leu,low,0.7533943486402026,0.005054233537480875,0.511328125,False,False
+7.897_201.12361_low score: Leu-Ser,пептид,Leu-Ser,7.897,201.12361,Leu-Ser,low,2.4246570551453765,0.006664174347743628,0.7703125,True,True
+7.453_245.18637_Ile-Ile,пептид,Ile-Ile,7.453,245.18637,Ile-Ile,high,1.1666128130183804,0.006789545771426294,0.774609375,True,True
+3.432_267.13367_Thr-Phe,пептид,Thr-Phe,3.432,267.13367,Thr-Phe,high,2.0329775395756076,0.007397715285047065,0.72890625,True,True
+6.927_295.16617_Tyr-Leu,пептид,Tyr-Leu,6.927,295.16617,Tyr-Leu,high,2.23730915224227,0.007955482751662992,0.6806640625,True,True
+8.867_227.17563_low score: Leu-Leu-amide,пептид,Leu-Leu-amide,8.867,227.17563,Leu-Leu-amide,low,2.452624066201942,0.008204563592320965,0.710546875,True,True
+9.298_394.19803_low score: Glu-Val-Phe,пептид,Glu-Val-Phe,9.298,394.19803,Glu-Val-Phe,low,0.5988393232538494,0.012281266123809368,0.7484375,True,True
+9.221_336.19254_low score: Carbobenzyloxyglycylglycyl-L-norleucine,пептид,Carbobenzyloxyglycylglycyl-L-norleucine,9.221,336.19254,Carbobenzyloxyglycylglycyl-L-norleucine,low,1.042375547132422,0.012874746819201435,0.740625,True,True
+7.415_345.21326_low score: Pro-Thr-Lys,пептид,Pro-Thr-Lys,7.415,345.21326,Pro-Thr-Lys,low,2.6047840701505276,0.015223219809414561,0.734375,True,True
+8.272_459.2818_low score: Arg-Gln-Arg,пептид,Arg-Gln-Arg,8.272,459.2818,Arg-Gln-Arg,low,2.2107328085571627,0.01792282984238284,0.734765625,False,False
+7.771_345.22482_low score: Ile-Gly-Arg,пептид,Ile-Gly-Arg,7.771,345.22482,Ile-Gly-Arg,low,1.4650085895587859,0.018948763263035295,0.6208984375,False,False
+1.929_223.09987_low score: Phe-Gly,пептид,Phe-Gly,1.929,223.09987,Phe-Gly,low,0.4818758556384362,0.020031633161498294,0.5765625,False,False
+9.142_394.19833_low score: Glu-Val-Phe,пептид,Glu-Val-Phe,9.142,394.19833,Glu-Val-Phe,low,1.640745947204932,0.020675201227662487,0.681640625,False,False
+8.615_235.10793_low score: Leu-Cys,пептид,Leu-Cys,8.615,235.10793,Leu-Cys,low,2.147452824970033,0.022850290550807006,0.7201171875,True,True
+8.845_237.12357_low score: Ala-Phe,пептид,Ala-Phe,8.845,237.12357,Ala-Phe,low,2.3478148378671495,0.023500865462017972,0.714453125,False,False
+5.798_272.17233_Arg-Pro,пептид,Arg-Pro,5.798,272.17233,Arg-Pro,high,2.7472199242666355,0.02354362202496108,0.69765625,True,True
+2.985_375.18802_low score: N-(2-Hydroxy-3-phenylpropanoyl)-N-methylvalylproline,пептид,N-(2-Hydroxy-3-phenylpropanoyl)-N-methylvalylproline,2.985,375.18802,N-(2-Hydroxy-3-phenylpropanoyl)-N-methylvalylproline,low,1.0531260142377827,0.02354362202496108,0.8103515625,True,True
+9.487_227.17557_low score: Leu-Leu-amide,пептид,Leu-Leu-amide,9.487,227.17557,Leu-Leu-amide,low,1.5444937793244284,0.024969903545853742,0.6095703125,False,False
+7.827_432.25348_low score: Lys-Glu-Arg,пептид,Lys-Glu-Arg,7.827,432.25348,Lys-Glu-Arg,low,2.0817036780909293,0.03370417688027246,0.665625,False,False
+9.434_421.25974_low score: Val-Phe-Arg,пептид,Val-Phe-Arg,9.434,421.25974,Val-Phe-Arg,low,1.4215522944625074,0.036125890576000706,0.5716796875,False,False
+7.894_423.22375_low score: Phe-Glu-Lys,пептид,Phe-Glu-Lys,7.894,423.22375,Phe-Glu-Lys,low,0.8053616848060063,0.04063786600765009,0.7755859375,True,True
+2.304_231.17055_Ile-Val,пептид,Ile-Val,2.304,231.17055,Ile-Val,high,1.5601474153595751,0.046329216166702436,0.818359375,False,False
+2.14_247.12921_Asp-Leu,пептид,Asp-Leu,2.14,247.12921,Asp-Leu,high,0.43458396361063495,0.046849810481372045,0.663671875,False,False
+2.244_229.11861_low score: Leu-Asn,пептид,Leu-Asn,2.244,229.11861,Leu-Asn,low,1.3903739340207188,0.048667906227170155,0.721875,True,True
