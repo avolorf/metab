@@ -1,0 +1,18 @@
+﻿glucuronide,feature,mz,rt_min,is_representative,ion_relation,msdial_annotation
+11-Oxoetiocholanolone glucuronide,"10.731_269.19028_3.beta.-Hydroxyandrosta-5,15-dien-17-one",269.19028,10.731,False,287.2008 (+H2O),"3.beta.-Hydroxyandrosta-5,15-dien-17-one"
+11-Oxoetiocholanolone glucuronide,"10.728_287.20084_5.beta.-Androstan-3.alpha.-ol-11,17-dione",287.20084,10.728,True,H2O от 269.1903,"5.beta.-Androstan-3.alpha.-ol-11,17-dione"
+11-Oxoetiocholanolone glucuronide,10.729_498.27026_Unknown,498.27026,10.729,False,,Unknown
+"Tetrahydrocortisone glucuronide, isomer I","10.76_329.21155_5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione",329.21155,10.76,False,347.2220 (+H2O);365.2324 (+2H2O),"5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione"
+"Tetrahydrocortisone glucuronide, isomer I","10.761_347.22202_5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione",347.22202,10.761,False,H2O от 329.2115;365.2324 (+H2O),"5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione"
+"Tetrahydrocortisone glucuronide, isomer I","10.761_365.23245_low score: 3.beta.,5.beta.-Tetrahydrocortisone",365.23245,10.761,False,2H2O от 329.2115;H2O от 347.2220,"3.beta.,5.beta.-Tetrahydrocortisone"
+"Tetrahydrocortisone glucuronide, isomer I","10.761_541.26428_low score: 7.alpha.,17.alpha.-Dimethyl-5.beta.-androstane-3.alpha.,17.beta.-diol glucuronide",541.26428,10.761,True,563.2463 (+Na-H);558.2912 (+NH4-H),"7.alpha.,17.alpha.-Dimethyl-5.beta.-androstane-3.alpha.,17.beta.-diol glucuronide"
+"Tetrahydrocortisone glucuronide, isomer I",10.761_558.2912_Unknown,558.2912,10.761,False,NH4-H от 541.2643,Unknown
+"Tetrahydrocortisone glucuronide, isomer I","10.76_563.24634_low score: 2-Piperidinecarboxylic acid, 1-(3,3-dimethyl-1,2-dioxopentyl)-, (1R)-1-(3-aminophenyl)-3-(3,4-dimethoxyphenyl)propyl ester, (2S)-",563.24634,10.76,False,Na-H от 541.2643,"2-Piperidinecarboxylic acid, 1-(3,3-dimethyl-1,2-dioxopentyl)-, (1R)-1-(3-aminophenyl)-3-(3,4-dimethoxyphenyl)propyl ester, (2S)-"
+"Tetrahydrocortisone glucuronide, isomer I",10.779_1040.54321_Unknown,1040.54321,10.779,False,,Unknown
+"Tetrahydrocortisone glucuronide, isomer I",10.762_1098.5498_Unknown,1098.5498,10.762,False,,Unknown
+"Tetrahydrocortisone glucuronide, isomer II","10.425_347.22211_5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione",347.22211,10.425,False,365.2325 (+H2O),"5.beta.-Pregnane-3.alpha.,17,21-triol-11,20-dione"
+"Tetrahydrocortisone glucuronide, isomer II","10.418_365.23254_low score: 3.beta.,5.beta.-Tetrahydrocortisone",365.23254,10.418,False,H2O от 347.2221,"3.beta.,5.beta.-Tetrahydrocortisone"
+"Tetrahydrocortisone glucuronide, isomer II",10.425_558.29089_low score: N-(2-((N-(2-((N-(2-((N-(2-Hydroxypropanoyl)valyl)oxy)-3-methylbutanoyl)valyl)oxy)propanoyl)valyl)oxy)-3-methylbutanoyl)valine,558.29089,10.425,True,,N-(2-((N-(2-((N-(2-((N-(2-Hydroxypropanoyl)valyl)oxy)-3-methylbutanoyl)valyl)oxy)propanoyl)valyl)oxy)-3-methylbutanoyl)valine
+"Tetrahydrocortisone glucuronide, isomer II",10.423_635.20374_low score: Scropolioside F,635.20374,10.423,False,,Scropolioside F
+"Tetrahydrocortisone glucuronide, isomer II",10.423_1098.54858_Unknown,1098.54858,10.423,False,,Unknown
+"Tetrahydrocortisone glucuronide, isomer II","10.437_1100.56384_low score: (3.beta.,5.Xi.,9.Xi.,16.alpha.,18.Xi.)-16-(.beta.-D-Glucopyranosyloxy)-3-((.beta.-D-xylopyranosyl-(1->2)-.alpha.-L-arabinopyranosyl-(1->6)-2-acetamido-2-deoxy-.beta.-D-glucopyranosyl)oxy)olean-12-en-28-oic acid",1100.56384,10.437,False,,"(3.beta.,5.Xi.,9.Xi.,16.alpha.,18.Xi.)-16-(.beta.-D-Glucopyranosyloxy)-3-((.beta.-D-xylopyranosyl-(1->2)-.alpha.-L-arabinopyranosyl-(1->6)-2-acetamido-2-deoxy-.beta.-D-glucopyranosyl)oxy)olean-12-en-28-oic acid"
