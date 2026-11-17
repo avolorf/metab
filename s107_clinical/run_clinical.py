@@ -71,7 +71,12 @@ STEROIDS = [("11-Oxoetiocholanolone glucuronide", 498.2697, 10.73),
 # аннотации стероидов и стероидных конъюгатов (исключаются из блока Б вместе со всем соединением)
 STEROID_RE = re.compile(
     r"andro?st|pregn|estr[aoi]|oestr|cortis|cortic|cortol|corton|testost|dehydroepiandro|\bDHEA|etiocholan|aldoster|"
-    r"progest|steroid|sterone|\bchol(?:an|en|est)|cholic|sterol|-17-one|17-ol|-11,17-dione", re.I)
+    r"progest|steroid|sterone|\bchol(?:an|en|est)|cholic|sterol|-17-one|17-ol|-11,17-dione|"
+    # синтетические стероиды и кортикостероиды, антиандрогены, сердечные гликозиды, экдистероиды, фитостероиды, витамин D
+    r"stanozol|nandrol|boldenon|methandi|trenbol|oxandrol|metenol|mesterol|dexameth|prednis|betameth|budeson|flutica|"
+    r"mometas|triamcinol|spironol|eplerenon|drospiren|norethi|norgest|ethinyl|mifepris|finasterid|dutasterid|abirater|"
+    r"digox|digitox|ouabain|bufalin|bufadienol|cardenol|withanol|diosgen|sapogen|calcitri|calcifer|lanost|ergost|"
+    r"sitost|stigmast|campest|brassino|ecdys|spirost|furost|cucurbitacin|gestrinon|danazol|tibolon|ulipris", re.I)
 
 BILE_RE = re.compile(r"cholic|cholan|cholen|\bsterol\b|cholest", re.I)
 
@@ -577,7 +582,8 @@ def classification(meta, LB, keepB, comp_cat, names, study, pick, dB, log, metho
             ("plsda", X, f"PLS-DA (все соединения пула); число компонент ∈ {P['plsda_comp_grid']} — внутренняя CV"),
             ("covariate", Z, "базовая модель: пол + возраст (логистическая регрессия)")]):
         all_m.append(method)
-        cf = cache / f"classification_{method}_nperm{P['n_perm']}.pkl" if cache else None
+        key = __import__("hashlib").md5(("|".join(pool) + str(y.tolist())).encode()).hexdigest()[:10]  # состав пула и метки
+        cf = cache / f"classification_{method}_nperm{P['n_perm']}_{key}.pkl" if cache else None
         if cf is not None and cf.exists():
             aucs, tprs, chosen, ks, p_perm = pickle.load(open(cf, "rb"))
         elif method in methods:
@@ -833,8 +839,10 @@ def main():
         for m in mem:
             an = str(info.loc[m, "annotation"])
             cls = "" if not hit[m] else ("желчная кислота / стерол (стероидный скелет)" if BILE_RE.search(an)
-                                         else "экдистероид" if re.search(r"cyasterone|turkesterone|ecdys", an, re.I)
-                                         else "стероидный гормон / его метаболит или конъюгат")
+                                         else "сердечный гликозид / агликон" if re.search(r"digox|digitox|ouabain|bufa|cardenol", an, re.I)
+                                         else "экдистероид / фитостероид" if re.search(r"cyasterone|turkesterone|ecdys|ergost|spirost|furost|"
+                                                                                     r"withanol|sitost|stigmast|campest|brassino|diosgen|sapogen", an, re.I)
+                                         else "стероидный гормон, его метаболит или конъюгат; синтетический стероид")
             ex_rows.append({"compound_representative": rep, "feature": m, "mz": info.loc[m, "mz"], "rt_min": info.loc[m, "rt_min"],
                             "msdial_annotation": an, "steroid_annotation_match": bool(hit[m]), "steroid_class": cls,
                             "is_representative": m == rep, "reason": why})
