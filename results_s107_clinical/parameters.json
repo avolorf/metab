@@ -35,7 +35,7 @@
     67.0,
     82.0
   ],
-  "run_at": "2026-11-17T20:11:59",
+  "run_at": "2026-11-17T21:06:26",
   "pipeline_commit": "97dffcb",
   "matrix_check": {
     "expected": {
@@ -102,7 +102,7 @@
       "n_ref": 28
     }
   },
-  "steroid_regex": "andro?st|pregn|estr[aoi]|oestr|cortis|cortic|cortol|corton|testost|dehydroepiandro|\\bDHEA|etiocholan|aldoster|progest|steroid|sterone|\\bchol(?:an|en|est)|cholic|sterol|-17-one|17-ol|-11,17-dione",
+  "steroid_regex": "andro?st|pregn|estr[aoi]|oestr|cortis|cortic|cortol|corton|testost|dehydroepiandro|\\bDHEA|etiocholan|aldoster|progest|steroid|sterone|\\bchol(?:an|en|est)|cholic|sterol|-17-one|17-ol|-11,17-dione|stanozol|nandrol|boldenon|methandi|trenbol|oxandrol|metenol|mesterol|dexameth|prednis|betameth|budeson|flutica|mometas|triamcinol|spironol|eplerenon|drospiren|norethi|norgest|ethinyl|mifepris|finasterid|dutasterid|abirater|digox|digitox|ouabain|bufalin|bufadienol|cardenol|withanol|diosgen|sapogen|calcitri|calcifer|lanost|ergost|sitost|stigmast|campest|brassino|ecdys|spirost|furost|cucurbitacin|gestrinon|danazol|tibolon|ulipris",
   "peptide_list": "peptide_score_list.csv",
   "sex_source": "метаданные основного анализа s107 (v2)"
 }
